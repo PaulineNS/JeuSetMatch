@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>737639675908-5vlunvifq5acn98gama9ogp9339d38rk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.737639675908-5vlunvifq5acn98gama9ogp9339d38rk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCPSNwuNq1DbI_VF3w0yiyIbvrQywN94_M</string>
+	<key>GCM_SENDER_ID</key>
+	<string>737639675908</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>fr.paulinenomballais.JeuSetMatch</string>
+	<key>PROJECT_ID</key>
+	<string>jeu-set-match</string>
+	<key>STORAGE_BUCKET</key>
+	<string>jeu-set-match.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:737639675908:ios:1726d622442c2b1d63dd51</string>
+	<key>DATABASE_URL</key>
+	<string>https://jeu-set-match.firebaseio.com</string>
+</dict>
+</plist>

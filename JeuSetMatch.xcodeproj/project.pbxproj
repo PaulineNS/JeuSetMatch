@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		402E2DE124DF185F96D559FF /* Pods_JeuSetMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE8E9E9348301437FB4D8ED /* Pods_JeuSetMatch.framework */; };
 		56DC0BE623A90968003A0DC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DC0BE523A90968003A0DC6 /* AppDelegate.swift */; };
 		56DC0BEB23A90969003A0DC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56DC0BE923A90969003A0DC6 /* Main.storyboard */; };
 		56DC0BEE23A90969003A0DC6 /* JeuSetMatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 56DC0BEC23A90969003A0DC6 /* JeuSetMatch.xcdatamodeld */; };
@@ -14,6 +15,8 @@
 		56DC0BF323A9096D003A0DC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56DC0BF123A9096D003A0DC6 /* LaunchScreen.storyboard */; };
 		56DC0BFE23A9096D003A0DC6 /* JeuSetMatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DC0BFD23A9096D003A0DC6 /* JeuSetMatchTests.swift */; };
 		56DC0C0E23A909CB003A0DC6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DC0C0D23A909CB003A0DC6 /* WelcomeViewController.swift */; };
+		56DC0C1323AB7E31003A0DC6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 56DC0C1223AB7E31003A0DC6 /* GoogleService-Info.plist */; };
+		8C8513BA45DB2C7F66840E02 /* Pods_JeuSetMatchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0205500E07E7A09B5C17306 /* Pods_JeuSetMatchTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2012A617EF9FFCD417D93716 /* Pods-JeuSetMatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeuSetMatch.debug.xcconfig"; path = "Target Support Files/Pods-JeuSetMatch/Pods-JeuSetMatch.debug.xcconfig"; sourceTree = "<group>"; };
 		56DC0BE223A90968003A0DC6 /* JeuSetMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JeuSetMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DC0BE523A90968003A0DC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56DC0BEA23A90969003A0DC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -38,6 +42,12 @@
 		56DC0BFD23A9096D003A0DC6 /* JeuSetMatchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuSetMatchTests.swift; sourceTree = "<group>"; };
 		56DC0BFF23A9096D003A0DC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56DC0C0D23A909CB003A0DC6 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		56DC0C1223AB7E31003A0DC6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5830DDE78E0E8528545E31DB /* Pods-JeuSetMatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeuSetMatch.release.xcconfig"; path = "Target Support Files/Pods-JeuSetMatch/Pods-JeuSetMatch.release.xcconfig"; sourceTree = "<group>"; };
+		BDE8E9E9348301437FB4D8ED /* Pods_JeuSetMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JeuSetMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D172DE6BAC7B72BAF13EAB42 /* Pods-JeuSetMatchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeuSetMatchTests.debug.xcconfig"; path = "Target Support Files/Pods-JeuSetMatchTests/Pods-JeuSetMatchTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D2FAEFACE43D4A2820D914C8 /* Pods-JeuSetMatchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeuSetMatchTests.release.xcconfig"; path = "Target Support Files/Pods-JeuSetMatchTests/Pods-JeuSetMatchTests.release.xcconfig"; sourceTree = "<group>"; };
+		E0205500E07E7A09B5C17306 /* Pods_JeuSetMatchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JeuSetMatchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				402E2DE124DF185F96D559FF /* Pods_JeuSetMatch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,18 +63,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C8513BA45DB2C7F66840E02 /* Pods_JeuSetMatchTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30EC9794B02913D5491AEBE0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BDE8E9E9348301437FB4D8ED /* Pods_JeuSetMatch.framework */,
+				E0205500E07E7A09B5C17306 /* Pods_JeuSetMatchTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		56DC0BD923A90968003A0DC6 = {
 			isa = PBXGroup;
 			children = (
 				56DC0BE423A90968003A0DC6 /* JeuSetMatch */,
 				56DC0BFC23A9096D003A0DC6 /* JeuSetMatchTests */,
 				56DC0BE323A90968003A0DC6 /* Products */,
+				5DC56D476762110CD4773B3B /* Pods */,
+				30EC9794B02913D5491AEBE0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,8 +150,21 @@
 				56DC0BF123A9096D003A0DC6 /* LaunchScreen.storyboard */,
 				56DC0BE523A90968003A0DC6 /* AppDelegate.swift */,
 				56DC0BF423A9096D003A0DC6 /* Info.plist */,
+				56DC0C1223AB7E31003A0DC6 /* GoogleService-Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5DC56D476762110CD4773B3B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2012A617EF9FFCD417D93716 /* Pods-JeuSetMatch.debug.xcconfig */,
+				5830DDE78E0E8528545E31DB /* Pods-JeuSetMatch.release.xcconfig */,
+				D172DE6BAC7B72BAF13EAB42 /* Pods-JeuSetMatchTests.debug.xcconfig */,
+				D2FAEFACE43D4A2820D914C8 /* Pods-JeuSetMatchTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +174,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 56DC0C0223A9096D003A0DC6 /* Build configuration list for PBXNativeTarget "JeuSetMatch" */;
 			buildPhases = (
+				C0EE8D31833C754FFA798FFC /* [CP] Check Pods Manifest.lock */,
 				56DC0BDE23A90968003A0DC6 /* Sources */,
 				56DC0BDF23A90968003A0DC6 /* Frameworks */,
 				56DC0BE023A90968003A0DC6 /* Resources */,
+				C42296593D56B163A0942D6F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -155,6 +193,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 56DC0C0523A9096D003A0DC6 /* Build configuration list for PBXNativeTarget "JeuSetMatchTests" */;
 			buildPhases = (
+				E33A4ECAF06C5155387B7A66 /* [CP] Check Pods Manifest.lock */,
 				56DC0BF523A9096D003A0DC6 /* Sources */,
 				56DC0BF623A9096D003A0DC6 /* Frameworks */,
 				56DC0BF723A9096D003A0DC6 /* Resources */,
@@ -213,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56DC0BF323A9096D003A0DC6 /* LaunchScreen.storyboard in Resources */,
+				56DC0C1323AB7E31003A0DC6 /* GoogleService-Info.plist in Resources */,
 				56DC0BF023A9096D003A0DC6 /* Assets.xcassets in Resources */,
 				56DC0BEB23A90969003A0DC6 /* Main.storyboard in Resources */,
 			);
@@ -226,6 +266,70 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C0EE8D31833C754FFA798FFC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JeuSetMatch-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C42296593D56B163A0942D6F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JeuSetMatch/Pods-JeuSetMatch-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JeuSetMatch/Pods-JeuSetMatch-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JeuSetMatch/Pods-JeuSetMatch-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E33A4ECAF06C5155387B7A66 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JeuSetMatchTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		56DC0BDE23A90968003A0DC6 /* Sources */ = {
@@ -394,6 +498,7 @@
 		};
 		56DC0C0323A9096D003A0DC6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2012A617EF9FFCD417D93716 /* Pods-JeuSetMatch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -411,6 +516,7 @@
 		};
 		56DC0C0423A9096D003A0DC6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5830DDE78E0E8528545E31DB /* Pods-JeuSetMatch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -428,6 +534,7 @@
 		};
 		56DC0C0623A9096D003A0DC6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D172DE6BAC7B72BAF13EAB42 /* Pods-JeuSetMatchTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -448,6 +555,7 @@
 		};
 		56DC0C0723A9096D003A0DC6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2FAEFACE43D4A2820D914C8 /* Pods-JeuSetMatchTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
