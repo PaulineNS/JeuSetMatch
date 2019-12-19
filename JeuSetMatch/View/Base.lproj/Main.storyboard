@@ -109,20 +109,22 @@
                                         <rect key="frame" x="0.0" y="20" width="414" height="137"/>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xmV-NV-Tqh" userLabel="Email Textfield">
-                                        <rect key="frame" x="49" y="51" width="317" height="45"/>
+                                        <rect key="frame" x="48.5" y="51" width="317" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="317" id="OSp-RF-EkB"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="xmV-NV-Tqh" secondAttribute="trailing" constant="48" id="5It-Gc-iK9"/>
                                     <constraint firstAttribute="bottom" secondItem="xmV-NV-Tqh" secondAttribute="bottom" constant="81" id="C3H-7b-f7R"/>
                                     <constraint firstItem="yG3-WV-7qe" firstAttribute="top" secondItem="yyG-Fh-0ir" secondAttribute="top" constant="20" id="GR6-i3-P69"/>
                                     <constraint firstAttribute="trailing" secondItem="yG3-WV-7qe" secondAttribute="trailing" id="Hld-V9-ffr"/>
                                     <constraint firstItem="xmV-NV-Tqh" firstAttribute="top" secondItem="yyG-Fh-0ir" secondAttribute="top" constant="51" id="OKR-fd-SuR"/>
+                                    <constraint firstItem="xmV-NV-Tqh" firstAttribute="centerX" secondItem="yyG-Fh-0ir" secondAttribute="centerX" id="PuP-ir-slM"/>
                                     <constraint firstItem="yG3-WV-7qe" firstAttribute="leading" secondItem="yyG-Fh-0ir" secondAttribute="leading" id="hO8-Ic-rdy"/>
-                                    <constraint firstItem="xmV-NV-Tqh" firstAttribute="leading" secondItem="yyG-Fh-0ir" secondAttribute="leading" constant="49" id="hy3-xT-jbz"/>
                                     <constraint firstAttribute="bottom" secondItem="yG3-WV-7qe" secondAttribute="bottom" constant="20" id="vVm-Zc-Or7"/>
                                     <constraint firstAttribute="height" constant="177" id="wYy-Ta-scx"/>
                                 </constraints>
@@ -134,7 +136,10 @@
                                         <rect key="frame" x="0.0" y="20" width="414" height="137"/>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mot de passe" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="18g-9N-21V" userLabel="Password Textfield">
-                                        <rect key="frame" x="49" y="48" width="317" height="45"/>
+                                        <rect key="frame" x="48.5" y="48" width="317" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="317" id="rmu-19-kHu"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -148,14 +153,13 @@
                                 <constraints>
                                     <constraint firstItem="00D-Oy-uQP" firstAttribute="leading" secondItem="7xG-pn-TFq" secondAttribute="leading" id="68I-aT-sSU"/>
                                     <constraint firstAttribute="trailing" secondItem="nbC-uH-NP5" secondAttribute="trailing" id="7ep-eB-gFA"/>
-                                    <constraint firstAttribute="trailing" secondItem="18g-9N-21V" secondAttribute="trailing" constant="48" id="BXS-j2-Esc"/>
                                     <constraint firstItem="00D-Oy-uQP" firstAttribute="top" secondItem="7xG-pn-TFq" secondAttribute="top" constant="20" id="Klt-xC-Rcs"/>
                                     <constraint firstItem="18g-9N-21V" firstAttribute="top" secondItem="7xG-pn-TFq" secondAttribute="top" constant="48" id="QxP-S0-zaM"/>
-                                    <constraint firstItem="18g-9N-21V" firstAttribute="leading" secondItem="7xG-pn-TFq" secondAttribute="leading" constant="49" id="bks-o7-40k"/>
                                     <constraint firstAttribute="height" constant="177" id="dHx-t8-f6M"/>
                                     <constraint firstItem="nbC-uH-NP5" firstAttribute="leading" secondItem="7xG-pn-TFq" secondAttribute="leading" id="hnW-87-Znp"/>
                                     <constraint firstAttribute="trailing" secondItem="00D-Oy-uQP" secondAttribute="trailing" id="hyi-fz-zqF"/>
                                     <constraint firstAttribute="bottom" secondItem="00D-Oy-uQP" secondAttribute="bottom" constant="20" id="mox-Qn-JXW"/>
+                                    <constraint firstItem="18g-9N-21V" firstAttribute="centerX" secondItem="7xG-pn-TFq" secondAttribute="centerX" id="neK-gJ-Mm5"/>
                                     <constraint firstAttribute="bottom" secondItem="18g-9N-21V" secondAttribute="bottom" constant="84" id="ru3-lh-5ai"/>
                                     <constraint firstItem="nbC-uH-NP5" firstAttribute="top" secondItem="18g-9N-21V" secondAttribute="bottom" constant="31" id="tay-tj-vqB"/>
                                     <constraint firstAttribute="bottom" secondItem="nbC-uH-NP5" secondAttribute="bottom" id="yhD-Ny-4jC"/>

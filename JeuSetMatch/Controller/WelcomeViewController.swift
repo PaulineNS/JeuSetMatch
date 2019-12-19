@@ -30,7 +30,7 @@ class WelcomeViewController: UIViewController {
         var charIndex = 0.0
         let titleText = "Jeu Set & Match"
         for letter in titleText {
-            Timer.scheduledTimer(withTimeInterval: 0.1 * charIndex, repeats: false) { (timer) in
+            Timer.scheduledTimer(withTimeInterval: 0.2 * charIndex, repeats: false) { (timer) in
                 self.titleLabel.text?.append(letter)
                 if self.titleLabel.text == "🎾Jeu Set & Match"{
                     self.registerButton.isHidden = false
