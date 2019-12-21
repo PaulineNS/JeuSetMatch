@@ -13,9 +13,11 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
+    @IBOutlet weak var alertLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertLabel.isHidden = true
 
     }
     
@@ -24,9 +26,10 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let e = error {
                 print(e.localizedDescription)
-                /// present alert
+                self.alertLabel.isHidden = false
+                self.alertLabel.text = e.localizedDescription
             } else {
-                /// segue
+                self.performSegue(withIdentifier: "FromLoginToSearch", sender: self)
             }
         }
     }

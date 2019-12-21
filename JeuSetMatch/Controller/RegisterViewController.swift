@@ -13,10 +13,12 @@ class RegisterViewController: UIViewController {
 
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
+    @IBOutlet weak var alertLabel: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertLabel.isHidden = true
     }
     
     @IBAction func registerPressed(_ sender: Any) {
@@ -25,9 +27,10 @@ class RegisterViewController: UIViewController {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let e = error {
                 print(e.localizedDescription)
-                /// present alert
+                self.alertLabel.isHidden = false
+                self.alertLabel.text = e.localizedDescription
             } else {
-                /// performsegue 
+                self.performSegue(withIdentifier: "FromRegisterToSearch", sender: self)
             }
         }
     }

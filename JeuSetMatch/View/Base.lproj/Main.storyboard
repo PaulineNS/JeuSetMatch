@@ -153,26 +153,52 @@
                                     <constraint firstItem="8ji-B5-iqL" firstAttribute="leading" secondItem="6PI-eo-WFi" secondAttribute="leading" id="p2D-Kf-Vfe"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyQ-of-hHG">
+                                <rect key="frame" x="0.0" y="93" width="414" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="myy-kn-XU9" firstAttribute="trailing" secondItem="DyQ-of-hHG" secondAttribute="trailing" id="2hk-HQ-YAm"/>
+                            <constraint firstItem="DyQ-of-hHG" firstAttribute="top" secondItem="myy-kn-XU9" secondAttribute="top" constant="5" id="6zj-eC-DRq"/>
                             <constraint firstAttribute="trailing" secondItem="WWm-Hp-w8j" secondAttribute="trailing" id="JtV-5Z-rcT"/>
                             <constraint firstItem="WWm-Hp-w8j" firstAttribute="centerY" secondItem="OTY-LN-g2K" secondAttribute="centerY" id="MuE-Dp-a71"/>
                             <constraint firstItem="6PI-eo-WFi" firstAttribute="top" secondItem="WWm-Hp-w8j" secondAttribute="bottom" constant="-100" id="Oz2-gK-1da"/>
                             <constraint firstItem="WWm-Hp-w8j" firstAttribute="leading" secondItem="myy-kn-XU9" secondAttribute="leading" id="Pjr-C5-Hfn"/>
+                            <constraint firstItem="DyQ-of-hHG" firstAttribute="leading" secondItem="myy-kn-XU9" secondAttribute="leading" id="Qih-P4-1U2"/>
                             <constraint firstAttribute="trailing" secondItem="6PI-eo-WFi" secondAttribute="trailing" id="XMS-4Q-JMK"/>
                             <constraint firstItem="6PI-eo-WFi" firstAttribute="leading" secondItem="myy-kn-XU9" secondAttribute="leading" id="cSS-Ru-h1F"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="myy-kn-XU9"/>
                     </view>
                     <connections>
+                        <outlet property="alertLabel" destination="DyQ-of-hHG" id="KKW-N1-HjK"/>
                         <outlet property="emailTextfield" destination="tWC-PY-who" id="73q-qp-4Wz"/>
                         <outlet property="passwordTextfield" destination="VE9-g5-FZE" id="4xl-aN-9Sl"/>
+                        <segue destination="Z5V-7b-odc" kind="show" identifier="FromRegisterToSearch" id="S0v-Fb-F7h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dEM-h7-viD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1891" y="-340"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Iss-gX-83Y">
+            <objects>
+                <viewController id="Z5V-7b-odc" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f2g-tf-PJk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="VdM-RC-hDd"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pa1-NA-dCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3045" y="-33"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="AFz-np-VbU">
@@ -248,21 +274,32 @@
                                     <constraint firstAttribute="bottom" secondItem="nbC-uH-NP5" secondAttribute="bottom" id="yhD-Ny-4jC"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enG-rO-zbm">
+                                <rect key="frame" x="0.0" y="93" width="414" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="XQ1-OM-ZgW" firstAttribute="trailing" secondItem="yyG-Fh-0ir" secondAttribute="trailing" id="2GM-6i-XTv"/>
+                            <constraint firstItem="XQ1-OM-ZgW" firstAttribute="trailing" secondItem="enG-rO-zbm" secondAttribute="trailing" id="HUl-pc-bAp"/>
                             <constraint firstItem="yyG-Fh-0ir" firstAttribute="centerY" secondItem="MY6-H6-ofZ" secondAttribute="centerY" id="IHP-c5-UrZ"/>
                             <constraint firstItem="7xG-pn-TFq" firstAttribute="leading" secondItem="XQ1-OM-ZgW" secondAttribute="leading" id="W2O-cD-rhF"/>
+                            <constraint firstItem="enG-rO-zbm" firstAttribute="leading" secondItem="XQ1-OM-ZgW" secondAttribute="leading" id="fJy-tK-JEt"/>
                             <constraint firstItem="yyG-Fh-0ir" firstAttribute="leading" secondItem="XQ1-OM-ZgW" secondAttribute="leading" id="faK-jV-gj1"/>
                             <constraint firstItem="7xG-pn-TFq" firstAttribute="top" secondItem="yyG-Fh-0ir" secondAttribute="bottom" constant="-100" id="tuy-s8-uMF"/>
+                            <constraint firstItem="enG-rO-zbm" firstAttribute="top" secondItem="XQ1-OM-ZgW" secondAttribute="top" constant="5" id="vDb-zH-JzN"/>
                             <constraint firstItem="XQ1-OM-ZgW" firstAttribute="trailing" secondItem="7xG-pn-TFq" secondAttribute="trailing" id="yif-UG-OJt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XQ1-OM-ZgW"/>
                     </view>
                     <connections>
+                        <outlet property="alertLabel" destination="enG-rO-zbm" id="waz-2D-6zf"/>
                         <outlet property="emailTextfield" destination="xmV-NV-Tqh" id="NOF-uq-jSx"/>
                         <outlet property="passwordTextfield" destination="18g-9N-21V" id="Ta3-xz-hWV"/>
+                        <segue destination="Z5V-7b-odc" kind="show" identifier="FromLoginToSearch" id="O7n-QE-Tm1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lF9-jy-61y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -291,4 +328,7 @@
     <resources>
         <image name="textfield" width="298" height="93"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="S0v-Fb-F7h"/>
+    </inferredMetricsTieBreakers>
 </document>
