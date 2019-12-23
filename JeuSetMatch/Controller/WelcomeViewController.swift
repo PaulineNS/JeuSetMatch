@@ -26,13 +26,13 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = "🎾"
+        titleLabel.text = ""
         var charIndex = 0.0
-        let titleText = "Jeu Set & Match"
+        let titleText = K.appName
         for letter in titleText {
             Timer.scheduledTimer(withTimeInterval: 0.2 * charIndex, repeats: false) { (timer) in
                 self.titleLabel.text?.append(letter)
-                if self.titleLabel.text == "🎾Jeu Set & Match"{
+                if self.titleLabel.text == K.appName {
                     self.registerButton.isHidden = false
                     self.logInButton.isHidden = false
                 }

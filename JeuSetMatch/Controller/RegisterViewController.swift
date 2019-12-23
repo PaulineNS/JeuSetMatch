@@ -30,7 +30,7 @@ class RegisterViewController: UIViewController {
                 self.alertLabel.isHidden = false
                 self.alertLabel.text = e.localizedDescription
             } else {
-                self.performSegue(withIdentifier: "FromRegisterToSearch", sender: self)
+                self.performSegue(withIdentifier: K.registerSegue, sender: self)
             }
         }
     }

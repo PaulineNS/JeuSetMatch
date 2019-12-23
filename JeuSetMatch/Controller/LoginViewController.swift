@@ -28,7 +28,7 @@ class LoginViewController: UIViewController {
                 self.alertLabel.isHidden = false
                 self.alertLabel.text = e.localizedDescription
             } else {
-                self.performSegue(withIdentifier: "FromLoginToSearch", sender: self)
+                self.performSegue(withIdentifier: K.loginSegue, sender: self)
             }
         }
     }
