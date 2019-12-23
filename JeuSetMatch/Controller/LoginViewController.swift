@@ -18,7 +18,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         alertLabel.isHidden = true
-
     }
     
     @IBAction func loginPressed(_ sender: Any) {

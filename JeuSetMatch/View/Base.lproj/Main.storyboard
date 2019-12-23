@@ -185,16 +185,23 @@
             </objects>
             <point key="canvasLocation" x="1891" y="-340"/>
         </scene>
-        <!--View Controller-->
+        <!--Search View Controller-->
         <scene sceneID="Iss-gX-83Y">
             <objects>
-                <viewController id="Z5V-7b-odc" sceneMemberID="viewController">
+                <viewController id="Z5V-7b-odc" customClass="SearchViewController" customModule="JeuSetMatch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f2g-tf-PJk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="VdM-RC-hDd"/>
                     </view>
+                    <navigationItem key="navigationItem" id="yRh-w3-6CD">
+                        <barButtonItem key="rightBarButtonItem" title="Se déconnecter" id="Blc-9E-ORn">
+                            <connections>
+                                <action selector="logOutPressed:" destination="Z5V-7b-odc" id="lmb-JX-10w"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pa1-NA-dCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
