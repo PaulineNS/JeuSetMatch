@@ -8,6 +8,7 @@
 
 struct K {
     static let messageCellIdentifier = "MessageCell"
+    static let messageCellNibName = "MessageTableViewCell"
     static let appName = "🎾Jeu Set & Match"
     static let registerSegue = "FromRegisterToSearch"
     static let loginSegue = "FromLoginToSearch"

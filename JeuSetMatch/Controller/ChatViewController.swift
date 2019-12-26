@@ -23,6 +23,7 @@ class ChatViewController: UIViewController {
         messagesTableView.dataSource = self
         title = K.appName
         navigationItem.hidesBackButton = true
+        messagesTableView.register(UINib(nibName: K.messageCellNibName, bundle: nil), forCellReuseIdentifier: K.messageCellIdentifier)
     }
     
     @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
@@ -42,7 +43,9 @@ extension ChatViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.messageCellIdentifier, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.messageCellIdentifier, for: indexPath) as? MessageTableViewCell else {
+            return UITableViewCell()
+        }
         cell.textLabel?.text = messages[indexPath.row].body
         return cell
     }
