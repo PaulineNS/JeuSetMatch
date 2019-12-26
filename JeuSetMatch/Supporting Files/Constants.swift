@@ -12,4 +12,11 @@ struct K {
     static let appName = "🎾Jeu Set & Match"
     static let registerSegue = "FromRegisterToSearch"
     static let loginSegue = "FromLoginToSearch"
+    
+    struct FStore {
+        static let collectionName = "messages"
+        static let senderField = "sender"
+        static let bodyField = "body"
+        static let dateField = "date"
+    }
 }

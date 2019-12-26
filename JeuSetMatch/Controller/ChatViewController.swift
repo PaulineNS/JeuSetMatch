@@ -14,8 +14,10 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var messageTextField: UITextField!
     
+    let db = Firestore.firestore()
+    
     var messages: [Message] = [
-      //  Message(sender: "1@2.fr", body: "Hey!"),
+      Message(sender: "1@2.fr", body: "Hey!"),
     ]
     
     override func viewDidLoad() {
@@ -24,6 +26,21 @@ class ChatViewController: UIViewController {
         title = K.appName
         navigationItem.hidesBackButton = true
         messagesTableView.register(UINib(nibName: K.messageCellNibName, bundle: nil), forCellReuseIdentifier: K.messageCellIdentifier)
+    }
+    
+    @IBAction func sendPressed(_ sender: UIButton) {
+        guard let messageBody = messageTextField.text, let messageSender = Auth.auth().currentUser?.email else {
+            return
+        }
+        db.collection(K.FStore.collectionName).addDocument(data: [
+            K.FStore.senderField : messageSender,
+            K.FStore.bodyField : messageBody]) { (error) in
+                guard let e = error else {
+                    print("Successfully saved data.")
+                    return
+                }
+                print("There was an issue saving data to firestore, \(e)")
+        }
     }
     
     @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
@@ -46,7 +63,7 @@ extension ChatViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: K.messageCellIdentifier, for: indexPath) as? MessageTableViewCell else {
             return UITableViewCell()
         }
-        cell.textLabel?.text = messages[indexPath.row].body
+        cell.messageLabel.text = messages[indexPath.row].body
         return cell
     }
 }

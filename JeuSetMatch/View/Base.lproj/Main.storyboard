@@ -212,6 +212,9 @@
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="Pr5-pb-dRc"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="sendPressed:" destination="Z5V-7b-odc" eventType="touchUpInside" id="luz-ej-hhd"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.089183755219999994" green="0.2295971513" blue="0.2011210024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
