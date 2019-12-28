@@ -8,6 +8,7 @@ target 'JeuSetMatch' do
   # Pods for JeuSetMatch
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'IQKeyboardManagerSwift'
 
   target 'JeuSetMatchTests' do
     inherit! :search_paths
