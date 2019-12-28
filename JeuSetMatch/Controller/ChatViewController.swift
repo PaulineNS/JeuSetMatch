@@ -43,6 +43,8 @@ class ChatViewController: UIViewController {
                     self.messages.append(newMessage)
                     DispatchQueue.main.async {
                         self.messagesTableView.reloadData()
+                        let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+                        self.messagesTableView.scrollToRow(at: indexPath, at: .top, animated: false)
                     }
                 }
             }
@@ -61,6 +63,9 @@ class ChatViewController: UIViewController {
         ]) { (error) in
                 guard let e = error else {
                     print("Successfully saved data.")
+                    DispatchQueue.main.async {
+                        self.messageTextField.text = ""
+                    }
                     return
                 }
                 print("There was an issue saving data to firestore, \(e)")
@@ -85,10 +90,23 @@ extension ChatViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.messageCellIdentifier, for: indexPath) as? MessageTableViewCell else {
-            return UITableViewCell()
-        }
-        cell.messageLabel.text = messages[indexPath.row].body
+        let message = messages[indexPath.row]
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.messageCellIdentifier, for: indexPath) as? MessageTableViewCell else { return UITableViewCell()}
+        
+        cell.messageLabel.text = message.body
+        
+        guard message.sender == Auth.auth().currentUser?.email else {
+            cell.leftAvatarImageView.isHidden = false
+            cell.rightAvatarImageView.isHidden = true
+            cell.messageBubble.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+            cell.messageLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            return cell }
+    
+        cell.leftAvatarImageView.isHidden = true
+        cell.rightAvatarImageView.isHidden = false
+        cell.messageBubble.backgroundColor = #colorLiteral(red: 0.08918375522, green: 0.2295971513, blue: 0.2011210024, alpha: 1)
+        cell.messageLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return cell
     }
 }
