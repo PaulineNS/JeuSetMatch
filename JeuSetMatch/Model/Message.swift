@@ -12,3 +12,14 @@ struct Message {
     let sender: String
     let body: String
 }
+
+struct User {
+    let pseudo: String
+    let image: String
+    let sexe: String
+    let level: String
+    let city: String
+    let age: String
+}
+
+// message. uid, content, createdat

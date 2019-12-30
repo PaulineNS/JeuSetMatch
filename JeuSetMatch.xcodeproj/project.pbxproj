@@ -23,6 +23,9 @@
 		56E8B17123B4027A007B4BC1 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E8B17023B4027A007B4BC1 /* Message.swift */; };
 		56E8B17423B52E6B007B4BC1 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E8B17223B52E6B007B4BC1 /* MessageTableViewCell.swift */; };
 		56E8B17523B52E6B007B4BC1 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56E8B17323B52E6B007B4BC1 /* MessageTableViewCell.xib */; };
+		56E8B17723BA4B38007B4BC1 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E8B17623BA4B37007B4BC1 /* UsersViewController.swift */; };
+		56E8B17A23BA4B61007B4BC1 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E8B17823BA4B61007B4BC1 /* UserTableViewCell.swift */; };
+		56E8B17B23BA4B61007B4BC1 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56E8B17923BA4B61007B4BC1 /* UserTableViewCell.xib */; };
 		8C8513BA45DB2C7F66840E02 /* Pods_JeuSetMatchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0205500E07E7A09B5C17306 /* Pods_JeuSetMatchTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +60,9 @@
 		56E8B17023B4027A007B4BC1 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		56E8B17223B52E6B007B4BC1 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		56E8B17323B52E6B007B4BC1 /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
+		56E8B17623BA4B37007B4BC1 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
+		56E8B17823BA4B61007B4BC1 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		56E8B17923BA4B61007B4BC1 /* UserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
 		5830DDE78E0E8528545E31DB /* Pods-JeuSetMatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeuSetMatch.release.xcconfig"; path = "Target Support Files/Pods-JeuSetMatch/Pods-JeuSetMatch.release.xcconfig"; sourceTree = "<group>"; };
 		BDE8E9E9348301437FB4D8ED /* Pods_JeuSetMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JeuSetMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D172DE6BAC7B72BAF13EAB42 /* Pods-JeuSetMatchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeuSetMatchTests.debug.xcconfig"; path = "Target Support Files/Pods-JeuSetMatchTests/Pods-JeuSetMatchTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -140,6 +146,7 @@
 				56DC0C1623ABC4AE003A0DC6 /* LoginViewController.swift */,
 				56DC0C1823ABC4D4003A0DC6 /* RegisterViewController.swift */,
 				56E8B16C23AE5B0C007B4BC1 /* ChatViewController.swift */,
+				56E8B17623BA4B37007B4BC1 /* UsersViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -150,6 +157,8 @@
 				56DC0BE923A90969003A0DC6 /* Main.storyboard */,
 				56E8B17223B52E6B007B4BC1 /* MessageTableViewCell.swift */,
 				56E8B17323B52E6B007B4BC1 /* MessageTableViewCell.xib */,
+				56E8B17823BA4B61007B4BC1 /* UserTableViewCell.swift */,
+				56E8B17923BA4B61007B4BC1 /* UserTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -275,6 +284,7 @@
 				56DC0C1323AB7E31003A0DC6 /* GoogleService-Info.plist in Resources */,
 				56E8B17523B52E6B007B4BC1 /* MessageTableViewCell.xib in Resources */,
 				56DC0BF023A9096D003A0DC6 /* Assets.xcassets in Resources */,
+				56E8B17B23BA4B61007B4BC1 /* UserTableViewCell.xib in Resources */,
 				56DC0BEB23A90969003A0DC6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,11 +369,13 @@
 			files = (
 				56E8B16D23AE5B0C007B4BC1 /* ChatViewController.swift in Sources */,
 				56DC0C1723ABC4AE003A0DC6 /* LoginViewController.swift in Sources */,
+				56E8B17A23BA4B61007B4BC1 /* UserTableViewCell.swift in Sources */,
 				56E8B17423B52E6B007B4BC1 /* MessageTableViewCell.swift in Sources */,
 				56DC0C1923ABC4D4003A0DC6 /* RegisterViewController.swift in Sources */,
 				56DC0C0E23A909CB003A0DC6 /* WelcomeViewController.swift in Sources */,
 				56E8B16F23B0E824007B4BC1 /* Constants.swift in Sources */,
 				56E8B17123B4027A007B4BC1 /* Message.swift in Sources */,
+				56E8B17723BA4B38007B4BC1 /* UsersViewController.swift in Sources */,
 				56DC0BEE23A90969003A0DC6 /* JeuSetMatch.xcdatamodeld in Sources */,
 				56DC0BE623A90968003A0DC6 /* AppDelegate.swift in Sources */,
 			);

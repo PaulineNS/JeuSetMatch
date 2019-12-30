@@ -28,7 +28,7 @@ class ChatViewController: UIViewController {
     }
     
     func loadMessages() {
-        db.collection(K.FStore.collectionName)
+        db.collection(K.FStore.messagesCollectionName)
             .order(by: K.FStore.dateField)
             .addSnapshotListener { (querySnapshot, error) in
             self.messages = []
@@ -49,17 +49,21 @@ class ChatViewController: UIViewController {
                 }
             }
         }
+        
+        
     }
     
     
     @IBAction func sendPressed(_ sender: UIButton) {
-        guard let messageBody = messageTextField.text, let messageSender = Auth.auth().currentUser?.email else {
+        guard let userUid = Auth.auth().currentUser?.uid, let messageBody = messageTextField.text, let messageSender = Auth.auth().currentUser?.email else {
             return
         }
-        db.collection(K.FStore.collectionName).addDocument(data: [
+        
+        db.collection(K.FStore.messagesCollectionName).addDocument(data: [
             K.FStore.senderField: messageSender,
             K.FStore.bodyField: messageBody,
-            K.FStore.dateField: Date().timeIntervalSince1970
+            K.FStore.dateField: Date().timeIntervalSince1970,
+            K.FStore.userUidField: userUid
         ]) { (error) in
                 guard let e = error else {
                     print("Successfully saved data.")
