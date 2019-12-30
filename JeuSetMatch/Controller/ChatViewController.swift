@@ -15,7 +15,6 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var messageTextField: UITextField!
     
     let db = Firestore.firestore()
-    
     var messages: [Message] = []
     
     override func viewDidLoad() {
@@ -49,10 +48,7 @@ class ChatViewController: UIViewController {
                 }
             }
         }
-        
-        
     }
-    
     
     @IBAction func sendPressed(_ sender: UIButton) {
         guard let userUid = Auth.auth().currentUser?.uid, let messageBody = messageTextField.text, let messageSender = Auth.auth().currentUser?.email else {
@@ -85,7 +81,6 @@ class ChatViewController: UIViewController {
         }
     }
 }
-
 
 extension ChatViewController: UITableViewDataSource {
     
