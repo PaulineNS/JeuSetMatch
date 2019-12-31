@@ -11,9 +11,11 @@ struct K {
     static let messageCellNibName = "MessageTableViewCell"
     static let userCellIdentifier = "UserCell"
     static let userCellNibName = "UserTableViewCell"
+    static let cityCellIdentifier = "CityCell"
     static let appName = "🎾Jeu Set & Match"
     static let registerSegue = "FromRegisterToSearch"
     static let loginSegue = "FromLoginToSearch"
+    static let BirthDateSegue = "BirthDatetoCity"
     
     struct FStore {
         static let messagesCollectionName = "messages"

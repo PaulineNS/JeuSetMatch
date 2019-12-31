@@ -9,6 +9,8 @@ target 'JeuSetMatch' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'IQKeyboardManagerSwift'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 
   target 'JeuSetMatchTests' do
     inherit! :search_paths
