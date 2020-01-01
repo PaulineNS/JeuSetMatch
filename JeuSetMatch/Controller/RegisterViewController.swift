@@ -21,11 +21,9 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var level: UITextField!
     @IBOutlet weak var city: UITextField!
     @IBOutlet weak var image: UITextField!
-    
-    
+        
     let db = Firestore.firestore()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         alertLabel.isHidden = true

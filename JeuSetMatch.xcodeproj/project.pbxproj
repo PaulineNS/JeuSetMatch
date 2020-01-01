@@ -10,7 +10,7 @@
 		402E2DE124DF185F96D559FF /* Pods_JeuSetMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE8E9E9348301437FB4D8ED /* Pods_JeuSetMatch.framework */; };
 		562CE38A23BB50590075A8AA /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38923BB50590075A8AA /* MailViewController.swift */; };
 		562CE38E23BB50CB0075A8AA /* BirthdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38D23BB50CB0075A8AA /* BirthdayViewController.swift */; };
-		562CE39023BB55BB0075A8AA /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38F23BB55BB0075A8AA /* CityViewController.swift */; };
+		562CE39023BB55BB0075A8AA /* LevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38F23BB55BB0075A8AA /* LevelViewController.swift */; };
 		562CE39223BB5A550075A8AA /* PseudoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE39123BB5A550075A8AA /* PseudoViewController.swift */; };
 		5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5699AE6923BBAA1200C61058 /* CitiesViewController.swift */; };
 		56DC0BE623A90968003A0DC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DC0BE523A90968003A0DC6 /* AppDelegate.swift */; };
@@ -48,7 +48,7 @@
 		2012A617EF9FFCD417D93716 /* Pods-JeuSetMatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeuSetMatch.debug.xcconfig"; path = "Target Support Files/Pods-JeuSetMatch/Pods-JeuSetMatch.debug.xcconfig"; sourceTree = "<group>"; };
 		562CE38923BB50590075A8AA /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		562CE38D23BB50CB0075A8AA /* BirthdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayViewController.swift; sourceTree = "<group>"; };
-		562CE38F23BB55BB0075A8AA /* CityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
+		562CE38F23BB55BB0075A8AA /* LevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelViewController.swift; sourceTree = "<group>"; };
 		562CE39123BB5A550075A8AA /* PseudoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PseudoViewController.swift; sourceTree = "<group>"; };
 		5699AE6923BBAA1200C61058 /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		56DC0BE223A90968003A0DC6 /* JeuSetMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JeuSetMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,7 +159,7 @@
 				56E8B17623BA4B37007B4BC1 /* UsersViewController.swift */,
 				562CE38923BB50590075A8AA /* MailViewController.swift */,
 				562CE38D23BB50CB0075A8AA /* BirthdayViewController.swift */,
-				562CE38F23BB55BB0075A8AA /* CityViewController.swift */,
+				562CE38F23BB55BB0075A8AA /* LevelViewController.swift */,
 				562CE39123BB5A550075A8AA /* PseudoViewController.swift */,
 				5699AE6923BBAA1200C61058 /* CitiesViewController.swift */,
 			);
@@ -412,7 +412,7 @@
 				56DC0C0E23A909CB003A0DC6 /* WelcomeViewController.swift in Sources */,
 				56E8B16F23B0E824007B4BC1 /* Constants.swift in Sources */,
 				56E8B17123B4027A007B4BC1 /* Message.swift in Sources */,
-				562CE39023BB55BB0075A8AA /* CityViewController.swift in Sources */,
+				562CE39023BB55BB0075A8AA /* LevelViewController.swift in Sources */,
 				56E8B17723BA4B38007B4BC1 /* UsersViewController.swift in Sources */,
 				56DC0BEE23A90969003A0DC6 /* JeuSetMatch.xcdatamodeld in Sources */,
 				56DC0BE623A90968003A0DC6 /* AppDelegate.swift in Sources */,

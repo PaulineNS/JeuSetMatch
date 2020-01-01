@@ -7,15 +7,19 @@
 //
 
 struct K {
+    static let appName = "🎾Jeu Set & Match"
+
     static let messageCellIdentifier = "MessageCell"
     static let messageCellNibName = "MessageTableViewCell"
     static let userCellIdentifier = "UserCell"
     static let userCellNibName = "UserTableViewCell"
     static let cityCellIdentifier = "CityCell"
-    static let appName = "🎾Jeu Set & Match"
+    
     static let registerSegue = "FromRegisterToSearch"
     static let loginSegue = "FromLoginToSearch"
-    static let BirthDateSegue = "BirthDatetoCity"
+    static let BirthDateSegue = "BirthDatetoLevel"
+    static let LeveltoCitiesSegue = "LevelToCities"
+    static let LeveltoPseudoSegue = "LevelToPseudo"
     
     struct FStore {
         static let messagesCollectionName = "messages"

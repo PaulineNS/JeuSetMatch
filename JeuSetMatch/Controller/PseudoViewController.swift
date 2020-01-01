@@ -9,22 +9,17 @@
 import UIKit
 
 class PseudoViewController: UIViewController {
+    
+    var birthDate = Date()
+    var userGender = ""
+    var userLevel = ""
+    var userCity = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        print(birthDate)
+        print(userGender)
+        print(userLevel)
+        print(userCity)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

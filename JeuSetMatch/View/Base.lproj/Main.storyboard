@@ -371,7 +371,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J7J-Em-kWo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5128" y="-715"/>
+            <point key="canvasLocation" x="5417" y="-715"/>
         </scene>
         <!--Birthday View Controller-->
         <scene sceneID="Do4-kY-ZEx">
@@ -503,7 +503,7 @@
                         <outlet property="birthdayDatePicker" destination="wbN-o0-NU4" id="VvL-f4-Q0b"/>
                         <outlet property="madamButton" destination="CrJ-20-xj8" id="6D1-dr-8uf"/>
                         <outlet property="sirButton" destination="XTt-r8-YLC" id="8AD-Ei-lF4"/>
-                        <segue destination="pKV-6B-pVk" kind="show" identifier="BirthDatetoCity" id="oPc-aa-uvq"/>
+                        <segue destination="pKV-6B-pVk" kind="show" identifier="BirthDatetoLevel" id="oPc-aa-uvq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3p-kV-nHY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -571,7 +571,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kfX-Rz-VDW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3453.6231884057975" y="-1377.4553571428571"/>
+            <point key="canvasLocation" x="3487" y="-1529"/>
         </scene>
         <!--Level View Controller-->
         <scene sceneID="ZRf-mz-uIH">
@@ -615,7 +615,7 @@
                                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="t62-TX-r5d" kind="show" id="czI-KG-shH"/>
+                                                            <action selector="citiesButtonSelected:" destination="pKV-6B-pVk" eventType="touchUpInside" id="6PP-6y-y5o"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -657,7 +657,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <state key="normal" title="Continuer"/>
                                         <connections>
-                                            <segue destination="HWW-fD-wyH" kind="show" id="OpC-1t-mmD"/>
+                                            <action selector="continueButtonPressed:" destination="pKV-6B-pVk" eventType="touchUpInside" id="1hG-KG-FAG"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -675,10 +675,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vOk-Py-XnX"/>
                     </view>
+                    <connections>
+                        <outlet property="citiesButton" destination="JZc-Ao-plR" id="b4J-Fd-n82"/>
+                        <outlet property="levelsPickerView" destination="l5J-S2-hm3" id="dbX-1V-3MB"/>
+                        <segue destination="t62-TX-r5d" kind="show" identifier="LevelToCities" id="Wbe-gc-Hp4"/>
+                        <segue destination="HWW-fD-wyH" kind="show" identifier="LevelToPseudo" id="ecS-uu-oEn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sfn-3q-KiZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3458" y="-715"/>
+            <point key="canvasLocation" x="3487" y="-715"/>
         </scene>
         <!--Pseudo View Controller-->
         <scene sceneID="9pw-Xf-DfE">
@@ -778,7 +784,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GHn-dv-HMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4274" y="-721"/>
+            <point key="canvasLocation" x="4399" y="-715"/>
         </scene>
         <!--Users View Controller-->
         <scene sceneID="2sb-Mh-Tau">
@@ -1031,6 +1037,6 @@
         <image name="textfield" width="298" height="93"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="O7n-QE-Tm1"/>
+        <segue reference="zuk-FT-2jl"/>
     </inferredMetricsTieBreakers>
 </document>
