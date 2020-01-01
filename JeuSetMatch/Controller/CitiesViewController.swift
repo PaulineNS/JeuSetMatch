@@ -27,6 +27,7 @@ class CitiesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         citiesTableView.dataSource = self
+        citiesTextField.delegate = self
     }
 }
 
@@ -57,6 +58,7 @@ extension CitiesViewController: UITextFieldDelegate {
                 }
             }
         }
+        self.citiesTableView.reloadData()
         return true
     }
 }
