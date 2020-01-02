@@ -427,7 +427,7 @@
                                     <action selector="continueButtonPressed:" destination="XcX-5v-NL2" eventType="touchUpInside" id="72Y-2K-OTh"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="63" translatesAutoresizingMaskIntoConstraints="NO" id="utE-jk-qge">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="utE-jk-qge">
                                 <rect key="frame" x="0.0" y="50" width="414" height="674"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Faisons maintenant connaissance." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JQJ-ff-odV">
@@ -437,22 +437,22 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cqq-ev-baB" userLabel="GenderView">
-                                        <rect key="frame" x="26" y="84" width="362" height="252"/>
+                                        <rect key="frame" x="26" y="49" width="362" height="252"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="i6F-V7-fJA" userLabel="Gender Stack View">
                                                 <rect key="frame" x="10" y="10" width="342" height="232"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Doit-on vous appeler Madame ou Monsieur ?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmD-ha-I9X">
-                                                        <rect key="frame" x="53.5" y="0.0" width="235.5" height="41"/>
+                                                        <rect key="frame" x="53.5" y="0.0" width="235.5" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="d7N-cA-fX5">
-                                                        <rect key="frame" x="76" y="56" width="190" height="176"/>
+                                                        <rect key="frame" x="76" y="36" width="190" height="196"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CrJ-20-xj8">
-                                                                <rect key="frame" x="4" y="0.0" width="182" height="107"/>
+                                                                <rect key="frame" x="4" y="0.0" width="182" height="127"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                                                 <state key="normal" title="⬤ Madame">
                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -462,7 +462,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTt-r8-YLC">
-                                                                <rect key="frame" x="0.0" y="122" width="190" height="54"/>
+                                                                <rect key="frame" x="0.0" y="142" width="190" height="54"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="54" id="XOB-Pu-4eY"/>
                                                                 </constraints>
@@ -477,76 +477,86 @@
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="d7N-cA-fX5" firstAttribute="top" secondItem="i6F-V7-fJA" secondAttribute="top" constant="36" id="C8Q-wh-JhD"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="i6F-V7-fJA" firstAttribute="leading" secondItem="Cqq-ev-baB" secondAttribute="leading" constant="10" id="DPu-eX-gJk"/>
-                                            <constraint firstAttribute="trailing" secondItem="i6F-V7-fJA" secondAttribute="trailing" constant="10" id="TUj-sh-G3x"/>
-                                            <constraint firstAttribute="bottom" secondItem="i6F-V7-fJA" secondAttribute="bottom" constant="10" id="isz-Rk-a3m"/>
-                                            <constraint firstItem="i6F-V7-fJA" firstAttribute="top" secondItem="Cqq-ev-baB" secondAttribute="top" constant="10" id="sWJ-Zf-k8a"/>
+                                            <constraint firstAttribute="bottom" secondItem="i6F-V7-fJA" secondAttribute="bottom" constant="10" id="Px1-Fv-Jop"/>
+                                            <constraint firstItem="i6F-V7-fJA" firstAttribute="leading" secondItem="Cqq-ev-baB" secondAttribute="leading" constant="10" id="bNR-nJ-r6C"/>
+                                            <constraint firstAttribute="trailing" secondItem="i6F-V7-fJA" secondAttribute="trailing" constant="10" id="bNh-0W-E6P"/>
+                                            <constraint firstItem="i6F-V7-fJA" firstAttribute="top" secondItem="Cqq-ev-baB" secondAttribute="top" constant="10" id="sy6-Tq-dQQ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCU-UK-zgd" userLabel="BirthdayView">
-                                        <rect key="frame" x="37" y="399" width="340" height="275"/>
+                                        <rect key="frame" x="37" y="329" width="340" height="345"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="b4j-NJ-No4" userLabel="Birthday Stack View">
-                                                <rect key="frame" x="10" y="10" width="320" height="255"/>
+                                                <rect key="frame" x="10" y="10" width="320" height="325"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Votre date de naissance ? " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAM-l4-iw9">
-                                                        <rect key="frame" x="59.5" y="0.0" width="201" height="20"/>
+                                                        <rect key="frame" x="59.5" y="0.0" width="201" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="wbN-o0-NU4">
-                                                        <rect key="frame" x="0.0" y="39" width="320" height="216"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="216" id="WDL-BR-kH9"/>
-                                                        </constraints>
+                                                        <rect key="frame" x="0.0" y="39.5" width="320" height="246"/>
                                                         <date key="date" timeIntervalSinceReferenceDate="599479350.154796">
                                                             <!--2019-12-31 10:02:30 +0000-->
+                                                        </date>
+                                                        <date key="minimumDate" timeIntervalSinceReferenceDate="-2556187200">
+                                                            <!--1920-01-01 12:00:00 +0000-->
                                                         </date>
                                                         <locale key="locale" localeIdentifier="fr_FR"/>
                                                         <connections>
                                                             <action selector="birthDateChanged:" destination="XcX-5v-NL2" eventType="valueChanged" id="Rmv-8H-Cca"/>
                                                         </connections>
                                                     </datePicker>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euO-n6-2fu">
+                                                        <rect key="frame" x="139" y="304.5" width="42" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="0.85144106220000004" green="0.26728929150000003" blue="0.16394321179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="b4j-NJ-No4" secondAttribute="bottom" constant="10" id="eGf-wR-9LY"/>
-                                            <constraint firstItem="b4j-NJ-No4" firstAttribute="top" secondItem="DCU-UK-zgd" secondAttribute="top" constant="10" id="gan-aD-57Z"/>
-                                            <constraint firstItem="b4j-NJ-No4" firstAttribute="leading" secondItem="DCU-UK-zgd" secondAttribute="leading" constant="10" id="miD-YB-67r"/>
-                                            <constraint firstAttribute="trailing" secondItem="b4j-NJ-No4" secondAttribute="trailing" constant="10" id="vC4-5j-GkW"/>
+                                            <constraint firstItem="b4j-NJ-No4" firstAttribute="leading" secondItem="DCU-UK-zgd" secondAttribute="leading" constant="10" id="8mC-Cr-BfM"/>
+                                            <constraint firstAttribute="trailing" secondItem="b4j-NJ-No4" secondAttribute="trailing" constant="10" id="DJ5-8g-q5Q"/>
+                                            <constraint firstAttribute="bottom" secondItem="b4j-NJ-No4" secondAttribute="bottom" constant="10" id="Jdw-Zx-vIw"/>
+                                            <constraint firstItem="b4j-NJ-No4" firstAttribute="top" secondItem="DCU-UK-zgd" secondAttribute="top" constant="10" id="zzS-Tz-YU4"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Cqq-ev-baB" firstAttribute="leading" secondItem="utE-jk-qge" secondAttribute="leading" constant="26" id="27u-AC-wS4"/>
-                                    <constraint firstItem="DCU-UK-zgd" firstAttribute="top" secondItem="utE-jk-qge" secondAttribute="top" constant="399" id="K6p-Qy-2TX"/>
-                                    <constraint firstItem="Cqq-ev-baB" firstAttribute="top" secondItem="utE-jk-qge" secondAttribute="top" constant="84" id="kLr-do-WPT"/>
+                                    <constraint firstItem="DCU-UK-zgd" firstAttribute="top" secondItem="utE-jk-qge" secondAttribute="top" constant="329" id="Q8a-tJ-Vyc"/>
+                                    <constraint firstItem="Cqq-ev-baB" firstAttribute="leading" secondItem="utE-jk-qge" secondAttribute="leading" constant="26" id="WyO-df-NaX"/>
+                                    <constraint firstItem="Cqq-ev-baB" firstAttribute="top" secondItem="utE-jk-qge" secondAttribute="top" constant="49" id="kiO-PS-5S0"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="utE-jk-qge" firstAttribute="top" secondItem="iRP-4c-F2n" secondAttribute="bottom" id="4wd-pt-ucb"/>
+                            <constraint firstItem="utE-jk-qge" firstAttribute="top" secondItem="iRP-4c-F2n" secondAttribute="bottom" id="3W2-oU-tyW"/>
                             <constraint firstItem="iRP-4c-F2n" firstAttribute="top" secondItem="IQf-6x-gdF" secondAttribute="top" id="5YH-Ay-HhG"/>
+                            <constraint firstItem="L4e-Fo-pCN" firstAttribute="top" secondItem="utE-jk-qge" secondAttribute="bottom" id="6Bf-pw-bqg"/>
                             <constraint firstItem="IQf-6x-gdF" firstAttribute="bottom" secondItem="L4e-Fo-pCN" secondAttribute="bottom" id="6FP-5A-oiw"/>
                             <constraint firstItem="L4e-Fo-pCN" firstAttribute="leading" secondItem="IQf-6x-gdF" secondAttribute="leading" id="ITK-tz-ndt"/>
-                            <constraint firstItem="IQf-6x-gdF" firstAttribute="trailing" secondItem="utE-jk-qge" secondAttribute="trailing" id="K40-um-Aht"/>
+                            <constraint firstItem="utE-jk-qge" firstAttribute="leading" secondItem="IQf-6x-gdF" secondAttribute="leading" id="KLj-FC-Nfg"/>
                             <constraint firstItem="iRP-4c-F2n" firstAttribute="leading" secondItem="IQf-6x-gdF" secondAttribute="leading" id="ZFu-PO-oqh"/>
                             <constraint firstItem="IQf-6x-gdF" firstAttribute="trailing" secondItem="L4e-Fo-pCN" secondAttribute="trailing" id="fkS-D6-xBF"/>
-                            <constraint firstItem="L4e-Fo-pCN" firstAttribute="top" secondItem="utE-jk-qge" secondAttribute="bottom" id="gnx-gK-WYA"/>
+                            <constraint firstItem="IQf-6x-gdF" firstAttribute="trailing" secondItem="utE-jk-qge" secondAttribute="trailing" id="iSW-li-Te4"/>
                             <constraint firstItem="IQf-6x-gdF" firstAttribute="trailing" secondItem="iRP-4c-F2n" secondAttribute="trailing" id="lB7-0H-x6k"/>
-                            <constraint firstItem="utE-jk-qge" firstAttribute="leading" secondItem="IQf-6x-gdF" secondAttribute="leading" id="lcA-Vx-qGX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IQf-6x-gdF"/>
                     </view>
                     <connections>
+                        <outlet property="alertLabel" destination="euO-n6-2fu" id="Suo-Dr-oeX"/>
                         <outlet property="birthdayDatePicker" destination="wbN-o0-NU4" id="VvL-f4-Q0b"/>
                         <outlet property="madamButton" destination="CrJ-20-xj8" id="6D1-dr-8uf"/>
                         <outlet property="sirButton" destination="XTt-r8-YLC" id="8AD-Ei-lF4"/>

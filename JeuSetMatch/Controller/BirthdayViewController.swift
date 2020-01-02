@@ -13,14 +13,18 @@ class BirthdayViewController: UIViewController {
     @IBOutlet weak var madamButton: UIButton!
     @IBOutlet weak var sirButton: UIButton!
     @IBOutlet weak var birthdayDatePicker: UIDatePicker!
+    @IBOutlet weak var alertLabel: UILabel!
     
     var birthDate = Date()
     var userGender = "Madam"
     
-
+    let minimumAge = Calendar.current.date(byAdding: .year, value: -10, to: Date())
+    let maximumAge = Calendar.current.date(byAdding: .year, value: -100, to: Date())
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        alertLabel.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,14 +57,36 @@ class BirthdayViewController: UIViewController {
     
     @IBAction func birthDateChanged(_ sender: Any) {
         print(birthdayDatePicker.date)
+        let isValideAge = validateAge(birthDate: birthdayDatePicker.date)
         birthDate = birthdayDatePicker.date
+        if isValideAge {
+            alertLabel.isHidden = true
+        } else {
+            alertLabel.isHidden = false
+            alertLabel.text = "Vous devez avoir au moins 10 ans pour utiliser l'application"
+        }
     }
     
+    func validateAge(birthDate: Date) -> Bool {
+        var isValid: Bool = true
+        
+        if birthDate < maximumAge ?? Date() || birthDate > minimumAge ?? Date() {
+            isValid = false
+        }
+        
+        return isValid
+    }
+
     @IBAction func continueButtonPressed(_ sender: UIButton) {
+        let isValideAge = validateAge(birthDate: birthDate)
+        guard isValideAge else {
+            alertLabel.isHidden = false
+            alertLabel.text = "Veuillez renseigner votre date de naissance avant de continuer"
+            return}
+        alertLabel.isHidden = true
         performSegue(withIdentifier: K.BirthDateSegue, sender: nil)
     }
     
 }
 
 
-// Check Age
