@@ -20,6 +20,7 @@ struct K {
     static let BirthDateSegue = "BirthDatetoLevel"
     static let LeveltoCitiesSegue = "LevelToCities"
     static let LeveltoPseudoSegue = "LevelToPseudo"
+    static let PseudoToMailSegue = "PseudoToMail"
     
     struct FStore {
         static let messagesCollectionName = "messages"

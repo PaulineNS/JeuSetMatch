@@ -63,5 +63,4 @@ class BirthdayViewController: UIViewController {
 }
 
 
-// CheckAge
-// API cities
+// Check Age

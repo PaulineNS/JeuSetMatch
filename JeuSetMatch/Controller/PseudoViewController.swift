@@ -33,12 +33,31 @@ class PseudoViewController: UIViewController {
         profilPictureImageView.addGestureRecognizer(singleTap)
     }
     
+    @IBAction func pseudoTextFieldChanged(_ sender: UITextField) {
+        while sender.text?.count ?? 0 <= 2 { }
+        userPseudo = sender.text ?? ""
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == K.PseudoToMailSegue else { return }
+        guard let mailVc = segue.destination as? MailViewController else { return }
+        mailVc.birthDate = birthDate
+        mailVc.userGender = userGender
+        mailVc.userLevel = userLevel
+        mailVc.userCity = userCity
+        mailVc.userPseudo = userPseudo
+        mailVc.userPicture = userPicture
+    }
+    
+    @IBAction func continueButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: K.PseudoToMailSegue, sender: nil)
+    }
+    
     @objc func didTapProfilPicture() {
         onPictureClick()
     }
     
     func onPictureClick() {
-        
         // Selecting source of pictures
         let actionSheet = UIAlertController(title: "Source de la photo", message: "Choisissez une source", preferredStyle: .actionSheet)
         
