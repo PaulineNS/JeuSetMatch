@@ -25,6 +25,7 @@ class BirthdayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         alertLabel.isHidden = true
+        birthdayDatePicker.minimumDate = maximumAge
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,7 +71,7 @@ class BirthdayViewController: UIViewController {
     func validateAge(birthDate: Date) -> Bool {
         var isValid: Bool = true
         
-        if birthDate < maximumAge ?? Date() || birthDate > minimumAge ?? Date() {
+        if birthDate > minimumAge ?? Date() {
             isValid = false
         }
         

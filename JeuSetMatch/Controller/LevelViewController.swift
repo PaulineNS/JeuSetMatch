@@ -14,15 +14,21 @@ class LevelViewController: UIViewController {
     var userGender = ""
     var userLevel = ""
     var userCity = ""
-    let cities: [String] = ["Choisir", "Débutant","40 - Amateur","30/5 - Amateur avancé","30/4 - Intermédiaire","30/3 - Intermédiaire","30/2 - Intermédiaire avancé","30/1 - Compétiteur","30 - Compétiteur","15/5 - Compétiteur avancé","15/4 - Compétiteur avancé","15/3 - Expert","15/2 - Expert","15/1 - Expert","15 - Expert avancé","5/6 - Expert avancé","4/6 - Expert avancé","3/6 - Expert avancé","2/6 - Semi-pro","1/6 - Semi-pro","0 - Semi-pro","-2/6 - Pro","-4/6 - Pro","-15 - Pro", "-30 - Pro"]
+    
+    let cities: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant","Choisir"]
   
     @IBOutlet weak var citiesButton: UIButton!
     @IBOutlet weak var levelsPickerView: UIPickerView!
+    @IBOutlet weak var cityAlertLabel: UILabel!
+    @IBOutlet weak var levelAlertLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         levelsPickerView.delegate = self
         levelsPickerView.dataSource = self
+        levelsPickerView.selectRow(cities.count-1, inComponent: 0, animated: true)
+        cityAlertLabel.isHidden = true
+        levelAlertLabel.isHidden = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -43,6 +49,16 @@ class LevelViewController: UIViewController {
     }
     
     @IBAction func continueButtonPressed(_ sender: UIButton) {
+        guard userCity != "" else {
+            cityAlertLabel.isHidden = false
+            cityAlertLabel.text = "Veuillez sélectionner votre ville avant de continuer"
+            return }
+        guard userLevel != "" && userLevel != "Choisir" else {
+            levelAlertLabel.isHidden = false
+            levelAlertLabel.text = "Veuillez renseigner votre niveau avant de continuer"
+            return}
+        cityAlertLabel.isHidden = true
+        levelAlertLabel.isHidden = true
         performSegue(withIdentifier: K.LeveltoPseudoSegue, sender: nil)
     }    
 }
@@ -67,6 +83,7 @@ extension LevelViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension LevelViewController: DidSelectCityDelegate {
     func rowTapped(with city: String) {
+        cityAlertLabel.isHidden = true
         citiesButton.setTitle(city, for: .normal)
         userCity = city
     }
