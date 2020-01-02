@@ -41,5 +41,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Ajoutez une photo pour compléter votre profil.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Cette application nécessite un accès à la galerie photos.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Cette application nécessite un accès à la caméra.</string>
 </dict>
 </plist>

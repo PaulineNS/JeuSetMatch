@@ -157,11 +157,11 @@
 				56DC0C1823ABC4D4003A0DC6 /* RegisterViewController.swift */,
 				56E8B16C23AE5B0C007B4BC1 /* ChatViewController.swift */,
 				56E8B17623BA4B37007B4BC1 /* UsersViewController.swift */,
-				562CE38923BB50590075A8AA /* MailViewController.swift */,
 				562CE38D23BB50CB0075A8AA /* BirthdayViewController.swift */,
 				562CE38F23BB55BB0075A8AA /* LevelViewController.swift */,
-				562CE39123BB5A550075A8AA /* PseudoViewController.swift */,
 				5699AE6923BBAA1200C61058 /* CitiesViewController.swift */,
+				562CE39123BB5A550075A8AA /* PseudoViewController.swift */,
+				562CE38923BB50590075A8AA /* MailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

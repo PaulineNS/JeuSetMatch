@@ -13,6 +13,9 @@ class MailViewController: UIViewController {
     var birthDate = Date()
     var userGender = ""
     var userLevel = ""
+    var userCity = ""
+    var userPseudo = ""
+    var userPicture = UIImage()
 
     override func viewDidLoad() {
         super.viewDidLoad()
