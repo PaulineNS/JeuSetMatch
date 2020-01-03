@@ -15,11 +15,11 @@ struct Message {
 
 struct User {
     let pseudo: String
-    let image: String
+   // let image: Data
     let sexe: String
     let level: String
     let city: String
-    let age: String
+    //let age: Date
 }
 
 // message. uid, content, createdat

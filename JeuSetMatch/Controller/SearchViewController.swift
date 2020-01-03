@@ -34,7 +34,8 @@ class SearchViewController: UIViewController {
                 for doc in snapshotDocuments {
                     let data = doc.data()
                     guard let userName = data[K.FStore.userNameField] as? String, let userImage = data[K.FStore.userPictureField] as? String, let userGender = data[K.FStore.userGenderField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userAge = data[K.FStore.userAgeField] as? String else {return}
-                    let newUser = User(pseudo: userName, image: userImage, sexe: userGender, level: userLevel, city: userCity, age: userAge)
+                    let newUser = User(pseudo: userName, sexe: userGender, level: userLevel, city: userCity)
+                    //, age: userAge) image: userImage
                     self.users.append(newUser)
                     DispatchQueue.main.async {
                         self.usersTableView.reloadData()
@@ -55,7 +56,7 @@ extension SearchViewController: UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: K.userCellIdentifier, for: indexPath) as? UserTableViewCell else { return UITableViewCell()}
         
-        cell.userImage.image = UIImage(named: user.image)
+        //cell.userImage.image = UIImage(named: user.image)
         cell.userName.text = user.pseudo
         
         return cell
