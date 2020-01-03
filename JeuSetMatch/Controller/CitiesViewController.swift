@@ -44,9 +44,7 @@ extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.cityCellIdentifier) else {
-            return UITableViewCell()
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.cityCellIdentifier, for: indexPath) 
         cell.textLabel?.attributedText = arrayCities[indexPath.row].attributedFullText
         cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
         return cell

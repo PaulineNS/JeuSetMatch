@@ -24,19 +24,29 @@ class PseudoViewController: UIViewController {
 
     @IBOutlet weak var pseudoTextfield: UITextField!
     @IBOutlet weak var profilPictureImageView: UIImageView!
+    @IBOutlet weak var pictureAlertLabel: UILabel!
+    @IBOutlet weak var pseudoAlertLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         image.delegate = self
+        pictureAlertLabel.isHidden = true
+        pseudoAlertLabel.isHidden = true
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
         profilPictureImageView.isUserInteractionEnabled = true
         profilPictureImageView.addGestureRecognizer(singleTap)
     }
     
     @IBAction func pseudoTextFieldChanged(_ sender: UITextField) {
-        while sender.text?.count ?? 0 <= 2 { }
-        userPseudo = sender.text ?? ""
-    }
+        guard sender.text?.count ?? 0 < 4 else {
+            pseudoAlertLabel.isHidden = true
+            pseudoTextfield.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            userPseudo = sender.text ?? ""
+            return }
+            pseudoAlertLabel.isHidden = false
+            pseudoAlertLabel.text = "Votre pseudo doit comporter plus de 4 charactères"
+            pseudoTextfield.textColor = #colorLiteral(red: 0.8514410622, green: 0.2672892915, blue: 0.1639432118, alpha: 1)
+        }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.PseudoToMailSegue else { return }
@@ -50,6 +60,18 @@ class PseudoViewController: UIViewController {
     }
     
     @IBAction func continueButtonPressed(_ sender: UIButton) {
+        guard profilPictureImageView.image != emptyPicture else {
+            pictureAlertLabel.isHidden = false
+            pictureAlertLabel.text = "Veuillez choisir une photo de profil avant de continuer"
+            return
+        }
+        guard pseudoTextfield.text?.count ?? 0 > 3 else {
+            pseudoAlertLabel.isHidden = false
+            pseudoAlertLabel.text = "Veuillez renseigner un pseudo avant de continuer"
+            return
+        }
+        pictureAlertLabel.isHidden = true
+        pseudoAlertLabel.isHidden = true
         performSegue(withIdentifier: K.PseudoToMailSegue, sender: nil)
     }
     
@@ -175,6 +197,7 @@ extension PseudoViewController : UIImagePickerControllerDelegate, UINavigationCo
         
         //Remove the view
         picker.dismiss(animated: true, completion: nil)
+        pictureAlertLabel.isHidden = true
     }
     
     //Remove the view when the user click on cancel
