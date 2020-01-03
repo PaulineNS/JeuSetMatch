@@ -42,8 +42,8 @@ class SearchViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userName = data[K.FStore.userNameField] as? String, let userGender = data[K.FStore.userGenderField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userCity = data[K.FStore.userCityField] as? String else {return}
-                    let newUser = User(pseudo: userName, sexe: userGender, level: userLevel, city: userCity)
+                    guard let userName = data[K.FStore.userNameField] as? String, let userGender = data[K.FStore.userGenderField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userImageData = data[K.FStore.userPictureField] as? Data else {return}
+                    let newUser = User(pseudo: userName, image: userImageData, sexe: userGender, level: userLevel, city: userCity)
                     //, age: userAge) image: userImage
                     self.users.append(newUser)
                     DispatchQueue.main.async {
@@ -65,8 +65,8 @@ extension SearchViewController: UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: K.userCellIdentifier, for: indexPath) as? UserTableViewCell else { return UITableViewCell()}
         
-        //cell.userImage.image = UIImage(named: user.image)
         cell.userName.text = user.pseudo
+        cell.userImage.image = UIImage(data: user.image)
         
         return cell
     }
@@ -74,7 +74,6 @@ extension SearchViewController: UITableViewDataSource {
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
         let user = users[indexPath.row]
         self.userPseudo = user.pseudo
         performSegue(withIdentifier: K.SearchToProfileSegue, sender: nil)

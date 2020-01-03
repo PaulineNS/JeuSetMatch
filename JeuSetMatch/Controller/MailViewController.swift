@@ -16,7 +16,7 @@ class MailViewController: UIViewController {
     var userLevel = ""
     var userCity = ""
     var userPseudo = ""
-    var userPicture = UIImage()
+    var userPicture = Data()
     
     let db = Firestore.firestore()
     
@@ -36,9 +36,10 @@ class MailViewController: UIViewController {
                 print(e.localizedDescription)
                 
             } else {
-                
+                print("ici")
                 //let imageData = self.userPicture.jpegData(compressionQuality: 1.0)
                 guard let userUid = Auth.auth().currentUser?.uid else {
+                    print("no")
                     return }
                 
                 self.db.collection(K.FStore.userCollectionName).addDocument(data: [
@@ -47,7 +48,7 @@ class MailViewController: UIViewController {
                     K.FStore.userLevelField: self.userLevel,
                     K.FStore.userCityField: self.userCity,
                     K.FStore.userNameField: self.userPseudo,
-                   // K.FStore.userPictureField: imageData,
+                    K.FStore.userPictureField: self.userPicture,
                     K.FStore.userUidField: userUid
                     ], completion: { (error) in
                         DispatchQueue.main.async {

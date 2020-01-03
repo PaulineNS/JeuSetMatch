@@ -41,14 +41,15 @@ class ProfileViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userPseudo = data[K.FStore.userNameField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String else {return}
-                    let user = User(pseudo: userPseudo, sexe: userGender, level: userLevel, city: userCity)
+                    guard let userPseudo = data[K.FStore.userNameField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let imageData = data[K.FStore.userPictureField] as? Data else {return}
+                    let user = User(pseudo: userPseudo, image: imageData, sexe: userGender, level: userLevel, city: userCity)
                     self.userInformations.append(user)
                     DispatchQueue.main.async {
                         self.pseudoLabel.text = userPseudo
                         self.genderLabel.text = userGender
                         self.cityLabel.text = userCity
                         self.levelLabel.text = userLevel
+                        self.userPictureImageView.image = UIImage(data: imageData)
                     }
                 }
             }
@@ -64,14 +65,15 @@ class ProfileViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userPseudo = data[K.FStore.userNameField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String else {return}
-                    let user = User(pseudo: userPseudo, sexe: userGender, level: userLevel, city: userCity)
+                    guard let userPseudo = data[K.FStore.userNameField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userPicture = data[K.FStore.userPictureField] as? Data else {return}
+                    let user = User(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity)
                     self.userInformations.append(user)
                     DispatchQueue.main.async {
                         self.pseudoLabel.text = userPseudo
                         self.genderLabel.text = userGender
                         self.cityLabel.text = userCity
                         self.levelLabel.text = userLevel
+                        self.userPictureImageView.image = UIImage(data: userPicture)
                     }
                 }
             }

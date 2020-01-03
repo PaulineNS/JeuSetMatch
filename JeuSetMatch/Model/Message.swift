@@ -15,7 +15,7 @@ struct Message {
 
 struct User {
     let pseudo: String
-   // let image: Data
+    let image: Data
     let sexe: String
     let level: String
     let city: String

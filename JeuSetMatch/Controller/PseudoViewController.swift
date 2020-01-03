@@ -95,7 +95,11 @@ class PseudoViewController: UIViewController {
         mailVc.userLevel = userLevel
         mailVc.userCity = userCity
         mailVc.userPseudo = userPseudo
-        mailVc.userPicture = userPicture
+        guard let pictureData = userPicture.jpegData(compressionQuality: 0.1) else {
+            print("Quoi")
+            return
+        }
+        mailVc.userPicture = pictureData
     }
     
     @IBAction func continueButtonPressed(_ sender: UIButton) {
@@ -227,6 +231,7 @@ extension PseudoViewController : UIImagePickerControllerDelegate, UINavigationCo
             if let imageView = profilPictureImageView {
                 imageView.contentMode = .scaleAspectFill
                 imageView.image = pickedImage
+                userPicture = pickedImage
             } else {
                 print ("selectedUIImageView is nil")
             }
