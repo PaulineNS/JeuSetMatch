@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class UsersViewController: UIViewController {
+class SearchViewController: UIViewController {
     
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var usersTableView: UITableView!
@@ -45,7 +45,7 @@ class UsersViewController: UIViewController {
     }
 }
 
-extension UsersViewController: UITableViewDataSource {
+extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }

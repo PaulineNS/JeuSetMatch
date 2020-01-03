@@ -33,15 +33,12 @@ class MailViewController: UIViewController {
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let e = error {
-                print("Hello")
                 print(e.localizedDescription)
                 
             } else {
                 
                 //let imageData = self.userPicture.jpegData(compressionQuality: 1.0)
-                print("Coucou")
                 guard let userUid = Auth.auth().currentUser?.uid else {
-                    print("why")
                     return }
                 
                 self.db.collection(K.FStore.userCollectionName).addDocument(data: [

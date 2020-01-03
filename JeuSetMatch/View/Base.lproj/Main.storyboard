@@ -397,7 +397,7 @@
                     <connections>
                         <outlet property="emailTextfield" destination="FOd-g5-Hxb" id="skA-Rl-kdg"/>
                         <outlet property="passwordTextfield" destination="5Gz-nO-Qpa" id="KHs-GH-B0I"/>
-                        <segue destination="Z5V-7b-odc" kind="show" identifier="FromRegisterToSearch" id="zuk-FT-2jl"/>
+                        <segue destination="AIy-Co-pdF" kind="show" identifier="FromRegisterToSearch" id="qxD-Ox-pIs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J7J-Em-kWo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -951,23 +951,39 @@
             </objects>
             <point key="canvasLocation" x="4399" y="-715"/>
         </scene>
-        <!--Users View Controller-->
+        <!--Profil-->
+        <scene sceneID="GTJ-Bu-46r">
+            <objects>
+                <viewController id="1WO-o0-ut2" customClass="ProfileViewController" customModule="JeuSetMatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ous-ED-fjZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="nmH-L7-48J"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profil" image="profile" id="t7K-QA-WxP"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rwZ-M7-HfD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7857" y="-860"/>
+        </scene>
+        <!--Chercher-->
         <scene sceneID="2sb-Mh-Tau">
             <objects>
-                <viewController id="XQr-MO-ifw" customClass="UsersViewController" customModule="JeuSetMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XQr-MO-ifw" customClass="SearchViewController" customModule="JeuSetMatch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bVy-ut-Phq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYt-y9-5FE">
-                                <rect key="frame" x="0.0" y="44" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="zOj-Zs-YZh"/>
                                 </constraints>
                                 <state key="normal" title="Filtrer"/>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cxE-Jf-ESG">
-                                <rect key="frame" x="0.0" y="84" width="414" height="778"/>
+                                <rect key="frame" x="0.0" y="40" width="414" height="685"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -983,6 +999,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6eo-jg-MwJ"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Chercher" image="search" id="ufc-tA-MCg"/>
                     <connections>
                         <outlet property="filterButton" destination="AYt-y9-5FE" id="Ktc-CX-CNp"/>
                         <outlet property="usersTableView" destination="cxE-Jf-ESG" id="k9y-Ip-pmq"/>
@@ -990,9 +1007,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n9L-sf-Oua" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5758" y="66"/>
+            <point key="canvasLocation" x="7857" y="-120"/>
         </scene>
-        <!--Chat View Controller-->
+        <!--Messages-->
         <scene sceneID="Iss-gX-83Y">
             <objects>
                 <viewController id="Z5V-7b-odc" customClass="ChatViewController" customModule="JeuSetMatch" customModuleProvider="target" sceneMemberID="viewController">
@@ -1051,6 +1068,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VdM-RC-hDd"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Messages" image="message" id="XIU-k2-jo8"/>
                     <navigationItem key="navigationItem" id="yRh-w3-6CD">
                         <barButtonItem key="rightBarButtonItem" title="Se déconnecter" id="Blc-9E-ORn">
                             <connections>
@@ -1065,7 +1083,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pa1-NA-dCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6578" y="66"/>
+            <point key="canvasLocation" x="7857" y="639"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="EvB-TU-juD">
+            <objects>
+                <tabBarController id="AIy-Co-pdF" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qRm-xd-ULW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="XQr-MO-ifw" kind="relationship" relationship="viewControllers" id="Hh9-7r-ZZD"/>
+                        <segue destination="Z5V-7b-odc" kind="relationship" relationship="viewControllers" id="o6I-eY-F6X"/>
+                        <segue destination="1WO-o0-ut2" kind="relationship" relationship="viewControllers" id="tRE-WB-aL6"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ISm-ud-fkc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6430" y="79"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="AFz-np-VbU">
@@ -1200,9 +1237,12 @@
     </scenes>
     <resources>
         <image name="addPictureProfil" width="220" height="230"/>
+        <image name="message" width="30" height="30"/>
+        <image name="profile" width="29.5" height="30"/>
+        <image name="search" width="28.5" height="30"/>
         <image name="textfield" width="298" height="93"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zuk-FT-2jl"/>
+        <segue reference="o6I-eY-F6X"/>
     </inferredMetricsTieBreakers>
 </document>
