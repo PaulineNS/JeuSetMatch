@@ -9,6 +9,28 @@
 import UIKit
 import Photos
 import AVFoundation
+import Firebase
+
+extension UITextField {
+    
+    func checkPseudo(field: String, completion: @escaping (Bool) -> Void) {
+        let db = Firestore.firestore()
+        let collectionRef = db.collection(K.FStore.userCollectionName)
+        collectionRef.whereField(K.FStore.userNameField, isEqualTo: field).getDocuments { (snapshot, error) in
+            if let e = error {
+                print("Error getting document: \(e)")
+            } else if (snapshot?.isEmpty)! {
+                completion(false)
+            } else {
+                for document in (snapshot?.documents)! {
+                    if document.data()[K.FStore.userNameField] != nil {
+                        completion(true)
+                    }
+                }
+            }
+        }
+    }
+}
 
 class PseudoViewController: UIViewController {
     
@@ -19,9 +41,10 @@ class PseudoViewController: UIViewController {
     var userPseudo = ""
     var userPicture = UIImage()
     
+    let db = Firestore.firestore()
     let image = UIImagePickerController()
     let emptyPicture = UIImage(named: "addPictureProfil")
-
+    
     @IBOutlet weak var pseudoTextfield: UITextField!
     @IBOutlet weak var profilPictureImageView: UIImageView!
     @IBOutlet weak var pictureAlertLabel: UILabel!
@@ -38,15 +61,31 @@ class PseudoViewController: UIViewController {
     }
     
     @IBAction func pseudoTextFieldChanged(_ sender: UITextField) {
-        guard sender.text?.count ?? 0 < 4 else {
-            pseudoAlertLabel.isHidden = true
-            pseudoTextfield.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            userPseudo = sender.text ?? ""
-            return }
-            pseudoAlertLabel.isHidden = false
-            pseudoAlertLabel.text = "Votre pseudo doit comporter plus de 4 charactères"
-            pseudoTextfield.textColor = #colorLiteral(red: 0.8514410622, green: 0.2672892915, blue: 0.1639432118, alpha: 1)
+        if sender.text?.count ?? 0 < 4 {
+            self.pseudoAlertLabel.isHidden = false
+            self.pseudoAlertLabel.text = "Votre pseudo doit comporter plus de 4 charactères"
+            self.pseudoTextfield.textColor = #colorLiteral(red: 0.8514410622, green: 0.2672892915, blue: 0.1639432118, alpha: 1)
+            self.userPseudo = ""
+        } else {
+            sender.checkPseudo(field: sender.text ?? "") { (success) in
+                if success == true {
+                    DispatchQueue.main.async {
+                        self.pseudoAlertLabel.isHidden = false
+                        self.pseudoAlertLabel.text = "Ce pseudo n'est pas disponible"
+                        self.pseudoTextfield.textColor = #colorLiteral(red: 0.8514410622, green: 0.2672892915, blue: 0.1639432118, alpha: 1)
+                        self.userPseudo = ""
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.pseudoAlertLabel.isHidden = true
+                        self.pseudoTextfield.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                        self.userPseudo = sender.text ?? ""
+                    }
+                    
+                }
+            }
         }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.PseudoToMailSegue else { return }
@@ -65,7 +104,7 @@ class PseudoViewController: UIViewController {
             pictureAlertLabel.text = "Veuillez choisir une photo de profil avant de continuer"
             return
         }
-        guard pseudoTextfield.text?.count ?? 0 > 3 else {
+        guard userPseudo != "" else {
             pseudoAlertLabel.isHidden = false
             pseudoAlertLabel.text = "Veuillez renseigner un pseudo avant de continuer"
             return

@@ -33,7 +33,7 @@ class SearchViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userName = data[K.FStore.userNameField] as? String, let userImage = data[K.FStore.userPictureField] as? String, let userGender = data[K.FStore.userGenderField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userAge = data[K.FStore.userAgeField] as? String else {return}
+                    guard let userName = data[K.FStore.userNameField] as? String, let userGender = data[K.FStore.userGenderField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userCity = data[K.FStore.userCityField] as? String else {return}
                     let newUser = User(pseudo: userName, sexe: userGender, level: userLevel, city: userCity)
                     //, age: userAge) image: userImage
                     self.users.append(newUser)

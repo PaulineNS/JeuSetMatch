@@ -21,6 +21,7 @@ struct K {
     static let LeveltoCitiesSegue = "LevelToCities"
     static let LeveltoPseudoSegue = "LevelToPseudo"
     static let PseudoToMailSegue = "PseudoToMail"
+    static let SearchToPseudoSegue = "SearchToProfile"
     
     struct FStore {
         static let messagesCollectionName = "messages"
