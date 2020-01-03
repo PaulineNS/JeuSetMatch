@@ -16,12 +16,21 @@ class SearchViewController: UIViewController {
     
     let db = Firestore.firestore()
     var users: [User] = []
+    var userPseudo = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         usersTableView.dataSource = self
+        usersTableView.delegate = self
         usersTableView.register(UINib(nibName: K.userCellNibName, bundle: nil), forCellReuseIdentifier: K.userCellIdentifier)
         loadUsers()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == K.SearchToProfileSegue else { return }
+        guard let pseudoVc = segue.destination as? ProfileViewController else {return}
+        pseudoVc.userPseudo = userPseudo
+        pseudoVc.IsSegueFromSearch = true
     }
     
     func loadUsers(){
@@ -61,6 +70,13 @@ extension SearchViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    
+}
+
+extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        let user = users[indexPath.row]
+        self.userPseudo = user.pseudo
+        performSegue(withIdentifier: K.SearchToProfileSegue, sender: nil)
+    }
 }

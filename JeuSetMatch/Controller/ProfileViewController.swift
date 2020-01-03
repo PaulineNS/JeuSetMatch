@@ -20,13 +20,42 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadUserInformations()
+        guard IsSegueFromSearch == true else {
+            loadCurrentUserInformations()
+            return
+        }
+        loadAnotherUserInformations()
     }
     
     let db = Firestore.firestore()
+    var IsSegueFromSearch = false
+    var userPseudo = ""
     var userInformations: [User] = []
     
-    func loadUserInformations() {
+    func loadAnotherUserInformations() {
+        db.collection(K.FStore.userCollectionName).whereField(K.FStore.userNameField, isEqualTo: userPseudo).addSnapshotListener { (querySnapshot, error) in
+            self.userInformations = []
+            if let e = error {
+                print("There was an issue retrieving data from Firestore. \(e)")
+            } else {
+                guard let snapshotDocuments = querySnapshot?.documents else {return}
+                for doc in snapshotDocuments {
+                    let data = doc.data()
+                    guard let userPseudo = data[K.FStore.userNameField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String else {return}
+                    let user = User(pseudo: userPseudo, sexe: userGender, level: userLevel, city: userCity)
+                    self.userInformations.append(user)
+                    DispatchQueue.main.async {
+                        self.pseudoLabel.text = userPseudo
+                        self.genderLabel.text = userGender
+                        self.cityLabel.text = userCity
+                        self.levelLabel.text = userLevel
+                    }
+                }
+            }
+        }
+    }
+    
+    func loadCurrentUserInformations() {
         db.collection(K.FStore.userCollectionName).whereField(K.FStore.userUidField, isEqualTo: Auth.auth().currentUser?.uid as Any).addSnapshotListener { (querySnapshot, error) in
             self.userInformations = []
             if let e = error {
