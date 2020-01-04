@@ -1104,6 +1104,9 @@
                                         <state key="normal" title="Modifier mon profil">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="buttomButtonPressed:" destination="1WO-o0-ut2" eventType="touchUpInside" id="XWi-a6-0WN"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1145,6 +1148,7 @@
                         <outlet property="pseudoLabel" destination="PlH-l0-myc" id="RNX-NM-gLu"/>
                         <outlet property="updateProfileButton" destination="SzG-YU-F8O" id="sOv-ev-Gjh"/>
                         <outlet property="userPictureImageView" destination="UhZ-oe-gfV" id="VdO-Iw-r1z"/>
+                        <segue destination="Z5V-7b-odc" kind="show" identifier="ProfileToChat" id="3Dc-8t-nP1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rwZ-M7-HfD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1196,11 +1200,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mhT-SP-zzi">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="645"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="694"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tb2-eP-EWr">
-                                <rect key="frame" x="0.0" y="645" width="414" height="80"/>
+                                <rect key="frame" x="0.0" y="694" width="414" height="80"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cE0-PY-nXv">
                                         <rect key="frame" x="20" y="20" width="308" height="40"/>
@@ -1247,13 +1251,7 @@
                         <viewLayoutGuide key="safeArea" id="VdM-RC-hDd"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Messages" image="message" id="XIU-k2-jo8"/>
-                    <navigationItem key="navigationItem" id="yRh-w3-6CD">
-                        <barButtonItem key="rightBarButtonItem" title="Se déconnecter" id="Blc-9E-ORn">
-                            <connections>
-                                <action selector="logOutPressed:" destination="Z5V-7b-odc" id="lmb-JX-10w"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="yRh-w3-6CD"/>
                     <connections>
                         <outlet property="messageTextField" destination="cE0-PY-nXv" id="cTj-T6-ddq"/>
                         <outlet property="messagesTableView" destination="mhT-SP-zzi" id="mkb-yu-X93"/>
@@ -1426,6 +1424,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="HU1-lS-BiG"/>
+        <segue reference="3Dc-8t-nP1"/>
         <segue reference="F9L-oe-HuP"/>
     </inferredMetricsTieBreakers>
 </document>

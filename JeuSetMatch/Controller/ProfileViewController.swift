@@ -22,12 +22,11 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.tabBarController?.navigationItem.hidesBackButton = true
-//        guard IsSegueFromSearch == true else {
-//            loadCurrentUserInformations()
-//            return
-//        }
-//        loadAnotherUserInformations()
+    }
+    
+    @IBAction func buttomButtonPressed(_ sender: UIButton) {
+        guard sender.currentTitle == "Contacter" else {return}
+        performSegue(withIdentifier: K.ProfileToChatSegue, sender: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +68,7 @@ class ProfileViewController: UIViewController {
                         self.cityLabel.text = userCity
                         self.levelLabel.text = userLevel
                         self.userPictureImageView.image = UIImage(data: imageData)
-                        self.birthDateLabel.text = userAge + "ans"
+                        self.birthDateLabel.text = userAge + " " + "ans"
                     }
                 }
             }
@@ -112,22 +111,12 @@ class ProfileViewController: UIViewController {
                         self.cityLabel.text = userCity
                         self.levelLabel.text = userLevel
                         self.userPictureImageView.image = UIImage(data: userPicture)
-                        self.birthDateLabel.text = userAge + "ans"
+                        self.birthDateLabel.text = userAge + " " + "ans"
                     }
                 }
             }
         }
     }
-    
-    
-//    @IBAction func logOuPressed(_ sender: UIButton) {
-//        do {
-//            try Auth.auth().signOut()
-//            navigationController?.popToRootViewController(animated: true)
-//        } catch let signOutError as NSError {
-//            print ("Error signing out: %@", signOutError)
-//        }
-//    }
     
     @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
         do {
