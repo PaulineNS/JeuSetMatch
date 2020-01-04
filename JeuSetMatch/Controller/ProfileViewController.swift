@@ -9,12 +9,6 @@
 import UIKit
 import Firebase
 
-extension Date {
-    var age: Int {
-        return Calendar.current.dateComponents([.year], from: self, to: Date()).year!
-    }
-}
-
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var userPictureImageView: UIImageView!
@@ -26,6 +20,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.navigationItem.hidesBackButton = true
         guard IsSegueFromSearch == true else {
             loadCurrentUserInformations()
             return
@@ -47,19 +42,18 @@ class ProfileViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userPseudo = data[K.FStore.userNameField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let imageData = data[K.FStore.userPictureField] as? Data  else {return}
-                    //let userBirthDate = data[K.FStore.dateField] as? String
-                    let user = User(pseudo: userPseudo, image: imageData, sexe: userGender, level: userLevel, city: userCity, birthDate: "")
+                    guard let userPseudo = data[K.FStore.userNameField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let imageData = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
+                    let user = User(pseudo: userPseudo, image: imageData, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate)
                     self.userInformations.append(user)
-                    //let stringDate = self.stringToDate(dateString: userBirthDate)
-                    //let userAge = self.dateToAge(birthDate: stringDate)
+                    let stringDate = self.stringToDate(dateString: userBirthDate)
+                    let userAge = self.dateToAge(birthDate: stringDate)
                     DispatchQueue.main.async {
                         self.pseudoLabel.text = userPseudo
                         self.genderLabel.text = userGender
                         self.cityLabel.text = userCity
                         self.levelLabel.text = userLevel
                         self.userPictureImageView.image = UIImage(data: imageData)
-                        //self.birthDateLabel.text = userAge + "ans"
+                        self.birthDateLabel.text = userAge + "ans"
                     }
                 }
             }
@@ -91,19 +85,18 @@ class ProfileViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userPseudo = data[K.FStore.userNameField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userPicture = data[K.FStore.userPictureField] as? Data else {return}
-                    // let userBirthDate = data[K.FStore.userAgeField] as? String 
-                    let user = User(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: "")
+                    guard let userPseudo = data[K.FStore.userNameField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userPicture = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
+                    let user = User(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate)
                     self.userInformations.append(user)
-//                    let stringDate = self.stringToDate(dateString: userBirthDate)
-//                    let userAge = self.dateToAge(birthDate: stringDate)
+                    let stringDate = self.stringToDate(dateString: userBirthDate)
+                    let userAge = self.dateToAge(birthDate: stringDate)
                     DispatchQueue.main.async {
                         self.pseudoLabel.text = userPseudo
                         self.genderLabel.text = userGender
                         self.cityLabel.text = userCity
                         self.levelLabel.text = userLevel
                         self.userPictureImageView.image = UIImage(data: userPicture)
-                       // self.birthDateLabel.text = userAge + "ans"
+                        self.birthDateLabel.text = userAge + "ans"
                     }
                 }
             }

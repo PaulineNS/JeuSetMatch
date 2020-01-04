@@ -19,9 +19,8 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.navigationItem.hidesBackButton = true
         messagesTableView.dataSource = self
-        title = K.appName
-        navigationItem.hidesBackButton = true
         messagesTableView.register(UINib(nibName: K.messageCellNibName, bundle: nil), forCellReuseIdentifier: K.messageCellIdentifier)
         loadMessages()
     }

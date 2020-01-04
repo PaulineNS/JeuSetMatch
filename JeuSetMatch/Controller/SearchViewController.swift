@@ -20,6 +20,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.navigationItem.hidesBackButton = true
         usersTableView.dataSource = self
         usersTableView.delegate = self
         usersTableView.register(UINib(nibName: K.userCellNibName, bundle: nil), forCellReuseIdentifier: K.userCellIdentifier)
