@@ -16,6 +16,7 @@ class BirthdayViewController: UIViewController {
     @IBOutlet weak var alertLabel: UILabel!
     
     var birthDate = Date()
+    var stringBirthDate = ""
     var userGender = "Femme"
     
     let minimumAge = Calendar.current.date(byAdding: .year, value: -10, to: Date())
@@ -33,6 +34,13 @@ class BirthdayViewController: UIViewController {
         updateDependingGender(madamColor: #colorLiteral(red: 0.8514410622, green: 0.2672892915, blue: 0.1639432118, alpha: 1), sirColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), sirLabel: "◯ Monsieur", madamLabel: "⬤ Madame", gender: "Femme")
     }
     
+    func convertDateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
     func updateDependingGender(madamColor: UIColor, sirColor: UIColor, sirLabel: String, madamLabel: String, gender: String){
         madamButton.setTitle(madamLabel, for: .normal)
         sirButton.setTitle(sirLabel, for: .normal)
@@ -44,7 +52,7 @@ class BirthdayViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.BirthDateSegue else {return}
         guard let cityVc = segue.destination as? LevelViewController else {return}
-        cityVc.birthDate = birthDate
+        cityVc.birthDate =  stringBirthDate
         cityVc.userGender = userGender
     }
     
@@ -60,6 +68,7 @@ class BirthdayViewController: UIViewController {
         print(birthdayDatePicker.date)
         let isValideAge = validateAge(birthDate: birthdayDatePicker.date)
         birthDate = birthdayDatePicker.date
+        stringBirthDate = convertDateToString(date: birthDate)
         if isValideAge {
             alertLabel.isHidden = true
         } else {

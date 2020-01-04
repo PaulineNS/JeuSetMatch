@@ -11,7 +11,7 @@ import Firebase
 
 class MailViewController: UIViewController {
     
-    var birthDate = Date()
+    var birthDate = ""
     var userGender = ""
     var userLevel = ""
     var userCity = ""

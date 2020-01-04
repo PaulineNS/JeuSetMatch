@@ -34,7 +34,7 @@ extension UITextField {
 
 class PseudoViewController: UIViewController {
     
-    var birthDate = Date()
+    var birthDate = ""
     var userGender = ""
     var userLevel = ""
     var userCity = ""

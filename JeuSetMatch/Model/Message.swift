@@ -19,7 +19,7 @@ struct User {
     let sexe: String
     let level: String
     let city: String
-    //let age: Date
+    let birthDate: String
 }
 
 // message. uid, content, createdat
