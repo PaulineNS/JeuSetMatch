@@ -18,20 +18,30 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var levelLabel: UILabel!
     @IBOutlet weak var pseudoLabel: UILabel!
     @IBOutlet weak var logOutBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var updateProfileButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.navigationItem.hidesBackButton = true
-        guard IsSegueFromSearch == true else {
-            loadCurrentUserInformations()
-            return
-        }
-        loadAnotherUserInformations()
+//        self.tabBarController?.navigationItem.hidesBackButton = true
+//        guard IsSegueFromSearch == true else {
+//            loadCurrentUserInformations()
+//            return
+//        }
+//        loadAnotherUserInformations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.navigationItem.rightBarButtonItem = logOutBarButtonItem
+        guard IsSegueFromSearch == true else {
+            loadCurrentUserInformations()
+            self.tabBarController?.navigationItem.hidesBackButton = true
+            self.tabBarController?.navigationItem.rightBarButtonItem = logOutBarButtonItem
+            updateProfileButton.setTitle("Modifier mon profil", for: .normal)
+            return
+        }
+        loadAnotherUserInformations()
+        updateProfileButton.setTitle("Contacter", for: .normal)
+
     }
         
     let db = Firestore.firestore()

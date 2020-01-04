@@ -35,6 +35,7 @@ class SearchViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.SearchToProfileSegue else { return }
         guard let pseudoVc = segue.destination as? ProfileViewController else {return}
+        pseudoVc.navigationItem.rightBarButtonItem = nil
         pseudoVc.userPseudo = userPseudo
         pseudoVc.IsSegueFromSearch = true
     }
@@ -50,7 +51,6 @@ class SearchViewController: UIViewController {
                     let data = doc.data()
                     guard let userName = data[K.FStore.userNameField] as? String, let userGender = data[K.FStore.userGenderField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userImageData = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
                     let newUser = User(pseudo: userName, image: userImageData, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate)
-                    //, age: userAge) image: userImage
                     self.users.append(newUser)
                     DispatchQueue.main.async {
                         self.usersTableView.reloadData()

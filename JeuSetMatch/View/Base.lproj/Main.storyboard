@@ -1143,6 +1143,7 @@
                         <outlet property="levelLabel" destination="BmK-pf-zwg" id="8rn-YL-THP"/>
                         <outlet property="logOutBarButtonItem" destination="naG-k3-07b" id="yNv-1l-EVR"/>
                         <outlet property="pseudoLabel" destination="PlH-l0-myc" id="RNX-NM-gLu"/>
+                        <outlet property="updateProfileButton" destination="SzG-YU-F8O" id="sOv-ev-Gjh"/>
                         <outlet property="userPictureImageView" destination="UhZ-oe-gfV" id="VdO-Iw-r1z"/>
                     </connections>
                 </viewController>
