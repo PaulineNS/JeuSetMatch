@@ -11,8 +11,8 @@ import Firebase
 
 class SearchViewController: UIViewController {
     
-    @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var usersTableView: UITableView!
+    @IBOutlet weak var filterBarButton: UIBarButtonItem!
     
     let db = Firestore.firestore()
     var users: [User] = []
@@ -20,11 +20,16 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarController?.navigationItem.hidesBackButton = true
+        self.tabBarController?.navigationItem.hidesBackButton = true
         usersTableView.dataSource = self
         usersTableView.delegate = self
         usersTableView.register(UINib(nibName: K.userCellNibName, bundle: nil), forCellReuseIdentifier: K.userCellIdentifier)
         loadUsers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.rightBarButtonItem = filterBarButton
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

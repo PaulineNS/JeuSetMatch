@@ -17,10 +17,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var levelLabel: UILabel!
     @IBOutlet weak var pseudoLabel: UILabel!
+    @IBOutlet weak var logOutBarButtonItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarController?.navigationItem.hidesBackButton = true
+        self.tabBarController?.navigationItem.hidesBackButton = true
         guard IsSegueFromSearch == true else {
             loadCurrentUserInformations()
             return
@@ -28,6 +29,11 @@ class ProfileViewController: UIViewController {
         loadAnotherUserInformations()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.rightBarButtonItem = logOutBarButtonItem
+    }
+        
     let db = Firestore.firestore()
     var IsSegueFromSearch = false
     var userPseudo = ""
@@ -104,7 +110,16 @@ class ProfileViewController: UIViewController {
     }
     
     
-    @IBAction func logOutPressed(_ sender: UIButton) {
+//    @IBAction func logOuPressed(_ sender: UIButton) {
+//        do {
+//            try Auth.auth().signOut()
+//            navigationController?.popToRootViewController(animated: true)
+//        } catch let signOutError as NSError {
+//            print ("Error signing out: %@", signOutError)
+//        }
+//    }
+    
+    @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
         do {
             try Auth.auth().signOut()
             navigationController?.popToRootViewController(animated: true)

@@ -1098,36 +1098,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G1u-Iy-l2L" userLabel="UpdateProfileView">
                                 <rect key="frame" x="0.0" y="704" width="414" height="70"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Fer-7d-Orc">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SzG-YU-F8O">
                                         <rect key="frame" x="20" y="10" width="374" height="50"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SzG-YU-F8O">
-                                                <rect key="frame" x="0.0" y="0.0" width="207" height="50"/>
-                                                <color key="backgroundColor" red="0.089183755219999994" green="0.2295971513" blue="0.2011210024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Modifier mon profil">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Os7-La-XMG">
-                                                <rect key="frame" x="222" y="0.0" width="152" height="50"/>
-                                                <color key="backgroundColor" red="0.089183755219999994" green="0.2295971513" blue="0.2011210024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Déconnexion">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="logOutPressed:" destination="1WO-o0-ut2" eventType="touchUpInside" id="L70-CO-442"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
+                                        <color key="backgroundColor" red="0.089183755219999994" green="0.2295971513" blue="0.2011210024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Modifier mon profil">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Fer-7d-Orc" firstAttribute="leading" secondItem="G1u-Iy-l2L" secondAttribute="leading" constant="20" id="G63-Pp-wZo"/>
-                                    <constraint firstAttribute="trailing" secondItem="Fer-7d-Orc" secondAttribute="trailing" constant="20" id="MXq-7X-PB5"/>
                                     <constraint firstAttribute="height" constant="70" id="WRI-Oy-Boz"/>
-                                    <constraint firstItem="Fer-7d-Orc" firstAttribute="top" secondItem="G1u-Iy-l2L" secondAttribute="top" constant="10" id="aaK-h5-gW3"/>
-                                    <constraint firstAttribute="bottom" secondItem="Fer-7d-Orc" secondAttribute="bottom" constant="10" id="p6b-zB-xRi"/>
+                                    <constraint firstAttribute="trailing" secondItem="SzG-YU-F8O" secondAttribute="trailing" constant="20" id="hsK-BT-c2Q"/>
+                                    <constraint firstItem="SzG-YU-F8O" firstAttribute="leading" secondItem="G1u-Iy-l2L" secondAttribute="leading" constant="20" id="ikP-M4-CmN"/>
+                                    <constraint firstItem="SzG-YU-F8O" firstAttribute="top" secondItem="G1u-Iy-l2L" secondAttribute="top" constant="10" id="lDc-IS-meo"/>
+                                    <constraint firstAttribute="bottom" secondItem="SzG-YU-F8O" secondAttribute="bottom" constant="10" id="lLg-86-sGf"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1144,11 +1129,19 @@
                         <viewLayoutGuide key="safeArea" id="nmH-L7-48J"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profil" image="profile" id="t7K-QA-WxP"/>
+                    <navigationItem key="navigationItem" id="fis-fC-hjt">
+                        <barButtonItem key="rightBarButtonItem" title="Déconnexion" id="naG-k3-07b">
+                            <connections>
+                                <action selector="logOutPressed:" destination="1WO-o0-ut2" id="gzZ-6e-fT3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="birthDateLabel" destination="sgY-zZ-N7c" id="3Vd-ll-9Er"/>
                         <outlet property="cityLabel" destination="PEX-ub-Zcl" id="ohq-iS-14f"/>
                         <outlet property="genderLabel" destination="tRB-sD-GbF" id="bFc-QK-E7y"/>
                         <outlet property="levelLabel" destination="BmK-pf-zwg" id="8rn-YL-THP"/>
+                        <outlet property="logOutBarButtonItem" destination="naG-k3-07b" id="yNv-1l-EVR"/>
                         <outlet property="pseudoLabel" destination="PlH-l0-myc" id="RNX-NM-gLu"/>
                         <outlet property="userPictureImageView" destination="UhZ-oe-gfV" id="VdO-Iw-r1z"/>
                     </connections>
@@ -1165,33 +1158,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYt-y9-5FE">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="zOj-Zs-YZh"/>
-                                </constraints>
-                                <state key="normal" title="Filtrer"/>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cxE-Jf-ESG">
-                                <rect key="frame" x="0.0" y="40" width="414" height="685"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cxE-Jf-ESG" firstAttribute="leading" secondItem="6eo-jg-MwJ" secondAttribute="leading" id="3Bz-5q-FO3"/>
-                            <constraint firstItem="AYt-y9-5FE" firstAttribute="top" secondItem="6eo-jg-MwJ" secondAttribute="top" id="5pd-7b-Lc1"/>
-                            <constraint firstItem="6eo-jg-MwJ" firstAttribute="trailing" secondItem="cxE-Jf-ESG" secondAttribute="trailing" id="64r-bU-cTr"/>
-                            <constraint firstItem="6eo-jg-MwJ" firstAttribute="trailing" secondItem="AYt-y9-5FE" secondAttribute="trailing" id="Ioe-C6-Yad"/>
-                            <constraint firstItem="cxE-Jf-ESG" firstAttribute="top" secondItem="AYt-y9-5FE" secondAttribute="bottom" id="Pup-0b-3pe"/>
-                            <constraint firstItem="AYt-y9-5FE" firstAttribute="leading" secondItem="6eo-jg-MwJ" secondAttribute="leading" id="oPO-jv-hJr"/>
-                            <constraint firstItem="6eo-jg-MwJ" firstAttribute="bottom" secondItem="cxE-Jf-ESG" secondAttribute="bottom" id="urg-yH-28v"/>
+                            <constraint firstItem="cxE-Jf-ESG" firstAttribute="trailing" secondItem="6eo-jg-MwJ" secondAttribute="trailing" id="C0k-b1-b7Q"/>
+                            <constraint firstItem="cxE-Jf-ESG" firstAttribute="top" secondItem="6eo-jg-MwJ" secondAttribute="top" id="PMa-nJ-af3"/>
+                            <constraint firstItem="cxE-Jf-ESG" firstAttribute="bottom" secondItem="6eo-jg-MwJ" secondAttribute="bottom" id="YPs-JI-0RJ"/>
+                            <constraint firstItem="cxE-Jf-ESG" firstAttribute="leading" secondItem="6eo-jg-MwJ" secondAttribute="leading" id="xt6-Iy-8kf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6eo-jg-MwJ"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Chercher" image="search" id="ufc-tA-MCg"/>
+                    <navigationItem key="navigationItem" id="XCa-Jx-lbl">
+                        <barButtonItem key="rightBarButtonItem" title="Filtrer" id="lpA-fv-XXQ"/>
+                    </navigationItem>
                     <connections>
-                        <outlet property="filterButton" destination="AYt-y9-5FE" id="Ktc-CX-CNp"/>
+                        <outlet property="filterBarButton" destination="lpA-fv-XXQ" id="Lxl-li-15V"/>
                         <outlet property="usersTableView" destination="cxE-Jf-ESG" id="k9y-Ip-pmq"/>
                         <segue destination="1WO-o0-ut2" kind="show" identifier="SearchToProfile" id="F9L-oe-HuP"/>
                     </connections>
