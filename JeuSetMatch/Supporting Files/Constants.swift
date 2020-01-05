@@ -9,8 +9,8 @@
 struct K {
     static let appName = "🎾Jeu Set & Match"
 
-    static let messageCellIdentifier = "MessageCell"
-    static let messageCellNibName = "MessageTableViewCell"
+    static let chatCellIdentifier = "ChatCell"
+    static let chatCellNibName = "ChatTableViewCell"
     static let userCellIdentifier = "UserCell"
     static let userCellNibName = "UserTableViewCell"
     static let cityCellIdentifier = "CityCell"

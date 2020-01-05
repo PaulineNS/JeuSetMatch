@@ -13,6 +13,9 @@
 		562CE39023BB55BB0075A8AA /* LevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38F23BB55BB0075A8AA /* LevelViewController.swift */; };
 		562CE39223BB5A550075A8AA /* PseudoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE39123BB5A550075A8AA /* PseudoViewController.swift */; };
 		5645369E23BF5285005A26B5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645369D23BF5285005A26B5 /* ProfileViewController.swift */; };
+		564536A023C20CE4005A26B5 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645369F23C20CE4005A26B5 /* MessagesViewController.swift */; };
+		564536A423C20FD2005A26B5 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */; };
+		564536A523C20FD2005A26B5 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 564536A323C20FD2005A26B5 /* MessagesTableViewCell.xib */; };
 		5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5699AE6923BBAA1200C61058 /* CitiesViewController.swift */; };
 		56DC0BE623A90968003A0DC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DC0BE523A90968003A0DC6 /* AppDelegate.swift */; };
 		56DC0BEB23A90969003A0DC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56DC0BE923A90969003A0DC6 /* Main.storyboard */; };
@@ -27,8 +30,8 @@
 		56E8B16D23AE5B0C007B4BC1 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E8B16C23AE5B0C007B4BC1 /* ChatViewController.swift */; };
 		56E8B16F23B0E824007B4BC1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E8B16E23B0E824007B4BC1 /* Constants.swift */; };
 		56E8B17123B4027A007B4BC1 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E8B17023B4027A007B4BC1 /* Message.swift */; };
-		56E8B17423B52E6B007B4BC1 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E8B17223B52E6B007B4BC1 /* MessageTableViewCell.swift */; };
-		56E8B17523B52E6B007B4BC1 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56E8B17323B52E6B007B4BC1 /* MessageTableViewCell.xib */; };
+		56E8B17423B52E6B007B4BC1 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E8B17223B52E6B007B4BC1 /* ChatTableViewCell.swift */; };
+		56E8B17523B52E6B007B4BC1 /* ChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56E8B17323B52E6B007B4BC1 /* ChatTableViewCell.xib */; };
 		56E8B17723BA4B38007B4BC1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E8B17623BA4B37007B4BC1 /* SearchViewController.swift */; };
 		56E8B17A23BA4B61007B4BC1 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E8B17823BA4B61007B4BC1 /* UserTableViewCell.swift */; };
 		56E8B17B23BA4B61007B4BC1 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56E8B17923BA4B61007B4BC1 /* UserTableViewCell.xib */; };
@@ -52,6 +55,9 @@
 		562CE38F23BB55BB0075A8AA /* LevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelViewController.swift; sourceTree = "<group>"; };
 		562CE39123BB5A550075A8AA /* PseudoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PseudoViewController.swift; sourceTree = "<group>"; };
 		5645369D23BF5285005A26B5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		5645369F23C20CE4005A26B5 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
+		564536A323C20FD2005A26B5 /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
 		5699AE6923BBAA1200C61058 /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		56DC0BE223A90968003A0DC6 /* JeuSetMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JeuSetMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DC0BE523A90968003A0DC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,8 +76,8 @@
 		56E8B16C23AE5B0C007B4BC1 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		56E8B16E23B0E824007B4BC1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		56E8B17023B4027A007B4BC1 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		56E8B17223B52E6B007B4BC1 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
-		56E8B17323B52E6B007B4BC1 /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
+		56E8B17223B52E6B007B4BC1 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		56E8B17323B52E6B007B4BC1 /* ChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatTableViewCell.xib; sourceTree = "<group>"; };
 		56E8B17623BA4B37007B4BC1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		56E8B17823BA4B61007B4BC1 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		56E8B17923BA4B61007B4BC1 /* UserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
@@ -109,6 +115,19 @@
 				E0205500E07E7A09B5C17306 /* Pods_JeuSetMatchTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		564536A123C20F75005A26B5 /* RegisterControllers */ = {
+			isa = PBXGroup;
+			children = (
+				56DC0C1823ABC4D4003A0DC6 /* RegisterViewController.swift */,
+				562CE38D23BB50CB0075A8AA /* BirthdayViewController.swift */,
+				562CE38F23BB55BB0075A8AA /* LevelViewController.swift */,
+				5699AE6923BBAA1200C61058 /* CitiesViewController.swift */,
+				562CE39123BB5A550075A8AA /* PseudoViewController.swift */,
+				562CE38923BB50590075A8AA /* MailViewController.swift */,
+			);
+			path = RegisterControllers;
 			sourceTree = "<group>";
 		};
 		56DC0BD923A90968003A0DC6 = {
@@ -156,13 +175,9 @@
 			children = (
 				56DC0C0D23A909CB003A0DC6 /* WelcomeViewController.swift */,
 				56DC0C1623ABC4AE003A0DC6 /* LoginViewController.swift */,
-				56DC0C1823ABC4D4003A0DC6 /* RegisterViewController.swift */,
-				562CE38D23BB50CB0075A8AA /* BirthdayViewController.swift */,
-				562CE38F23BB55BB0075A8AA /* LevelViewController.swift */,
-				5699AE6923BBAA1200C61058 /* CitiesViewController.swift */,
-				562CE39123BB5A550075A8AA /* PseudoViewController.swift */,
-				562CE38923BB50590075A8AA /* MailViewController.swift */,
+				564536A123C20F75005A26B5 /* RegisterControllers */,
 				56E8B17623BA4B37007B4BC1 /* SearchViewController.swift */,
+				5645369F23C20CE4005A26B5 /* MessagesViewController.swift */,
 				56E8B16C23AE5B0C007B4BC1 /* ChatViewController.swift */,
 				5645369D23BF5285005A26B5 /* ProfileViewController.swift */,
 			);
@@ -173,10 +188,12 @@
 			isa = PBXGroup;
 			children = (
 				56DC0BE923A90969003A0DC6 /* Main.storyboard */,
-				56E8B17223B52E6B007B4BC1 /* MessageTableViewCell.swift */,
-				56E8B17323B52E6B007B4BC1 /* MessageTableViewCell.xib */,
+				56E8B17223B52E6B007B4BC1 /* ChatTableViewCell.swift */,
+				56E8B17323B52E6B007B4BC1 /* ChatTableViewCell.xib */,
 				56E8B17823BA4B61007B4BC1 /* UserTableViewCell.swift */,
 				56E8B17923BA4B61007B4BC1 /* UserTableViewCell.xib */,
+				564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */,
+				564536A323C20FD2005A26B5 /* MessagesTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -301,9 +318,10 @@
 			files = (
 				56DC0BF323A9096D003A0DC6 /* LaunchScreen.storyboard in Resources */,
 				56DC0C1323AB7E31003A0DC6 /* GoogleService-Info.plist in Resources */,
-				56E8B17523B52E6B007B4BC1 /* MessageTableViewCell.xib in Resources */,
+				56E8B17523B52E6B007B4BC1 /* ChatTableViewCell.xib in Resources */,
 				56DC0BF023A9096D003A0DC6 /* Assets.xcassets in Resources */,
 				56E8B17B23BA4B61007B4BC1 /* UserTableViewCell.xib in Resources */,
+				564536A523C20FD2005A26B5 /* MessagesTableViewCell.xib in Resources */,
 				56DC0BEB23A90969003A0DC6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,11 +424,13 @@
 				56E8B16D23AE5B0C007B4BC1 /* ChatViewController.swift in Sources */,
 				56DC0C1723ABC4AE003A0DC6 /* LoginViewController.swift in Sources */,
 				56E8B17A23BA4B61007B4BC1 /* UserTableViewCell.swift in Sources */,
-				56E8B17423B52E6B007B4BC1 /* MessageTableViewCell.swift in Sources */,
+				564536A423C20FD2005A26B5 /* MessagesTableViewCell.swift in Sources */,
+				56E8B17423B52E6B007B4BC1 /* ChatTableViewCell.swift in Sources */,
 				562CE39223BB5A550075A8AA /* PseudoViewController.swift in Sources */,
 				5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */,
 				56DC0C1923ABC4D4003A0DC6 /* RegisterViewController.swift in Sources */,
 				5645369E23BF5285005A26B5 /* ProfileViewController.swift in Sources */,
+				564536A023C20CE4005A26B5 /* MessagesViewController.swift in Sources */,
 				562CE38A23BB50590075A8AA /* MailViewController.swift in Sources */,
 				562CE38E23BB50CB0075A8AA /* BirthdayViewController.swift in Sources */,
 				56DC0C0E23A909CB003A0DC6 /* WelcomeViewController.swift in Sources */,

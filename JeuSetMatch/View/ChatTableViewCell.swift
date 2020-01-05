@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageTableViewCell: UITableViewCell {
+class ChatTableViewCell: UITableViewCell {
 
     @IBOutlet weak var messageBubble: UIView!
     @IBOutlet weak var messageLabel: UILabel!

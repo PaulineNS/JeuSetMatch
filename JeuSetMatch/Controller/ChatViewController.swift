@@ -11,8 +11,8 @@ import Firebase
 
 class ChatViewController: UIViewController {
     
-    @IBOutlet weak var messagesTableView: UITableView!
-    @IBOutlet weak var messageTextField: UITextField!
+    @IBOutlet weak var chatTableView: UITableView!
+    @IBOutlet weak var chatTextField: UITextField!
     
     let db = Firestore.firestore()
     var messages: [Message] = []
@@ -20,8 +20,8 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.navigationItem.hidesBackButton = true
-        messagesTableView.dataSource = self
-        messagesTableView.register(UINib(nibName: K.messageCellNibName, bundle: nil), forCellReuseIdentifier: K.messageCellIdentifier)
+        chatTableView.dataSource = self
+        chatTableView.register(UINib(nibName: K.chatCellNibName, bundle: nil), forCellReuseIdentifier: K.chatCellIdentifier)
         loadMessages()
     }
     
@@ -45,9 +45,9 @@ class ChatViewController: UIViewController {
                     let newMessage = Message(sender: messageSender, body: messageBody)
                     self.messages.append(newMessage)
                     DispatchQueue.main.async {
-                        self.messagesTableView.reloadData()
+                        self.chatTableView.reloadData()
                         let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
-                        self.messagesTableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                        self.chatTableView.scrollToRow(at: indexPath, at: .top, animated: false)
                     }
                 }
             }
@@ -55,7 +55,7 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
-        guard let userUid = Auth.auth().currentUser?.uid, let messageBody = messageTextField.text, let messageSender = Auth.auth().currentUser?.email else {
+        guard let userUid = Auth.auth().currentUser?.uid, let messageBody = chatTextField.text, let messageSender = Auth.auth().currentUser?.email else {
             return
         }
         
@@ -68,7 +68,7 @@ class ChatViewController: UIViewController {
                 guard let e = error else {
                     print("Successfully saved data.")
                     DispatchQueue.main.async {
-                        self.messageTextField.text = ""
+                        self.chatTextField.text = ""
                     }
                     return
                 }
@@ -95,7 +95,7 @@ extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.messageCellIdentifier, for: indexPath) as? MessageTableViewCell else { return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.chatCellIdentifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell()}
         
         cell.messageLabel.text = message.body
         

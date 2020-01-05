@@ -63,29 +63,4 @@ class MailViewController: UIViewController {
             }
         }
     }
-    
-    
-    
-    
-    //                self.db.collection(K.FStore.userCollectionName).addDocument(data: [
-    //                    K.FStore.userAgeField: self.birthDate,
-    //                    K.FStore.userGenderField: self.userGender,
-    //                    K.FStore.userLevelField: self.userLevel,
-    //                    K.FStore.userCityField: self.userCity,
-    //                    K.FStore.userNameField: self.userPseudo,
-    //                    K.FStore.userPictureField: imageData,
-    //                    K.FStore.userUidField: userUid
-    //                ]) { (error) in
-    //                    guard let e = error else {
-    //                        DispatchQueue.main.async {
-    //                            print("Successfully saved data.")
-    //                            self.performSegue(withIdentifier: K.registerSegue, sender: self)
-    //                        }
-    //                        return
-    //                    }
-    //                    print("There was an issue saving data to firestore, \(e)")
-    //                }
-    //            }
-    //        }
-    //    }
 }

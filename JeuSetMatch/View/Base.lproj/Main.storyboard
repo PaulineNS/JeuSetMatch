@@ -1253,13 +1253,28 @@
                     <tabBarItem key="tabBarItem" title="Messages" image="message" id="XIU-k2-jo8"/>
                     <navigationItem key="navigationItem" id="yRh-w3-6CD"/>
                     <connections>
-                        <outlet property="messageTextField" destination="cE0-PY-nXv" id="cTj-T6-ddq"/>
-                        <outlet property="messagesTableView" destination="mhT-SP-zzi" id="mkb-yu-X93"/>
+                        <outlet property="chatTableView" destination="mhT-SP-zzi" id="mkb-yu-X93"/>
+                        <outlet property="chatTextField" destination="cE0-PY-nXv" id="cTj-T6-ddq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pa1-NA-dCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="7857" y="378"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="vRU-zL-4Ut">
+            <objects>
+                <viewController id="dGv-Hm-abx" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rhM-Vm-NaB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="GdF-r7-7Cx"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WbA-ID-nNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8570" y="382"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="EvB-TU-juD">
