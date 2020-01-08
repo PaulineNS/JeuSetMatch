@@ -19,14 +19,22 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var pseudoLabel: UILabel!
     @IBOutlet weak var logOutBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var updateProfileButton: UIButton!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    var currentUser: User?
+
     @IBAction func buttomButtonPressed(_ sender: UIButton) {
         guard sender.currentTitle == "Contacter" else {return}
         performSegue(withIdentifier: K.ProfileToChatSegue, sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == K.ProfileToChatSegue else {return}
+        guard let chatVc = segue.destination as? ChatViewController else {return}
+        chatVc.receiverPseudo.title = pseudoLabel.text
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,16 +48,16 @@ class ProfileViewController: UIViewController {
         }
         loadAnotherUserInformations()
         updateProfileButton.setTitle("Contacter", for: .normal)
-
-    }
         
+    }
+    
     let db = Firestore.firestore()
     var IsSegueFromSearch = false
     var userPseudo = ""
     var userInformations: [User] = []
     
     func loadAnotherUserInformations() {
-        db.collection(K.FStore.userCollectionName).whereField(K.FStore.userNameField, isEqualTo: userPseudo).addSnapshotListener { (querySnapshot, error) in
+        db.collection(K.FStore.userCollectionName).whereField(K.FStore.userPseudoField, isEqualTo: userPseudo).addSnapshotListener { (querySnapshot, error) in
             self.userInformations = []
             if let e = error {
                 print("There was an issue retrieving data from Firestore. \(e)")
@@ -57,7 +65,7 @@ class ProfileViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userPseudo = data[K.FStore.userNameField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let imageData = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
+                    guard let userPseudo = data[K.FStore.userPseudoField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let imageData = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
                     let user = User(pseudo: userPseudo, image: imageData, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate)
                     self.userInformations.append(user)
                     let stringDate = self.stringToDate(dateString: userBirthDate)
@@ -100,7 +108,7 @@ class ProfileViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userPseudo = data[K.FStore.userNameField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userPicture = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
+                    guard let userPseudo = data[K.FStore.userPseudoField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userPicture = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
                     let user = User(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate)
                     self.userInformations.append(user)
                     let stringDate = self.stringToDate(dateString: userBirthDate)

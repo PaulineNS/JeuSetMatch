@@ -17,6 +17,7 @@ class SearchViewController: UIViewController {
     let db = Firestore.firestore()
     var users: [User] = []
     var userPseudo = ""
+    var currentUser: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class SearchViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userName = data[K.FStore.userNameField] as? String, let userGender = data[K.FStore.userGenderField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userImageData = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
+                    guard let userName = data[K.FStore.userPseudoField] as? String, let userGender = data[K.FStore.userGenderField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userImageData = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
                     let newUser = User(pseudo: userName, image: userImageData, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate)
                     self.users.append(newUser)
                     DispatchQueue.main.async {

@@ -47,7 +47,7 @@ class MailViewController: UIViewController {
                     K.FStore.userGenderField: self.userGender,
                     K.FStore.userLevelField: self.userLevel,
                     K.FStore.userCityField: self.userCity,
-                    K.FStore.userNameField: self.userPseudo,
+                    K.FStore.userPseudoField: self.userPseudo,
                     K.FStore.userPictureField: self.userPicture,
                     K.FStore.userUidField: userUid
                     ], completion: { (error) in

@@ -42,7 +42,7 @@ class RegisterViewController: UIViewController {
                 guard let userUid = Auth.auth().currentUser?.uid ,let userName = self.name.text, let userGender = self.gender.text, let userLevel = self.level.text, let userImage = self.image.text, let userCity = self.city.text, let userAge = self.age.text else {return}
                 
                 self.db.collection(K.FStore.userCollectionName).addDocument(data: [
-                    K.FStore.userNameField: userName,
+                    K.FStore.userPseudoField: userName,
                     K.FStore.userCityField: userCity,
                     K.FStore.userLevelField: userLevel,
                     K.FStore.userPictureField: userImage,

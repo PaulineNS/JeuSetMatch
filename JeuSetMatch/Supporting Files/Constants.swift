@@ -13,6 +13,8 @@ struct K {
     static let chatCellNibName = "ChatTableViewCell"
     static let userCellIdentifier = "UserCell"
     static let userCellNibName = "UserTableViewCell"
+    static let messagesCellIdentifier = "MessagesCell"
+    static let messagesCellNibName = "MessagesTableViewCell"
     static let cityCellIdentifier = "CityCell"
     
     static let registerSegue = "FromRegisterToSearch"
@@ -27,7 +29,7 @@ struct K {
     struct FStore {
         static let messagesCollectionName = "messages"
         static let userCollectionName = "users"
-        static let userNameField = "userName"
+        static let userPseudoField = "userName"
         static let userAgeField = "userAge"
         static let userLevelField = "userLevel"
         static let userCityField = "userCity"
@@ -37,5 +39,6 @@ struct K {
         static let senderField = "sender"
         static let bodyField = "body"
         static let dateField = "date"
+        static let receiverPseudoField = "receiverPseudo"
     }
 }

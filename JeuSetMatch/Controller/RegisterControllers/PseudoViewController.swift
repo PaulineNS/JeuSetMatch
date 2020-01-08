@@ -16,14 +16,14 @@ extension UITextField {
     func checkPseudo(field: String, completion: @escaping (Bool) -> Void) {
         let db = Firestore.firestore()
         let collectionRef = db.collection(K.FStore.userCollectionName)
-        collectionRef.whereField(K.FStore.userNameField, isEqualTo: field).getDocuments { (snapshot, error) in
+        collectionRef.whereField(K.FStore.userPseudoField, isEqualTo: field).getDocuments { (snapshot, error) in
             if let e = error {
                 print("Error getting document: \(e)")
             } else if (snapshot?.isEmpty)! {
                 completion(false)
             } else {
                 for document in (snapshot?.documents)! {
-                    if document.data()[K.FStore.userNameField] != nil {
+                    if document.data()[K.FStore.userPseudoField] != nil {
                         completion(true)
                     }
                 }

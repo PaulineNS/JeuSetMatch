@@ -13,9 +13,11 @@ class ChatViewController: UIViewController {
     
     @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var chatTextField: UITextField!
+    @IBOutlet weak var receiverPseudo: UINavigationItem!
     
     let db = Firestore.firestore()
     var messages: [Message] = []
+    var currentUser: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,8 @@ class ChatViewController: UIViewController {
     
     func loadMessages() {
         db.collection(K.FStore.messagesCollectionName)
+            .whereField(K.FStore.userPseudoField, isEqualTo: currentUser?.pseudo as Any)
+            .whereField(K.FStore.receiverPseudoField, isEqualTo: receiverPseudo.title as Any)
             .order(by: K.FStore.dateField)
             .addSnapshotListener { (querySnapshot, error) in
             self.messages = []
@@ -41,8 +45,8 @@ class ChatViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let messageSender = data[K.FStore.senderField] as? String, let messageBody = data[K.FStore.bodyField] as? String else { return }
-                    let newMessage = Message(sender: messageSender, body: messageBody)
+                    guard let messageSender = data[K.FStore.userPseudoField] as? String, let messageBody = data[K.FStore.bodyField] as? String, let receiverPseudo = data[K.FStore.receiverPseudoField] as? String else { return }
+                    let newMessage = Message(senderPseudo: messageSender, body: messageBody, receiverPseudo: receiverPseudo)
                     self.messages.append(newMessage)
                     DispatchQueue.main.async {
                         self.chatTableView.reloadData()
@@ -55,15 +59,16 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
-        guard let userUid = Auth.auth().currentUser?.uid, let messageBody = chatTextField.text, let messageSender = Auth.auth().currentUser?.email else {
+        guard let userUid = Auth.auth().currentUser?.uid, let messageBody = chatTextField.text, let receiverPseudo = receiverPseudo.title, let userPseudo = currentUser?.pseudo else {
             return
         }
         
         db.collection(K.FStore.messagesCollectionName).addDocument(data: [
-            K.FStore.senderField: messageSender,
             K.FStore.bodyField: messageBody,
             K.FStore.dateField: Date().timeIntervalSince1970,
-            K.FStore.userUidField: userUid
+            K.FStore.userUidField: userUid,
+            K.FStore.receiverPseudoField: receiverPseudo,
+            K.FStore.userPseudoField: userPseudo
         ]) { (error) in
                 guard let e = error else {
                     print("Successfully saved data.")
@@ -99,7 +104,7 @@ extension ChatViewController: UITableViewDataSource {
         
         cell.messageLabel.text = message.body
         
-        guard message.sender == Auth.auth().currentUser?.email else {
+        guard message.receiverPseudo == Auth.auth().currentUser?.uid else {
             cell.leftAvatarImageView.isHidden = false
             cell.rightAvatarImageView.isHidden = true
             cell.messageBubble.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
