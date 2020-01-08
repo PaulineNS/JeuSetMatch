@@ -72,7 +72,7 @@ extension SearchViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: K.userCellIdentifier, for: indexPath) as? UserTableViewCell else { return UITableViewCell()}
         
         cell.userName.text = user.pseudo
-        cell.userImage.image = UIImage(data: user.image)
+        cell.userImage.image = UIImage(data: user.image ?? Data())
         
         return cell
     }
@@ -81,7 +81,7 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
-        self.userPseudo = user.pseudo
+        self.userPseudo = user.pseudo ?? ""
         performSegue(withIdentifier: K.SearchToProfileSegue, sender: nil)
     }
 }

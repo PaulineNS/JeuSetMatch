@@ -10,6 +10,11 @@ import UIKit
 
 class MessagesTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var profileUserImageView: UIImageView!
+    @IBOutlet weak var pseudoUserLabel: UILabel!
+    @IBOutlet weak var lastMessage: UITextView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

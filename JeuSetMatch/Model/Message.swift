@@ -13,13 +13,4 @@ struct Message {
     let body: String
 }
 
-struct User {
-    let pseudo: String
-    let image: Data
-    let sexe: String
-    let level: String
-    let city: String
-    let birthDate: String
-}
 
-// message. uid, content, createdat

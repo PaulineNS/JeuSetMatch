@@ -17,6 +17,7 @@
 		564536A423C20FD2005A26B5 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */; };
 		564536A523C20FD2005A26B5 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 564536A323C20FD2005A26B5 /* MessagesTableViewCell.xib */; };
 		5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5699AE6923BBAA1200C61058 /* CitiesViewController.swift */; };
+		56AFDE2A23C4DF6F00B215DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AFDE2923C4DF6E00B215DC /* User.swift */; };
 		56DC0BE623A90968003A0DC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DC0BE523A90968003A0DC6 /* AppDelegate.swift */; };
 		56DC0BEB23A90969003A0DC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56DC0BE923A90969003A0DC6 /* Main.storyboard */; };
 		56DC0BEE23A90969003A0DC6 /* JeuSetMatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 56DC0BEC23A90969003A0DC6 /* JeuSetMatch.xcdatamodeld */; };
@@ -59,6 +60,7 @@
 		564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 		564536A323C20FD2005A26B5 /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
 		5699AE6923BBAA1200C61058 /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
+		56AFDE2923C4DF6E00B215DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		56DC0BE223A90968003A0DC6 /* JeuSetMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JeuSetMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DC0BE523A90968003A0DC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56DC0BEA23A90969003A0DC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			children = (
 				56DC0BEC23A90969003A0DC6 /* JeuSetMatch.xcdatamodeld */,
 				56E8B17023B4027A007B4BC1 /* Message.swift */,
+				56AFDE2923C4DF6E00B215DC /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				56E8B17A23BA4B61007B4BC1 /* UserTableViewCell.swift in Sources */,
 				564536A423C20FD2005A26B5 /* MessagesTableViewCell.swift in Sources */,
 				56E8B17423B52E6B007B4BC1 /* ChatTableViewCell.swift in Sources */,
+				56AFDE2A23C4DF6F00B215DC /* User.swift in Sources */,
 				562CE39223BB5A550075A8AA /* PseudoViewController.swift in Sources */,
 				5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */,
 				56DC0C1923ABC4D4003A0DC6 /* RegisterViewController.swift in Sources */,

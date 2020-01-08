@@ -156,10 +156,14 @@ class PseudoViewController: UIViewController {
                 PHPhotoLibrary.requestAuthorization { (status) in
                     switch status {
                     case .authorized:
-                        self.authorizedAccessToPhotoLibrary()
+                        DispatchQueue.main.async {
+                            self.authorizedAccessToPhotoLibrary()
+                        }
                     case .notDetermined:
                         if status == PHAuthorizationStatus.authorized {
-                            self.authorizedAccessToPhotoLibrary()
+                            DispatchQueue.main.async {
+                                self.authorizedAccessToPhotoLibrary()
+                            }
                         }
                     case .restricted:
                         self.showRestrictedAlertForPhotoLibrary()
