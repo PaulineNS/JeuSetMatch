@@ -25,6 +25,7 @@ struct K {
     static let PseudoToMailSegue = "PseudoToMail"
     static let SearchToProfileSegue = "SearchToProfile"
     static let ProfileToChatSegue = "ProfileToChat"
+    static let MessagesToChatSegue = "MessagesToChat"
     
     struct FStore {
         static let messagesCollectionName = "messages"

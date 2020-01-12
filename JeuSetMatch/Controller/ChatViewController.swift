@@ -107,13 +107,17 @@ class ChatViewController: UIViewController, UITableViewDataSource {
                             if message.chatPartnerId() == self.user?.uid {
                                 print("what")
                                 self.messages.append(message)
+                                
+                                self.messages.sort { (message1, message2) -> Bool in
+                                    return Int32(truncating: message1.timestamp!) < Int32(truncating: message2.timestamp!)
+                                }
+                                
                                 print(self.messages)
                                 
                                 DispatchQueue.main.async {
                                     self.chatTableView.reloadData()
                                     let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
                                     self.chatTableView.scrollToRow(at: indexPath, at: .top, animated: false)
-//                                    self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
                                 }
                             }
                         })

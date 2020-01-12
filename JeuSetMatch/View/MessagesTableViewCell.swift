@@ -13,54 +13,54 @@ class MessagesTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileUserImageView: UIImageView!
     @IBOutlet weak var pseudoUserLabel: UILabel!
-    @IBOutlet weak var lastMessage: UITextView!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var lastMessageLabel: UILabel!
     
+    let db = Firestore.firestore()
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//    }
 
     var message : Message? {
         didSet {
             setupNameAndProfileImage()
-            lastMessage.text = message?.text
+            lastMessageLabel.text = message?.text
             
-            guard let double: Double? = Double(truncating: message!.timestamp!) else {return}
-            if let seconds = double {
-                let date = Date(timeIntervalSince1970: seconds)
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "hh:mm:ss a"
-                timeLabel.text = dateFormatter.string(from: date)
+            let timestamp = message?.timestamp
+            let date = Date(timeIntervalSince1970: timestamp as! TimeInterval)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = TimeZone(abbreviation: "CEST")
+            dateFormatter.locale = NSLocale.current
+            dateFormatter.dateFormat = "dd-MM-yyyy"
+            let strDate = dateFormatter.string(from: date)
+            timeLabel.text = strDate
             }
-            
-            
         }
-        
-    }
     
     private func setupNameAndProfileImage() {
         
         if let id = message?.chatPartnerId() {
             print("got it")
             print(id)
-            let ref = Firestore.firestore().collection("users").document("\(id)")
-            ref.getDocument(source: .default) { (snapshot, error) in
+            
+            db.collection("users").document("\(id)").getDocument(source: .default) { (snapshot, error) in
                 if let error = error {
                     print(error)
                 }
                 if let dictionary = snapshot?.data() {
                     print(dictionary)
+
                     self.pseudoUserLabel.text = dictionary["userName"] as? String
                     
-//                    if let profileImageUrl = dictionary["profileImageUrl"] as? String {
-//                        self.profileUserImageView.loadImageUsingCacheWithUrlString(urlString: profileImageUrl)
-//                    }
+                    if let profileImage = dictionary["userImage"] as? Data {
+                        self.profileUserImageView.image = UIImage(data: profileImage)
+                    }
                 }
             }
         }
