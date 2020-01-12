@@ -17,6 +17,7 @@ class SearchViewController: UIViewController {
     let db = Firestore.firestore()
     var users: [User] = []
     var userPseudo = ""
+    
     var currentUser: User?
     
     override func viewDidLoad() {
@@ -25,37 +26,41 @@ class SearchViewController: UIViewController {
         usersTableView.dataSource = self
         usersTableView.delegate = self
         usersTableView.register(UINib(nibName: K.userCellNibName, bundle: nil), forCellReuseIdentifier: K.userCellIdentifier)
-        loadUsers()
+        print("Searchvc", currentUser?.birthDate as Any)
+        print("Searchvc", currentUser?.city as Any)
+        fetchUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.rightBarButtonItem = filterBarButton
+        print("Searchvc", currentUser?.birthDate as Any)
+        print("Searchvc", currentUser?.city as Any)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.SearchToProfileSegue else { return }
         guard let pseudoVc = segue.destination as? ProfileViewController else {return}
         pseudoVc.navigationItem.rightBarButtonItem = nil
+        pseudoVc.currentUser = currentUser
         pseudoVc.userPseudo = userPseudo
         pseudoVc.IsSegueFromSearch = true
     }
     
-    func loadUsers(){
-        db.collection(K.FStore.userCollectionName).addSnapshotListener { (querySnapshot, error) in
-            self.users = []
-            if let e = error {
-                print("There was an issue retrieving data from Firestore. \(e)")
+    func fetchUser() {
+        db.collection("users").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
             } else {
-                guard let snapshotDocuments = querySnapshot?.documents else {return}
-                for doc in snapshotDocuments {
-                    let data = doc.data()
-                    guard let userName = data[K.FStore.userPseudoField] as? String, let userGender = data[K.FStore.userGenderField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userImageData = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
-                    let newUser = User(pseudo: userName, image: userImageData, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate)
-                    self.users.append(newUser)
+                for document in querySnapshot!.documents {
+                    let data = document.data()
+                    let user = User(pseudo: data["userName"] as? String, image: data["userImage"] as? Data, sexe: data["userGender"] as? String, level: data["userLevel"] as? String, city: data["userCity"] as? String, birthDate: data["userAge"] as? String, uid: document.documentID)
+                    self.users.append(user)
+                    
                     DispatchQueue.main.async {
                         self.usersTableView.reloadData()
                     }
+                    
                 }
             }
         }
@@ -83,6 +88,7 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
         self.userPseudo = user.pseudo ?? ""
+        self.currentUser = user
         performSegue(withIdentifier: K.SearchToProfileSegue, sender: nil)
     }
 }

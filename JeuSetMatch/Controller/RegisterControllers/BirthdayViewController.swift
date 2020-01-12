@@ -14,7 +14,7 @@ class BirthdayViewController: UIViewController {
     @IBOutlet weak var sirButton: UIButton!
     @IBOutlet weak var birthdayDatePicker: UIDatePicker!
     @IBOutlet weak var alertLabel: UILabel!
-    
+        
     var birthDate = Date()
     var stringBirthDate = ""
     var userGender = "Femme"
@@ -51,9 +51,8 @@ class BirthdayViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.BirthDateSegue else {return}
-        guard let cityVc = segue.destination as? LevelViewController else {return}
-        cityVc.birthDate =  stringBirthDate
-        cityVc.userGender = userGender
+        guard let levelVc = segue.destination as? LevelViewController else {return}
+        levelVc.currentUser = User(pseudo: nil, image: nil, sexe: userGender, level: nil, city: nil, birthDate: stringBirthDate, uid: nil)
     }
     
     @IBAction func madamButtonSelected(_ sender: UIButton) {

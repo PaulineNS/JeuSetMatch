@@ -15,4 +15,5 @@ struct User {
     let level: String?
     let city: String?
     let birthDate: String?
+    let uid: String?
 }

@@ -22,6 +22,8 @@ class ProfileViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("profilevc", currentUser?.birthDate as Any)
+        print("profilevc", currentUser?.city as Any)
     }
     
     var currentUser: User?
@@ -34,11 +36,13 @@ class ProfileViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.ProfileToChatSegue else {return}
         guard let chatVc = segue.destination as? ChatViewController else {return}
-        chatVc.receiverPseudo.title = pseudoLabel.text
+        chatVc.user = User(pseudo: currentUser?.pseudo, image: currentUser?.image, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: currentUser?.uid)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("profilevc", currentUser?.birthDate as Any)
+        print("profilevc", currentUser?.city as Any)
         guard IsSegueFromSearch == true else {
             loadCurrentUserInformations()
             self.tabBarController?.navigationItem.hidesBackButton = true
@@ -65,8 +69,8 @@ class ProfileViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userPseudo = data[K.FStore.userPseudoField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let imageData = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
-                    let user = User(pseudo: userPseudo, image: imageData, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate)
+                    guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let imageData = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String else {return}
+                    let user = User(pseudo: userPseudo, image: imageData, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: "")
                     self.userInformations.append(user)
                     let stringDate = self.stringToDate(dateString: userBirthDate)
                     let userAge = self.dateToAge(birthDate: stringDate)
@@ -100,7 +104,7 @@ class ProfileViewController: UIViewController {
     }
     
     func loadCurrentUserInformations() {
-        db.collection(K.FStore.userCollectionName).whereField(K.FStore.userUidField, isEqualTo: Auth.auth().currentUser?.uid as Any).addSnapshotListener { (querySnapshot, error) in
+        db.collection(K.FStore.userCollectionName).whereField("userUid", isEqualTo: Auth.auth().currentUser?.uid as Any).addSnapshotListener { (querySnapshot, error) in
             self.userInformations = []
             if let e = error {
                 print("There was an issue retrieving data from Firestore. \(e)")
@@ -108,8 +112,8 @@ class ProfileViewController: UIViewController {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userPseudo = data[K.FStore.userPseudoField] as? String ,let userGender = data[K.FStore.userGenderField] as? String, let userCity = data[K.FStore.userCityField] as? String, let userLevel = data[K.FStore.userLevelField] as? String, let userPicture = data[K.FStore.userPictureField] as? Data, let userBirthDate = data[K.FStore.userAgeField] as? String else {return}
-                    let user = User(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate)
+                    guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let userPicture = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String else {return}
+                    let user = User(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: "")
                     self.userInformations.append(user)
                     let stringDate = self.stringToDate(dateString: userBirthDate)
                     let userAge = self.dateToAge(birthDate: stringDate)

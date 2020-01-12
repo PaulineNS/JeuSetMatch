@@ -9,13 +9,13 @@
 import UIKit
 
 class LevelViewController: UIViewController {
+    
+    var currentUser: User?
 
-    var birthDate = ""
-    var userGender = ""
     var userLevel = ""
     var userCity = ""
     
-    let cities: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant","Choisir"]
+    let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant","Choisir"]
   
     @IBOutlet weak var citiesButton: UIButton!
     @IBOutlet weak var levelsPickerView: UIPickerView!
@@ -26,7 +26,7 @@ class LevelViewController: UIViewController {
         super.viewDidLoad()
         levelsPickerView.delegate = self
         levelsPickerView.dataSource = self
-        levelsPickerView.selectRow(cities.count-1, inComponent: 0, animated: true)
+        levelsPickerView.selectRow(levels.count-1, inComponent: 0, animated: true)
         cityAlertLabel.isHidden = true
         levelAlertLabel.isHidden = true
     }
@@ -37,10 +37,8 @@ class LevelViewController: UIViewController {
             citiesVc.didSelectCityDelegate = self
         } else if segue.identifier == K.LeveltoPseudoSegue {
             guard let pseudoVc = segue.destination as? PseudoViewController else {return}
-            pseudoVc.birthDate = birthDate
-            pseudoVc.userGender = userGender
-            pseudoVc.userLevel = userLevel
-            pseudoVc.userCity = userCity
+            pseudoVc.currentUser = User(pseudo: nil, image: nil, sexe: currentUser?.sexe, level: userLevel, city: userCity, birthDate: currentUser?.birthDate, uid: nil)
+            
         }
     }
     
@@ -69,15 +67,15 @@ extension LevelViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return cities.count
+        return levels.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return cities[row]
+        return levels[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        userLevel = cities[row]
+        userLevel = levels[row]
     }
 }
 

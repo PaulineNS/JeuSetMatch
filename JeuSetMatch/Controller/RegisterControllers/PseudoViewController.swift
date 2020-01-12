@@ -34,10 +34,8 @@ extension UITextField {
 
 class PseudoViewController: UIViewController {
     
-    var birthDate = ""
-    var userGender = ""
-    var userLevel = ""
-    var userCity = ""
+    var currentUser: User?
+    
     var userPseudo = ""
     var userPicture = UIImage()
     
@@ -90,16 +88,8 @@ class PseudoViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.PseudoToMailSegue else { return }
         guard let mailVc = segue.destination as? MailViewController else { return }
-        mailVc.birthDate = birthDate
-        mailVc.userGender = userGender
-        mailVc.userLevel = userLevel
-        mailVc.userCity = userCity
-        mailVc.userPseudo = userPseudo
-        guard let pictureData = userPicture.jpegData(compressionQuality: 0.1) else {
-            print("Quoi")
-            return
-        }
-        mailVc.userPicture = pictureData
+        guard let pictureData = userPicture.jpegData(compressionQuality: 0.1) else { return }
+        mailVc.currentUser = User(pseudo: userPseudo, image: pictureData, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
     }
     
     @IBAction func continueButtonPressed(_ sender: UIButton) {

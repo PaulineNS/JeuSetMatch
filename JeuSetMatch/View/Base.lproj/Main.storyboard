@@ -77,152 +77,6 @@
             </objects>
             <point key="canvasLocation" x="979.71014492753636" y="20.758928571428569"/>
         </scene>
-        <!--Register View Controller-->
-        <scene sceneID="eoS-n4-WkI">
-            <objects>
-                <viewController id="Td9-xB-VcU" customClass="RegisterViewController" customModule="JeuSetMatch" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="OTY-LN-g2K">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWm-Hp-w8j" userLabel="EmailView">
-                                <rect key="frame" x="0.0" y="359.5" width="414" height="177"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="textfield" translatesAutoresizingMaskIntoConstraints="NO" id="hRc-we-1cr">
-                                        <rect key="frame" x="0.0" y="20" width="414" height="137"/>
-                                    </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tWC-PY-who" userLabel="Email Textfield">
-                                        <rect key="frame" x="48.5" y="51" width="317" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="317" id="Zap-2Y-O0v"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="tWC-PY-who" secondAttribute="bottom" constant="81" id="Asf-bN-BcC"/>
-                                    <constraint firstAttribute="trailing" secondItem="hRc-we-1cr" secondAttribute="trailing" id="Plh-nt-QhX"/>
-                                    <constraint firstItem="tWC-PY-who" firstAttribute="centerX" secondItem="WWm-Hp-w8j" secondAttribute="centerX" id="TXi-nw-5Rp"/>
-                                    <constraint firstItem="hRc-we-1cr" firstAttribute="leading" secondItem="WWm-Hp-w8j" secondAttribute="leading" id="bb4-O4-ZIo"/>
-                                    <constraint firstAttribute="bottom" secondItem="hRc-we-1cr" secondAttribute="bottom" constant="20" id="duC-NU-11k"/>
-                                    <constraint firstItem="hRc-we-1cr" firstAttribute="top" secondItem="WWm-Hp-w8j" secondAttribute="top" constant="20" id="hY0-dn-H3s"/>
-                                    <constraint firstAttribute="height" constant="177" id="thR-YK-WGZ"/>
-                                    <constraint firstItem="tWC-PY-who" firstAttribute="top" secondItem="WWm-Hp-w8j" secondAttribute="top" constant="51" id="yi0-qH-Avh"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6PI-eo-WFi" userLabel="PasswordView">
-                                <rect key="frame" x="0.0" y="436.5" width="414" height="177"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="textfield" translatesAutoresizingMaskIntoConstraints="NO" id="8ji-B5-iqL">
-                                        <rect key="frame" x="0.0" y="20" width="414" height="137"/>
-                                    </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mot de passe" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VE9-g5-FZE" userLabel="Password Textfield">
-                                        <rect key="frame" x="48.5" y="48" width="317" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="317" id="bcw-EW-eWR"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DmU-RB-acd">
-                                        <rect key="frame" x="0.0" y="124" width="414" height="53"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <state key="normal" title="S'enregistrer"/>
-                                        <connections>
-                                            <action selector="registerPressed:" destination="Td9-xB-VcU" eventType="touchUpInside" id="uXJ-uw-vI4"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="VE9-g5-FZE" firstAttribute="top" secondItem="6PI-eo-WFi" secondAttribute="top" constant="48" id="0mR-EC-rjS"/>
-                                    <constraint firstItem="VE9-g5-FZE" firstAttribute="centerX" secondItem="6PI-eo-WFi" secondAttribute="centerX" id="90V-0M-4nk"/>
-                                    <constraint firstItem="8ji-B5-iqL" firstAttribute="top" secondItem="6PI-eo-WFi" secondAttribute="top" constant="20" id="CXb-dS-hhG"/>
-                                    <constraint firstItem="DmU-RB-acd" firstAttribute="top" secondItem="VE9-g5-FZE" secondAttribute="bottom" constant="31" id="HdX-fL-clg"/>
-                                    <constraint firstAttribute="bottom" secondItem="8ji-B5-iqL" secondAttribute="bottom" constant="20" id="L0X-Tg-XFf"/>
-                                    <constraint firstAttribute="trailing" secondItem="DmU-RB-acd" secondAttribute="trailing" id="T35-Vr-qZa"/>
-                                    <constraint firstAttribute="height" constant="177" id="UZe-0h-deo"/>
-                                    <constraint firstAttribute="bottom" secondItem="VE9-g5-FZE" secondAttribute="bottom" constant="84" id="aPr-Jo-h4x"/>
-                                    <constraint firstItem="DmU-RB-acd" firstAttribute="leading" secondItem="6PI-eo-WFi" secondAttribute="leading" id="bHg-YR-768"/>
-                                    <constraint firstAttribute="bottom" secondItem="DmU-RB-acd" secondAttribute="bottom" id="cLb-ut-UqI"/>
-                                    <constraint firstAttribute="trailing" secondItem="8ji-B5-iqL" secondAttribute="trailing" id="mnB-Sy-E2u"/>
-                                    <constraint firstItem="8ji-B5-iqL" firstAttribute="leading" secondItem="6PI-eo-WFi" secondAttribute="leading" id="p2D-Kf-Vfe"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyQ-of-hHG">
-                                <rect key="frame" x="0.0" y="49" width="414" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="0v0-mT-Mk3">
-                                <rect key="frame" x="191" y="84.5" width="32" height="204"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mFG-gN-XkQ" userLabel="Name">
-                                        <rect key="frame" x="0.0" y="0.0" width="32" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LjK-qF-3SI" userLabel="Age">
-                                        <rect key="frame" x="0.0" y="34" width="32" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5JN-MF-B3M" userLabel="Gender">
-                                        <rect key="frame" x="0.0" y="68" width="32" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tJw-rV-Yfo" userLabel="Level">
-                                        <rect key="frame" x="0.0" y="102" width="32" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zuZ-wx-DnQ" userLabel="City">
-                                        <rect key="frame" x="0.0" y="136" width="32" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e52-oO-bUN" userLabel="Image">
-                                        <rect key="frame" x="0.0" y="170" width="32" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="myy-kn-XU9" firstAttribute="trailing" secondItem="DyQ-of-hHG" secondAttribute="trailing" id="2hk-HQ-YAm"/>
-                            <constraint firstItem="DyQ-of-hHG" firstAttribute="top" secondItem="myy-kn-XU9" secondAttribute="top" constant="5" id="6zj-eC-DRq"/>
-                            <constraint firstItem="0v0-mT-Mk3" firstAttribute="centerX" secondItem="OTY-LN-g2K" secondAttribute="centerX" id="7Kj-r1-UEG"/>
-                            <constraint firstAttribute="trailing" secondItem="WWm-Hp-w8j" secondAttribute="trailing" id="JtV-5Z-rcT"/>
-                            <constraint firstItem="WWm-Hp-w8j" firstAttribute="centerY" secondItem="OTY-LN-g2K" secondAttribute="centerY" id="MuE-Dp-a71"/>
-                            <constraint firstItem="6PI-eo-WFi" firstAttribute="top" secondItem="WWm-Hp-w8j" secondAttribute="bottom" constant="-100" id="Oz2-gK-1da"/>
-                            <constraint firstItem="WWm-Hp-w8j" firstAttribute="leading" secondItem="myy-kn-XU9" secondAttribute="leading" id="Pjr-C5-Hfn"/>
-                            <constraint firstItem="DyQ-of-hHG" firstAttribute="leading" secondItem="myy-kn-XU9" secondAttribute="leading" id="Qih-P4-1U2"/>
-                            <constraint firstItem="0v0-mT-Mk3" firstAttribute="top" secondItem="DyQ-of-hHG" secondAttribute="bottom" constant="15" id="TgK-yr-sxv"/>
-                            <constraint firstAttribute="trailing" secondItem="6PI-eo-WFi" secondAttribute="trailing" id="XMS-4Q-JMK"/>
-                            <constraint firstItem="6PI-eo-WFi" firstAttribute="leading" secondItem="myy-kn-XU9" secondAttribute="leading" id="cSS-Ru-h1F"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="myy-kn-XU9"/>
-                    </view>
-                    <connections>
-                        <outlet property="age" destination="LjK-qF-3SI" id="34H-8s-o6O"/>
-                        <outlet property="alertLabel" destination="DyQ-of-hHG" id="KKW-N1-HjK"/>
-                        <outlet property="city" destination="zuZ-wx-DnQ" id="585-hj-ggh"/>
-                        <outlet property="emailTextfield" destination="tWC-PY-who" id="73q-qp-4Wz"/>
-                        <outlet property="gender" destination="5JN-MF-B3M" id="Hr3-x3-J6s"/>
-                        <outlet property="image" destination="e52-oO-bUN" id="tCq-ra-19S"/>
-                        <outlet property="level" destination="tJw-rV-Yfo" id="bQk-dI-94P"/>
-                        <outlet property="name" destination="mFG-gN-XkQ" id="jqY-7S-BCc"/>
-                        <outlet property="passwordTextfield" destination="VE9-g5-FZE" id="4xl-aN-9Sl"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dEM-h7-viD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1551" y="-1631"/>
-        </scene>
         <!--Mail View Controller-->
         <scene sceneID="iUy-hK-Mzg">
             <objects>
@@ -1270,7 +1124,7 @@
                     <navigationItem key="navigationItem" id="rn4-dv-l3e"/>
                     <connections>
                         <outlet property="messagesTableView" destination="vSx-QF-MfG" id="GKY-4c-Ktp"/>
-                        <segue destination="Z5V-7b-odc" kind="show" id="WOR-tC-hRv"/>
+                        <segue destination="Z5V-7b-odc" kind="show" identifier="MessagesToChat" id="WOR-tC-hRv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WbA-ID-nNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1437,7 +1291,7 @@
         <image name="textfield" width="298" height="93"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HU1-lS-BiG"/>
+        <segue reference="qxD-Ox-pIs"/>
         <segue reference="WOR-tC-hRv"/>
         <segue reference="F9L-oe-HuP"/>
     </inferredMetricsTieBreakers>

@@ -11,12 +11,7 @@ import Firebase
 
 class MailViewController: UIViewController {
     
-    var birthDate = ""
-    var userGender = ""
-    var userLevel = ""
-    var userCity = ""
-    var userPseudo = ""
-    var userPicture = Data()
+    var currentUser: User?
     
     let db = Firestore.firestore()
     
@@ -27,39 +22,42 @@ class MailViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == K.registerSegue else { return }
+        guard let navVc = segue.destination as? UITabBarController else { return }
+        guard let searchVc = navVc.viewControllers?[0] as? SearchViewController, let messagesVc = navVc.viewControllers?[1] as? MessagesViewController, let profileVc = navVc.viewControllers?[2] as? ProfileViewController else {return}
+        searchVc.currentUser = currentUser
+        messagesVc.currentUser = currentUser
+        profileVc.currentUser = currentUser
+    }
+    
     @IBAction func registerButtonPressed(_ sender: Any) {
         
         guard let email = emailTextfield.text, let password = passwordTextfield.text else {return}
         
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if let e = error {
-                print(e.localizedDescription)
-                
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            if error != nil {
+                print("error, \(error!)")
+                return
             } else {
-                print("ici")
-                //let imageData = self.userPicture.jpegData(compressionQuality: 1.0)
-                guard let userUid = Auth.auth().currentUser?.uid else {
-                    print("no")
-                    return }
-                
-                self.db.collection(K.FStore.userCollectionName).addDocument(data: [
-                    K.FStore.userAgeField: self.birthDate,
-                    K.FStore.userGenderField: self.userGender,
-                    K.FStore.userLevelField: self.userLevel,
-                    K.FStore.userCityField: self.userCity,
-                    K.FStore.userPseudoField: self.userPseudo,
-                    K.FStore.userPictureField: self.userPicture,
-                    K.FStore.userUidField: userUid
-                    ], completion: { (error) in
-                        DispatchQueue.main.async {
-                            if let e = error {
-                                print("There was an issue saving data to firestore, \(e)")
-                            } else {
-                                print("Successfully saved data.")
-                                self.performSegue(withIdentifier: K.registerSegue, sender: self)
-                            }
-                        }
-                })
+                guard let uid = Auth.auth().currentUser?.uid else {return}
+                let data = ["userAge": self.currentUser?.birthDate as Any,
+                            "userGender": self.currentUser?.sexe as Any,
+                            "userLevel": self.currentUser?.level as Any,
+                            "userCity": self.currentUser?.city as Any,
+                            "userName": self.currentUser?.pseudo as Any,
+                            "userImage": self.currentUser?.image as Any,
+                            "userUid": uid]
+                self.db.collection("users").document("\(uid)").setData(data) { (error) in
+                    if error != nil {
+                        print(error!)
+                    } else {
+                        self.currentUser = User(pseudo: data["userName"] as? String, image: data["userImage"] as? Data, sexe: data["userGender"] as? String, level: data["userLevel"] as? String, city: data["userCity"] as? String, birthDate: data["userAge"] as? String, uid: data["userUid"] as? String)
+                        self.performSegue(withIdentifier: K.registerSegue, sender: self)
+                        
+                    }
+                }
             }
         }
     }
