@@ -47,6 +47,14 @@ class SearchViewController: UIViewController {
         pseudoVc.IsSegueFromSearch = true
     }
     
+//    func checkIfUserIsLoggedIn() {
+//        if Auth.auth().currentUser?.uid == nil {
+//            performSegue(withIdentifier: K.SearchToWelcomeSegue, sender: nil)
+//        } else {
+//            fetchUser()
+//        }
+//    }
+    
     func fetchUser() {
         db.collection("users").getDocuments { (querySnapshot, error) in
             if let error = error {

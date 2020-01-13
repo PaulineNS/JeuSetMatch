@@ -26,6 +26,8 @@ struct K {
     static let SearchToProfileSegue = "SearchToProfile"
     static let ProfileToChatSegue = "ProfileToChat"
     static let MessagesToChatSegue = "MessagesToChat"
+    static let SearchToWelcomeSegue = "SearchToWelcome"
+    static let ProfileToCitiesSegue = "ProfileToCities"
     
     struct FStore {
         static let messagesCollectionName = "messages"

@@ -9,28 +9,95 @@
 import UIKit
 import Firebase
 
-class ProfileViewController: UIViewController {
-    
-    @IBOutlet weak var userPictureImageView: UIImageView!
-    @IBOutlet weak var genderLabel: UILabel!
-    @IBOutlet weak var birthDateLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var levelLabel: UILabel!
-    @IBOutlet weak var pseudoLabel: UILabel!
-    @IBOutlet weak var logOutBarButtonItem: UIBarButtonItem!
-    @IBOutlet weak var updateProfileButton: UIButton!
-        
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("profilevc", currentUser?.birthDate as Any)
-        print("profilevc", currentUser?.city as Any)
+class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
     
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == levelPicker {
+            return levels.count
+        }
+        if pickerView == genderPicker {
+            return genders.count
+        }
+        return 0
+    }
+    
+    func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == levelPicker {
+            return levels[row]
+        }
+        if pickerView == genderPicker {
+            return genders[row]
+        }
+        return ""
+    }
+     
+    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == levelPicker {
+            userInformationTxtField[4].text = levels[row]
+        }
+        if pickerView == genderPicker {
+            userInformationTxtField[1].text = genders[row]
+        }
+    }
+    
+    
+    @IBOutlet var userInformationTxtField: [UITextField]!
+    
+    @IBOutlet weak var userPictureImageView: UIImageView!
+    @IBOutlet weak var logOutBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var updateProfileButton: UIButton!
+    @IBOutlet weak var validateButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        manageTxtField(status: false, borderStyle: .none)
+        validateButton.isHidden = true
+        cancelButton.isHidden = true
+        userInformationTxtField[3].delegate = self
+        datePicker = UIDatePicker()
+        datePicker?.datePickerMode = .date
+        datePicker?.locale = Locale.init(identifier: "fr_FR")
+        userInformationTxtField[2].inputView = datePicker
+        datePicker?.addTarget(self, action: #selector(ProfileViewController.dateChanged(datePicker:)), for: .valueChanged)
+        
+        levelPicker = UIPickerView()
+        userInformationTxtField[4].inputView = levelPicker
+        genderPicker = UIPickerView()
+        userInformationTxtField[1].inputView = genderPicker
+        levelPicker?.delegate = self
+        genderPicker?.delegate = self
+        genderPicker?.dataSource = self
+        levelPicker?.dataSource = self
+    }
+    
+    private var datePicker: UIDatePicker?
+    private var levelPicker: UIPickerView?
+    let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant"]
+    
+    private var genderPicker: UIPickerView?
+    let genders: [String] = ["Femme","Homme"]
+    
+    
     var currentUser: User?
+    
+    @objc func dateChanged(datePicker: UIDatePicker) {        
+        userInformationTxtField[2].text = dateToAge(birthDate: datePicker.date)
+    }
 
     @IBAction func buttomButtonPressed(_ sender: UIButton) {
-        guard sender.currentTitle == "Contacter" else {return}
-        performSegue(withIdentifier: K.ProfileToChatSegue, sender: nil)
+        if sender.currentTitle == "Contacter" {
+            performSegue(withIdentifier: K.ProfileToChatSegue, sender: nil)
+        }
+        if sender.currentTitle == "Modifier mon profil" {
+            manageTxtField(status: true, borderStyle: .line)
+            validateButton.isHidden = false
+            cancelButton.isHidden = false
+            updateProfileButton.isHidden = true
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -60,6 +127,13 @@ class ProfileViewController: UIViewController {
     var userPseudo = ""
     var userInformations: [User] = []
     
+    func manageTxtField(status: Bool, borderStyle: UITextField.BorderStyle) {
+        for txtField in userInformationTxtField {
+            txtField.isUserInteractionEnabled = status
+            txtField.borderStyle = borderStyle
+        }
+    }
+    
     func loadAnotherUserInformations() {
         db.collection(K.FStore.userCollectionName).whereField(K.FStore.userPseudoField, isEqualTo: userPseudo).addSnapshotListener { (querySnapshot, error) in
             self.userInformations = []
@@ -75,12 +149,12 @@ class ProfileViewController: UIViewController {
                     let stringDate = self.stringToDate(dateString: userBirthDate)
                     let userAge = self.dateToAge(birthDate: stringDate)
                     DispatchQueue.main.async {
-                        self.pseudoLabel.text = userPseudo
-                        self.genderLabel.text = userGender
-                        self.cityLabel.text = userCity
-                        self.levelLabel.text = userLevel
+                        self.userInformationTxtField[0].text = userPseudo
+                        self.userInformationTxtField[1].text = userGender
+                        self.userInformationTxtField[3].text = userCity
+                        self.userInformationTxtField[4].text = userLevel
                         self.userPictureImageView.image = UIImage(data: imageData)
-                        self.birthDateLabel.text = userAge + " " + "ans"
+                        self.userInformationTxtField[2].text = userAge + " " + "ans"
                     }
                 }
             }
@@ -118,12 +192,12 @@ class ProfileViewController: UIViewController {
                     let stringDate = self.stringToDate(dateString: userBirthDate)
                     let userAge = self.dateToAge(birthDate: stringDate)
                     DispatchQueue.main.async {
-                        self.pseudoLabel.text = userPseudo
-                        self.genderLabel.text = userGender
-                        self.cityLabel.text = userCity
-                        self.levelLabel.text = userLevel
+                        self.userInformationTxtField[0].text = userPseudo
+                        self.userInformationTxtField[1].text = userGender
+                        self.userInformationTxtField[3].text = userCity
+                        self.userInformationTxtField[4].text = userLevel
                         self.userPictureImageView.image = UIImage(data: userPicture)
-                        self.birthDateLabel.text = userAge + " " + "ans"
+                        self.userInformationTxtField[2].text = userAge + " " + "ans"
                     }
                 }
             }
@@ -138,4 +212,10 @@ class ProfileViewController: UIViewController {
             print ("Error signing out: %@", signOutError)
         }
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+        performSegue(withIdentifier: K.ProfileToCitiesSegue, sender: nil)
+    }
+    
 }
