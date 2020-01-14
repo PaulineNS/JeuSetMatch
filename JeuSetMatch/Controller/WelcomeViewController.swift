@@ -10,9 +10,13 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var registerButton: UIButton!
-    @IBOutlet weak var logInButton: UIButton!
+    // MARK: - Outlets
+    
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var registerButton: UIButton!
+    @IBOutlet private weak var logInButton: UIButton!
+    
+    // MARK: - Controller life cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -26,6 +30,12 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        animateTheTitle()
+    }
+    
+    // MARK: - Methods
+    
+    private func animateTheTitle() {
         titleLabel.text = ""
         var charIndex = 0.0
         let titleText = K.appName

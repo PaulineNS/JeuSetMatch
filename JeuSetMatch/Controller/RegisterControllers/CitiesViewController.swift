@@ -14,21 +14,27 @@ protocol DidSelectCityDelegate {
     func rowTapped(with city: String)
 }
 
-class CitiesViewController: UIViewController {
-
-    var arrayCities = [GMSAutocompletePrediction]()
-    var citySelected = ""
+final class CitiesViewController: UIViewController {
+    
+    // MARK: - Variables
+    
     var didSelectCityDelegate: DidSelectCityDelegate?
     
-    lazy var filter: GMSAutocompleteFilter = {
+    private var arrayCities = [GMSAutocompletePrediction]()
+    private var citySelected = ""
+    lazy private var filter: GMSAutocompleteFilter = {
         let filter = GMSAutocompleteFilter()
         filter.type = .city
         filter.country = "FR"
         return filter
     }()
     
-    @IBOutlet weak var citiesTextField: UITextField!
-    @IBOutlet weak var citiesTableView: UITableView!
+    // MARK: - Outlets
+    
+    @IBOutlet private weak var citiesTextField: UITextField!
+    @IBOutlet private weak var citiesTableView: UITableView!
+    
+    // MARK: - Controller life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +43,8 @@ class CitiesViewController: UIViewController {
         citiesTextField.delegate = self
     }
 }
+
+// MARK: - TableView
 
 extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,6 +68,8 @@ extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
         navigationController?.popViewController(animated: true)
     }
 }
+
+// MARK: - TextField
 
 extension CitiesViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

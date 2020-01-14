@@ -9,18 +9,19 @@
 import UIKit
 import Firebase
 
-class MailViewController: UIViewController {
+final class MailViewController: UIViewController {
+    
+    // MARK: - Variables
     
     var currentUser: User?
+    private let db = Firestore.firestore()
     
-    let db = Firestore.firestore()
+    // MARK: - Outlets
     
-    @IBOutlet weak var emailTextfield: UITextField!
-    @IBOutlet weak var passwordTextfield: UITextField!
+    @IBOutlet private weak var emailTextfield: UITextField!
+    @IBOutlet private weak var passwordTextfield: UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.registerSegue else { return }
@@ -31,7 +32,9 @@ class MailViewController: UIViewController {
         profileVc.currentUser = currentUser
     }
     
-    @IBAction func registerButtonPressed(_ sender: Any) {
+    // MARK: - Actions
+    
+    @IBAction private func registerButtonPressed(_ sender: Any) {
         
         guard let email = emailTextfield.text, let password = passwordTextfield.text else {return}
         

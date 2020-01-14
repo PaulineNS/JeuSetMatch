@@ -9,6 +9,9 @@
 import Foundation
 
 struct User {
+    
+    // MARK: - Variables
+
     let pseudo: String?
     let image: Data?
     let sexe: String?

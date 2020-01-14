@@ -9,16 +9,22 @@
 import UIKit
 import Firebase
 
-class SearchViewController: UIViewController {
+final class SearchViewController: UIViewController {
     
-    @IBOutlet weak var usersTableView: UITableView!
-    @IBOutlet weak var filterBarButton: UIBarButtonItem!
-    
-    let db = Firestore.firestore()
-    var users: [User] = []
-    var userPseudo = ""
+    // MARK: - Variables
     
     var currentUser: User?
+    
+    private let db = Firestore.firestore()
+    private var users: [User] = []
+    private var userPseudo = ""
+    
+    // MARK: - Outlets
+    
+    @IBOutlet private weak var usersTableView: UITableView!
+    @IBOutlet private weak var filterBarButton: UIBarButtonItem!
+    
+    // MARK: - Controller life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,17 +32,15 @@ class SearchViewController: UIViewController {
         usersTableView.dataSource = self
         usersTableView.delegate = self
         usersTableView.register(UINib(nibName: K.userCellNibName, bundle: nil), forCellReuseIdentifier: K.userCellIdentifier)
-        print("Searchvc", currentUser?.birthDate as Any)
-        print("Searchvc", currentUser?.city as Any)
         fetchUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.rightBarButtonItem = filterBarButton
-        print("Searchvc", currentUser?.birthDate as Any)
-        print("Searchvc", currentUser?.city as Any)
     }
+    
+    // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.SearchToProfileSegue else { return }
@@ -47,15 +51,17 @@ class SearchViewController: UIViewController {
         pseudoVc.IsSegueFromSearch = true
     }
     
-//    func checkIfUserIsLoggedIn() {
-//        if Auth.auth().currentUser?.uid == nil {
-//            performSegue(withIdentifier: K.SearchToWelcomeSegue, sender: nil)
-//        } else {
-//            fetchUser()
-//        }
-//    }
+    //    func checkIfUserIsLoggedIn() {
+    //        if Auth.auth().currentUser?.uid == nil {
+    //            performSegue(withIdentifier: K.SearchToWelcomeSegue, sender: nil)
+    //        } else {
+    //            fetchUser()
+    //        }
+    //    }
     
-    func fetchUser() {
+    // MARK: - Methods
+    
+    private func fetchUser() {
         db.collection("users").getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
@@ -75,6 +81,8 @@ class SearchViewController: UIViewController {
     }
 }
 
+// MARK: - TableView DataSource
+
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
@@ -91,6 +99,8 @@ extension SearchViewController: UITableViewDataSource {
         return cell
     }
 }
+
+// MARK: - TableView Delegate
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

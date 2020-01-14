@@ -8,19 +8,23 @@
 
 import UIKit
 
-class LevelViewController: UIViewController {
+final class LevelViewController: UIViewController {
+    
+    // MARK: - Variables
     
     var currentUser: User?
-
-    var userLevel = ""
-    var userCity = ""
+    private var userLevel = ""
+    private var userCity = ""
+    private let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant","Choisir"]
     
-    let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant","Choisir"]
-  
-    @IBOutlet weak var citiesButton: UIButton!
-    @IBOutlet weak var levelsPickerView: UIPickerView!
-    @IBOutlet weak var cityAlertLabel: UILabel!
-    @IBOutlet weak var levelAlertLabel: UILabel!
+    // MARK: - Outlets
+    
+    @IBOutlet private weak var citiesButton: UIButton!
+    @IBOutlet private weak var levelsPickerView: UIPickerView!
+    @IBOutlet private weak var cityAlertLabel: UILabel!
+    @IBOutlet private weak var levelAlertLabel: UILabel!
+    
+    // MARK: - Controller life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +34,8 @@ class LevelViewController: UIViewController {
         cityAlertLabel.isHidden = true
         levelAlertLabel.isHidden = true
     }
+    
+    // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.LeveltoCitiesSegue {
@@ -42,11 +48,13 @@ class LevelViewController: UIViewController {
         }
     }
     
-    @IBAction func citiesButtonSelected(_ sender: UIButton) {
+    // MARK: - Actions
+    
+    @IBAction private func citiesButtonSelected(_ sender: UIButton) {
         performSegue(withIdentifier: K.LeveltoCitiesSegue, sender: nil)
     }
     
-    @IBAction func continueButtonPressed(_ sender: UIButton) {
+    @IBAction private func continueButtonPressed(_ sender: UIButton) {
         guard userCity != "" else {
             cityAlertLabel.isHidden = false
             cityAlertLabel.text = "Veuillez sélectionner votre ville avant de continuer"
@@ -60,6 +68,8 @@ class LevelViewController: UIViewController {
         performSegue(withIdentifier: K.LeveltoPseudoSegue, sender: nil)
     }    
 }
+
+// MARK: - PickerView
 
 extension LevelViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

@@ -9,51 +9,54 @@
 import UIKit
 import Firebase
 
-class ChatViewController: UIViewController, UITableViewDataSource {
+final class ChatViewController: UIViewController {
     
-    @IBOutlet weak var chatTableView: UITableView!
-    @IBOutlet weak var chatTextField: UITextField!
-    @IBOutlet weak var receiverPseudo: UINavigationItem!
+    // MARK: - Variables
+
+    var user : User? {
+        didSet {
+            receiverPseudo.title = user?.pseudo
+            observeMessages()
+        }
+    }
     
-    let db = Firestore.firestore()
+    private let db = Firestore.firestore()
+    private var messages = [Message]()
     
+    // MARK: - Outlets
+    
+    @IBOutlet private weak var chatTableView: UITableView!
+    @IBOutlet private weak var chatTextField: UITextField!
+    @IBOutlet private weak var receiverPseudo: UINavigationItem!
+    
+    
+    // MARK: - Controller life cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.navigationItem.hidesBackButton = true
         chatTableView.dataSource = self
         chatTableView.register(UINib(nibName: K.chatCellNibName, bundle: nil), forCellReuseIdentifier: K.chatCellIdentifier)
         receiverPseudo.title = user?.pseudo
-//        observeMessages()
     }
     
-    var user : User? {
-        didSet {
-            receiverPseudo.title = user?.pseudo
-//            navigationItem.title = user?.pseudo
-            observeMessages()
-        }
-    }
     
-    var messages = [Message]()
-    
-    @IBAction func sendPressed(_ sender: UIButton) {
+    // MARK: - Actions
+
+    @IBAction private func sendPressed(_ sender: UIButton) {
         let properties : [String : Any] = ["text" : chatTextField.text!]
         sendMessageWithProperties(properties: properties)
     }
     
-    
+    // MARK: - Methods
+
     private func sendMessageWithProperties(properties: [String : Any]) {
-        
         let ref = db.collection("messages").document()
         let toId = user?.uid
         let timestamp = Int(NSDate().timeIntervalSince1970)
         let fromId = Auth.auth().currentUser?.uid
-        
         var values : [String : Any] = ["toId" : toId as Any, "fromId" : fromId as Any, "timestamp" : timestamp]
-        
         properties.forEach {( values[$0] = $1 )}
-        
-        
         ref.setData(values) { (error) in
             if error != nil {
                 print(error as Any)
@@ -82,8 +85,7 @@ class ChatViewController: UIViewController, UITableViewDataSource {
         }
     }
     
-    //MARK: ObserveMessages
-    func observeMessages() {
+    private func observeMessages() {
         guard let uid = Auth.auth().currentUser?.uid, let toId = user?.uid else { return }
         db.collection("user-messages")
             .document(uid)
@@ -124,30 +126,35 @@ class ChatViewController: UIViewController, UITableViewDataSource {
                 })
         }
     }
+}
+
+// MARK: - TableView
+
+extension ChatViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let message = messages[indexPath.row]
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.chatCellIdentifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell()}
-        
-        cell.messageLabel.text = message.text
-        
-        guard message.toId == Auth.auth().currentUser?.uid else {
-            cell.leftAvatarImageView.isHidden = false
-            cell.rightAvatarImageView.isHidden = true
-            cell.messageBubble.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
-            cell.messageLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            return cell }
-        
-        cell.leftAvatarImageView.isHidden = true
-        cell.rightAvatarImageView.isHidden = false
-        cell.messageBubble.backgroundColor = #colorLiteral(red: 0.08918375522, green: 0.2295971513, blue: 0.2011210024, alpha: 1)
-        cell.messageLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        return cell
-        
-    }
+          return messages.count
+      }
+      
+      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+          let message = messages[indexPath.row]
+          
+          guard let cell = tableView.dequeueReusableCell(withIdentifier: K.chatCellIdentifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell()}
+          
+          cell.messageLabel.text = message.text
+          
+          guard message.toId == Auth.auth().currentUser?.uid else {
+              cell.leftAvatarImageView.isHidden = false
+              cell.rightAvatarImageView.isHidden = true
+              cell.messageBubble.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+              cell.messageLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+              return cell }
+          
+          cell.leftAvatarImageView.isHidden = true
+          cell.rightAvatarImageView.isHidden = false
+          cell.messageBubble.backgroundColor = #colorLiteral(red: 0.08918375522, green: 0.2295971513, blue: 0.2011210024, alpha: 1)
+          cell.messageLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+          return cell
+          
+      }
 }

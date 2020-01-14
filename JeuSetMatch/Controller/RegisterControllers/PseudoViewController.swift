@@ -11,43 +11,24 @@ import Photos
 import AVFoundation
 import Firebase
 
-extension UITextField {
+final class PseudoViewController: UIViewController {
     
-    func checkPseudo(field: String, completion: @escaping (Bool) -> Void) {
-        let db = Firestore.firestore()
-        let collectionRef = db.collection(K.FStore.userCollectionName)
-        collectionRef.whereField(K.FStore.userPseudoField, isEqualTo: field).getDocuments { (snapshot, error) in
-            if let e = error {
-                print("Error getting document: \(e)")
-            } else if (snapshot?.isEmpty)! {
-                completion(false)
-            } else {
-                for document in (snapshot?.documents)! {
-                    if document.data()[K.FStore.userPseudoField] != nil {
-                        completion(true)
-                    }
-                }
-            }
-        }
-    }
-}
+    // MARK: - Variables
 
-class PseudoViewController: UIViewController {
-    
     var currentUser: User?
+    private var userPseudo = ""
+    private var userPicture = UIImage()
+    private let db = Firestore.firestore()
+    private let image = UIImagePickerController()
+    private let emptyPicture = UIImage(named: "addPictureProfil")
     
-    var userPseudo = ""
-    var userPicture = UIImage()
+    @IBOutlet private weak var pseudoTextfield: UITextField!
+    @IBOutlet private weak var profilPictureImageView: UIImageView!
+    @IBOutlet private weak var pictureAlertLabel: UILabel!
+    @IBOutlet private weak var pseudoAlertLabel: UILabel!
     
-    let db = Firestore.firestore()
-    let image = UIImagePickerController()
-    let emptyPicture = UIImage(named: "addPictureProfil")
-    
-    @IBOutlet weak var pseudoTextfield: UITextField!
-    @IBOutlet weak var profilPictureImageView: UIImageView!
-    @IBOutlet weak var pictureAlertLabel: UILabel!
-    @IBOutlet weak var pseudoAlertLabel: UILabel!
-    
+    // MARK: - Controller life cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         image.delegate = self
@@ -58,7 +39,18 @@ class PseudoViewController: UIViewController {
         profilPictureImageView.addGestureRecognizer(singleTap)
     }
     
-    @IBAction func pseudoTextFieldChanged(_ sender: UITextField) {
+    // MARK: - Segue
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == K.PseudoToMailSegue else { return }
+        guard let mailVc = segue.destination as? MailViewController else { return }
+        guard let pictureData = userPicture.jpegData(compressionQuality: 0.1) else { return }
+        mailVc.currentUser = User(pseudo: userPseudo, image: pictureData, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
+    }
+    
+    // MARK: - Actions
+
+    @IBAction private func pseudoTextFieldChanged(_ sender: UITextField) {
         if sender.text?.count ?? 0 < 4 {
             self.pseudoAlertLabel.isHidden = false
             self.pseudoAlertLabel.text = "Votre pseudo doit comporter plus de 4 charactères"
@@ -85,14 +77,7 @@ class PseudoViewController: UIViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == K.PseudoToMailSegue else { return }
-        guard let mailVc = segue.destination as? MailViewController else { return }
-        guard let pictureData = userPicture.jpegData(compressionQuality: 0.1) else { return }
-        mailVc.currentUser = User(pseudo: userPseudo, image: pictureData, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
-    }
-    
-    @IBAction func continueButtonPressed(_ sender: UIButton) {
+    @IBAction private func continueButtonPressed(_ sender: UIButton) {
         guard profilPictureImageView.image != emptyPicture else {
             pictureAlertLabel.isHidden = false
             pictureAlertLabel.text = "Veuillez choisir une photo de profil avant de continuer"
@@ -108,11 +93,13 @@ class PseudoViewController: UIViewController {
         performSegue(withIdentifier: K.PseudoToMailSegue, sender: nil)
     }
     
-    @objc func didTapProfilPicture() {
+    @objc private func didTapProfilPicture() {
         onPictureClick()
     }
     
-    func onPictureClick() {
+    // MARK: - Methods
+
+    private func onPictureClick() {
         // Selecting source of pictures
         let actionSheet = UIAlertController(title: "Source de la photo", message: "Choisissez une source", preferredStyle: .actionSheet)
         
@@ -219,6 +206,8 @@ class PseudoViewController: UIViewController {
     }
 }
 
+// MARK: - UIImage Picker Controller
+
 extension PseudoViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
@@ -242,5 +231,6 @@ extension PseudoViewController : UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    
 }
+
+

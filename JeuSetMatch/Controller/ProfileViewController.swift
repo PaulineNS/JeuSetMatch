@@ -9,48 +9,32 @@
 import UIKit
 import Firebase
 
-class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
+final class ProfileViewController: UIViewController {
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == levelPicker {
-            return levels.count
-        }
-        if pickerView == genderPicker {
-            return genders.count
-        }
-        return 0
-    }
+    // MARK: - Variables
     
-    func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == levelPicker {
-            return levels[row]
-        }
-        if pickerView == genderPicker {
-            return genders[row]
-        }
-        return ""
-    }
-     
-    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == levelPicker {
-            userInformationTxtField[4].text = levels[row]
-        }
-        if pickerView == genderPicker {
-            userInformationTxtField[1].text = genders[row]
-        }
-    }
+    var currentUser: User?
+    var IsSegueFromSearch = false
+    var userPseudo = ""
     
+    private let db = Firestore.firestore()
+    private var userInformations: [User] = []
+    private var genderPicker: UIPickerView?
+    private var datePicker: UIDatePicker?
+    private var levelPicker: UIPickerView?
+    private let genders: [String] = ["Femme","Homme"]
+    private let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant"]
     
-    @IBOutlet var userInformationTxtField: [UITextField]!
+    // MARK: - Outlets
     
-    @IBOutlet weak var userPictureImageView: UIImageView!
-    @IBOutlet weak var logOutBarButtonItem: UIBarButtonItem!
-    @IBOutlet weak var updateProfileButton: UIButton!
-    @IBOutlet weak var validateButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet private var userInformationTxtField: [UITextField]!
+    @IBOutlet private weak var userPictureImageView: UIImageView!
+    @IBOutlet private weak var logOutBarButtonItem: UIBarButtonItem!
+    @IBOutlet private weak var updateProfileButton: UIButton!
+    @IBOutlet private weak var validateButton: UIButton!
+    @IBOutlet private weak var cancelButton: UIButton!
+    
+    // MARK: - Controller life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +47,6 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         datePicker?.locale = Locale.init(identifier: "fr_FR")
         userInformationTxtField[2].inputView = datePicker
         datePicker?.addTarget(self, action: #selector(ProfileViewController.dateChanged(datePicker:)), for: .valueChanged)
-        
         levelPicker = UIPickerView()
         userInformationTxtField[4].inputView = levelPicker
         genderPicker = UIPickerView()
@@ -72,40 +55,6 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         genderPicker?.delegate = self
         genderPicker?.dataSource = self
         levelPicker?.dataSource = self
-    }
-    
-    private var datePicker: UIDatePicker?
-    private var levelPicker: UIPickerView?
-    let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant"]
-    
-    private var genderPicker: UIPickerView?
-    let genders: [String] = ["Femme","Homme"]
-    
-    
-    var currentUser: User?
-    
-    @objc func dateChanged(datePicker: UIDatePicker) {        
-        userInformationTxtField[2].text = dateToAge(birthDate: datePicker.date)
-    }
-
-    @IBAction func buttomButtonPressed(_ sender: UIButton) {
-        if sender.currentTitle == "Contacter" {
-            performSegue(withIdentifier: K.ProfileToChatSegue, sender: nil)
-        }
-        if sender.currentTitle == "Modifier mon profil" {
-            manageTxtField(status: true, borderStyle: .line)
-            
-            validateButton.isHidden = false
-            cancelButton.isHidden = false
-            updateProfileButton.isHidden = true
-            setTxtFieldInUserDefault()
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == K.ProfileToChatSegue else {return}
-        guard let chatVc = segue.destination as? ChatViewController else {return}
-        chatVc.user = User(pseudo: currentUser?.pseudo, image: currentUser?.image, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: currentUser?.uid)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,22 +70,72 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
         loadAnotherUserInformations()
         updateProfileButton.setTitle("Contacter", for: .normal)
-        
     }
     
-    let db = Firestore.firestore()
-    var IsSegueFromSearch = false
-    var userPseudo = ""
-    var userInformations: [User] = []
+    // MARK: - Segue
     
-    func manageTxtField(status: Bool, borderStyle: UITextField.BorderStyle) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == K.ProfileToChatSegue else {return}
+        guard let chatVc = segue.destination as? ChatViewController else {return}
+        chatVc.user = User(pseudo: currentUser?.pseudo, image: currentUser?.image, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: currentUser?.uid)
+    }
+    
+    @objc private func dateChanged(datePicker: UIDatePicker) {
+        userInformationTxtField[2].text = dateToAge(birthDate: datePicker.date)
+    }
+    
+    @IBAction private func buttomButtonPressed(_ sender: UIButton) {
+        if sender.currentTitle == "Contacter" {
+            performSegue(withIdentifier: K.ProfileToChatSegue, sender: nil)
+        }
+        if sender.currentTitle == "Modifier mon profil" {
+            manageTxtField(status: true, borderStyle: .line)
+            
+            validateButton.isHidden = false
+            cancelButton.isHidden = false
+            updateProfileButton.isHidden = true
+            setTxtFieldInUserDefault()
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction private func logOutPressed(_ sender: UIBarButtonItem) {
+        do {
+            try Auth.auth().signOut()
+            navigationController?.popToRootViewController(animated: true)
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
+    
+    @IBAction private func didPressValidateButton(_ sender: Any) {
+        manageTxtField(status: false, borderStyle: .none)
+        validateButton.isHidden = true
+        cancelButton.isHidden = true
+        updateProfileButton.isHidden = false
+        guard let userCity = userInformationTxtField[3].text, let userGender = userInformationTxtField[1].text, let userLevel = userInformationTxtField[4].text, let userName = userInformationTxtField[0].text else {return}
+        updateUserInformation(userCity: userCity, userGender: userGender, userLevel: userLevel, userName: userName)
+    }
+    
+    @IBAction private func didPressCancelButton(_ sender: Any) {
+        manageTxtField(status: false, borderStyle: .none)
+        validateButton.isHidden = true
+        cancelButton.isHidden = true
+        updateProfileButton.isHidden = false
+        displayUserDefaultsOnTextField()
+    }
+    
+    // MARK: - Methods
+    
+    private func manageTxtField(status: Bool, borderStyle: UITextField.BorderStyle) {
         for txtField in userInformationTxtField {
             txtField.isUserInteractionEnabled = status
             txtField.borderStyle = borderStyle
         }
     }
     
-    func setTxtFieldInUserDefault() {
+    private func setTxtFieldInUserDefault() {
         var index = 0
         for _ in userInformationTxtField {
             UserDefaults.standard.set(userInformationTxtField[index].text, forKey: "savedUserInformations\(index)")
@@ -144,7 +143,7 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
     }
     
-    func displayUserDefaultsOnTextField() {
+    private func displayUserDefaultsOnTextField() {
         var index = 0
         for _ in userInformationTxtField {
             userInformationTxtField[index].text = UserDefaults.standard.string(forKey: "savedUserInformations\(index)")
@@ -152,8 +151,26 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
     }
     
-    func loadAnotherUserInformations() {
-        db.collection(K.FStore.userCollectionName).whereField(K.FStore.userPseudoField, isEqualTo: userPseudo).addSnapshotListener { (querySnapshot, error) in
+    private func updateUserInformation(userCity: String, userGender: String, userLevel: String, userName: String) {
+        
+        db.collection("users").document(Auth.auth().currentUser?.uid ?? "").updateData([
+            //            "userAge": "",
+            "userCity": userCity,
+            "userGender": userGender,
+            //            "userImage": "",
+            "userLevel": userLevel,
+            "userName": userName
+        ]) { error in
+            if let error = error {
+                print("Error updating document: \(error)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+    }
+    
+    private func loadAnotherUserInformations() {
+        db.collection("users").whereField("userName", isEqualTo: userPseudo).addSnapshotListener { (querySnapshot, error) in
             self.userInformations = []
             if let e = error {
                 print("There was an issue retrieving data from Firestore. \(e)")
@@ -179,14 +196,14 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
     }
     
-    func stringToDate(dateString : String) -> Date {
+    private func stringToDate(dateString : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let s = dateFormatter.date(from: dateString) ?? Date()
         return s
     }
     
-    func dateToAge(birthDate: Date) -> String {
+    private func dateToAge(birthDate: Date) -> String {
         let now = Date()
         let calendar = Calendar.current
         let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
@@ -195,8 +212,8 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         return stringAge
     }
     
-    func loadCurrentUserInformations() {
-        db.collection(K.FStore.userCollectionName).whereField("userUid", isEqualTo: Auth.auth().currentUser?.uid as Any).addSnapshotListener { (querySnapshot, error) in
+    private func loadCurrentUserInformations() {
+        db.collection("users").whereField("userUid", isEqualTo: Auth.auth().currentUser?.uid as Any).addSnapshotListener { (querySnapshot, error) in
             self.userInformations = []
             if let e = error {
                 print("There was an issue retrieving data from Firestore. \(e)")
@@ -221,29 +238,52 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             }
         }
     }
-    
-    @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
-        do {
-            try Auth.auth().signOut()
-            navigationController?.popToRootViewController(animated: true)
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-    }
+}
+
+// MARK: - TextField Delegate
+
+extension ProfileViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
         performSegue(withIdentifier: K.ProfileToCitiesSegue, sender: nil)
     }
+}
+
+// MARK: - PickerView
+
+extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
-    @IBAction func didPressValidateButton(_ sender: Any) {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
     
-    @IBAction func didPressCancelButton(_ sender: Any) {
-        manageTxtField(status: false, borderStyle: .none)
-        validateButton.isHidden = true
-        cancelButton.isHidden = true
-        updateProfileButton.isHidden = false
-        displayUserDefaultsOnTextField()
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == levelPicker {
+            return levels.count
+        }
+        if pickerView == genderPicker {
+            return genders.count
+        }
+        return 0
+    }
+    
+    func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == levelPicker {
+            return levels[row]
+        }
+        if pickerView == genderPicker {
+            return genders[row]
+        }
+        return ""
+    }
+    
+    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == levelPicker {
+            userInformationTxtField[4].text = levels[row]
+        }
+        if pickerView == genderPicker {
+            userInformationTxtField[1].text = genders[row]
+        }
     }
 }

@@ -11,21 +11,17 @@ import Firebase
 
 class MessagesTableViewCell: UITableViewCell {
 
+    // MARK: - Outlets
+
     @IBOutlet weak var profileUserImageView: UIImageView!
     @IBOutlet weak var pseudoUserLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var lastMessageLabel: UILabel!
     
-    let db = Firestore.firestore()
+    // MARK: - Variables
+
+    private let db = Firestore.firestore()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//    }
-
     var message : Message? {
         didSet {
             setupNameAndProfileImage()
@@ -42,7 +38,9 @@ class MessagesTableViewCell: UITableViewCell {
             timeLabel.text = strDate
             }
         }
-    
+
+    // MARK: - Methods
+
     private func setupNameAndProfileImage() {
         
         if let id = message?.chatPartnerId() {

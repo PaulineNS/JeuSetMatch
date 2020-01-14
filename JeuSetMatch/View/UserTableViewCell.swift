@@ -8,11 +8,15 @@
 
 import UIKit
 
-class UserTableViewCell: UITableViewCell {
+final class UserTableViewCell: UITableViewCell {
+
+    // MARK: - Outlets
 
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     
+    // MARK: - Methods
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
