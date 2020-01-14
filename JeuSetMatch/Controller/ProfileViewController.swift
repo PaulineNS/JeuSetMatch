@@ -94,9 +94,11 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
         if sender.currentTitle == "Modifier mon profil" {
             manageTxtField(status: true, borderStyle: .line)
+            
             validateButton.isHidden = false
             cancelButton.isHidden = false
             updateProfileButton.isHidden = true
+            setTxtFieldInUserDefault()
         }
     }
     
@@ -131,6 +133,22 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         for txtField in userInformationTxtField {
             txtField.isUserInteractionEnabled = status
             txtField.borderStyle = borderStyle
+        }
+    }
+    
+    func setTxtFieldInUserDefault() {
+        var index = 0
+        for _ in userInformationTxtField {
+            UserDefaults.standard.set(userInformationTxtField[index].text, forKey: "savedUserInformations\(index)")
+            index += 1
+        }
+    }
+    
+    func displayUserDefaultsOnTextField() {
+        var index = 0
+        for _ in userInformationTxtField {
+            userInformationTxtField[index].text = UserDefaults.standard.string(forKey: "savedUserInformations\(index)")
+            index += 1
         }
     }
     
@@ -218,4 +236,14 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         performSegue(withIdentifier: K.ProfileToCitiesSegue, sender: nil)
     }
     
+    @IBAction func didPressValidateButton(_ sender: Any) {
+    }
+    
+    @IBAction func didPressCancelButton(_ sender: Any) {
+        manageTxtField(status: false, borderStyle: .none)
+        validateButton.isHidden = true
+        cancelButton.isHidden = true
+        updateProfileButton.isHidden = false
+        displayUserDefaultsOnTextField()
+    }
 }

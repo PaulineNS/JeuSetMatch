@@ -940,6 +940,9 @@
                                                 <state key="normal" title="Valider">
                                                     <color key="titleColor" red="0.94832760100000002" green="0.95037573580000001" blue="0.96781963110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="didPressValidateButton:" destination="1WO-o0-ut2" eventType="touchUpInside" id="YWn-o7-nQa"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OT8-2t-gw0">
                                                 <rect key="frame" x="214.5" y="0.0" width="179.5" height="50"/>
@@ -947,6 +950,9 @@
                                                 <state key="normal" title="Annuler">
                                                     <color key="titleColor" red="0.94832760100000002" green="0.95037573580000001" blue="0.96781963110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="didPressCancelButton:" destination="1WO-o0-ut2" eventType="touchUpInside" id="xR5-XN-M3v"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
