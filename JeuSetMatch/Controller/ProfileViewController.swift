@@ -9,11 +9,6 @@
 import UIKit
 import Firebase
 
-enum ProfilePickerEnum {
-    case gender
-    cae
-}
-
 final class ProfileViewController: UIViewController {
     
     // MARK: - Variables
@@ -46,20 +41,7 @@ final class ProfileViewController: UIViewController {
         manageTxtField(status: false, borderStyle: .none)
         validateButton.isHidden = true
         cancelButton.isHidden = true
-        userInformationTxtField[3].delegate = self
-        datePicker = UIDatePicker()
-        datePicker?.datePickerMode = .date
-        datePicker?.locale = Locale.init(identifier: "fr_FR")
-        userInformationTxtField[2].inputView = datePicker
-        datePicker?.addTarget(self, action: #selector(ProfileViewController.dateChanged(datePicker:)), for: .valueChanged)
-        levelPicker = UIPickerView()
-        userInformationTxtField[4].inputView = levelPicker
-        genderPicker = UIPickerView()
-        userInformationTxtField[1].inputView = genderPicker
-        levelPicker?.delegate = self
-        genderPicker?.delegate = self
-        genderPicker?.dataSource = self
-        levelPicker?.dataSource = self
+        managePickers()        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -132,6 +114,22 @@ final class ProfileViewController: UIViewController {
     }
     
     // MARK: - Methods
+    private func managePickers(){
+        userInformationTxtField[3].delegate = self
+        datePicker = UIDatePicker()
+        datePicker?.datePickerMode = .date
+        datePicker?.locale = Locale.init(identifier: "fr_FR")
+        userInformationTxtField[2].inputView = datePicker
+        datePicker?.addTarget(self, action: #selector(ProfileViewController.dateChanged(datePicker:)), for: .valueChanged)
+        levelPicker = UIPickerView()
+        userInformationTxtField[4].inputView = levelPicker
+        genderPicker = UIPickerView()
+        userInformationTxtField[1].inputView = genderPicker
+        levelPicker?.delegate = self
+        genderPicker?.delegate = self
+        genderPicker?.dataSource = self
+        levelPicker?.dataSource = self
+    }
     
     private func manageTxtField(status: Bool, borderStyle: UITextField.BorderStyle) {
         for txtField in userInformationTxtField {

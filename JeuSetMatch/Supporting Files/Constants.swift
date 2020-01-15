@@ -26,6 +26,7 @@ struct K {
     static let LeveltoPseudoSegue = "LevelToPseudo"
     static let PseudoToMailSegue = "PseudoToMail"
     static let SearchToProfileSegue = "SearchToProfile"
+    static let SearchToFilterSegue = "SearchToFilter"
     static let ProfileToChatSegue = "ProfileToChat"
     static let MessagesToChatSegue = "MessagesToChat"
     static let SearchToWelcomeSegue = "SearchToWelcome"

@@ -58,6 +58,9 @@ final class SearchViewController: UIViewController {
     //            fetchUser()
     //        }
     //    }
+    @IBAction func didTapFilterButton(_ sender: Any) {
+        performSegue(withIdentifier: K.SearchToFilterSegue, sender: nil)
+    }
     
     // MARK: - Methods
     

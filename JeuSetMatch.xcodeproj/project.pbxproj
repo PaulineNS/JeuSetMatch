@@ -18,6 +18,7 @@
 		564536A523C20FD2005A26B5 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 564536A323C20FD2005A26B5 /* MessagesTableViewCell.xib */; };
 		5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5699AE6923BBAA1200C61058 /* CitiesViewController.swift */; };
 		56AFDE2A23C4DF6F00B215DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AFDE2923C4DF6E00B215DC /* User.swift */; };
+		56BB33B423CF83DD00B7D726 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB33B323CF83DD00B7D726 /* Filters.swift */; };
 		56C49BDD23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C49BDC23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift */; };
 		56C49BE223CF40740071F7A3 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C49BE023CF40740071F7A3 /* FilterTableViewCell.swift */; };
 		56C49BE323CF40740071F7A3 /* FilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56C49BE123CF40740071F7A3 /* FilterTableViewCell.xib */; };
@@ -63,6 +64,7 @@
 		564536A323C20FD2005A26B5 /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
 		5699AE6923BBAA1200C61058 /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		56AFDE2923C4DF6E00B215DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		56BB33B323CF83DD00B7D726 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		56C49BDC23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+CheckUserPseudo.swift"; sourceTree = "<group>"; };
 		56C49BE023CF40740071F7A3 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		56C49BE123CF40740071F7A3 /* FilterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterTableViewCell.xib; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			children = (
 				56E8B17023B4027A007B4BC1 /* Message.swift */,
 				56AFDE2923C4DF6E00B215DC /* User.swift */,
+				56BB33B323CF83DD00B7D726 /* Filters.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				562CE38A23BB50590075A8AA /* MailViewController.swift in Sources */,
 				562CE38E23BB50CB0075A8AA /* BirthdayViewController.swift in Sources */,
 				56DC0C0E23A909CB003A0DC6 /* WelcomeViewController.swift in Sources */,
+				56BB33B423CF83DD00B7D726 /* Filters.swift in Sources */,
 				56C49BDD23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift in Sources */,
 				56E8B16F23B0E824007B4BC1 /* Constants.swift in Sources */,
 				56E8B17123B4027A007B4BC1 /* Message.swift in Sources */,

@@ -68,7 +68,7 @@
             <connections>
                 <outlet property="arrow" destination="S9b-uv-4qZ" id="ex7-5H-yTk"/>
                 <outlet property="categorieLabel" destination="Bjo-EQ-WVg" id="5tG-Lc-TX9"/>
-                <outlet property="categorieSelectionTxtField" destination="gyl-Ho-YWF" id="8AP-B5-vU8"/>
+                <outlet property="filterValueTxtField" destination="gyl-Ho-YWF" id="8AP-B5-vU8"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="112.5"/>
         </tableViewCell>

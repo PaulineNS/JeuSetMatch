@@ -1045,13 +1045,17 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Chercher" image="search" id="ufc-tA-MCg"/>
                     <navigationItem key="navigationItem" id="XCa-Jx-lbl">
-                        <barButtonItem key="rightBarButtonItem" title="Filtrer" id="lpA-fv-XXQ"/>
+                        <barButtonItem key="rightBarButtonItem" title="Filtrer" id="lpA-fv-XXQ">
+                            <connections>
+                                <action selector="didTapFilterButton:" destination="XQr-MO-ifw" id="IRz-mt-CoF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="filterBarButton" destination="lpA-fv-XXQ" id="Lxl-li-15V"/>
                         <outlet property="usersTableView" destination="cxE-Jf-ESG" id="k9y-Ip-pmq"/>
                         <segue destination="1WO-o0-ut2" kind="show" identifier="SearchToProfile" id="F9L-oe-HuP"/>
-                        <segue destination="hMO-7b-ZSI" kind="show" id="9qW-DB-Xfj"/>
+                        <segue destination="hMO-7b-ZSI" kind="show" identifier="SearchToFilter" id="q9v-vd-2bM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n9L-sf-Oua" userLabel="First Responder" sceneMemberID="firstResponder"/>
