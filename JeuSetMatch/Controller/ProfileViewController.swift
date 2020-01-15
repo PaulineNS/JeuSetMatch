@@ -9,6 +9,11 @@
 import UIKit
 import Firebase
 
+enum ProfilePickerEnum {
+    case gender
+    cae
+}
+
 final class ProfileViewController: UIViewController {
     
     // MARK: - Variables

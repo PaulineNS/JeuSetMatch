@@ -16,9 +16,61 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uyy-TW-ab2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="56" translatesAutoresizingMaskIntoConstraints="NO" id="nq2-iX-b3F">
+                                <rect key="frame" x="5" y="5" width="310" height="34"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bjo-EQ-WVg">
+                                        <rect key="frame" x="0.0" y="0.0" width="42" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="aV6-BO-woG">
+                                        <rect key="frame" x="98" y="0.0" width="212" height="34"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gyl-Ho-YWF">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9b-uv-4qZ">
+                                                <rect key="frame" x="201" y="0.0" width="11" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="nq2-iX-b3F" firstAttribute="top" secondItem="Uyy-TW-ab2" secondAttribute="top" constant="5" id="Pyv-BH-nwt"/>
+                            <constraint firstAttribute="bottom" secondItem="nq2-iX-b3F" secondAttribute="bottom" constant="5" id="QaT-XH-au0"/>
+                            <constraint firstAttribute="trailing" secondItem="nq2-iX-b3F" secondAttribute="trailing" constant="5" id="ecn-YJ-Icu"/>
+                            <constraint firstItem="nq2-iX-b3F" firstAttribute="leading" secondItem="Uyy-TW-ab2" secondAttribute="leading" constant="5" id="nkq-yw-c67"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Uyy-TW-ab2" secondAttribute="bottom" id="3lq-yp-uaV"/>
+                    <constraint firstAttribute="trailing" secondItem="Uyy-TW-ab2" secondAttribute="trailing" id="Dfb-nk-ucE"/>
+                    <constraint firstItem="Uyy-TW-ab2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="pIU-LN-ujP"/>
+                    <constraint firstItem="Uyy-TW-ab2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="zBt-35-Uqh"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="139" y="113"/>
+            <connections>
+                <outlet property="arrow" destination="S9b-uv-4qZ" id="ex7-5H-yTk"/>
+                <outlet property="categorieLabel" destination="Bjo-EQ-WVg" id="5tG-Lc-TX9"/>
+                <outlet property="categorieSelectionTxtField" destination="gyl-Ho-YWF" id="8AP-B5-vU8"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="112.5"/>
         </tableViewCell>
     </objects>
 </document>

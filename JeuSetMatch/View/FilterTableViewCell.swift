@@ -10,6 +10,10 @@ import UIKit
 
 class FilterTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var categorieLabel: UILabel!
+    @IBOutlet weak var categorieSelectionTxtField: UITextField!
+    @IBOutlet weak var arrow: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -18,5 +22,4 @@ class FilterTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
     }
-    
 }

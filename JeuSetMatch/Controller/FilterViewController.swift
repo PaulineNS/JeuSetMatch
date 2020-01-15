@@ -12,6 +12,8 @@ class FilterViewController: UIViewController {
     
     @IBOutlet weak var filterTableView: UITableView!
     
+    private let filters = ["Niveau": "Tout", "Ville": "Tout", "Age": "Tout", "Sexe": "Tout"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         filterTableView.dataSource = self
