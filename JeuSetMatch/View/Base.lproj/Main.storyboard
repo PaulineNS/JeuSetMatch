@@ -959,6 +959,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SzG-YU-F8O">
                                         <rect key="frame" x="20" y="10" width="374" height="50"/>
                                         <color key="backgroundColor" red="0.089183755219999994" green="0.2295971513" blue="0.2011210024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <state key="normal" title="Modifier mon profil">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -1050,11 +1051,70 @@
                         <outlet property="filterBarButton" destination="lpA-fv-XXQ" id="Lxl-li-15V"/>
                         <outlet property="usersTableView" destination="cxE-Jf-ESG" id="k9y-Ip-pmq"/>
                         <segue destination="1WO-o0-ut2" kind="show" identifier="SearchToProfile" id="F9L-oe-HuP"/>
+                        <segue destination="hMO-7b-ZSI" kind="show" id="9qW-DB-Xfj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n9L-sf-Oua" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7825" y="-1057"/>
+            <point key="canvasLocation" x="7857" y="-1057"/>
+        </scene>
+        <!--Filtrer-->
+        <scene sceneID="aPB-ou-F9I">
+            <objects>
+                <viewController id="hMO-7b-ZSI" customClass="FilterViewController" customModule="JeuSetMatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ilO-4E-LNf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DZD-xp-Wcd">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="704"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IaI-yI-pYl">
+                                <rect key="frame" x="0.0" y="704" width="414" height="70"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x17-mI-wSY">
+                                        <rect key="frame" x="10" y="10" width="394" height="50"/>
+                                        <color key="backgroundColor" red="0.1190812364" green="0.21602892879999999" blue="0.1939708292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal" title="Trouver des joueurs ! ">
+                                            <color key="titleColor" red="0.94832760100000002" green="0.95037573580000001" blue="0.96781963110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="searchPlayers:" destination="hMO-7b-ZSI" eventType="touchUpInside" id="wnW-Uw-2Ts"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="BKh-1Y-AHj"/>
+                                    <constraint firstAttribute="bottom" secondItem="x17-mI-wSY" secondAttribute="bottom" constant="10" id="Y9s-3s-53k"/>
+                                    <constraint firstAttribute="trailing" secondItem="x17-mI-wSY" secondAttribute="trailing" constant="10" id="cqJ-0x-RsR"/>
+                                    <constraint firstItem="x17-mI-wSY" firstAttribute="leading" secondItem="IaI-yI-pYl" secondAttribute="leading" constant="10" id="etU-1h-Db8"/>
+                                    <constraint firstItem="x17-mI-wSY" firstAttribute="top" secondItem="IaI-yI-pYl" secondAttribute="top" constant="10" id="v10-bZ-HWO"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="NjI-jf-ZA9" firstAttribute="trailing" secondItem="IaI-yI-pYl" secondAttribute="trailing" id="Drc-RH-iye"/>
+                            <constraint firstItem="IaI-yI-pYl" firstAttribute="top" secondItem="DZD-xp-Wcd" secondAttribute="bottom" id="IJJ-cK-Zdo"/>
+                            <constraint firstItem="NjI-jf-ZA9" firstAttribute="trailing" secondItem="DZD-xp-Wcd" secondAttribute="trailing" id="OYS-Ri-YuT"/>
+                            <constraint firstItem="DZD-xp-Wcd" firstAttribute="leading" secondItem="NjI-jf-ZA9" secondAttribute="leading" id="Utb-k7-yCL"/>
+                            <constraint firstItem="DZD-xp-Wcd" firstAttribute="top" secondItem="NjI-jf-ZA9" secondAttribute="top" id="bfX-2c-Q7G"/>
+                            <constraint firstItem="IaI-yI-pYl" firstAttribute="leading" secondItem="NjI-jf-ZA9" secondAttribute="leading" id="eX1-cG-haH"/>
+                            <constraint firstItem="NjI-jf-ZA9" firstAttribute="bottom" secondItem="IaI-yI-pYl" secondAttribute="bottom" id="zdj-kb-mvX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NjI-jf-ZA9"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Filtrer" id="vYd-tO-6bj"/>
+                    <connections>
+                        <outlet property="filterTableView" destination="DZD-xp-Wcd" id="0Wj-sv-dxy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OWu-DA-dge" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8842" y="-1057"/>
         </scene>
         <!--Title-->
         <scene sceneID="Iss-gX-83Y">

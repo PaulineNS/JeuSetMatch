@@ -16,6 +16,8 @@ struct K {
     static let messagesCellIdentifier = "MessagesCell"
     static let messagesCellNibName = "MessagesTableViewCell"
     static let cityCellIdentifier = "CityCell"
+    static let filterCellIdentifier = "FilterCell"
+    static let filterCellNibName = "FilterTableViewCell"
     
     static let registerSegue = "FromRegisterToSearch"
     static let loginSegue = "FromLoginToSearch"
