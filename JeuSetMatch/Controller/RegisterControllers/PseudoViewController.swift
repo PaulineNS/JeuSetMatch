@@ -9,7 +9,6 @@
 import UIKit
 import Photos
 import AVFoundation
-import Firebase
 
 final class PseudoViewController: UIViewController {
     
@@ -18,7 +17,6 @@ final class PseudoViewController: UIViewController {
     var currentUser: User?
     private var userPseudo = ""
     private var userPicture = UIImage()
-    private let db = Firestore.firestore()
     private let image = UIImagePickerController()
     private let emptyPicture = UIImage(named: "addPictureProfil")
     

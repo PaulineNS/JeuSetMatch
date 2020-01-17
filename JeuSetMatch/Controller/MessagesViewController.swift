@@ -7,15 +7,14 @@
 //
 
 import UIKit
-import Firebase
 
 final class MessagesViewController: UIViewController {
+    
+    let fireStoreService = FirestoreService()
     
     // MARK: - Variables
     
     var currentUser: User?
-    
-    private let db = Firestore.firestore()
     private var messages = [Message]()
     private var messagesDictionary = [String : Message]()
     
@@ -40,45 +39,29 @@ final class MessagesViewController: UIViewController {
         guard let chatVc = segue.destination as? ChatViewController else {return}
         chatVc.user = currentUser
     }
-    
+
     // MARK: - Methods
     
     private func observeUserMessages() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        db.collection("user-messages").document(uid).collection("users").addSnapshotListener { (DocumentSnapshot, error) in
-            
-            DocumentSnapshot?.documentChanges.forEach({ (diff) in
-                
-                let toId = diff.document.documentID
-                self.db.collection("user-messages").document(uid).collection("users").document(toId).collection("messages").addSnapshotListener { (querySnapshot, error) in
-                    
-                    querySnapshot?.documentChanges.forEach({ (diffInMessages) in
-                        
-                        let messageID = diffInMessages.document.documentID
-                        
-                        self.db.collection("messages").document(messageID).getDocument(completion: { (document, error) in
-                            
-                            guard let dataFromDocument = document?.data() else { return }
-                            let message = Message(dictionary: dataFromDocument)
-                            
-                            
-                            if let chatPartnerId = message.chatPartnerId() {
-                                self.messagesDictionary[chatPartnerId] = message
-                                self.messages = Array(self.messagesDictionary.values)
-                                
-                                self.messages.sort(by: { (message1, message2) -> Bool in
-                                    return Int32(truncating: message1.timestamp!) > Int32(truncating: message2.timestamp!)
-                                    
-                                })
-                            }
-                            DispatchQueue.main.async {
-                                print("reload")
-                                self.messagesTableView.reloadData()
-                            }
-                        })
+        
+        fireStoreService.observeUserMessages { (result) in
+            switch result {
+            case .success(let message):
+                 if let chatPartnerId = message.chatPartnerId() {
+                    self.messagesDictionary[chatPartnerId] = message
+                    self.messages = Array(self.messagesDictionary.values)
+                                               
+                    self.messages.sort(by: { (message1, message2) -> Bool in
+                        return Int32(truncating: message1.timestamp!) > Int32(truncating: message2.timestamp!)
                     })
                 }
-            })
+                DispatchQueue.main.async {
+                    print("reload")
+                    self.messagesTableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
 }
@@ -106,17 +89,13 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
         
         guard let chatPartnerId = message.chatPartnerId() else { return }
         
-        db.collection("users").document(chatPartnerId).getDocument { (DocumentSnapshot, error) in
-            if error != nil {
-                print(error as Any)
-            } else {
-                print(DocumentSnapshot as Any)
-                guard let dictionary = DocumentSnapshot?.data() else { return }
-                
-                let user = User(pseudo: dictionary["userName"] as? String, image: dictionary["userImage"] as? Data, sexe: dictionary["userGender"] as? String, level: dictionary["userLevel"] as? String, city: dictionary["userCity"] as? String, birthDate: dictionary["userAge"] as? String, uid: chatPartnerId)
-                self.currentUser = user
-                
+        fireStoreService.fetchPartnerUser(chatPartnerId: chatPartnerId) { (result) in
+            switch result {
+            case .success(let partnerUser) :
+                self.currentUser = partnerUser
                 self.performSegue(withIdentifier: K.MessagesToChatSegue, sender: nil)
+            case .failure(let error) :
+                print(error.localizedDescription)
             }
         }
     }

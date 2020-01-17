@@ -19,6 +19,7 @@
 		5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5699AE6923BBAA1200C61058 /* CitiesViewController.swift */; };
 		56AFDE2A23C4DF6F00B215DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AFDE2923C4DF6E00B215DC /* User.swift */; };
 		56BB33B423CF83DD00B7D726 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB33B323CF83DD00B7D726 /* Filters.swift */; };
+		56BB33B723D0564400B7D726 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB33B623D0564400B7D726 /* FirestoreService.swift */; };
 		56C49BDD23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C49BDC23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift */; };
 		56C49BE223CF40740071F7A3 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C49BE023CF40740071F7A3 /* FilterTableViewCell.swift */; };
 		56C49BE323CF40740071F7A3 /* FilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56C49BE123CF40740071F7A3 /* FilterTableViewCell.xib */; };
@@ -65,6 +66,7 @@
 		5699AE6923BBAA1200C61058 /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		56AFDE2923C4DF6E00B215DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		56BB33B323CF83DD00B7D726 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
+		56BB33B623D0564400B7D726 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		56C49BDC23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+CheckUserPseudo.swift"; sourceTree = "<group>"; };
 		56C49BE023CF40740071F7A3 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		56C49BE123CF40740071F7A3 /* FilterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterTableViewCell.xib; sourceTree = "<group>"; };
@@ -135,6 +137,14 @@
 				562CE38923BB50590075A8AA /* MailViewController.swift */,
 			);
 			path = RegisterControllers;
+			sourceTree = "<group>";
+		};
+		56BB33B523D0563100B7D726 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				56BB33B623D0564400B7D726 /* FirestoreService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		56C49BDB23CE38580071F7A3 /* Extensions */ = {
@@ -220,6 +230,7 @@
 		56DC0C0A23A90984003A0DC6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				56BB33B523D0563100B7D726 /* Service */,
 				56E8B17023B4027A007B4BC1 /* Message.swift */,
 				56AFDE2923C4DF6E00B215DC /* User.swift */,
 				56BB33B323CF83DD00B7D726 /* Filters.swift */,
@@ -447,6 +458,7 @@
 				56DC0C1723ABC4AE003A0DC6 /* LoginViewController.swift in Sources */,
 				56E8B17A23BA4B61007B4BC1 /* UserTableViewCell.swift in Sources */,
 				564536A423C20FD2005A26B5 /* MessagesTableViewCell.swift in Sources */,
+				56BB33B723D0564400B7D726 /* FirestoreService.swift in Sources */,
 				56E8B17423B52E6B007B4BC1 /* ChatTableViewCell.swift in Sources */,
 				56AFDE2A23C4DF6F00B215DC /* User.swift in Sources */,
 				562CE39223BB5A550075A8AA /* PseudoViewController.swift in Sources */,

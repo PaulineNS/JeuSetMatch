@@ -14,9 +14,6 @@ class FilterTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var filterValueTxtField: UITextField!
     @IBOutlet weak var arrow: UILabel!
     
-    private var genderPicker: UIPickerView?
-    private var datePicker: UIDatePicker?
-    private var levelPicker: UIPickerView?
     
     override func awakeFromNib() {
         super.awakeFromNib()

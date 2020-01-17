@@ -7,14 +7,14 @@
 //
 
 import UIKit
-import Firebase
 
 final class MailViewController: UIViewController {
     
-    // MARK: - Variables
+    var firestoreService = FirestoreService()
     
+    // MARK: - Variables
+
     var currentUser: User?
-    private let db = Firestore.firestore()
     
     // MARK: - Outlets
     
@@ -36,31 +36,15 @@ final class MailViewController: UIViewController {
     
     @IBAction private func registerButtonPressed(_ sender: Any) {
         
-        guard let email = emailTextfield.text, let password = passwordTextfield.text else {return}
+        guard let email = emailTextfield.text, let password = passwordTextfield.text, let userAge = currentUser?.birthDate, let userGender = currentUser?.sexe, let userLevel = currentUser?.level, let userCity = currentUser?.city, let userName = currentUser?.pseudo, let userImage = currentUser?.image else {return}
         
-        
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            if error != nil {
-                print("error, \(error!)")
-                return
-            } else {
-                guard let uid = Auth.auth().currentUser?.uid else {return}
-                let data = ["userAge": self.currentUser?.birthDate as Any,
-                            "userGender": self.currentUser?.sexe as Any,
-                            "userLevel": self.currentUser?.level as Any,
-                            "userCity": self.currentUser?.city as Any,
-                            "userName": self.currentUser?.pseudo as Any,
-                            "userImage": self.currentUser?.image as Any,
-                            "userUid": uid]
-                self.db.collection("users").document("\(uid)").setData(data) { (error) in
-                    if error != nil {
-                        print(error!)
-                    } else {
-                        self.currentUser = User(pseudo: data["userName"] as? String, image: data["userImage"] as? Data, sexe: data["userGender"] as? String, level: data["userLevel"] as? String, city: data["userCity"] as? String, birthDate: data["userAge"] as? String, uid: data["userUid"] as? String)
-                        self.performSegue(withIdentifier: K.registerSegue, sender: self)
-                        
-                    }
-                }
+        firestoreService.createUser(email: email, password: password, userAge: userAge, userGender: userGender, userLevel: userLevel, userCity: userCity, userName: userName, userImage: userImage) { (result) in
+            switch result {
+            case .success(let user):
+                self.currentUser = user
+                self.performSegue(withIdentifier: K.registerSegue, sender: self)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }

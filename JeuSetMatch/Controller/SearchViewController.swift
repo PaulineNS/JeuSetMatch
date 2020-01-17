@@ -7,15 +7,14 @@
 //
 
 import UIKit
-import Firebase
 
 final class SearchViewController: UIViewController {
+    
+    let fireStoreService = FirestoreService()
     
     // MARK: - Variables
     
     var currentUser: User?
-    
-    private let db = Firestore.firestore()
     private var users: [User] = []
     private var userPseudo = ""
     
@@ -58,6 +57,7 @@ final class SearchViewController: UIViewController {
     //            fetchUser()
     //        }
     //    }
+    
     @IBAction func didTapFilterButton(_ sender: Any) {
         performSegue(withIdentifier: K.SearchToFilterSegue, sender: nil)
     }
@@ -65,20 +65,17 @@ final class SearchViewController: UIViewController {
     // MARK: - Methods
     
     private func fetchUser() {
-        db.collection("users").getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error)")
-            } else {
-                for document in querySnapshot!.documents {
-                    let data = document.data()
-                    let user = User(pseudo: data["userName"] as? String, image: data["userImage"] as? Data, sexe: data["userGender"] as? String, level: data["userLevel"] as? String, city: data["userCity"] as? String, birthDate: data["userAge"] as? String, uid: document.documentID)
-                    self.users.append(user)
-                    
-                    DispatchQueue.main.async {
-                        self.usersTableView.reloadData()
-                    }
-                    
+        
+        fireStoreService.fetchUser { (result) in
+            switch result {
+            case .success(let users):
+                self.users.append(users)
+                DispatchQueue.main.async {
+                    self.usersTableView.reloadData()
                 }
+            case .failure(let error):
+                print(error.localizedDescription)
+
             }
         }
     }

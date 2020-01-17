@@ -70,6 +70,7 @@ class FilterViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == levelPicker {
             levelChoosen = levelsArray[row]
+            print(levelChoosen)
         }
         if pickerView == genderPicker {
         }
@@ -86,6 +87,8 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: K.filterCellIdentifier, for: indexPath) as? FilterTableViewCell else {return UITableViewCell()}
         
         cell.filter = filtersArray[indexPath.row]
+        //cell.delegate = self
+        
         
         if indexPath.row == 1 {
             cell.filterValueTxtField.inputView = levelPicker
