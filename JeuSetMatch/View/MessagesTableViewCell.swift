@@ -7,20 +7,19 @@
 //
 
 import UIKit
-import Firebase
 
 class MessagesTableViewCell: UITableViewCell {
-
+    
     // MARK: - Outlets
-
+    
     @IBOutlet weak var profileUserImageView: UIImageView!
     @IBOutlet weak var pseudoUserLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var lastMessageLabel: UILabel!
     
     // MARK: - Variables
-
-    private let db = Firestore.firestore()
+    
+    var firestoreService = FirestoreService()
     
     var message : Message? {
         didSet {
@@ -36,31 +35,30 @@ class MessagesTableViewCell: UITableViewCell {
             dateFormatter.dateFormat = "dd-MM-yyyy"
             let strDate = dateFormatter.string(from: date)
             timeLabel.text = strDate
-            }
         }
-
+    }
+    
     // MARK: - Methods
-
+    
     private func setupNameAndProfileImage() {
-        
         if let id = message?.chatPartnerId() {
-            print("got it")
-            print(id)
-            
-            db.collection("users").document("\(id)").getDocument(source: .default) { (snapshot, error) in
-                if let error = error {
-                    print(error)
-                }
-                if let dictionary = snapshot?.data() {
-                    print(dictionary)
-
+            firestoreService.setupNameAndProfileImage(id: id) { (result) in
+                switch result {
+                case .success(let dictionary) :
                     self.pseudoUserLabel.text = dictionary["userName"] as? String
-                    
                     if let profileImage = dictionary["userImage"] as? Data {
                         self.profileUserImageView.image = UIImage(data: profileImage)
                     }
+                case .failure(let error) :
+                    print(error.localizedDescription)
                 }
             }
         }
     }
 }
+
+
+
+
+
+

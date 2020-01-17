@@ -7,10 +7,11 @@
 //
 
 import UIKit
-import Firebase
 
 final class ChatViewController: UIViewController {
     
+    let fireStoreService = FirestoreService()
+
     // MARK: - Variables
 
     var user : User? {
@@ -20,7 +21,6 @@ final class ChatViewController: UIViewController {
         }
     }
     
-    private let db = Firestore.firestore()
     private var messages = [Message]()
     
     // MARK: - Outlets
@@ -45,85 +45,33 @@ final class ChatViewController: UIViewController {
 
     @IBAction private func sendPressed(_ sender: UIButton) {
         let properties : [String : Any] = ["text" : chatTextField.text!]
-        sendMessageWithProperties(properties: properties)
+        guard let toId = user?.uid else { return }
+        fireStoreService.sendMessage(withProperties: properties, toId: toId)
+        self.chatTextField.text = ""
     }
     
     // MARK: - Methods
-
-    private func sendMessageWithProperties(properties: [String : Any]) {
-        let ref = db.collection("messages").document()
-        let toId = user?.uid
-        let timestamp = Int(NSDate().timeIntervalSince1970)
-        let fromId = Auth.auth().currentUser?.uid
-        var values : [String : Any] = ["toId" : toId as Any, "fromId" : fromId as Any, "timestamp" : timestamp]
-        properties.forEach {( values[$0] = $1 )}
-        ref.setData(values) { (error) in
-            if error != nil {
-                print(error as Any)
-            } else {
-                print("success")
-                
-                let messageId = ref.documentID
-                //step 1
-                let userRef = self.db.collection("user-messages").document(fromId!).collection("users").document(toId!)
-                userRef.setData([toId! : 1])
-                //step 2
-                let userMessageRef =  self.db.collection("user-messages").document(fromId!).collection("users").document(toId!).collection("messages").document(messageId)
-                
-                userMessageRef.setData([messageId : 1])
-                
-                //step 1
-                let recipienUserRef = self.db.collection("user-messages").document(toId!).collection("users").document(fromId!)
-                recipienUserRef.setData([fromId! : 1])
-                
-                let recipienUserMessageRef = self.db.collection("user-messages").document(toId!).collection("users").document(fromId!).collection("messages").document(messageId)
-                
-                recipienUserMessageRef.setData([messageId : 1])
-                
-                self.chatTextField.text = ""
-            }
-        }
-    }
     
     private func observeMessages() {
-        guard let uid = Auth.auth().currentUser?.uid, let toId = user?.uid else { return }
-        db.collection("user-messages")
-            .document(uid)
-            .collection("users")
-            .document(toId)
-            .collection("messages")
-            .addSnapshotListener { (snapshot, error) in
-                snapshot?.documentChanges.forEach({ (diff) in
-                    
-                    let messageId = diff.document.documentID
-                    
-                    self.db.collection("messages")
-                        .document(messageId)
-                        .getDocument(completion: { (document, error) in
-                            
-                            guard let dictionary = document?.data() else { return }
-                            
-                            let message = Message(dictionary: dictionary)
-                            
-                            print("we fetched this message \(message.text ?? "")")
-                            if message.chatPartnerId() == self.user?.uid {
-                                print("what")
-                                self.messages.append(message)
-                                
-                                self.messages.sort { (message1, message2) -> Bool in
-                                    return Int32(truncating: message1.timestamp!) < Int32(truncating: message2.timestamp!)
-                                }
-                                
-                                print(self.messages)
-                                
-                                DispatchQueue.main.async {
-                                    self.chatTableView.reloadData()
-                                    let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
-                                    self.chatTableView.scrollToRow(at: indexPath, at: .top, animated: false)
-                                }
-                            }
-                        })
-                })
+        guard let toId = user?.uid else { return }
+        
+        fireStoreService.observeUserChatMessages(toId: toId) { (result) in
+            switch result {
+            case .success(let message) :
+                guard message.chatPartnerId() == self.user?.uid else {return}
+                self.messages.append(message)
+                self.messages.sort { (message1, message2) -> Bool in
+                    return Int32(truncating: message1.timestamp!) < Int32(truncating: message2.timestamp!)
+                }
+                print(self.messages)
+                DispatchQueue.main.async {
+                    self.chatTableView.reloadData()
+                    let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+                    self.chatTableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                }
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
         }
     }
 }
@@ -143,7 +91,7 @@ extension ChatViewController: UITableViewDataSource {
           
           cell.messageLabel.text = message.text
           
-          guard message.toId == Auth.auth().currentUser?.uid else {
+        guard message.toId == fireStoreService.currentUserUid else {
               cell.leftAvatarImageView.isHidden = false
               cell.rightAvatarImageView.isHidden = true
               cell.messageBubble.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)

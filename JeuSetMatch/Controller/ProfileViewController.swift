@@ -49,6 +49,7 @@ final class ProfileViewController: UIViewController {
         print("profilevc", currentUser?.birthDate as Any)
         print("profilevc", currentUser?.city as Any)
         guard IsSegueFromSearch == true else {
+            
             loadCurrentUserInformations()
             self.tabBarController?.navigationItem.hidesBackButton = true
             self.tabBarController?.navigationItem.rightBarButtonItem = logOutBarButtonItem

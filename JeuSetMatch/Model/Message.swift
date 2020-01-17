@@ -5,10 +5,11 @@
 //  Created by Pauline Nomballais on 25/12/2019.
 //  Copyright © 2019 PaulineNomballais. All rights reserved.
 //
-import Firebase
 import Foundation
 
 struct Message {
+    
+    let firestoreService = FirestoreService()
     
     // MARK: - Variables
 
@@ -29,10 +30,8 @@ struct Message {
     // MARK: - Methods
 
     func chatPartnerId() -> String? {
-        return fromId == Auth.auth().currentUser?.uid ? toId : fromId
+        return fromId == firestoreService.currentUserUid ? toId : fromId
     }
-    
-
 }
 
 
