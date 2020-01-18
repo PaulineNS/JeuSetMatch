@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 class LoginViewController: UIViewController {
     
@@ -19,7 +18,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - Variables
     
-    let db = Firestore.firestore()
+    let firestoreService = FirestoreService()
     var currentUser: User?
     
     // MARK: - Controller life cycle
@@ -44,13 +43,15 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginPressed(_ sender: Any) {
         guard let email = emailTextfield.text, let password = passwordTextfield.text else {return}
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            if let e = error {
-                print(e.localizedDescription)
-                self.alertLabel.isHidden = false
-                self.alertLabel.text = e.localizedDescription
-            } else {
+
+        firestoreService.login(email: email, password: password) { (result) in
+            switch result {
+            case .success :
                 self.performSegue(withIdentifier: K.loginSegue, sender: self)
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.alertLabel.isHidden = false
+                self.alertLabel.text = error.localizedDescription
             }
         }
     }

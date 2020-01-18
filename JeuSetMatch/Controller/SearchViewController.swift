@@ -16,7 +16,6 @@ final class SearchViewController: UIViewController {
     
     var currentUser: User?
     private var users: [User] = []
-    private var userPseudo = ""
     
     // MARK: - Outlets
     
@@ -43,11 +42,10 @@ final class SearchViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.SearchToProfileSegue else { return }
-        guard let pseudoVc = segue.destination as? ProfileViewController else {return}
-        pseudoVc.navigationItem.rightBarButtonItem = nil
-        pseudoVc.currentUser = currentUser
-        pseudoVc.userPseudo = userPseudo
-        pseudoVc.IsSegueFromSearch = true
+        guard let profileVc = segue.destination as? ProfileViewController else {return}
+        profileVc.navigationItem.rightBarButtonItem = nil
+        profileVc.currentUser = currentUser
+        profileVc.IsSegueFromSearch = true
     }
     
     //    func checkIfUserIsLoggedIn() {
@@ -105,7 +103,6 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
-        self.userPseudo = user.pseudo ?? ""
         self.currentUser = user
         performSegue(withIdentifier: K.SearchToProfileSegue, sender: nil)
     }

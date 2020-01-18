@@ -7,17 +7,16 @@
 //
 
 import UIKit
-import Firebase
 
 final class ProfileViewController: UIViewController {
+    
+    let firestoreService = FirestoreService()
     
     // MARK: - Variables
     
     var currentUser: User?
     var IsSegueFromSearch = false
-    var userPseudo = ""
     
-    private let db = Firestore.firestore()
     private var userInformations: [User] = []
     private var genderPicker: UIPickerView?
     private var datePicker: UIDatePicker?
@@ -50,13 +49,15 @@ final class ProfileViewController: UIViewController {
         print("profilevc", currentUser?.city as Any)
         guard IsSegueFromSearch == true else {
             
-            loadCurrentUserInformations()
+            guard let currentUserUid = firestoreService.currentUserUid else {return}
+            fetchUserInformations(userUid: currentUserUid )
             self.tabBarController?.navigationItem.hidesBackButton = true
             self.tabBarController?.navigationItem.rightBarButtonItem = logOutBarButtonItem
             updateProfileButton.setTitle("Modifier mon profil", for: .normal)
             return
         }
-        loadAnotherUserInformations()
+        guard let partnerUid = currentUser?.uid else {return}
+        fetchUserInformations(userUid: partnerUid)
         updateProfileButton.setTitle("Contacter", for: .normal)
     }
     
@@ -89,12 +90,8 @@ final class ProfileViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction private func logOutPressed(_ sender: UIBarButtonItem) {
-        do {
-            try Auth.auth().signOut()
-            navigationController?.popToRootViewController(animated: true)
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
+        firestoreService.logOut()
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction private func didPressValidateButton(_ sender: Any) {
@@ -103,7 +100,8 @@ final class ProfileViewController: UIViewController {
         cancelButton.isHidden = true
         updateProfileButton.isHidden = false
         guard let userCity = userInformationTxtField[3].text, let userGender = userInformationTxtField[1].text, let userLevel = userInformationTxtField[4].text, let userName = userInformationTxtField[0].text else {return}
-        updateUserInformation(userCity: userCity, userGender: userGender, userLevel: userLevel, userName: userName)
+        firestoreService.updateUserInformation(userCity: userCity, userGender: userGender, userLevel: userLevel, userName: userName)
+
     }
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
@@ -154,52 +152,7 @@ final class ProfileViewController: UIViewController {
             index += 1
         }
     }
-    
-    private func updateUserInformation(userCity: String, userGender: String, userLevel: String, userName: String) {
         
-        db.collection("users").document(Auth.auth().currentUser?.uid ?? "").updateData([
-            //            "userAge": "",
-            "userCity": userCity,
-            "userGender": userGender,
-            //            "userImage": "",
-            "userLevel": userLevel,
-            "userName": userName
-        ]) { error in
-            if let error = error {
-                print("Error updating document: \(error)")
-            } else {
-                print("Document successfully updated")
-            }
-        }
-    }
-    
-    private func loadAnotherUserInformations() {
-        db.collection("users").whereField("userName", isEqualTo: userPseudo).addSnapshotListener { (querySnapshot, error) in
-            self.userInformations = []
-            if let e = error {
-                print("There was an issue retrieving data from Firestore. \(e)")
-            } else {
-                guard let snapshotDocuments = querySnapshot?.documents else {return}
-                for doc in snapshotDocuments {
-                    let data = doc.data()
-                    guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let imageData = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String else {return}
-                    let user = User(pseudo: userPseudo, image: imageData, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: "")
-                    self.userInformations.append(user)
-                    let stringDate = self.stringToDate(dateString: userBirthDate)
-                    let userAge = self.dateToAge(birthDate: stringDate)
-                    DispatchQueue.main.async {
-                        self.userInformationTxtField[0].text = userPseudo
-                        self.userInformationTxtField[1].text = userGender
-                        self.userInformationTxtField[3].text = userCity
-                        self.userInformationTxtField[4].text = userLevel
-                        self.userPictureImageView.image = UIImage(data: imageData)
-                        self.userInformationTxtField[2].text = userAge + " " + "ans"
-                    }
-                }
-            }
-        }
-    }
-    
     private func stringToDate(dateString : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -216,29 +169,25 @@ final class ProfileViewController: UIViewController {
         return stringAge
     }
     
-    private func loadCurrentUserInformations() {
-        db.collection("users").whereField("userUid", isEqualTo: Auth.auth().currentUser?.uid as Any).addSnapshotListener { (querySnapshot, error) in
-            self.userInformations = []
-            if let e = error {
-                print("There was an issue retrieving data from Firestore. \(e)")
-            } else {
-                guard let snapshotDocuments = querySnapshot?.documents else {return}
-                for doc in snapshotDocuments {
-                    let data = doc.data()
-                    guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let userPicture = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String else {return}
-                    let user = User(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: "")
-                    self.userInformations.append(user)
-                    let stringDate = self.stringToDate(dateString: userBirthDate)
-                    let userAge = self.dateToAge(birthDate: stringDate)
-                    DispatchQueue.main.async {
-                        self.userInformationTxtField[0].text = userPseudo
-                        self.userInformationTxtField[1].text = userGender
-                        self.userInformationTxtField[3].text = userCity
-                        self.userInformationTxtField[4].text = userLevel
-                        self.userPictureImageView.image = UIImage(data: userPicture)
-                        self.userInformationTxtField[2].text = userAge + " " + "ans"
-                    }
+    private func fetchUserInformations(userUid: String) {
+        self.userInformations = []
+        firestoreService.fetchUserInformationsDependingUid(userUid: userUid) { (result) in
+            switch result {
+            case .success(let user) :
+                self.userInformations.append(user)
+                guard let userBirthdate = user.birthDate, let userPseudo = user.pseudo, let userGender = user.sexe, let userCity = user.city, let userLevel = user.level, let userPicture = user.image else {return}
+                let stringDate = self.stringToDate(dateString: userBirthdate)
+                let userAge = self.dateToAge(birthDate: stringDate)
+                DispatchQueue.main.async {
+                    self.userInformationTxtField[0].text = userPseudo
+                    self.userInformationTxtField[1].text = userGender
+                    self.userInformationTxtField[3].text = userCity
+                    self.userInformationTxtField[4].text = userLevel
+                    self.userPictureImageView.image = UIImage(data: userPicture)
+                    self.userInformationTxtField[2].text = userAge + " " + "ans"
                 }
+            case .failure(let error) :
+                print(error.localizedDescription)
             }
         }
     }

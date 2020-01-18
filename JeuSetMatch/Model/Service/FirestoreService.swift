@@ -45,6 +45,36 @@ class FirestoreService {
             }
         }
     
+    func checkPseudoDisponibility(field: String, completion: @escaping (Bool) -> Void) {
+        let collectionRef = db.collection("users")
+        collectionRef.whereField("userName", isEqualTo: field).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error getting document: \(error)")
+            } else if (snapshot?.isEmpty)! {
+                completion(false)
+            } else {
+                for document in (snapshot?.documents)! {
+                    if document.data()[K.FStore.userPseudoField] != nil {
+                        completion(true)
+                    }
+                }
+            }
+        }
+    }
+    
+    func login(email: String, password: String, completion: @escaping (Result<AuthDataResult, Error>) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("error, \(error)")
+                completion(.failure(FireStoreError.noData))
+                return
+            } else {
+                guard let authDataResult = authResult else {return}
+                completion(.success(authDataResult))
+            }
+        }
+    }
+    
     func fetchUser(completion: @escaping (Result<User, Error>) -> Void) {
         db.collection("users").getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -58,7 +88,6 @@ class FirestoreService {
                     let user = User(pseudo: data["userName"] as? String, image: data["userImage"] as? Data, sexe: data["userGender"] as? String, level: data["userLevel"] as? String, city: data["userCity"] as? String, birthDate: data["userAge"] as? String, uid: document.documentID)
                     completion(.success(user))
                     }
-                    
                 }
             }
         }
@@ -192,7 +221,54 @@ class FirestoreService {
             }
         }
     }
+    
+    
+    func fetchUserInformationsDependingUid(userUid: String, completion: @escaping (Result<User, Error>) -> Void) {
+//        self.userInformations = []
+        db.collection("users").whereField("userUid", isEqualTo: userUid).addSnapshotListener { (querySnapshot, error) in
+            if let error = error {
+                print("There was an issue retrieving data from Firestore\(error)")
+                completion(.failure(FireStoreError.noData))
+                return
+            } else {
+                guard let snapshotDocuments = querySnapshot?.documents else {return}
+                for doc in snapshotDocuments {
+                    let data = doc.data()
+                    guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let userPicture = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String, let userUid = data["userUid"] as? String else {return}
+                    let user = User(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: userUid)
+                    completion(.success(user))
+                }
+            }
+        }
+    }
+    
+    func updateUserInformation(userCity: String, userGender: String, userLevel: String, userName: String) {
+        
+        db.collection("users").document(Auth.auth().currentUser?.uid ?? "").updateData([
+            //            "userAge": "",
+            "userCity": userCity,
+            "userGender": userGender,
+            //            "userImage": "",
+            "userLevel": userLevel,
+            "userName": userName
+        ]) { error in
+            if let error = error {
+                print("Error updating document: \(error)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+    }
+    
+    func logOut(){
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
 }
+
     
 
 

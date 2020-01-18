@@ -14,6 +14,7 @@ final class PseudoViewController: UIViewController {
     
     // MARK: - Variables
 
+    let firestoreService = FirestoreService()
     var currentUser: User?
     private var userPseudo = ""
     private var userPicture = UIImage()
@@ -55,7 +56,7 @@ final class PseudoViewController: UIViewController {
             self.pseudoTextfield.textColor = #colorLiteral(red: 0.8514410622, green: 0.2672892915, blue: 0.1639432118, alpha: 1)
             self.userPseudo = ""
         } else {
-            sender.checkPseudo(field: sender.text ?? "") { (success) in
+            firestoreService.checkPseudoDisponibility(field: sender.text ?? "") { (success) in
                 if success == true {
                     DispatchQueue.main.async {
                         self.pseudoAlertLabel.isHidden = false
@@ -74,6 +75,26 @@ final class PseudoViewController: UIViewController {
             }
         }
     }
+            
+//            sender.checkPseudo(field: sender.text ?? "") { (success) in
+//                if success == true {
+//                    DispatchQueue.main.async {
+//                        self.pseudoAlertLabel.isHidden = false
+//                        self.pseudoAlertLabel.text = "Ce pseudo n'est pas disponible"
+//                        self.pseudoTextfield.textColor = #colorLiteral(red: 0.8514410622, green: 0.2672892915, blue: 0.1639432118, alpha: 1)
+//                        self.userPseudo = ""
+//                    }
+//                } else {
+//                    DispatchQueue.main.async {
+//                        self.pseudoAlertLabel.isHidden = true
+//                        self.pseudoTextfield.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+//                        self.userPseudo = sender.text ?? ""
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
     
     @IBAction private func continueButtonPressed(_ sender: UIButton) {
         guard profilPictureImageView.image != emptyPicture else {

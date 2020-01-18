@@ -16,11 +16,11 @@
 		564536A023C20CE4005A26B5 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645369F23C20CE4005A26B5 /* MessagesViewController.swift */; };
 		564536A423C20FD2005A26B5 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */; };
 		564536A523C20FD2005A26B5 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 564536A323C20FD2005A26B5 /* MessagesTableViewCell.xib */; };
+		568D50AD23D3320B00839CE4 /* GooglePlacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568D50AC23D3320B00839CE4 /* GooglePlacesService.swift */; };
 		5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5699AE6923BBAA1200C61058 /* CitiesViewController.swift */; };
 		56AFDE2A23C4DF6F00B215DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AFDE2923C4DF6E00B215DC /* User.swift */; };
 		56BB33B423CF83DD00B7D726 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB33B323CF83DD00B7D726 /* Filters.swift */; };
 		56BB33B723D0564400B7D726 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB33B623D0564400B7D726 /* FirestoreService.swift */; };
-		56C49BDD23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C49BDC23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift */; };
 		56C49BE223CF40740071F7A3 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C49BE023CF40740071F7A3 /* FilterTableViewCell.swift */; };
 		56C49BE323CF40740071F7A3 /* FilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56C49BE123CF40740071F7A3 /* FilterTableViewCell.xib */; };
 		56C49BE523CF415B0071F7A3 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C49BE423CF415B0071F7A3 /* FilterViewController.swift */; };
@@ -63,11 +63,11 @@
 		5645369F23C20CE4005A26B5 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 		564536A323C20FD2005A26B5 /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
+		568D50AC23D3320B00839CE4 /* GooglePlacesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesService.swift; sourceTree = "<group>"; };
 		5699AE6923BBAA1200C61058 /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		56AFDE2923C4DF6E00B215DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		56BB33B323CF83DD00B7D726 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		56BB33B623D0564400B7D726 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
-		56C49BDC23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+CheckUserPseudo.swift"; sourceTree = "<group>"; };
 		56C49BE023CF40740071F7A3 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		56C49BE123CF40740071F7A3 /* FilterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterTableViewCell.xib; sourceTree = "<group>"; };
 		56C49BE423CF415B0071F7A3 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				56BB33B623D0564400B7D726 /* FirestoreService.swift */,
+				568D50AC23D3320B00839CE4 /* GooglePlacesService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -150,7 +151,6 @@
 		56C49BDB23CE38580071F7A3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				56C49BDC23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -463,6 +463,7 @@
 				56AFDE2A23C4DF6F00B215DC /* User.swift in Sources */,
 				562CE39223BB5A550075A8AA /* PseudoViewController.swift in Sources */,
 				5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */,
+				568D50AD23D3320B00839CE4 /* GooglePlacesService.swift in Sources */,
 				5645369E23BF5285005A26B5 /* ProfileViewController.swift in Sources */,
 				56C49BE223CF40740071F7A3 /* FilterTableViewCell.swift in Sources */,
 				564536A023C20CE4005A26B5 /* MessagesViewController.swift in Sources */,
@@ -470,7 +471,6 @@
 				562CE38E23BB50CB0075A8AA /* BirthdayViewController.swift in Sources */,
 				56DC0C0E23A909CB003A0DC6 /* WelcomeViewController.swift in Sources */,
 				56BB33B423CF83DD00B7D726 /* Filters.swift in Sources */,
-				56C49BDD23CE38D30071F7A3 /* UITextField+CheckUserPseudo.swift in Sources */,
 				56E8B16F23B0E824007B4BC1 /* Constants.swift in Sources */,
 				56E8B17123B4027A007B4BC1 /* Message.swift in Sources */,
 				562CE39023BB55BB0075A8AA /* LevelViewController.swift in Sources */,
