@@ -14,8 +14,8 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Variables
     
-    var currentUser: User?
-    private var users: [User] = []
+    var currentUser: UserObject?
+    private var users: [UserObject] = []
     
     // MARK: - Outlets
     

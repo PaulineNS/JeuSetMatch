@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
     // MARK: - Variables
     
     let firestoreService = FirestoreService()
-    var currentUser: User?
+    var currentUser: UserObject?
     
     // MARK: - Controller life cycle
     

@@ -14,7 +14,7 @@ final class MailViewController: UIViewController {
     
     // MARK: - Variables
 
-    var currentUser: User?
+    var currentUser: UserObject?
     
     // MARK: - Outlets
     

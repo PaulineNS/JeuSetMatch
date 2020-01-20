@@ -14,10 +14,10 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - Variables
     
-    var currentUser: User?
+    var currentUser: UserObject?
     var IsSegueFromSearch = false
     
-    private var userInformations: [User] = []
+    private var userInformations: [UserObject] = []
     private var genderPicker: UIPickerView?
     private var datePicker: UIDatePicker?
     private var levelPicker: UIPickerView?
@@ -66,7 +66,7 @@ final class ProfileViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.ProfileToChatSegue else {return}
         guard let chatVc = segue.destination as? ChatViewController else {return}
-        chatVc.user = User(pseudo: currentUser?.pseudo, image: currentUser?.image, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: currentUser?.uid)
+        chatVc.user = UserObject(pseudo: currentUser?.pseudo, image: currentUser?.image, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: currentUser?.uid)
     }
     
     @objc private func dateChanged(datePicker: UIDatePicker) {

@@ -14,14 +14,14 @@ final class ChatViewController: UIViewController {
 
     // MARK: - Variables
 
-    var user : User? {
+    var user : UserObject? {
         didSet {
             receiverPseudo.title = user?.pseudo
             observeMessages()
         }
     }
     
-    private var messages = [Message]()
+    private var messages = [MessageObject]()
     
     // MARK: - Outlets
     

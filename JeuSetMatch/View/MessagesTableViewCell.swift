@@ -21,7 +21,7 @@ class MessagesTableViewCell: UITableViewCell {
     
     var firestoreService = FirestoreService()
     
-    var message : Message? {
+    var message : MessageObject? {
         didSet {
             setupNameAndProfileImage()
             lastMessageLabel.text = message?.text

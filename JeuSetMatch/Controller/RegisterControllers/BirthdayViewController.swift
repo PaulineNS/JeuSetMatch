@@ -43,7 +43,7 @@ final class BirthdayViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.BirthDateSegue else {return}
         guard let levelVc = segue.destination as? LevelViewController else {return}
-        levelVc.currentUser = User(pseudo: nil, image: nil, sexe: userGender, level: nil, city: nil, birthDate: stringBirthDate, uid: nil)
+        levelVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: userGender, level: nil, city: nil, birthDate: stringBirthDate, uid: nil)
     }
     
     // MARK: - Methods

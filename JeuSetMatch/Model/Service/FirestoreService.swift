@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-class FirestoreService {
+class FirestoreService: FirestoreProtocol {
     
     private let db = Firestore.firestore()
     let currentUserUid = Auth.auth().currentUser?.uid
@@ -18,7 +18,7 @@ class FirestoreService {
         case noData
     }
     
-    func createUser(email: String, password: String, userAge: Any, userGender: Any, userLevel: Any, userCity: Any, userName: Any, userImage: Any, completion: @escaping (Result<User, Error>) -> Void) {
+    func createUser(email: String, password: String, userAge: Any, userGender: Any, userLevel: Any, userCity: Any, userName: Any, userImage: Any, completion: @escaping (Result<UserObject, Error>) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 print("error, \(error!)")
@@ -38,7 +38,7 @@ class FirestoreService {
                         print(error!)
                         return
                     }
-                    let currentUser = User(pseudo: data["userName"] as? String, image: data["userImage"] as? Data, sexe: data["userGender"] as? String, level: data["userLevel"] as? String, city: data["userCity"] as? String, birthDate: data["userAge"] as? String, uid: data["userUid"] as? String)
+                    let currentUser = UserObject(pseudo: data["userName"] as? String, image: data["userImage"] as? Data, sexe: data["userGender"] as? String, level: data["userLevel"] as? String, city: data["userCity"] as? String, birthDate: data["userAge"] as? String, uid: data["userUid"] as? String)
                     completion(.success(currentUser))
                     }
                 }
@@ -75,7 +75,7 @@ class FirestoreService {
         }
     }
     
-    func fetchUser(completion: @escaping (Result<User, Error>) -> Void) {
+    func fetchUser(completion: @escaping (Result<UserObject, Error>) -> Void) {
         db.collection("users").getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
@@ -85,14 +85,14 @@ class FirestoreService {
                 guard let snapchotDocument = querySnapshot?.documents else {return}
                 for document in snapchotDocument {
                     let data = document.data()
-                    let user = User(pseudo: data["userName"] as? String, image: data["userImage"] as? Data, sexe: data["userGender"] as? String, level: data["userLevel"] as? String, city: data["userCity"] as? String, birthDate: data["userAge"] as? String, uid: document.documentID)
+                    let user = UserObject(pseudo: data["userName"] as? String, image: data["userImage"] as? Data, sexe: data["userGender"] as? String, level: data["userLevel"] as? String, city: data["userCity"] as? String, birthDate: data["userAge"] as? String, uid: document.documentID)
                     completion(.success(user))
                     }
                 }
             }
         }
 
-    func observeUserMessages(completion: @escaping (Result<Message, Error>) -> Void) {
+    func observeUserMessages(completion: @escaping (Result<MessageObject, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         db.collection("user-messages").document(uid).collection("users").addSnapshotListener { (DocumentSnapshot, error) in
             if let error = error {
@@ -121,7 +121,7 @@ class FirestoreService {
                                         return
                                     } else {
                                         guard let dataFromDocument = document?.data() else { return }
-                                        let message = Message(dictionary: dataFromDocument)
+                                        let message = MessageObject(dictionary: dataFromDocument)
                                         completion(.success(message))
                                     }
                                 })
@@ -133,7 +133,7 @@ class FirestoreService {
         }
     }
     
-    func fetchPartnerUser(chatPartnerId: String, completion: @escaping (Result<User, Error>) -> Void){
+    func fetchPartnerUser(chatPartnerId: String, completion: @escaping (Result<UserObject, Error>) -> Void){
         db.collection("users").document(chatPartnerId).getDocument { (DocumentSnapshot, error) in
             if error != nil {
                 print("error, \(error!)")
@@ -143,13 +143,13 @@ class FirestoreService {
                 print(DocumentSnapshot as Any)
                 guard let dictionary = DocumentSnapshot?.data() else { return }
                 
-                let user = User(pseudo: dictionary["userName"] as? String, image: dictionary["userImage"] as? Data, sexe: dictionary["userGender"] as? String, level: dictionary["userLevel"] as? String, city: dictionary["userCity"] as? String, birthDate: dictionary["userAge"] as? String, uid: chatPartnerId)
+                let user = UserObject(pseudo: dictionary["userName"] as? String, image: dictionary["userImage"] as? Data, sexe: dictionary["userGender"] as? String, level: dictionary["userLevel"] as? String, city: dictionary["userCity"] as? String, birthDate: dictionary["userAge"] as? String, uid: chatPartnerId)
                 completion(.success(user))
             }
         }
     }
     
-    func observeUserChatMessages(toId: String, completion: @escaping (Result<Message, Error>) -> Void) {
+    func observeUserChatMessages(toId: String, completion: @escaping (Result<MessageObject, Error>) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         db.collection("user-messages").document(uid).collection("users").document(toId).collection("messages").addSnapshotListener { (snapshot, error) in
             if let error = error {
@@ -167,7 +167,7 @@ class FirestoreService {
                         } else {
                             guard let dictionary = document?.data() else { return }
                             
-                            let message = Message(dictionary: dictionary)
+                            let message = MessageObject(dictionary: dictionary)
                             print("we fetched this message \(message.text ?? "")")
                             completion(.success(message))
                         }
@@ -223,7 +223,7 @@ class FirestoreService {
     }
     
     
-    func fetchUserInformationsDependingUid(userUid: String, completion: @escaping (Result<User, Error>) -> Void) {
+    func fetchUserInformationsDependingUid(userUid: String, completion: @escaping (Result<UserObject, Error>) -> Void) {
 //        self.userInformations = []
         db.collection("users").whereField("userUid", isEqualTo: userUid).addSnapshotListener { (querySnapshot, error) in
             if let error = error {
@@ -235,7 +235,7 @@ class FirestoreService {
                 for doc in snapshotDocuments {
                     let data = doc.data()
                     guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let userPicture = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String, let userUid = data["userUid"] as? String else {return}
-                    let user = User(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: userUid)
+                    let user = UserObject(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: userUid)
                     completion(.success(user))
                 }
             }

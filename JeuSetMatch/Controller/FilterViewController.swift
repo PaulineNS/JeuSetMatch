@@ -89,7 +89,6 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
         cell.filter = filtersArray[indexPath.row]
         //cell.delegate = self
         
-        
         if indexPath.row == 1 {
             cell.filterValueTxtField.inputView = levelPicker
         }

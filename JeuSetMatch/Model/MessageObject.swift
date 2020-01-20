@@ -7,7 +7,7 @@
 //
 import Foundation
 
-struct Message {
+struct MessageObject {
     
     let firestoreService = FirestoreService()
     

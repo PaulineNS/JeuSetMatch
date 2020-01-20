@@ -14,9 +14,9 @@ final class MessagesViewController: UIViewController {
     
     // MARK: - Variables
     
-    var currentUser: User?
-    private var messages = [Message]()
-    private var messagesDictionary = [String : Message]()
+    var currentUser: UserObject?
+    private var messages = [MessageObject]()
+    private var messagesDictionary = [String : MessageObject]()
     
     // MARK: - Outlets
     

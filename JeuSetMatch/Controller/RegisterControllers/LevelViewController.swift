@@ -12,7 +12,7 @@ final class LevelViewController: UIViewController {
     
     // MARK: - Variables
     
-    var currentUser: User?
+    var currentUser: UserObject?
     private var userLevel = ""
     private var userCity = ""
     private let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant","Choisir"]
@@ -43,7 +43,7 @@ final class LevelViewController: UIViewController {
             citiesVc.didSelectCityDelegate = self
         } else if segue.identifier == K.LeveltoPseudoSegue {
             guard let pseudoVc = segue.destination as? PseudoViewController else {return}
-            pseudoVc.currentUser = User(pseudo: nil, image: nil, sexe: currentUser?.sexe, level: userLevel, city: userCity, birthDate: currentUser?.birthDate, uid: nil)
+            pseudoVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: currentUser?.sexe, level: userLevel, city: userCity, birthDate: currentUser?.birthDate, uid: nil)
             
         }
     }

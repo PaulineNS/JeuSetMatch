@@ -15,7 +15,7 @@ final class PseudoViewController: UIViewController {
     // MARK: - Variables
 
     let firestoreService = FirestoreService()
-    var currentUser: User?
+    var currentUser: UserObject?
     private var userPseudo = ""
     private var userPicture = UIImage()
     private let image = UIImagePickerController()
@@ -44,7 +44,7 @@ final class PseudoViewController: UIViewController {
         guard segue.identifier == K.PseudoToMailSegue else { return }
         guard let mailVc = segue.destination as? MailViewController else { return }
         guard let pictureData = userPicture.jpegData(compressionQuality: 0.1) else { return }
-        mailVc.currentUser = User(pseudo: userPseudo, image: pictureData, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
+        mailVc.currentUser = UserObject(pseudo: userPseudo, image: pictureData, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
     }
     
     // MARK: - Actions
