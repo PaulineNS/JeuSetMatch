@@ -22,6 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
+        
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let logInViewController = mainStoryBoard.instantiateViewController(withIdentifier: "loginViewController") as! UIViewController
+        let searchViewController = mainStoryBoard.instantiateViewController(withIdentifier: "searchViewController") as! UITabBarController
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        if Auth.auth().currentUser?.uid == nil {
+            appDelegate.window?.rootViewController = logInViewController
+        } else {
+            appDelegate.window?.rootViewController = searchViewController
+        }
+        
         let db = Firestore.firestore()
         print(db)
         

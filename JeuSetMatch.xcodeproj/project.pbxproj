@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		402E2DE124DF185F96D559FF /* Pods_JeuSetMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE8E9E9348301437FB4D8ED /* Pods_JeuSetMatch.framework */; };
+		56139CFE23D71B5700BBFE12 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56139CFD23D71B5700BBFE12 /* LoginUseCase.swift */; };
 		562CE38A23BB50590075A8AA /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38923BB50590075A8AA /* MailViewController.swift */; };
 		562CE38E23BB50CB0075A8AA /* BirthdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38D23BB50CB0075A8AA /* BirthdayViewController.swift */; };
 		562CE39023BB55BB0075A8AA /* LevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38F23BB55BB0075A8AA /* LevelViewController.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		2012A617EF9FFCD417D93716 /* Pods-JeuSetMatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeuSetMatch.debug.xcconfig"; path = "Target Support Files/Pods-JeuSetMatch/Pods-JeuSetMatch.debug.xcconfig"; sourceTree = "<group>"; };
+		56139CFD23D71B5700BBFE12 /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
 		562CE38923BB50590075A8AA /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		562CE38D23BB50CB0075A8AA /* BirthdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayViewController.swift; sourceTree = "<group>"; };
 		562CE38F23BB55BB0075A8AA /* LevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				56BB33B623D0564400B7D726 /* FirestoreService.swift */,
+				56139CFD23D71B5700BBFE12 /* LoginUseCase.swift */,
 				568D50AC23D3320B00839CE4 /* GooglePlacesService.swift */,
 				568D50BB23D5CFA600839CE4 /* FirestoreProtocol.swift */,
 			);
@@ -466,6 +469,7 @@
 				56E8B16D23AE5B0C007B4BC1 /* ChatViewController.swift in Sources */,
 				56DC0C1723ABC4AE003A0DC6 /* LoginViewController.swift in Sources */,
 				56E8B17A23BA4B61007B4BC1 /* UserTableViewCell.swift in Sources */,
+				56139CFE23D71B5700BBFE12 /* LoginUseCase.swift in Sources */,
 				564536A423C20FD2005A26B5 /* MessagesTableViewCell.swift in Sources */,
 				56BB33B723D0564400B7D726 /* FirestoreService.swift in Sources */,
 				56E8B17423B52E6B007B4BC1 /* ChatTableViewCell.swift in Sources */,

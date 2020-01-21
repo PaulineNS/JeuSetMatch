@@ -48,13 +48,13 @@ final class SearchViewController: UIViewController {
         profileVc.IsSegueFromSearch = true
     }
     
-    //    func checkIfUserIsLoggedIn() {
-    //        if Auth.auth().currentUser?.uid == nil {
-    //            performSegue(withIdentifier: K.SearchToWelcomeSegue, sender: nil)
-    //        } else {
-    //            fetchUser()
-    //        }
-    //    }
+//        func checkIfUserIsLoggedIn() {
+//            if Auth.auth().currentUser?.uid == nil {
+////                performSegue(withIdentifier: K.SearchToWelcomeSegue, sender: nil)
+//            } else {
+//                fetchUser()
+//            }
+//        }
     
     @IBAction func didTapFilterButton(_ sender: Any) {
         performSegue(withIdentifier: K.SearchToFilterSegue, sender: nil)
