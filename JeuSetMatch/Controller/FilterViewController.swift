@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WARangeSlider
 
 class FilterViewController: UIViewController {
     
@@ -15,6 +16,8 @@ class FilterViewController: UIViewController {
     
     private let filtersDictionnary = ["Age": "Tout", "Niveau": "Tout", "Sexe": "Tout", "Ville": "Tout"]
     private var filtersArray = [Filters]()
+    var ageSlider = RangeSlider(frame: CGRect.zero)
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +27,8 @@ class FilterViewController: UIViewController {
         for (key, value) in filtersDictionnary.sorted(by: { $0.0 < $1.0 }) {
             filtersArray.append(Filters(denomination: key, value: value))
         }
+        ageSlider.frame = CGRect(x: 50, y: 200,
+            width: 400, height: 31.0)
     }
     
     @IBAction func searchPlayers(_ sender: Any) {
@@ -48,6 +53,16 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 2 {
             cell.filterValueTxtField.inputView = cell.genderPicker
         }
+        if indexPath.row == 0 {
+            cell.filterValueTxtField.delegate = self
+        }
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            tableView.addSubview(ageSlider)
+        }
     }
 }

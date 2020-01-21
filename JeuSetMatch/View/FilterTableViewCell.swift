@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WARangeSlider
 
 class FilterTableViewCell: UITableViewCell, UITextFieldDelegate {
 
@@ -19,7 +20,7 @@ class FilterTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     var genderPicker: UIPickerView?
     var levelPicker: UIPickerView?
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         filterValueTxtField.delegate = self

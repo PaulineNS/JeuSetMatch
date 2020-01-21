@@ -11,6 +11,7 @@ target 'JeuSetMatch' do
   pod 'IQKeyboardManagerSwift'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod "WARangeSlider"
 
   target 'JeuSetMatchTests' do
     inherit! :search_paths
