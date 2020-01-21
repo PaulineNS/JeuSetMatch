@@ -24,13 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
-        let logInViewController = mainStoryBoard.instantiateViewController(withIdentifier: "loginViewController") as! UIViewController
-        let searchViewController = mainStoryBoard.instantiateViewController(withIdentifier: "searchViewController") as! UITabBarController
+        let logInViewController = mainStoryBoard.instantiateViewController(withIdentifier: "loginViewController") 
+        let searchViewController = mainStoryBoard.instantiateViewController(withIdentifier: "searchViewController")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         if Auth.auth().currentUser?.uid == nil {
+            logInViewController.modalPresentationStyle = .fullScreen
             appDelegate.window?.rootViewController = logInViewController
         } else {
+            searchViewController.modalPresentationStyle = .fullScreen
             appDelegate.window?.rootViewController = searchViewController
         }
         

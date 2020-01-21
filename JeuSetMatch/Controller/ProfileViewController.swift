@@ -91,6 +91,10 @@ final class ProfileViewController: UIViewController {
     
     @IBAction private func logOutPressed(_ sender: UIBarButtonItem) {
         firestoreService.logOut()
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let logInViewController = mainStoryBoard.instantiateViewController(withIdentifier: "loginViewController")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = logInViewController
         navigationController?.popToRootViewController(animated: true)
     }
     

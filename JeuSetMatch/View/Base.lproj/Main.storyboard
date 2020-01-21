@@ -11,7 +11,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="loginViewController" id="BYZ-38-t0r" customClass="WelcomeViewController" customModule="JeuSetMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="WelcomeViewController" customModule="JeuSetMatch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -239,7 +239,7 @@
                     <connections>
                         <outlet property="emailTextfield" destination="FOd-g5-Hxb" id="skA-Rl-kdg"/>
                         <outlet property="passwordTextfield" destination="5Gz-nO-Qpa" id="KHs-GH-B0I"/>
-                        <segue destination="AIy-Co-pdF" kind="show" identifier="FromRegisterToSearch" id="qxD-Ox-pIs"/>
+                        <segue destination="gfb-sY-c99" kind="show" identifier="FromRegisterToSearch" id="PrC-gY-Kig"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J7J-Em-kWo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -998,13 +998,13 @@
                     <navigationItem key="navigationItem" id="fis-fC-hjt">
                         <barButtonItem key="rightBarButtonItem" title="Déconnexion" id="naG-k3-07b">
                             <connections>
-                                <action selector="logOutPressed:" destination="1WO-o0-ut2" id="gzZ-6e-fT3"/>
+                                <action selector="logOutPressed:" destination="1WO-o0-ut2" id="q7d-bv-59g"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="cancelButton" destination="OT8-2t-gw0" id="nbq-ll-wG8"/>
-                        <outlet property="logOutBarButtonItem" destination="naG-k3-07b" id="yNv-1l-EVR"/>
+                        <outlet property="logOutBarButtonItem" destination="naG-k3-07b" id="kVS-3P-9NY"/>
                         <outlet property="updateProfileButton" destination="SzG-YU-F8O" id="sOv-ev-Gjh"/>
                         <outlet property="userPictureImageView" destination="UhZ-oe-gfV" id="VdO-Iw-r1z"/>
                         <outlet property="validateButton" destination="OlG-2F-TZU" id="ALJ-tp-6nc"/>
@@ -1223,10 +1223,33 @@
             </objects>
             <point key="canvasLocation" x="7857" y="400"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UUC-po-BLC">
+            <objects>
+                <navigationController storyboardIdentifier="searchViewController" id="gfb-sY-c99" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="L33-aF-CTj"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="lIw-24-biY">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.94832760100000002" green="0.95037573580000001" blue="0.96781963110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.1190812364" green="0.21602892879999999" blue="0.1939708292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.94832760100000002" green="0.95037573580000001" blue="0.96781963110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="AIy-Co-pdF" kind="relationship" relationship="rootViewController" id="nfo-WF-pfd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xo9-uC-L2Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6032" y="78"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="EvB-TU-juD">
             <objects>
-                <tabBarController storyboardIdentifier="searchViewController" id="AIy-Co-pdF" sceneMemberID="viewController">
+                <tabBarController id="AIy-Co-pdF" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="vcX-Xc-3ug"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qRm-xd-ULW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1240,7 +1263,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ISm-ud-fkc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6430" y="79"/>
+            <point key="canvasLocation" x="6807" y="78"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="AFz-np-VbU">
@@ -1339,7 +1362,7 @@
                         <outlet property="alertLabel" destination="enG-rO-zbm" id="waz-2D-6zf"/>
                         <outlet property="emailTextfield" destination="xmV-NV-Tqh" id="NOF-uq-jSx"/>
                         <outlet property="passwordTextfield" destination="18g-9N-21V" id="Ta3-xz-hWV"/>
-                        <segue destination="AIy-Co-pdF" kind="show" identifier="FromLoginToSearch" id="HU1-lS-BiG"/>
+                        <segue destination="gfb-sY-c99" kind="show" identifier="FromLoginToSearch" id="2gn-4l-5Sr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lF9-jy-61y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1349,7 +1372,7 @@
         <!--Navigation Controller-->
         <scene sceneID="qJq-AK-Mbz">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rI8-yb-iD6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="loginViewController" automaticallyAdjustsScrollViewInsets="NO" id="rI8-yb-iD6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="4jy-3N-Inp">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1383,7 +1406,7 @@
         <image name="textfield" width="298" height="93"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HU1-lS-BiG"/>
+        <segue reference="PrC-gY-Kig"/>
         <segue reference="3Dc-8t-nP1"/>
         <segue reference="tRE-WB-aL6"/>
         <segue reference="aiR-vR-a4K"/>
