@@ -10,9 +10,11 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     
-    let fireStoreService = FirestoreService()
+//    let fireStoreService = FirestoreService()
     
     // MARK: - Variables
+    var userUseCase: UserUseCase?
+
     
     var currentUser: UserObject?
     private var users: [UserObject] = []
@@ -26,6 +28,9 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let firestoreUser = FirestoreUserService()
+        self.userUseCase = UserUseCase(user: firestoreUser)
         self.tabBarController?.navigationItem.hidesBackButton = true
         usersTableView.dataSource = self
         usersTableView.delegate = self
@@ -48,14 +53,6 @@ final class SearchViewController: UIViewController {
         profileVc.IsSegueFromSearch = true
     }
     
-//        func checkIfUserIsLoggedIn() {
-//            if Auth.auth().currentUser?.uid == nil {
-////                performSegue(withIdentifier: K.SearchToWelcomeSegue, sender: nil)
-//            } else {
-//                fetchUser()
-//            }
-//        }
-    
     @IBAction func didTapFilterButton(_ sender: Any) {
         performSegue(withIdentifier: K.SearchToFilterSegue, sender: nil)
     }
@@ -64,7 +61,9 @@ final class SearchViewController: UIViewController {
     
     private func fetchUser() {
         
-        fireStoreService.fetchUser { (result) in
+        //        fireStoreService
+        
+        userUseCase?.fetchUser { (result) in
             switch result {
             case .success(let users):
                 self.users.append(users)
@@ -73,7 +72,7 @@ final class SearchViewController: UIViewController {
                 }
             case .failure(let error):
                 print(error.localizedDescription)
-
+                
             }
         }
     }

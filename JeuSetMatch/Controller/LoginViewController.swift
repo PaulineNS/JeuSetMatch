@@ -18,13 +18,18 @@ class LoginViewController: UIViewController {
     
     // MARK: - Variables
     
-    let firestoreService = FirestoreService()
+//    let firestoreService = FirestoreService()
+    var loginUseCase: LoginUseCase?
     var currentUser: UserObject?
     
     // MARK: - Controller life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let firestoreLogin = FirestoreLoginService()
+        self.loginUseCase = LoginUseCase(client: firestoreLogin)
+        
         alertLabel.isHidden = true
     }
     
@@ -46,7 +51,7 @@ class LoginViewController: UIViewController {
     @IBAction func loginPressed(_ sender: Any) {
         guard let email = emailTextfield.text, let password = passwordTextfield.text else {return}
 
-        firestoreService.login(email: email, password: password) { (result) in
+        loginUseCase?.login(with: email, password: password) { (result) in
             switch result {
             case .success :
                 self.performSegue(withIdentifier: K.loginSegue, sender: self)

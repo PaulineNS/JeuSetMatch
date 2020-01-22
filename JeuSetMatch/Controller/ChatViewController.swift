@@ -11,6 +11,9 @@ import UIKit
 final class ChatViewController: UIViewController {
     
     let fireStoreService = FirestoreService()
+    let firestoreConversation = FirestoreConversationService()
+//    var conversationUseCase: ConversationUseCase?
+    lazy var conversationUseCase: ConversationUseCase = ConversationUseCase(message: firestoreConversation)
 
     // MARK: - Variables
 
@@ -34,6 +37,10 @@ final class ChatViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let firestoreConversation = FirestoreConversationService()
+//        self.conversationUseCase = ConversationUseCase(message: firestoreConversation)
+        
         self.tabBarController?.navigationItem.hidesBackButton = true
         chatTableView.dataSource = self
         chatTableView.register(UINib(nibName: K.chatCellNibName, bundle: nil), forCellReuseIdentifier: K.chatCellIdentifier)
@@ -54,8 +61,10 @@ final class ChatViewController: UIViewController {
     
     private func observeMessages() {
         guard let toId = user?.uid else { return }
-        
-        fireStoreService.observeUserChatMessages(toId: toId) { (result) in
+        print("pourquoi")
+//        fireStoreService
+        print(conversationUseCase as Any)
+        conversationUseCase.observeUserChatMessages(toId: toId) { (result) in
             switch result {
             case .success(let message) :
                 guard message.chatPartnerId() == self.user?.uid else {return}
@@ -103,6 +112,5 @@ extension ChatViewController: UITableViewDataSource {
           cell.messageBubble.backgroundColor = #colorLiteral(red: 0.08918375522, green: 0.2295971513, blue: 0.2011210024, alpha: 1)
           cell.messageLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
           return cell
-          
       }
 }

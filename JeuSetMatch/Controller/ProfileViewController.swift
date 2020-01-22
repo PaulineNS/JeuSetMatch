@@ -12,6 +12,9 @@ final class ProfileViewController: UIViewController {
     
     let firestoreService = FirestoreService()
     
+    var userUseCase: UserUseCase?
+
+    
     // MARK: - Variables
     
     var currentUser: UserObject?
@@ -37,6 +40,10 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let firestoreUser = FirestoreUserService()
+        self.userUseCase = UserUseCase(user: firestoreUser)
+        
         manageTxtField(status: false, borderStyle: .none)
         validateButton.isHidden = true
         cancelButton.isHidden = true
@@ -175,7 +182,9 @@ final class ProfileViewController: UIViewController {
     
     private func fetchUserInformations(userUid: String) {
         self.userInformations = []
-        firestoreService.fetchUserInformationsDependingUid(userUid: userUid) { (result) in
+//        firestoreService
+            
+        userUseCase?.fetchUserInformationsDependingUid(userUid: userUid) { (result) in
             switch result {
             case .success(let user) :
                 self.userInformations.append(user)

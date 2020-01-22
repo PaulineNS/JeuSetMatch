@@ -10,7 +10,8 @@ import UIKit
 
 final class MessagesViewController: UIViewController {
     
-    let fireStoreService = FirestoreService()
+    var conversationUseCase: ConversationUseCase?
+    var userUseCase: UserUseCase?
     
     // MARK: - Variables
     
@@ -26,6 +27,13 @@ final class MessagesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let firestoreConversation = FirestoreConversationService()
+        self.conversationUseCase = ConversationUseCase(message: firestoreConversation)
+        
+        let firestoreUser = FirestoreUserService()
+        self.userUseCase = UserUseCase(user: firestoreUser)
+        
         messagesTableView.dataSource = self
         messagesTableView.delegate = self
         messagesTableView.register(UINib(nibName: K.messagesCellNibName, bundle: nil), forCellReuseIdentifier: K.messagesCellIdentifier)
@@ -44,7 +52,7 @@ final class MessagesViewController: UIViewController {
     
     private func observeUserMessages() {
         
-        fireStoreService.observeUserMessages { (result) in
+        conversationUseCase?.observeUserMessages { (result) in
             switch result {
             case .success(let message):
                  if let chatPartnerId = message.chatPartnerId() {
@@ -88,8 +96,8 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
         print(message)
         
         guard let chatPartnerId = message.chatPartnerId() else { return }
-        
-        fireStoreService.fetchPartnerUser(chatPartnerId: chatPartnerId) { (result) in
+                    
+        userUseCase?.fetchPartnerUser(chatPartnerId: chatPartnerId) { (result) in
             switch result {
             case .success(let partnerUser) :
                 self.currentUser = partnerUser

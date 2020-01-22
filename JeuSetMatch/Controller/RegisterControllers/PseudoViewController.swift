@@ -14,7 +14,9 @@ final class PseudoViewController: UIViewController {
     
     // MARK: - Variables
 
-    let firestoreService = FirestoreService()
+//    let firestoreService = FirestoreService()
+    var registerUsecase: RegisterUseCase?
+    
     var currentUser: UserObject?
     private var userPseudo = ""
     private var userPicture = UIImage()
@@ -30,6 +32,8 @@ final class PseudoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let firestoreRegister = FirestoreRegisterService()
+        self.registerUsecase = RegisterUseCase(client: firestoreRegister)
         image.delegate = self
         pictureAlertLabel.isHidden = true
         pseudoAlertLabel.isHidden = true
@@ -56,7 +60,7 @@ final class PseudoViewController: UIViewController {
             self.pseudoTextfield.textColor = #colorLiteral(red: 0.8514410622, green: 0.2672892915, blue: 0.1639432118, alpha: 1)
             self.userPseudo = ""
         } else {
-            firestoreService.checkPseudoDisponibility(field: sender.text ?? "") { (success) in
+            registerUsecase?.checkPseudoDisponibility(field: sender.text ?? "") { (success) in
                 if success == true {
                     DispatchQueue.main.async {
                         self.pseudoAlertLabel.isHidden = false

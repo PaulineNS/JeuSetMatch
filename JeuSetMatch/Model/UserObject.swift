@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UserObject {
+struct UserObject: Equatable {
     
     // MARK: - Variables
 

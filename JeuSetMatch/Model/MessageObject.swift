@@ -7,7 +7,11 @@
 //
 import Foundation
 
-struct MessageObject {
+struct MessageObject: Equatable {
+    
+    static func == (lhs: MessageObject, rhs: MessageObject) -> Bool {
+        return true
+    }
     
     let firestoreService = FirestoreService()
     
