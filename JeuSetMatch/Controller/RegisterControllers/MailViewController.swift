@@ -32,12 +32,7 @@ final class MailViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.registerSegue else { return }
         guard let navVC = segue.destination as? UINavigationController else { return }
-        guard let tabVc = navVC.viewControllers.first as? UITabBarController else { return }
-        guard let searchVc = tabVc.viewControllers?[0] as? SearchViewController, let messagesVc = tabVc.viewControllers?[1] as? MessagesViewController, let profileVc = tabVc.viewControllers?[2] as? ProfileViewController else {return}
         navVC.modalPresentationStyle = .fullScreen
-        searchVc.currentUser = currentUser
-        messagesVc.currentUser = currentUser
-        profileVc.currentUser = currentUser
     }
     
     // MARK: - Actions

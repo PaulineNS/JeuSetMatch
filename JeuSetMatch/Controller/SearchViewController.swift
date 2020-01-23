@@ -71,8 +71,7 @@ final class SearchViewController: UIViewController {
                     self.usersTableView.reloadData()
                 }
             case .failure(let error):
-                print(error.localizedDescription)
-                
+                print(error.localizedDescription)                
             }
         }
     }

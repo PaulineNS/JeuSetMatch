@@ -24,8 +24,7 @@
 		567CBE3C23D83ACD00A7E306 /* FirestoreConversationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567CBE3B23D83ACD00A7E306 /* FirestoreConversationService.swift */; };
 		567CBE4523D8449E00A7E306 /* RegisterUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567CBE4423D8449E00A7E306 /* RegisterUseCaseTest.swift */; };
 		568D50AD23D3320B00839CE4 /* GooglePlacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568D50AC23D3320B00839CE4 /* GooglePlacesService.swift */; };
-		568D50AF23D352B200839CE4 /* FirestoreServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568D50AE23D352B200839CE4 /* FirestoreServiceTest.swift */; };
-		568D50BC23D5CFA600839CE4 /* FirestoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568D50BB23D5CFA600839CE4 /* FirestoreProtocol.swift */; };
+		568D50AF23D352B200839CE4 /* LoginUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568D50AE23D352B200839CE4 /* LoginUseCaseTest.swift */; };
 		5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5699AE6923BBAA1200C61058 /* CitiesViewController.swift */; };
 		56AFDE2A23C4DF6F00B215DC /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AFDE2923C4DF6E00B215DC /* UserObject.swift */; };
 		56B615AA23D87D4B001DEA87 /* ConversationUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B615A923D87D4A001DEA87 /* ConversationUseCaseTest.swift */; };
@@ -84,8 +83,7 @@
 		567CBE3B23D83ACD00A7E306 /* FirestoreConversationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreConversationService.swift; sourceTree = "<group>"; };
 		567CBE4423D8449E00A7E306 /* RegisterUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUseCaseTest.swift; sourceTree = "<group>"; };
 		568D50AC23D3320B00839CE4 /* GooglePlacesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesService.swift; sourceTree = "<group>"; };
-		568D50AE23D352B200839CE4 /* FirestoreServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceTest.swift; sourceTree = "<group>"; };
-		568D50BB23D5CFA600839CE4 /* FirestoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreProtocol.swift; sourceTree = "<group>"; };
+		568D50AE23D352B200839CE4 /* LoginUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCaseTest.swift; sourceTree = "<group>"; };
 		5699AE6923BBAA1200C61058 /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		56AFDE2923C4DF6E00B215DC /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		56B615A923D87D4A001DEA87 /* ConversationUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationUseCaseTest.swift; sourceTree = "<group>"; };
@@ -210,7 +208,6 @@
 				567CBE3423D83A5800A7E306 /* Conversation */,
 				56B615AB23D88F47001DEA87 /* User */,
 				568D50AC23D3320B00839CE4 /* GooglePlacesService.swift */,
-				568D50BB23D5CFA600839CE4 /* FirestoreProtocol.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -259,7 +256,7 @@
 			children = (
 				56DC0BFD23A9096D003A0DC6 /* JeuSetMatchTests.swift */,
 				56DC0BFF23A9096D003A0DC6 /* Info.plist */,
-				568D50AE23D352B200839CE4 /* FirestoreServiceTest.swift */,
+				568D50AE23D352B200839CE4 /* LoginUseCaseTest.swift */,
 				567CBE4423D8449E00A7E306 /* RegisterUseCaseTest.swift */,
 				56B615A923D87D4A001DEA87 /* ConversationUseCaseTest.swift */,
 				56B615B023D8923A001DEA87 /* UserUseCaseTest.swift */,
@@ -555,7 +552,6 @@
 				56E8B17723BA4B38007B4BC1 /* SearchViewController.swift in Sources */,
 				56DC0BE623A90968003A0DC6 /* AppDelegate.swift in Sources */,
 				567CBE3A23D83AB300A7E306 /* ConversationUseCase.swift in Sources */,
-				568D50BC23D5CFA600839CE4 /* FirestoreProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,7 +562,7 @@
 				56B615AA23D87D4B001DEA87 /* ConversationUseCaseTest.swift in Sources */,
 				56DC0BFE23A9096D003A0DC6 /* JeuSetMatchTests.swift in Sources */,
 				567CBE4523D8449E00A7E306 /* RegisterUseCaseTest.swift in Sources */,
-				568D50AF23D352B200839CE4 /* FirestoreServiceTest.swift in Sources */,
+				568D50AF23D352B200839CE4 /* LoginUseCaseTest.swift in Sources */,
 				56B615B123D8923A001DEA87 /* UserUseCaseTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
