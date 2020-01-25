@@ -44,16 +44,22 @@ final class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.rightBarButtonItem = filterBarButton
+        usersTableView.reloadData()
     }
     
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == K.SearchToProfileSegue else { return }
-        guard let profileVc = segue.destination as? ProfileViewController else {return}
-        profileVc.navigationItem.rightBarButtonItem = nil
-        profileVc.currentUser = currentUser
-        profileVc.IsSegueFromSearch = true
+        if segue.identifier == K.SearchToProfileSegue {
+            guard let profileVc = segue.destination as? ProfileViewController else {return}
+            profileVc.navigationItem.rightBarButtonItem = nil
+            profileVc.currentUser = currentUser
+            profileVc.IsSegueFromSearch = true
+        }
+        if segue.identifier == K.SearchToFilterSegue {
+            guard let filterVc = segue.destination as? FilterViewController else {return}
+            filterVc.didSearchFiltersDelegate = self
+        }
     }
     
     @IBAction func didTapFilterButton(_ sender: Any) {
@@ -63,8 +69,6 @@ final class SearchViewController: UIViewController {
     // MARK: - Methods
     
     private func fetchUser() {
-        
-        //        fireStoreService
         customLoader.showLoaderView()
         userUseCase?.fetchUser { (result) in
             self.customLoader.hideLoaderView()
@@ -107,5 +111,11 @@ extension SearchViewController: UITableViewDelegate {
         let user = users[indexPath.row]
         self.currentUser = user
         performSegue(withIdentifier: K.SearchToProfileSegue, sender: nil)
+    }
+}
+
+extension SearchViewController: DidSearchFiltersDelegate {
+    func searchFiltersTapped(users: [UserObject]) {
+        self.users = users
     }
 }

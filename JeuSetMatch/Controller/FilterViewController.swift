@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol DidSearchFiltersDelegate {
+    func searchFiltersTapped(users: [UserObject])
+}
+
+
 class FilterViewController: UIViewController {
     
     @IBOutlet weak var filterTableView: UITableView!
@@ -15,10 +20,15 @@ class FilterViewController: UIViewController {
     private let filtersDictionnary = ["Age": "Tout", "Niveau": "Tout", "Sexe": "Tout", "Ville": "Tout"]
     private var filtersArray = [Filters]()
     var citySelected = ""
+    var userUseCase: UserUseCase?
+    private var userFound: [UserObject] = []
+    var didSearchFiltersDelegate: DidSearchFiltersDelegate?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let firestoreUser = FirestoreUserService()
+        self.userUseCase = UserUseCase(user: firestoreUser)
         filterTableView.dataSource = self
         filterTableView.delegate = self
         filterTableView.register(UINib(nibName: K.filterCellNibName, bundle: nil), forCellReuseIdentifier: K.filterCellIdentifier)
@@ -43,7 +53,19 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction func searchPlayers(_ sender: Any) {
-        
+        let gender = "Homme"
+        let city = "Nantes, France"
+        let level = "30/3 - Intermédiaire"
+        userUseCase?.fetchUserInformationsDependingFilters(gender: gender, city: city, level: level, completion: { (result) in
+            switch result {
+            case .success(let users):
+                self.userFound.append(users)
+                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+                self.navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
     }
 }
 

@@ -15,6 +15,8 @@ protocol UserUseCaseOutput {
     func fetchUser(completion: @escaping UserCompletion)
     func fetchPartnerUser(chatPartnerId: String, completion: @escaping UserCompletion)
     func fetchUserInformationsDependingUid(userUid: String, completion: @escaping UserCompletion)
+    func fetchUserInformationsDependingFilters(gender: String, city: String, level: String, completion: @escaping UserCompletion)
+
 }
 
 class UserUseCase {
@@ -36,6 +38,10 @@ class UserUseCase {
     func fetchUserInformationsDependingUid(userUid: String, completion: @escaping (Result<UserObject, Error>) -> Void) {
         self.user.fetchUserInformationsDependingUid(userUid: userUid, completion: completion)
     }
+    
+    func fetchUserInformationsDependingFilters(gender: String, city: String, level: String, completion: @escaping (Result<UserObject, Error>) -> Void) {
+        self.user.fetchUserInformationsDependingFilters(gender: gender, city: city, level: level, completion: completion)
+}
 }
 
 

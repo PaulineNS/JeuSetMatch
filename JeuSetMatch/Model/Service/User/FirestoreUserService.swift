@@ -12,6 +12,24 @@ class FirestoreUserService: UserUseCaseOutput {
     
     private let db = Firestore.firestore()
     
+    func fetchUserInformationsDependingFilters(gender: String, city: String, level: String, completion: @escaping UserCompletion) {
+                db.collection("users").whereField("userCity", isEqualTo: city).whereField("userGender", isEqualTo: gender).whereField("userLevel", isEqualTo: level).addSnapshotListener { (querySnapshot, error) in
+            if let error = error {
+                print("There was an issue retrieving data from Firestore\(error)")
+                completion(.failure(FireStoreError.noData))
+                return
+            } else {
+                guard let snapshotDocuments = querySnapshot?.documents else {return}
+                for doc in snapshotDocuments {
+                    let data = doc.data()
+                    guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let userPicture = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String, let userUid = data["userUid"] as? String else {return}
+                    let user = UserObject(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: userUid)
+                    completion(.success(user))
+                }
+            }
+        }
+    }
+    
     func fetchUser(completion: @escaping UserCompletion) {
         db.collection("users").getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -64,4 +82,23 @@ class FirestoreUserService: UserUseCaseOutput {
             }
         }
     }
+    
+//    func fetchUserInformationsDependingFilters(gender: String, city: String, level: String, completion: @escaping UserCompletion) {
+//        db.collection("users").whereField("userCity", isEqualTo: city).whereField("userGender", isEqualTo: gender).whereField("userLevel", isEqualTo: level).addSnapshotListener { (querySnapshot, error) in
+//            if let error = error {
+//                print("There was an issue retrieving data from Firestore\(error)")
+//                completion(.failure(FireStoreError.noData))
+//                return
+//            } else {
+//                guard let snapshotDocuments = querySnapshot?.documents else {return}
+//                for doc in snapshotDocuments {
+//                    let data = doc.data()
+//                    guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let userPicture = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String, let userUid = data["userUid"] as? String else {return}
+//                    let user = UserObject(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: userUid)
+//                    completion(.success(user))
+//                }
+//            }
+//        }
+//    }
+    
 }
