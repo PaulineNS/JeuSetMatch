@@ -472,7 +472,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kfX-Rz-VDW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3487" y="-1529"/>
+            <point key="canvasLocation" x="6377" y="-1848"/>
         </scene>
         <!--Level View Controller-->
         <scene sceneID="ZRf-mz-uIH">
@@ -1114,11 +1114,12 @@
                     <navigationItem key="navigationItem" title="Filtrer" id="vYd-tO-6bj"/>
                     <connections>
                         <outlet property="filterTableView" destination="DZD-xp-Wcd" id="0Wj-sv-dxy"/>
+                        <segue destination="t62-TX-r5d" kind="show" identifier="FilterToCities" id="PZH-sk-fs9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OWu-DA-dge" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8842" y="-1057"/>
+            <point key="canvasLocation" x="8826" y="-1057"/>
         </scene>
         <!--Title-->
         <scene sceneID="Iss-gX-83Y">
@@ -1409,6 +1410,6 @@
         <segue reference="PrC-gY-Kig"/>
         <segue reference="3Dc-8t-nP1"/>
         <segue reference="tRE-WB-aL6"/>
-        <segue reference="aiR-vR-a4K"/>
+        <segue reference="PZH-sk-fs9"/>
     </inferredMetricsTieBreakers>
 </document>

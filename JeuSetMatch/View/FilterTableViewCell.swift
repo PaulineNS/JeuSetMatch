@@ -88,12 +88,15 @@ extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == levelPicker {
             filterValueTxtField.text = levelsArray[row]
+            UserDefaults.standard.set(filterValueTxtField.text, forKey: "savedLevel")
         }
         if pickerView == genderPicker {
             filterValueTxtField.text = gendersArray[row]
+            UserDefaults.standard.set(filterValueTxtField.text, forKey: "savedGender")
         }
         if pickerView == agePicker {
             filterValueTxtField.text = agesArray[row]
+            UserDefaults.standard.set(filterValueTxtField.text, forKey: "savedAge")
         }
     }
 }

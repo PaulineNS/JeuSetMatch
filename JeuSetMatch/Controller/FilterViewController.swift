@@ -14,6 +14,7 @@ class FilterViewController: UIViewController {
     
     private let filtersDictionnary = ["Age": "Tout", "Niveau": "Tout", "Sexe": "Tout", "Ville": "Tout"]
     private var filtersArray = [Filters]()
+    var citySelected = ""
 
     
     override func viewDidLoad() {
@@ -23,6 +24,21 @@ class FilterViewController: UIViewController {
         filterTableView.register(UINib(nibName: K.filterCellNibName, bundle: nil), forCellReuseIdentifier: K.filterCellIdentifier)
         for (key, value) in filtersDictionnary.sorted(by: { $0.0 < $1.0 }) {
             filtersArray.append(Filters(denomination: key, value: value))
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if citySelected != "" {
+            filtersArray[3].value = citySelected
+        }
+        
+        filterTableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "FilterToCities" {
+            guard let citiesVc = segue.destination as? CitiesViewController else { return }
+            citiesVc.didSelectCityDelegate = self
         }
     }
     
@@ -43,14 +59,42 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
         cell.filter = filtersArray[indexPath.row]
         
         if indexPath.row == 1 {
+            if UserDefaults.standard.object(forKey: "savedLevel") != nil {
+                cell.filterValueTxtField.text =  UserDefaults.standard.string(forKey: "savedLevel")
+            }
             cell.filterValueTxtField.inputView = cell.levelPicker
         }
         if indexPath.row == 2 {
+            if UserDefaults.standard.object(forKey: "savedGender") != nil {
+                cell.filterValueTxtField.text =  UserDefaults.standard.string(forKey: "savedGender")
+            }
             cell.filterValueTxtField.inputView = cell.genderPicker
         }
         if indexPath.row == 0 {
+            if UserDefaults.standard.object(forKey: "savedAge") != nil {
+                cell.filterValueTxtField.text =  UserDefaults.standard.string(forKey: "savedAge")
+            }
             cell.filterValueTxtField.inputView = cell.agePicker
+        }
+        if indexPath.row == 3 {
+            if UserDefaults.standard.object(forKey: "savedCity") != nil {
+                cell.filterValueTxtField.text =  UserDefaults.standard.string(forKey: "savedCity")
+            }
+            cell.filterValueTxtField.isEnabled = false
         }
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            performSegue(withIdentifier: "FilterToCities", sender: nil)
+        }
 }
+
+extension FilterViewController: DidSelectCityDelegate {
+    func rowTapped(with city: String) {
+        citySelected = city
+        UserDefaults.standard.set(city, forKey: "savedCity")
+    }
+}
+
+

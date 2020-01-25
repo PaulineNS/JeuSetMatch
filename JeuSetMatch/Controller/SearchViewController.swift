@@ -11,6 +11,7 @@ import UIKit
 final class SearchViewController: UIViewController {
     
 //    let fireStoreService = FirestoreService()
+    let customLoader = CustomLoader()
     
     // MARK: - Variables
     var userUseCase: UserUseCase?
@@ -28,7 +29,9 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        customLoader.setAlpha = 0.5
+        customLoader.gifName = "demo"
+        customLoader.viewColor = UIColor.gray
         let firestoreUser = FirestoreUserService()
         self.userUseCase = UserUseCase(user: firestoreUser)
         self.tabBarController?.navigationItem.hidesBackButton = true
@@ -36,7 +39,7 @@ final class SearchViewController: UIViewController {
         usersTableView.delegate = self
         usersTableView.register(UINib(nibName: K.userCellNibName, bundle: nil), forCellReuseIdentifier: K.userCellIdentifier)
         fetchUser()
-    }
+        }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -62,8 +65,9 @@ final class SearchViewController: UIViewController {
     private func fetchUser() {
         
         //        fireStoreService
-        
+        customLoader.showLoaderView()
         userUseCase?.fetchUser { (result) in
+            self.customLoader.hideLoaderView()
             switch result {
             case .success(let users):
                 self.users.append(users)

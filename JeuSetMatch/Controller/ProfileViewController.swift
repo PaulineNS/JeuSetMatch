@@ -181,9 +181,7 @@ final class ProfileViewController: UIViewController {
     }
     
     private func fetchUserInformations(userUid: String) {
-        self.userInformations = []
-//        firestoreService
-            
+        self.userInformations = []            
         userUseCase?.fetchUserInformationsDependingUid(userUid: userUid) { (result) in
             switch result {
             case .success(let user) :
