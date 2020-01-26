@@ -53,9 +53,10 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction func searchPlayers(_ sender: Any) {
-        let gender = "Homme"
-        let city = "Nantes, France"
-        let level = "30/3 - Intermédiaire"
+//        let gender = "Homme"
+//        let city = "Nantes, France"
+//        let level = "30/3 - Intermédiaire"
+        guard let gender = UserDefaults.standard.string(forKey: "savedGender"), let city = UserDefaults.standard.string(forKey: "savedCity"), let level = UserDefaults.standard.string(forKey: "savedLevel") else {return}
         userUseCase?.fetchUserInformationsDependingFilters(gender: gender, city: city, level: level, completion: { (result) in
             switch result {
             case .success(let users):
@@ -66,6 +67,21 @@ class FilterViewController: UIViewController {
                 print(error.localizedDescription)
             }
         })
+    }
+    
+    @IBAction func canceledFilters(_ sender: Any) {
+        deleteAllUserDefaultData()
+        filtersArray = []
+        for (key, value) in filtersDictionnary.sorted(by: { $0.0 < $1.0 }) {
+            filtersArray.append(Filters(denomination: key, value: value))
+        }
+        filterTableView.reloadData()
+    }
+    
+    func deleteAllUserDefaultData() {
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
     }
 }
 

@@ -30,7 +30,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         customLoader.setAlpha = 0.5
-        customLoader.gifName = "demo"
+        customLoader.gifName = "ball"
         customLoader.viewColor = UIColor.gray
         let firestoreUser = FirestoreUserService()
         self.userUseCase = UserUseCase(user: firestoreUser)

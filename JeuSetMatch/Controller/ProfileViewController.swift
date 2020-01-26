@@ -14,11 +14,11 @@ final class ProfileViewController: UIViewController {
     
     var userUseCase: UserUseCase?
 
-    
     // MARK: - Variables
     
     var currentUser: UserObject?
     var IsSegueFromSearch = false
+    var IsSegueFromCity = false
     
     private var userInformations: [UserObject] = []
     private var genderPicker: UIPickerView?
@@ -52,15 +52,16 @@ final class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("profilevc", currentUser?.birthDate as Any)
-        print("profilevc", currentUser?.city as Any)
         guard IsSegueFromSearch == true else {
-            
-            guard let currentUserUid = firestoreService.currentUserUid else {return}
-            fetchUserInformations(userUid: currentUserUid )
-            self.tabBarController?.navigationItem.hidesBackButton = true
-            self.tabBarController?.navigationItem.rightBarButtonItem = logOutBarButtonItem
-            updateProfileButton.setTitle("Modifier mon profil", for: .normal)
+            guard IsSegueFromCity == true else {
+                guard let currentUserUid = firestoreService.currentUserUid else {return}
+                fetchUserInformations(userUid: currentUserUid )
+                self.tabBarController?.navigationItem.hidesBackButton = true
+                self.tabBarController?.navigationItem.rightBarButtonItem = logOutBarButtonItem
+                updateProfileButton.setTitle("Modifier mon profil", for: .normal)
+                return
+            }
+            displayProvisionalUserDefaultsOnTextField()
             return
         }
         guard let partnerUid = currentUser?.uid else {return}
@@ -71,9 +72,14 @@ final class ProfileViewController: UIViewController {
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == K.ProfileToChatSegue else {return}
+        if segue.identifier == K.ProfileToChatSegue {
         guard let chatVc = segue.destination as? ChatViewController else {return}
         chatVc.user = UserObject(pseudo: currentUser?.pseudo, image: currentUser?.image, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: currentUser?.uid)
+        }
+        if segue.identifier == "ProfileToCities" {
+            guard let citiesVc = segue.destination as? CitiesViewController else {return}
+            citiesVc.didSelectCityDelegate = self
+        }
     }
     
     @objc private func dateChanged(datePicker: UIDatePicker) {
@@ -112,7 +118,6 @@ final class ProfileViewController: UIViewController {
         updateProfileButton.isHidden = false
         guard let userCity = userInformationTxtField[3].text, let userGender = userInformationTxtField[1].text, let userLevel = userInformationTxtField[4].text, let userName = userInformationTxtField[0].text else {return}
         firestoreService.updateUserInformation(userCity: userCity, userGender: userGender, userLevel: userLevel, userName: userName)
-
     }
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
@@ -148,6 +153,14 @@ final class ProfileViewController: UIViewController {
         }
     }
     
+    private func setProvisionalTxtFieldInUserDefault() {
+        var index = 0
+        for _ in userInformationTxtField {
+            UserDefaults.standard.set(userInformationTxtField[index].text, forKey: "savedProvisionalUserInformations\(index)")
+            index += 1
+        }
+    }
+    
     private func setTxtFieldInUserDefault() {
         var index = 0
         for _ in userInformationTxtField {
@@ -160,6 +173,14 @@ final class ProfileViewController: UIViewController {
         var index = 0
         for _ in userInformationTxtField {
             userInformationTxtField[index].text = UserDefaults.standard.string(forKey: "savedUserInformations\(index)")
+            index += 1
+        }
+    }
+    
+    private func displayProvisionalUserDefaultsOnTextField() {
+        var index = 0
+        for _ in userInformationTxtField {
+            userInformationTxtField[index].text = UserDefaults.standard.string(forKey: "savedProvisionalUserInformations\(index)")
             index += 1
         }
     }
@@ -210,6 +231,7 @@ extension ProfileViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
+        setProvisionalTxtFieldInUserDefault()
         performSegue(withIdentifier: K.ProfileToCitiesSegue, sender: nil)
     }
 }
@@ -249,5 +271,14 @@ extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         if pickerView == genderPicker {
             userInformationTxtField[1].text = genders[row]
         }
+    }
+}
+
+
+extension ProfileViewController: DidSelectCityDelegate {
+    func rowTapped(with city: String) {
+        UserDefaults.standard.set(city, forKey: "savedProvisionalUserInformations3")
+        self.userInformationTxtField[3].text = city
+        IsSegueFromCity = true
     }
 }
