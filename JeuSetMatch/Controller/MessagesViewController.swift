@@ -18,6 +18,8 @@ final class MessagesViewController: UIViewController {
     var currentUser: UserObject?
     private var messages = [MessageObject]()
     private var messagesDictionary = [String : MessageObject]()
+    let customLoader = CustomLoader()
+    
     
     // MARK: - Outlets
     
@@ -27,6 +29,9 @@ final class MessagesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        customLoader.setAlpha = 0.5
+        customLoader.gifName = "ball"
+        customLoader.viewColor = UIColor.gray
         
         let firestoreConversation = FirestoreConversationService()
         self.conversationUseCase = ConversationUseCase(message: firestoreConversation)
@@ -47,18 +52,19 @@ final class MessagesViewController: UIViewController {
         guard let chatVc = segue.destination as? ChatViewController else {return}
         chatVc.user = currentUser
     }
-
+    
     // MARK: - Methods
     
     private func observeUserMessages() {
-        
+        customLoader.showLoaderView()
         conversationUseCase?.observeUserMessages { (result) in
+            self.customLoader.hideLoaderView()
             switch result {
             case .success(let message):
-                 if let chatPartnerId = message.chatPartnerId() {
+                if let chatPartnerId = message.chatPartnerId() {
                     self.messagesDictionary[chatPartnerId] = message
                     self.messages = Array(self.messagesDictionary.values)
-                                               
+                    
                     self.messages.sort(by: { (message1, message2) -> Bool in
                         return Int32(truncating: message1.timestamp!) > Int32(truncating: message2.timestamp!)
                     })
@@ -96,7 +102,7 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
         print(message)
         
         guard let chatPartnerId = message.chatPartnerId() else { return }
-                    
+        
         userUseCase?.fetchPartnerUser(chatPartnerId: chatPartnerId) { (result) in
             switch result {
             case .success(let partnerUser) :

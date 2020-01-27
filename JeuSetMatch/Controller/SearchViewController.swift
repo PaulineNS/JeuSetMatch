@@ -10,12 +10,11 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     
-//    let fireStoreService = FirestoreService()
     let customLoader = CustomLoader()
     
     // MARK: - Variables
     var userUseCase: UserUseCase?
-
+    
     
     var currentUser: UserObject?
     private var users: [UserObject] = []
@@ -39,7 +38,7 @@ final class SearchViewController: UIViewController {
         usersTableView.delegate = self
         usersTableView.register(UINib(nibName: K.userCellNibName, bundle: nil), forCellReuseIdentifier: K.userCellIdentifier)
         fetchUser()
-        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

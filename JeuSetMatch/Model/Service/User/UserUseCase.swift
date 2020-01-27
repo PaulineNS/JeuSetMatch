@@ -41,27 +41,8 @@ class UserUseCase {
     
     func fetchUserInformationsDependingFilters(gender: String, city: String, level: String, completion: @escaping (Result<UserObject, Error>) -> Void) {
         self.user.fetchUserInformationsDependingFilters(gender: gender, city: city, level: level, completion: completion)
-}
+    }
 }
 
-
-//    func fetchUserInformationsDependingUid(userUid: String, completion: @escaping (Result<UserObject, Error>) -> Void) {
-////        self.userInformations = []
-//        db.collection("users").whereField("userUid", isEqualTo: userUid).addSnapshotListener { (querySnapshot, error) in
-//            if let error = error {
-//                print("There was an issue retrieving data from Firestore\(error)")
-//                completion(.failure(FireStoreError.noData))
-//                return
-//            } else {
-//                guard let snapshotDocuments = querySnapshot?.documents else {return}
-//                for doc in snapshotDocuments {
-//                    let data = doc.data()
-//                    guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let userPicture = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String, let userUid = data["userUid"] as? String else {return}
-//                    let user = UserObject(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: userUid)
-//                    completion(.success(user))
-//                }
-//            }
-//        }
-//    }
 
 

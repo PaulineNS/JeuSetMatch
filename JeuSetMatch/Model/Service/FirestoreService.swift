@@ -81,13 +81,13 @@ class FirestoreService {
         }
     }
     
-    func updateUserInformation(userCity: String, userGender: String, userLevel: String, userName: String) {
+    func updateUserInformation(userAge: String, userCity: String, userGender: String, userLevel: String, userName: String, userImage: Data) {
         
         db.collection("users").document(Auth.auth().currentUser?.uid ?? "").updateData([
-            //            "userAge": "",
+            "userAge": userAge,
             "userCity": userCity,
             "userGender": userGender,
-            //            "userImage": "",
+            "userImage": userImage,
             "userLevel": userLevel,
             "userName": userName
         ]) { error in

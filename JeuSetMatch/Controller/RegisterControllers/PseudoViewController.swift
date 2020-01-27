@@ -13,8 +13,7 @@ import AVFoundation
 final class PseudoViewController: UIViewController {
     
     // MARK: - Variables
-
-//    let firestoreService = FirestoreService()
+    
     var registerUsecase: RegisterUseCase?
     
     var currentUser: UserObject?
@@ -29,7 +28,7 @@ final class PseudoViewController: UIViewController {
     @IBOutlet private weak var pseudoAlertLabel: UILabel!
     
     // MARK: - Controller life cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let firestoreRegister = FirestoreRegisterService()
@@ -43,7 +42,7 @@ final class PseudoViewController: UIViewController {
     }
     
     // MARK: - Segue
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == K.PseudoToMailSegue else { return }
         guard let mailVc = segue.destination as? MailViewController else { return }
@@ -52,7 +51,7 @@ final class PseudoViewController: UIViewController {
     }
     
     // MARK: - Actions
-
+    
     @IBAction private func pseudoTextFieldChanged(_ sender: UITextField) {
         if sender.text?.count ?? 0 < 4 {
             self.pseudoAlertLabel.isHidden = false
@@ -79,26 +78,6 @@ final class PseudoViewController: UIViewController {
             }
         }
     }
-            
-//            sender.checkPseudo(field: sender.text ?? "") { (success) in
-//                if success == true {
-//                    DispatchQueue.main.async {
-//                        self.pseudoAlertLabel.isHidden = false
-//                        self.pseudoAlertLabel.text = "Ce pseudo n'est pas disponible"
-//                        self.pseudoTextfield.textColor = #colorLiteral(red: 0.8514410622, green: 0.2672892915, blue: 0.1639432118, alpha: 1)
-//                        self.userPseudo = ""
-//                    }
-//                } else {
-//                    DispatchQueue.main.async {
-//                        self.pseudoAlertLabel.isHidden = true
-//                        self.pseudoTextfield.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//                        self.userPseudo = sender.text ?? ""
-//                    }
-//
-//                }
-//            }
-//        }
-//    }
     
     @IBAction private func continueButtonPressed(_ sender: UIButton) {
         guard profilPictureImageView.image != emptyPicture else {
@@ -117,115 +96,7 @@ final class PseudoViewController: UIViewController {
     }
     
     @objc private func didTapProfilPicture() {
-        onPictureClick()
-    }
-    
-    // MARK: - Methods
-
-    private func onPictureClick() {
-        // Selecting source of pictures
-        let actionSheet = UIAlertController(title: "Source de la photo", message: "Choisissez une source", preferredStyle: .actionSheet)
-        
-        actionSheet.addAction(UIAlertAction(title: "Appareil photo", style: .default, handler: { (action:UIAlertAction) in
-            
-            //Access to camera
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                switch AVCaptureDevice.authorizationStatus(for: AVMediaType.video) {
-                case .authorized:
-                    self.authorizedAccessToCamera()
-                case .notDetermined:
-                    if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == AVAuthorizationStatus.authorized {
-                        self.authorizedAccessToCamera()
-                    }
-                case .restricted:
-                    self.showRestrictedAlertForCamera()
-                case .denied:
-                    self.showDeniedAlertForCamera()
-                @unknown default:
-                    fatalError()
-                }
-            } else {
-                print ("L'appareil photo n'est pas disponible")
-            }
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Galerie photos", style: .default, handler: { (action:UIAlertAction) in
-            
-            // Access to photo library
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                PHPhotoLibrary.requestAuthorization { (status) in
-                    switch status {
-                    case .authorized:
-                        DispatchQueue.main.async {
-                            self.authorizedAccessToPhotoLibrary()
-                        }
-                    case .notDetermined:
-                        if status == PHAuthorizationStatus.authorized {
-                            DispatchQueue.main.async {
-                                self.authorizedAccessToPhotoLibrary()
-                            }
-                        }
-                    case .restricted:
-                        self.showRestrictedAlertForPhotoLibrary()
-                    case .denied:
-                        self.showDeniedAlertForPhotoLibrary()
-                    @unknown default:
-                        fatalError()
-                    }
-                }
-            }
-            
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
-        
-        self.present(actionSheet, animated: true, completion: nil)
-    }
-    
-    // Different access to the photo library
-    private func showDeniedAlertForPhotoLibrary() {
-        let alert = UIAlertController(title: "Accès à la galerie photos refusé", message: "Veuillez mettre à jour vos réglages si vous souhaitez autoriser l'accès à votre galerie photos", preferredStyle: .alert)
-        let goToSettingsAction = UIAlertAction(title: "Aller aux réglages", style: .default) { (action) in
-            DispatchQueue.main.async {
-                let url = URL(string: UIApplication.openSettingsURLString)!
-                UIApplication.shared.open(url, options: [:])
-            }
-        }
-        alert.addAction(goToSettingsAction)
-    }
-    
-    private func showRestrictedAlertForPhotoLibrary() {
-        let alert = UIAlertController(title: "Accès à la galerie photos limité", message: "L'accès à votre galerie photo est restreint. Vous ne pouvez pas y accéder", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(okAction)
-    }
-    
-    private func authorizedAccessToPhotoLibrary() {
-        self.image.sourceType = .photoLibrary
-        self.present(self.image, animated: true, completion: nil)
-    }
-    
-    // Different access to the camera
-    private func showDeniedAlertForCamera() {
-        let alert = UIAlertController(title: "Accès à l'appareil photos refusé", message: "Veuillez mettre à jour vos réglages si vous souhaitez autoriser l'accès à votre appareil photos", preferredStyle: .alert)
-        let goToSettingsAction = UIAlertAction(title: "Aller aux réglages", style: .default) { (action) in
-            DispatchQueue.main.async {
-                let url = URL(string: UIApplication.openSettingsURLString)!
-                UIApplication.shared.open(url, options: [:])
-            }
-        }
-        alert.addAction(goToSettingsAction)
-    }
-    
-    private func showRestrictedAlertForCamera() {
-        let alert = UIAlertController(title: "Accès à l'appareil photos limité", message: "L'accès à votre appareil photo est restreint. Vous ne pouvez pas y accéder", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(okAction)
-    }
-    
-    private func authorizedAccessToCamera() {
-        self.image.sourceType = .camera
-        self.present(self.image, animated: true, completion: nil)
+        onPictureClick(image: image)
     }
 }
 

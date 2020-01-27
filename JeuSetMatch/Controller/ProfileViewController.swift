@@ -7,18 +7,24 @@
 //
 
 import UIKit
+import Photos
+import AVFoundation
+
 
 final class ProfileViewController: UIViewController {
     
     let firestoreService = FirestoreService()
+    let customLoader = CustomLoader()
     
     var userUseCase: UserUseCase?
-
+    
     // MARK: - Variables
     
     var currentUser: UserObject?
     var IsSegueFromSearch = false
     var IsSegueFromCity = false
+    var birthdate = ""
+    private let image = UIImagePickerController()
     
     private var userInformations: [UserObject] = []
     private var genderPicker: UIPickerView?
@@ -40,6 +46,14 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        customLoader.setAlpha = 0.5
+        customLoader.gifName = "ball"
+        customLoader.viewColor = UIColor.gray
+        
+        image.delegate = self
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
+        userPictureImageView.isUserInteractionEnabled = true
+        userPictureImageView.addGestureRecognizer(singleTap)
         
         let firestoreUser = FirestoreUserService()
         self.userUseCase = UserUseCase(user: firestoreUser)
@@ -61,7 +75,7 @@ final class ProfileViewController: UIViewController {
                 updateProfileButton.setTitle("Modifier mon profil", for: .normal)
                 return
             }
-            displayProvisionalUserDefaultsOnTextField()
+            displayUserDefaultsOnTextField(userInformations: "savedProvisionalUserInformations", userPicture: "savedProvisionaluserPicture")
             return
         }
         guard let partnerUid = currentUser?.uid else {return}
@@ -73,8 +87,8 @@ final class ProfileViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.ProfileToChatSegue {
-        guard let chatVc = segue.destination as? ChatViewController else {return}
-        chatVc.user = UserObject(pseudo: currentUser?.pseudo, image: currentUser?.image, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: currentUser?.uid)
+            guard let chatVc = segue.destination as? ChatViewController else {return}
+            chatVc.user = UserObject(pseudo: currentUser?.pseudo, image: currentUser?.image, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: currentUser?.uid)
         }
         if segue.identifier == "ProfileToCities" {
             guard let citiesVc = segue.destination as? CitiesViewController else {return}
@@ -82,7 +96,19 @@ final class ProfileViewController: UIViewController {
         }
     }
     
+    @objc private func didTapProfilPicture() {
+        onPictureClick(image: image)
+    }
+    
+    private func convertDateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
     @objc private func dateChanged(datePicker: UIDatePicker) {
+        birthdate = convertDateToString(date: datePicker.date)
         userInformationTxtField[2].text = dateToAge(birthDate: datePicker.date)
     }
     
@@ -92,11 +118,10 @@ final class ProfileViewController: UIViewController {
         }
         if sender.currentTitle == "Modifier mon profil" {
             manageTxtField(status: true, borderStyle: .line)
-            
             validateButton.isHidden = false
             cancelButton.isHidden = false
             updateProfileButton.isHidden = true
-            setTxtFieldInUserDefault()
+            setInformationsInUserDefault(userInformations: "savedUserInformations", userPicture: "savedUserPicture")
         }
     }
     
@@ -116,8 +141,8 @@ final class ProfileViewController: UIViewController {
         validateButton.isHidden = true
         cancelButton.isHidden = true
         updateProfileButton.isHidden = false
-        guard let userCity = userInformationTxtField[3].text, let userGender = userInformationTxtField[1].text, let userLevel = userInformationTxtField[4].text, let userName = userInformationTxtField[0].text else {return}
-        firestoreService.updateUserInformation(userCity: userCity, userGender: userGender, userLevel: userLevel, userName: userName)
+        guard let userCity = userInformationTxtField[3].text, let userGender = userInformationTxtField[1].text, let userLevel = userInformationTxtField[4].text, let userName = userInformationTxtField[0].text, let pictureData = userPictureImageView.image?.jpegData(compressionQuality: 0.1) else {return}
+        firestoreService.updateUserInformation(userAge: birthdate, userCity: userCity, userGender: userGender, userLevel: userLevel, userName: userName, userImage: pictureData)
     }
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
@@ -125,7 +150,7 @@ final class ProfileViewController: UIViewController {
         validateButton.isHidden = true
         cancelButton.isHidden = true
         updateProfileButton.isHidden = false
-        displayUserDefaultsOnTextField()
+        displayUserDefaultsOnTextField(userInformations: "savedUserInformations", userPicture: "savedUserPicture")
     }
     
     // MARK: - Methods
@@ -153,38 +178,26 @@ final class ProfileViewController: UIViewController {
         }
     }
     
-    private func setProvisionalTxtFieldInUserDefault() {
+    private func setInformationsInUserDefault(userInformations: String, userPicture: String) {
         var index = 0
         for _ in userInformationTxtField {
-            UserDefaults.standard.set(userInformationTxtField[index].text, forKey: "savedProvisionalUserInformations\(index)")
+            UserDefaults.standard.set(userInformationTxtField[index].text, forKey: userInformations + "\(index)")
             index += 1
         }
+        UserDefaults.standard.set(userPictureImageView.image?.jpegData(compressionQuality: 0.1), forKey: userPicture)
     }
     
-    private func setTxtFieldInUserDefault() {
+    private func displayUserDefaultsOnTextField(userInformations: String, userPicture: String) {
         var index = 0
         for _ in userInformationTxtField {
-            UserDefaults.standard.set(userInformationTxtField[index].text, forKey: "savedUserInformations\(index)")
+            userInformationTxtField[index].text = UserDefaults.standard.string(forKey: userInformations + "\(index)")
             index += 1
         }
+        guard let imageData = UserDefaults.standard.data(forKey: userPicture)
+            else {return}
+        userPictureImageView.image = UIImage(data: imageData)
     }
     
-    private func displayUserDefaultsOnTextField() {
-        var index = 0
-        for _ in userInformationTxtField {
-            userInformationTxtField[index].text = UserDefaults.standard.string(forKey: "savedUserInformations\(index)")
-            index += 1
-        }
-    }
-    
-    private func displayProvisionalUserDefaultsOnTextField() {
-        var index = 0
-        for _ in userInformationTxtField {
-            userInformationTxtField[index].text = UserDefaults.standard.string(forKey: "savedProvisionalUserInformations\(index)")
-            index += 1
-        }
-    }
-        
     private func stringToDate(dateString : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -202,8 +215,10 @@ final class ProfileViewController: UIViewController {
     }
     
     private func fetchUserInformations(userUid: String) {
-        self.userInformations = []            
+        self.userInformations = []
+        customLoader.showLoaderView()
         userUseCase?.fetchUserInformationsDependingUid(userUid: userUid) { (result) in
+            self.customLoader.hideLoaderView()
             switch result {
             case .success(let user) :
                 self.userInformations.append(user)
@@ -231,7 +246,7 @@ extension ProfileViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
-        setProvisionalTxtFieldInUserDefault()
+        setInformationsInUserDefault(userInformations: "savedProvisionalUserInformations", userPicture: "savedProvisionaluserPicture")
         performSegue(withIdentifier: K.ProfileToCitiesSegue, sender: nil)
     }
 }
@@ -282,3 +297,31 @@ extension ProfileViewController: DidSelectCityDelegate {
         IsSegueFromCity = true
     }
 }
+
+// MARK: - UIImage Picker Controller
+
+extension ProfileViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            if let imageView = userPictureImageView {
+                imageView.contentMode = .scaleAspectFill
+                imageView.image = pickedImage
+                userPictureImageView.image = pickedImage
+            } else {
+                print ("selectedUIImageView is nil")
+            }
+        } else {
+            print ("info[UIImagePickerController.InfoKey.originalImage] isn't an UIImage")
+        }
+        
+        //Remove the view
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    //Remove the view when the user click on cancel
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+

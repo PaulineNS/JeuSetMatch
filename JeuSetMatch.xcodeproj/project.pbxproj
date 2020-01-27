@@ -27,6 +27,7 @@
 		567CBE4523D8449E00A7E306 /* RegisterUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567CBE4423D8449E00A7E306 /* RegisterUseCaseTest.swift */; };
 		568D50AD23D3320B00839CE4 /* GooglePlacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568D50AC23D3320B00839CE4 /* GooglePlacesService.swift */; };
 		568D50AF23D352B200839CE4 /* LoginUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568D50AE23D352B200839CE4 /* LoginUseCaseTest.swift */; };
+		568FAB5F23DF6467007A7B45 /* UIViewController+ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FAB5E23DF6467007A7B45 /* UIViewController+ImagePicker.swift */; };
 		5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5699AE6923BBAA1200C61058 /* CitiesViewController.swift */; };
 		56AFDE2A23C4DF6F00B215DC /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AFDE2923C4DF6E00B215DC /* UserObject.swift */; };
 		56B615AA23D87D4B001DEA87 /* ConversationUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B615A923D87D4A001DEA87 /* ConversationUseCaseTest.swift */; };
@@ -88,6 +89,7 @@
 		567CBE4423D8449E00A7E306 /* RegisterUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUseCaseTest.swift; sourceTree = "<group>"; };
 		568D50AC23D3320B00839CE4 /* GooglePlacesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesService.swift; sourceTree = "<group>"; };
 		568D50AE23D352B200839CE4 /* LoginUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCaseTest.swift; sourceTree = "<group>"; };
+		568FAB5E23DF6467007A7B45 /* UIViewController+ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ImagePicker.swift"; sourceTree = "<group>"; };
 		5699AE6923BBAA1200C61058 /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		56AFDE2923C4DF6E00B215DC /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		56B615A923D87D4A001DEA87 /* ConversationUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationUseCaseTest.swift; sourceTree = "<group>"; };
@@ -194,6 +196,14 @@
 			path = Conversation;
 			sourceTree = "<group>";
 		};
+		568FAB5D23DF6321007A7B45 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				568FAB5E23DF6467007A7B45 /* UIViewController+ImagePicker.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		56B615AB23D88F47001DEA87 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,13 +224,6 @@
 				568D50AC23D3320B00839CE4 /* GooglePlacesService.swift */,
 			);
 			path = Service;
-			sourceTree = "<group>";
-		};
-		56C49BDB23CE38580071F7A3 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		56DC0BD923A90968003A0DC6 = {
@@ -246,7 +249,6 @@
 		56DC0BE423A90968003A0DC6 /* JeuSetMatch */ = {
 			isa = PBXGroup;
 			children = (
-				56C49BDB23CE38580071F7A3 /* Extensions */,
 				56DC0C0B23A90985003A0DC6 /* Supporting Files */,
 				56DC0C0A23A90984003A0DC6 /* Model */,
 				56DC0C0923A90982003A0DC6 /* View */,
@@ -314,6 +316,7 @@
 		56DC0C0B23A90985003A0DC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				568FAB5D23DF6321007A7B45 /* Extensions */,
 				56DC0BEF23A9096D003A0DC6 /* Assets.xcassets */,
 				56DC0BF123A9096D003A0DC6 /* LaunchScreen.storyboard */,
 				56DC0BE523A90968003A0DC6 /* AppDelegate.swift */,
@@ -534,6 +537,7 @@
 				56E8B17A23BA4B61007B4BC1 /* UserTableViewCell.swift in Sources */,
 				567CBE3C23D83ACD00A7E306 /* FirestoreConversationService.swift in Sources */,
 				564536A423C20FD2005A26B5 /* MessagesTableViewCell.swift in Sources */,
+				568FAB5F23DF6467007A7B45 /* UIViewController+ImagePicker.swift in Sources */,
 				56B615AD23D88F71001DEA87 /* UserUseCase.swift in Sources */,
 				567CBE3623D83A8A00A7E306 /* RegisterUserCase.swift in Sources */,
 				56BB33B723D0564400B7D726 /* FirestoreService.swift in Sources */,

@@ -12,7 +12,6 @@ protocol DidSearchFiltersDelegate {
     func searchFiltersTapped(users: [UserObject])
 }
 
-
 class FilterViewController: UIViewController {
     
     @IBOutlet weak var filterTableView: UITableView!
@@ -23,10 +22,15 @@ class FilterViewController: UIViewController {
     var userUseCase: UserUseCase?
     private var userFound: [UserObject] = []
     var didSearchFiltersDelegate: DidSearchFiltersDelegate?
-
+    let customLoader = CustomLoader()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        customLoader.setAlpha = 0.5
+        customLoader.gifName = "ball"
+        customLoader.viewColor = UIColor.gray
         let firestoreUser = FirestoreUserService()
         self.userUseCase = UserUseCase(user: firestoreUser)
         filterTableView.dataSource = self
@@ -53,11 +57,13 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction func searchPlayers(_ sender: Any) {
-//        let gender = "Homme"
-//        let city = "Nantes, France"
-//        let level = "30/3 - Intermédiaire"
+        //        let gender = "Homme"
+        //        let city = "Nantes, France"
+        //        let level = "30/3 - Intermédiaire"
         guard let gender = UserDefaults.standard.string(forKey: "savedGender"), let city = UserDefaults.standard.string(forKey: "savedCity"), let level = UserDefaults.standard.string(forKey: "savedLevel") else {return}
+        customLoader.showLoaderView()
         userUseCase?.fetchUserInformationsDependingFilters(gender: gender, city: city, level: level, completion: { (result) in
+            self.customLoader.hideLoaderView()
             switch result {
             case .success(let users):
                 self.userFound.append(users)
@@ -124,8 +130,8 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            performSegue(withIdentifier: "FilterToCities", sender: nil)
-        }
+        performSegue(withIdentifier: "FilterToCities", sender: nil)
+    }
 }
 
 extension FilterViewController: DidSelectCityDelegate {

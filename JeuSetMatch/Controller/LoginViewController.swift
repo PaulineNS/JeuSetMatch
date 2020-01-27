@@ -18,7 +18,6 @@ class LoginViewController: UIViewController {
     
     // MARK: - Variables
     
-//    let firestoreService = FirestoreService()
     var loginUseCase: LoginUseCase?
     var currentUser: UserObject?
     
@@ -45,7 +44,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginPressed(_ sender: Any) {
         guard let email = emailTextfield.text, let password = passwordTextfield.text else {return}
-
+        
         loginUseCase?.login(with: email, password: password) { (result) in
             switch result {
             case .success :
