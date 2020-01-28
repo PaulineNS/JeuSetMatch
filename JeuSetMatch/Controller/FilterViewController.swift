@@ -56,11 +56,188 @@ class FilterViewController: UIViewController {
         }
     }
     
+//
+//    func fetchUsersDependingLevel(level: String) {
+//        customLoader.showLoaderView()
+//        userUseCase?.fetchUserInformationsDependingLevel(level: level, completion: { (result) in
+//            self.customLoader.hideLoaderView()
+//            switch result {
+//            case .success(let users):
+//                self.userFound.append(users)
+//                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+//                self.navigationController?.popViewController(animated: true)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        })
+//    }
+//
+//    func fetchUserDependingCity(city: String) {
+//        customLoader.showLoaderView()
+//        userUseCase?.fetchUserInformationsDependingCity(city: city, completion: { (result) in
+//            self.customLoader.hideLoaderView()
+//            switch result {
+//            case .success(let users):
+//                self.userFound.append(users)
+//                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+//                self.navigationController?.popViewController(animated: true)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        })
+//    }
+//
+//    func fetchUserDependingSexe(gender: String) {
+//        customLoader.showLoaderView()
+//        userUseCase?.fetchUserInformationsDependingSexe(sexe: gender, completion: { (result) in
+//            self.customLoader.hideLoaderView()
+//            switch result {
+//            case .success(let users):
+//                self.userFound.append(users)
+//                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+//                self.navigationController?.popViewController(animated: true)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        })
+//    }
+//
+//    func fetchUsersDependingCityAndSexe(gender: String, city: String){
+//        customLoader.showLoaderView()
+//        userUseCase?.fetchUserInformationsDependingCityAndSexe(sexe: gender, city: city, completion: { (result) in
+//            self.customLoader.hideLoaderView()
+//            switch result {
+//            case .success(let users):
+//                self.userFound.append(users)
+//                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+//                self.navigationController?.popViewController(animated: true)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        })
+//    }
+//
+//    func fetchUsersDependingGenderAndLevel(gender: String, level: String){
+//    customLoader.showLoaderView()
+//     userUseCase?.fetchUserInformationsDependingSexeAndLevel(sexe: gender, level: level, completion: { (result) in
+//         self.customLoader.hideLoaderView()
+//         switch result {
+//         case .success(let users):
+//             self.userFound.append(users)
+//             self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+//             self.navigationController?.popViewController(animated: true)
+//         case .failure(let error):
+//             print(error.localizedDescription)
+//         }
+//     })
+//    }
+//
+//
+//
+//    func fetchUsersDependingCityAndLevel(city: String, level: String) {
+//        customLoader.showLoaderView()
+//        userUseCase?.fetchUserInformationsDependingCityAndLevel(level: level, city: city, completion: { (result) in
+//            self.customLoader.hideLoaderView()
+//            switch result {
+//            case .success(let users):
+//                self.userFound.append(users)
+//                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+//                self.navigationController?.popViewController(animated: true)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        })
+//    }
+    
+    
+
+    
     @IBAction func searchPlayers(_ sender: Any) {
         //        let gender = "Homme"
         //        let city = "Nantes, France"
         //        let level = "30/3 - Intermédiaire"
         guard let gender = UserDefaults.standard.string(forKey: "savedGender"), let city = UserDefaults.standard.string(forKey: "savedCity"), let level = UserDefaults.standard.string(forKey: "savedLevel") else {return}
+        //Three filters
+        if gender == "Tout" && city == "Tout" && level == "Tout" {
+            fetchUsersWithoutFilters()
+        }
+        //One Filters
+        if gender == "Tout" && city == "Tout" && level != "Tout" {
+//            fetchUsersDependingLevel(level: level)
+            let levelField = "userLevel"
+            fetchUsersDependingOneFilter(field1: levelField, field1value: level)
+        }
+        if gender == "Tout" && city != "Tout" && level == "Tout" {
+//            fetchUserDependingCity(city: city)
+            let cityField = "userCity"
+            fetchUsersDependingOneFilter(field1: cityField, field1value: city)
+
+        }
+        if gender != "Tout" && city == "Tout" && level == "Tout" {
+//            fetchUserDependingSexe(gender: gender)
+            let genderField = "userGender"
+            fetchUsersDependingOneFilter(field1: genderField, field1value: gender)
+        }
+        
+        // TwoFilters
+        if gender != "Tout" && city != "Tout" && level == "Tout" {
+            //            fetchUsersDependingCityAndSexe(gender: gender, city: city)
+            let cityField = "userCity"
+            let genderField = "userGender"
+            fetchUsersDependingTwoFilters(field1: genderField, field1value: gender, field2: cityField, field2Value: city)
+        }
+        if gender != "Tout" && city == "Tout" && level != "Tout" {
+            //            fetchUsersDependingGenderAndLevel(gender: gender, level: level)
+            let genderField = "userGender"
+            let levelField = "userLevel"
+            fetchUsersDependingTwoFilters(field1: genderField, field1value: gender, field2: levelField, field2Value: level)
+        }
+        if gender == "Tout" && city != "Tout" && level != "Tout" {
+            //            fetchUsersDependingCityAndLevel(city: city, level: level)
+            let cityField = "userCity"
+            let genderField = "userGender"
+            fetchUsersDependingTwoFilters(field1: cityField, field1value: city, field2: genderField, field2Value: gender)
+        }
+        
+        // Without Filters
+        if gender != "Tout" && city != "Tout" && level != "Tout" {
+            fetchUsersDependingThreeFilters(gender: gender, city: city, level: level)
+        }
+    }
+    
+
+    
+    func fetchUsersDependingOneFilter(field1: String, field1value: String){
+        customLoader.showLoaderView()
+        userUseCase?.fetchUserInformationsOneFilter(field1: field1, field1value: field1value, completion: { (result) in
+            self.customLoader.hideLoaderView()
+            switch result {
+            case .success(let users):
+                self.userFound.append(users)
+                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+                self.navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
+    }
+    
+    func fetchUsersDependingTwoFilters(field1: String, field1value: String, field2: String, field2Value: String){
+        customLoader.showLoaderView()
+        userUseCase?.fetchUsersInformationsDependingTwoFilters(field1: field1, field1value: field1value, field2: field2, field2Value: field2Value, completion: { (result) in
+        self.customLoader.hideLoaderView()
+        switch result {
+        case .success(let users):
+            self.userFound.append(users)
+            self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+            self.navigationController?.popViewController(animated: true)
+        case .failure(let error):
+            print(error.localizedDescription)
+            }
+        })
+    }
+    
+    func fetchUsersDependingThreeFilters(gender: String, city: String, level: String) {
         customLoader.showLoaderView()
         userUseCase?.fetchUserInformationsDependingFilters(gender: gender, city: city, level: level, completion: { (result) in
             self.customLoader.hideLoaderView()
@@ -75,6 +252,37 @@ class FilterViewController: UIViewController {
         })
     }
     
+    func fetchUsersWithoutFilters(){
+        customLoader.showLoaderView()
+        userUseCase?.fetchUser(completion: { (result) in
+            self.customLoader.hideLoaderView()
+            switch result {
+            case .success(let users):
+                self.userFound.append(users)
+                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+                self.navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
+    }
+
+        
+        
+//        customLoader.showLoaderView()
+//        userUseCase?.fetchUserInformationsDependingFilters(gender: gender, city: city, level: level, completion: { (result) in
+//            self.customLoader.hideLoaderView()
+//            switch result {
+//            case .success(let users):
+//                self.userFound.append(users)
+//                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+//                self.navigationController?.popViewController(animated: true)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        })
+//    }
+    
     @IBAction func canceledFilters(_ sender: Any) {
         deleteAllUserDefaultData()
         filtersArray = []
@@ -85,9 +293,12 @@ class FilterViewController: UIViewController {
     }
     
     func deleteAllUserDefaultData() {
-        let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
-        UserDefaults.standard.synchronize()
+        UserDefaults.standard.set("Tout", forKey: "savedCity")
+        UserDefaults.standard.set("Tout", forKey: "savedLevel")
+        UserDefaults.standard.set("Tout", forKey: "savedGender")
+//        let domain = Bundle.main.bundleIdentifier!
+//        UserDefaults.standard.removePersistentDomain(forName: domain)
+//        UserDefaults.standard.synchronize()
     }
 }
 
