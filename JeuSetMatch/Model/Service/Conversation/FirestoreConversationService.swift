@@ -20,7 +20,10 @@ class FirestoreConversationService: ConversationUseCaseOutput {
                 completion(.failure(FireStoreError.noData))
                 return
             } else {
-                
+                if DocumentSnapshot?.isEmpty == true {
+                    print("nil ici")
+                    completion(nil)
+                }
                 DocumentSnapshot?.documentChanges.forEach({ (diff) in
                     
                     let toId = diff.document.documentID

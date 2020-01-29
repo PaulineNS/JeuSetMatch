@@ -9,10 +9,9 @@
 import Foundation
 
 protocol ConversationUseCaseOutput {
-    typealias ConversationCompletion = (Result<MessageObject, Error>) -> Void
+    typealias ConversationCompletion = ((Result<MessageObject, Error>)?) -> Void
     
     func observeUserMessages(completion: @escaping ConversationCompletion)
-    
     func observeUserChatMessages(toId: String, completion: @escaping ConversationCompletion)
 }
 
@@ -24,11 +23,11 @@ class ConversationUseCase {
         self.message = message
     }
     
-    func observeUserMessages(completion: @escaping (Result<MessageObject, Error>) -> Void){
+    func observeUserMessages(completion: @escaping ((Result<MessageObject, Error>)?) -> Void){
         self.message.observeUserMessages(completion: completion)
     }
     
-    func observeUserChatMessages(toId: String, completion: @escaping (Result<MessageObject, Error>) -> Void){
+    func observeUserChatMessages(toId: String, completion: @escaping ((Result<MessageObject, Error>)?) -> Void){
         self.message.observeUserChatMessages(toId: toId, completion: completion)
     }
 }

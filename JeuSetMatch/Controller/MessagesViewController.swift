@@ -23,7 +23,7 @@ final class MessagesViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet private weak var messagesTableView: UITableView!
+    @IBOutlet private weak var messagesTableView: UITableView! { didSet { messagesTableView.tableFooterView = UIView() }}
     
     // MARK: - Controller life cycle
     
@@ -70,11 +70,15 @@ final class MessagesViewController: UIViewController {
                     })
                 }
                 DispatchQueue.main.async {
-                    print("reload")
                     self.messagesTableView.reloadData()
                 }
             case .failure(let error):
                 print(error.localizedDescription)
+            case .none:
+                self.messages = []
+                DispatchQueue.main.async {
+                    self.messagesTableView.reloadData()
+                }
             }
         }
     }
@@ -115,6 +119,25 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+    
+        func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+            let label = UILabel()
+            label.text = "Vous n'avez pas encore de messages"
+            label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            label.textAlignment = .center
+            label.textColor = .darkGray
+            return label
+            
+    //        let imageView = UIImageView()
+    //        imageView.image = #imageLiteral(resourceName: "reciplease")
+    //        imageView.contentMode = .scaleAspectFill
+    //        imageView.contentMode = .center
+    //        return imageView
+        }
+        
+        func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+            return messages.isEmpty ? tableView.bounds.size.height : 0
+        }
 }
 
 

@@ -41,6 +41,7 @@ final class ProfileViewController: UIViewController {
     @IBOutlet private weak var updateProfileButton: UIButton!
     @IBOutlet private weak var validateButton: UIButton!
     @IBOutlet private weak var cancelButton: UIButton!
+    @IBOutlet weak var deleteProfilButton: UIButton!
     
     // MARK: - Controller life cycle
     
@@ -61,6 +62,7 @@ final class ProfileViewController: UIViewController {
         manageTxtField(status: false, borderStyle: .none)
         validateButton.isHidden = true
         cancelButton.isHidden = true
+        deleteProfilButton.isHidden = true
         managePickers()        
     }
     
@@ -120,6 +122,7 @@ final class ProfileViewController: UIViewController {
             manageTxtField(status: true, borderStyle: .line)
             validateButton.isHidden = false
             cancelButton.isHidden = false
+            deleteProfilButton.isHidden = false
             updateProfileButton.isHidden = true
             setInformationsInUserDefault(userInformations: "savedUserInformations", userPicture: "savedUserPicture")
         }
@@ -140,6 +143,7 @@ final class ProfileViewController: UIViewController {
         manageTxtField(status: false, borderStyle: .none)
         validateButton.isHidden = true
         cancelButton.isHidden = true
+        deleteProfilButton.isHidden = true
         updateProfileButton.isHidden = false
         guard let userCity = userInformationTxtField[3].text, let userGender = userInformationTxtField[1].text, let userLevel = userInformationTxtField[4].text, let userName = userInformationTxtField[0].text, let pictureData = userPictureImageView.image?.jpegData(compressionQuality: 0.1) else {return}
         firestoreService.updateUserInformation(userAge: birthdate, userCity: userCity, userGender: userGender, userLevel: userLevel, userName: userName, userImage: pictureData)
@@ -149,8 +153,27 @@ final class ProfileViewController: UIViewController {
         manageTxtField(status: false, borderStyle: .none)
         validateButton.isHidden = true
         cancelButton.isHidden = true
+        deleteProfilButton.isHidden = true
         updateProfileButton.isHidden = false
         displayUserDefaultsOnTextField(userInformations: "savedUserInformations", userPicture: "savedUserPicture")
+    }
+    
+    @IBAction func didPressDeleteAccountButton(_ sender: Any) {
+        createAlert(title: "Etes vous sure de supprimer votre compte ?", message: "")
+    }
+    
+    func createAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Oui", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            print("Oui")
+            self.firestoreService.deleteAccount()
+        }))
+        alert.addAction(UIAlertAction(title: "Non", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            print("Non")
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Methods
@@ -214,11 +237,12 @@ final class ProfileViewController: UIViewController {
         return stringAge
     }
     
+    // Fetch User Information depending UIid
     private func fetchUserInformations(userUid: String) {
         self.userInformations = []
-        customLoader.showLoaderView()
-        userUseCase?.fetchUserInformationsDependingUid(userUid: userUid) { (result) in
-            self.customLoader.hideLoaderView()
+        //        customLoader.showLoaderView()
+        userUseCase?.fetchUserInformationsDependingOneFilter(field1: "userUid", field1value: userUid, completion: { (result) in
+            //            self.customLoader.hideLoaderView()
             switch result {
             case .success(let user) :
                 self.userInformations.append(user)
@@ -238,7 +262,7 @@ final class ProfileViewController: UIViewController {
             case .none:
                 return
             }
-        }
+        })
     }
 }
 

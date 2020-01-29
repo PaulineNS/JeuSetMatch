@@ -37,8 +37,7 @@ final class SearchViewController: UIViewController {
         usersTableView.dataSource = self
         usersTableView.delegate = self
         usersTableView.register(UINib(nibName: K.userCellNibName, bundle: nil), forCellReuseIdentifier: K.userCellIdentifier)
-//        fetchUser()
-        fetchUse()
+        fetchUsers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +67,7 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Methods
     
-    func fetchUse(){
+    func fetchUsers(){
         guard let gender = UserDefaults.standard.string(forKey: "savedGender"), let city = UserDefaults.standard.string(forKey: "savedCity"), let level = UserDefaults.standard.string(forKey: "savedLevel") else {return}
         //Three filters
         if gender == "Tout" && city == "Tout" && level == "Tout" {
@@ -76,63 +75,41 @@ final class SearchViewController: UIViewController {
         }
         //One Filters
         if gender == "Tout" && city == "Tout" && level != "Tout" {
-            //            fetchUsersDependingLevel(level: level)
             let levelField = "userLevel"
             fetchUsersDependingOneFilter(field1: levelField, field1value: level)
         }
         if gender == "Tout" && city != "Tout" && level == "Tout" {
-            //            fetchUserDependingCity(city: city)
             let cityField = "userCity"
             fetchUsersDependingOneFilter(field1: cityField, field1value: city)
             
         }
         if gender != "Tout" && city == "Tout" && level == "Tout" {
-            //            fetchUserDependingSexe(gender: gender)
             let genderField = "userGender"
             fetchUsersDependingOneFilter(field1: genderField, field1value: gender)
         }
         
         // TwoFilters
         if gender != "Tout" && city != "Tout" && level == "Tout" {
-            //            fetchUsersDependingCityAndSexe(gender: gender, city: city)
             let cityField = "userCity"
             let genderField = "userGender"
             fetchUsersDependingTwoFilters(field1: genderField, field1value: gender, field2: cityField, field2Value: city)
         }
         if gender != "Tout" && city == "Tout" && level != "Tout" {
-            //            fetchUsersDependingGenderAndLevel(gender: gender, level: level)
             let genderField = "userGender"
             let levelField = "userLevel"
             fetchUsersDependingTwoFilters(field1: genderField, field1value: gender, field2: levelField, field2Value: level)
         }
         if gender == "Tout" && city != "Tout" && level != "Tout" {
-            //            fetchUsersDependingCityAndLevel(city: city, level: level)
             let cityField = "userCity"
             let genderField = "userGender"
             fetchUsersDependingTwoFilters(field1: cityField, field1value: city, field2: genderField, field2Value: gender)
         }
-        
         // Without Filters
         if gender != "Tout" && city != "Tout" && level != "Tout" {
             fetchUsersDependingThreeFilters(gender: gender, city: city, level: level)
         }
     }
-    
-//    private func fetchUser() {
-//        customLoader.showLoaderView()
-//        userUseCase?.fetchUser { (result) in
-//            self.customLoader.hideLoaderView()
-//            switch result {
-//            case .success(let users):
-//                self.users.append(users)
-//                DispatchQueue.main.async {
-//                    self.usersTableView.reloadData()
-//                }
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
+
     
     func fetchUsersDependingOneFilter(field1: String, field1value: String){
         customLoader.showLoaderView()
@@ -158,26 +135,6 @@ final class SearchViewController: UIViewController {
     func fetchUsersDependingTwoFilters(field1: String, field1value: String, field2: String, field2Value: String){
         customLoader.showLoaderView()
         userUseCase?.fetchUsersInformationsDependingTwoFilters(field1: field1, field1value: field1value, field2: field2, field2Value: field2Value, completion: { (result) in
-        self.customLoader.hideLoaderView()
-        switch result {
-        case .success(let users):
-            self.users.append(users)
-            DispatchQueue.main.async {
-                self.usersTableView.reloadData()
-            }
-        case .failure(let error):
-            print(error.localizedDescription)
-        case .none:
-                            DispatchQueue.main.async {
-                self.usersTableView.reloadData()
-            }
-            }
-        })
-    }
-    
-    func fetchUsersDependingThreeFilters(gender: String, city: String, level: String) {
-        customLoader.showLoaderView()
-        userUseCase?.fetchUserInformationsDependingFilters(gender: gender, city: city, level: level, completion: { (result) in
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let users):
@@ -188,8 +145,28 @@ final class SearchViewController: UIViewController {
             case .failure(let error):
                 print(error.localizedDescription)
             case .none:
-                                DispatchQueue.main.async {
-                                    
+                DispatchQueue.main.async {
+                    self.usersTableView.reloadData()
+                }
+            }
+        })
+    }
+    
+    func fetchUsersDependingThreeFilters(gender: String, city: String, level: String) {
+        customLoader.showLoaderView()
+        userUseCase?.fetchUserInformationsDependingAllFilters(gender: gender, city: city, level: level, completion: { (result) in
+            self.customLoader.hideLoaderView()
+            switch result {
+            case .success(let users):
+                self.users.append(users)
+                DispatchQueue.main.async {
+                    self.usersTableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .none:
+                DispatchQueue.main.async {
+                    
                     self.usersTableView.reloadData()
                 }
             }
@@ -198,7 +175,7 @@ final class SearchViewController: UIViewController {
     
     func fetchUsersWithoutFilters(){
         customLoader.showLoaderView()
-        userUseCase?.fetchUser(completion: { (result) in
+        userUseCase?.fetchUserWithoutFilters(completion: { (result) in
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let users):
@@ -209,7 +186,7 @@ final class SearchViewController: UIViewController {
             case .failure(let error):
                 print(error.localizedDescription)
             case .none:
-                                DispatchQueue.main.async {
+                DispatchQueue.main.async {
                     self.usersTableView.reloadData()
                 }
             }
@@ -239,6 +216,21 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         let user = users[indexPath.row]
         self.currentUser = user
         performSegue(withIdentifier: K.SearchToProfileSegue, sender: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Aucun joueur ne correspond à votre recherche"
+        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        label.textAlignment = .center
+        label.textColor = .darkGray
+        return label
+        
+//        let imageView = UIImageView()
+//        imageView.image = #imageLiteral(resourceName: "reciplease")
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.contentMode = .center
+//        return imageView
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

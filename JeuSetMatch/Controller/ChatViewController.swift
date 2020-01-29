@@ -72,6 +72,11 @@ final class ChatViewController: UIViewController {
                 }
             case .failure(let error) :
                 print(error.localizedDescription)
+            case .none:
+                self.messages = []
+                DispatchQueue.main.async {
+                self.chatTableView.reloadData()
+                }
             }
         }
     }

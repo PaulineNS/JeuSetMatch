@@ -18,6 +18,19 @@ class FirestoreService {
     private let db = Firestore.firestore()
     let currentUserUid = Auth.auth().currentUser?.uid
     
+    func deleteAccount() {
+        guard let currentUser = Auth.auth().currentUser else {
+            print("pb unique id")
+            return}
+        currentUser.delete { error in
+          if let error = error {
+            print("An error happened")
+          } else {
+            print("successfully deleted")
+          }
+        }
+    }
+    
     func checkPseudoDisponibility(field: String, completion: @escaping (Bool) -> Void) {
         let collectionRef = db.collection("users")
         collectionRef.whereField("userName", isEqualTo: field).getDocuments { (snapshot, error) in
