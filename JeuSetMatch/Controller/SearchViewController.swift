@@ -146,6 +146,11 @@ final class SearchViewController: UIViewController {
                 }
             case .failure(let error):
                 print(error.localizedDescription)
+            case .none:
+                self.users = []
+                DispatchQueue.main.async {
+                    self.usersTableView.reloadData()
+                }
             }
         })
     }
@@ -162,6 +167,10 @@ final class SearchViewController: UIViewController {
             }
         case .failure(let error):
             print(error.localizedDescription)
+        case .none:
+                            DispatchQueue.main.async {
+                self.usersTableView.reloadData()
+            }
             }
         })
     }
@@ -178,6 +187,11 @@ final class SearchViewController: UIViewController {
                 }
             case .failure(let error):
                 print(error.localizedDescription)
+            case .none:
+                                DispatchQueue.main.async {
+                                    
+                    self.usersTableView.reloadData()
+                }
             }
         })
     }
@@ -194,6 +208,10 @@ final class SearchViewController: UIViewController {
                 }
             case .failure(let error):
                 print(error.localizedDescription)
+            case .none:
+                                DispatchQueue.main.async {
+                    self.usersTableView.reloadData()
+                }
             }
         })
     }

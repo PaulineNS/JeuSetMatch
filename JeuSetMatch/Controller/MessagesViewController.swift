@@ -110,6 +110,8 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
                 self.performSegue(withIdentifier: K.MessagesToChatSegue, sender: nil)
             case .failure(let error) :
                 print(error.localizedDescription)
+            case .none:
+                return
             }
         }
     }

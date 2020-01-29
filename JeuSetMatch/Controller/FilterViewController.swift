@@ -212,12 +212,18 @@ class FilterViewController: UIViewController {
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let users):
-                
+                print("succes")
                 self.userFound.append(users)
                 self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
                 self.navigationController?.popViewController(animated: true)
             case .failure(let error):
+                print("failure")
                 print(error.localizedDescription)
+            case .none:
+                print("none")
+                self.userFound = []
+                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+                self.navigationController?.popViewController(animated: true)
             }
         })
     }
@@ -233,6 +239,10 @@ class FilterViewController: UIViewController {
             self.navigationController?.popViewController(animated: true)
         case .failure(let error):
             print(error.localizedDescription)
+        case .none:
+                            self.userFound = []
+            self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+            self.navigationController?.popViewController(animated: true)
             }
         })
     }
@@ -248,6 +258,10 @@ class FilterViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             case .failure(let error):
                 print(error.localizedDescription)
+            case .none:
+                                self.userFound = []
+                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+                self.navigationController?.popViewController(animated: true)
             }
         })
     }
@@ -263,6 +277,10 @@ class FilterViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             case .failure(let error):
                 print(error.localizedDescription)
+            case .none:
+                                self.userFound = []
+                self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
+                self.navigationController?.popViewController(animated: true)
             }
         })
     }
