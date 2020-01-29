@@ -149,7 +149,6 @@ class FilterViewController: UIViewController {
 //        })
 //    }
     
-    
 
     
     @IBAction func searchPlayers(_ sender: Any) {
@@ -209,10 +208,11 @@ class FilterViewController: UIViewController {
     
     func fetchUsersDependingOneFilter(field1: String, field1value: String){
         customLoader.showLoaderView()
-        userUseCase?.fetchUserInformationsOneFilter(field1: field1, field1value: field1value, completion: { (result) in
+        userUseCase?.fetchUserInformationsDependingOneFilter(field1: field1, field1value: field1value, completion: { (result) in
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let users):
+                
                 self.userFound.append(users)
                 self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
                 self.navigationController?.popViewController(animated: true)

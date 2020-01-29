@@ -13,7 +13,7 @@ class FirestoreUserService: UserUseCaseOutput {
     private let db = Firestore.firestore()
     
     
-    func fetchUserInformationsOneFilter(field1: String, field1value: String, completion: @escaping UserCompletion){
+    func fetchUserInformationsDependingOneFilter(field1: String, field1value: String, completion: @escaping UserCompletion){
         db.collection("users").whereField(field1, isEqualTo: field1value).addSnapshotListener { (querySnapshot, error) in
             if let error = error {
                 print("There was an issue retrieving data from Firestore\(error)")

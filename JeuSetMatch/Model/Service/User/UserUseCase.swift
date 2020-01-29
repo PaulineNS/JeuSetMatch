@@ -25,7 +25,7 @@ protocol UserUseCaseOutput {
     func fetchUserInformationsDependingCityAndSexe(sexe: String, city: String, completion: @escaping UserCompletion)
     func fetchUserInformationsDependingSexeAndLevel(sexe: String, level: String, completion: @escaping UserCompletion)
     
-    func fetchUserInformationsOneFilter(field1: String, field1value: String, completion: @escaping UserCompletion)
+    func fetchUserInformationsDependingOneFilter(field1: String, field1value: String, completion: @escaping UserCompletion)
     
     func fetchUsersInformationsDependingTwoFilters(field1: String, field1value: String, field2: String, field2Value: String, completion: @escaping UserCompletion)
 
@@ -40,8 +40,8 @@ class UserUseCase {
     }
     
     
-    func fetchUserInformationsOneFilter(field1: String, field1value: String, completion: @escaping (Result<UserObject, Error>) -> Void){
-        self.user.fetchUserInformationsOneFilter(field1: field1, field1value: field1value, completion: completion)
+    func fetchUserInformationsDependingOneFilter(field1: String, field1value: String, completion: @escaping (Result<UserObject, Error>) -> (Void)){
+        self.user.fetchUserInformationsDependingOneFilter(field1: field1, field1value: field1value, completion: completion)
     }
     
     func fetchUsersInformationsDependingTwoFilters(field1: String, field1value: String, field2: String, field2Value: String, completion: @escaping (Result<UserObject, Error>) -> Void){
