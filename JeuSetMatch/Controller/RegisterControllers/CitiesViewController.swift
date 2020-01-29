@@ -19,7 +19,6 @@ final class CitiesViewController: UIViewController {
     var didSelectCityDelegate: DidSelectCityDelegate?
     private var citySelected = ""
     
-    
     // MARK: - Outlets
     
     @IBOutlet private weak var citiesTextField: UITextField!

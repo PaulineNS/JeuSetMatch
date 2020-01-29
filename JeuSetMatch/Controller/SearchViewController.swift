@@ -10,12 +10,9 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     
-    let customLoader = CustomLoader()
-    
     // MARK: - Variables
+    let customLoader = CustomLoader()
     var userUseCase: UserUseCase?
-    
-    
     var currentUser: UserObject?
     private var users: [UserObject] = []
     
@@ -28,9 +25,6 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        customLoader.setAlpha = 0.5
-        customLoader.gifName = "ball"
-        customLoader.viewColor = UIColor.gray
         let firestoreUser = FirestoreUserService()
         self.userUseCase = UserUseCase(user: firestoreUser)
         self.tabBarController?.navigationItem.hidesBackButton = true
@@ -87,7 +81,6 @@ final class SearchViewController: UIViewController {
             let genderField = "userGender"
             fetchUsersDependingOneFilter(field1: genderField, field1value: gender)
         }
-        
         // TwoFilters
         if gender != "Tout" && city != "Tout" && level == "Tout" {
             let cityField = "userCity"
@@ -109,7 +102,6 @@ final class SearchViewController: UIViewController {
             fetchUsersDependingThreeFilters(gender: gender, city: city, level: level)
         }
     }
-
     
     func fetchUsersDependingOneFilter(field1: String, field1value: String){
         customLoader.showLoaderView()
@@ -236,7 +228,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return users.isEmpty ? tableView.bounds.size.height : 0
     }
-
 }
 
 extension SearchViewController: DidSearchFiltersDelegate {

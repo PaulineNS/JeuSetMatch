@@ -14,8 +14,7 @@ import AVFoundation
 final class ProfileViewController: UIViewController {
     
     let firestoreService = FirestoreService()
-    let customLoader = CustomLoader()
-    
+    let customLoader = CustomLoader()    
     var userUseCase: UserUseCase?
     
     // MARK: - Variables
@@ -47,9 +46,6 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        customLoader.setAlpha = 0.5
-        customLoader.gifName = "ball"
-        customLoader.viewColor = UIColor.gray
         
         image.delegate = self
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
@@ -166,12 +162,10 @@ final class ProfileViewController: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Oui", style: UIAlertAction.Style.default, handler: { (action) in
             alert.dismiss(animated: true, completion: nil)
-            print("Oui")
             self.firestoreService.deleteAccount()
         }))
         alert.addAction(UIAlertAction(title: "Non", style: UIAlertAction.Style.default, handler: { (action) in
             alert.dismiss(animated: true, completion: nil)
-            print("Non")
         }))
         self.present(alert, animated: true, completion: nil)
     }

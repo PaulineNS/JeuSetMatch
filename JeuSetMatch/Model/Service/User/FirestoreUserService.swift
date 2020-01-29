@@ -21,7 +21,6 @@ class FirestoreUserService: UserUseCaseOutput {
             } else {
                 guard let snapchotDocument = querySnapshot?.documents else {return}
                 if snapchotDocument.isEmpty {
-                        print("nil ici")
                         completion(nil)
                 }
                 for document in snapchotDocument {
@@ -58,11 +57,9 @@ class FirestoreUserService: UserUseCaseOutput {
             } else {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 if snapshotDocuments.isEmpty {
-                        print("nil ici")
                         completion(nil)
                 }
                 for doc in snapshotDocuments {
-                    print("success ici")
                     let data = doc.data()
                     guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let userPicture = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String, let userUid = data["userUid"] as? String else {return}
                     let user = UserObject(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: userUid)
@@ -82,7 +79,6 @@ class FirestoreUserService: UserUseCaseOutput {
              } else {
                  guard let snapshotDocuments = querySnapshot?.documents else {return}
                 if snapshotDocuments.isEmpty {
-                        print("nil ici")
                         completion(nil)
                 }
                  for doc in snapshotDocuments {
@@ -104,7 +100,6 @@ class FirestoreUserService: UserUseCaseOutput {
             } else {
                 guard let snapshotDocuments = querySnapshot?.documents else {return}
                 if snapshotDocuments.isEmpty {
-                        print("nil ici")
                         completion(nil)
                 }
                 for doc in snapshotDocuments {

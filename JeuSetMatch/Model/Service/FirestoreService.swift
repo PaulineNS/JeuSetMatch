@@ -20,7 +20,6 @@ class FirestoreService {
     
     func deleteAccount() {
         guard let currentUser = Auth.auth().currentUser else {
-            print("pb unique id")
             return}
         currentUser.delete { error in
           if let error = error {

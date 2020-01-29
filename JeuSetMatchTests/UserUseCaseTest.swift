@@ -12,49 +12,208 @@ import XCTest
 
 class UserUseCaseTest: XCTestCase {
     
-    func test_fetchUser_succeeds() {
+    func test_fetchPartnerWithoutFilter_succeeds() {
         let user = UserSpy()
         let sut = UserUseCase(user: user)
         let expectedUser = createUser(pseudo: "Test")
         
-        let exp = expectation(description: "Wait for fetch user completion")
+        let exp = expectation(description: "Wait for fetch user depending uid completion")
         
-        sut.fetchUser { (result) in
+        sut.fetchUserWithoutFilters { (result) in
             switch result {
             case .success(let receivedUser):
                 XCTAssertEqual(receivedUser, expectedUser)
             default:
-                XCTFail("Expected success, got \(result), result instead")
+                XCTFail("Expected success, got \(String(describing: result)), result instead")
             }
             
             exp.fulfill()
-            
         }
         user.completeFetchUserSuccessfully(with: expectedUser)
         wait(for: [exp], timeout: 1.0)
-    }
+        }
         
+        
+//        fetchUserInformationsDependingOneFilter(field1: "", field1value: "") { (result) in
+//            switch result {
+//            case .success(let receivedUser):
+//                XCTAssertEqual(receivedUser, expectedUser)
+//            default:
+//                XCTFail("Expected success, got \(String(describing: result)), result instead")
+//            }
+//
+//            exp.fulfill()
+//        }
+//        user.completeFetchUserSuccessfully(with: expectedUser)
+//        wait(for: [exp], timeout: 1.0)
+//        }
     
-    func test_fetchUser_fails() {
+    
+    func test_fetchPartnerWithoutFilter_fails() {
         let user = UserSpy()
         let sut = UserUseCase(user: user)
         let expectedError = NSError(domain: "Fail login", code: 0)
         
         let exp = expectation(description: "Wait for fetch users completion")
-        sut.fetchUser { (result) in
+        sut.fetchUserWithoutFilters { (result) in
             switch result {
             case .failure(let receivedError):
                 XCTAssertEqual(receivedError as NSError, expectedError)
                 
             default:
-                XCTFail("Expected failure, got \(result), result instead")
+                XCTFail("Expected failure, got \(String(describing: result)), result instead")
             }
             exp.fulfill()
             
         }
         user.completeFetchUserFail(with: expectedError)
         wait(for: [exp], timeout: 1.0)
-    }
+        }
+        
+        
+//        fetchUserInformationsDependingOneFilter(field1: "", field1value: "") { (result) in
+//            switch result {
+//            case .failure(let receivedError):
+//                XCTAssertEqual(receivedError as NSError, expectedError)
+//
+//            default:
+//                XCTFail("Expected failure, got \(String(describing: result)), result instead")
+//            }
+//            exp.fulfill()
+//
+//        }
+//        user.completeFetchUserFail(with: expectedError)
+//        wait(for: [exp], timeout: 1.0)
+//        }
+    
+    func test_fetchPartnerDependingOneFilter_succeeds() {
+        let user = UserSpy()
+        let sut = UserUseCase(user: user)
+        let expectedUser = createUser(pseudo: "Test")
+        
+        let exp = expectation(description: "Wait for fetch user depending uid completion")
+        
+        sut.fetchUserInformationsDependingOneFilter(field1: "", field1value: "") { (result) in
+            switch result {
+            case .success(let receivedUser):
+                XCTAssertEqual(receivedUser, expectedUser)
+            default:
+                XCTFail("Expected success, got \(String(describing: result)), result instead")
+            }
+            
+            exp.fulfill()
+        }
+        user.completeFetchUserSuccessfully(with: expectedUser)
+        wait(for: [exp], timeout: 1.0)
+        }
+    
+    
+    func test_fetchPartnerDependingOneFilter_fails() {
+        let user = UserSpy()
+        let sut = UserUseCase(user: user)
+        let expectedError = NSError(domain: "Fail login", code: 0)
+        
+        let exp = expectation(description: "Wait for fetch users completion")
+        sut.fetchUserInformationsDependingOneFilter(field1: "", field1value: "") { (result) in
+            switch result {
+            case .failure(let receivedError):
+                XCTAssertEqual(receivedError as NSError, expectedError)
+                
+            default:
+                XCTFail("Expected failure, got \(String(describing: result)), result instead")
+            }
+            exp.fulfill()
+            
+        }
+        user.completeFetchUserFail(with: expectedError)
+        wait(for: [exp], timeout: 1.0)
+        }
+    
+    
+    func test_fetchPartnerDependingTwoFilters_succeeds() {
+        let user = UserSpy()
+        let sut = UserUseCase(user: user)
+        let expectedUser = createUser(pseudo: "Test")
+        
+        let exp = expectation(description: "Wait for fetch user depending uid completion")
+        
+        sut.fetchUsersInformationsDependingTwoFilters(field1: "", field1value: "", field2: "", field2Value: "") { (result) in
+            switch result {
+            case .success(let receivedUser):
+                XCTAssertEqual(receivedUser, expectedUser)
+            default:
+                XCTFail("Expected success, got \(String(describing: result)), result instead")
+            }
+            
+            exp.fulfill()
+        }
+        user.completeFetchUserSuccessfully(with: expectedUser)
+        wait(for: [exp], timeout: 1.0)
+        }
+    
+    
+    func test_fetchPartnerDependingTwoFilters_fails() {
+        let user = UserSpy()
+        let sut = UserUseCase(user: user)
+        let expectedError = NSError(domain: "Fail login", code: 0)
+        
+        let exp = expectation(description: "Wait for fetch users completion")
+        sut.fetchUsersInformationsDependingTwoFilters(field1: "", field1value: "", field2: "", field2Value: "") { (result) in
+            switch result {
+            case .failure(let receivedError):
+                XCTAssertEqual(receivedError as NSError, expectedError)
+                
+            default:
+                XCTFail("Expected failure, got \(String(describing: result)), result instead")
+            }
+            exp.fulfill()
+            
+        }
+        user.completeFetchUserFail(with: expectedError)
+        wait(for: [exp], timeout: 1.0)
+        }
+    
+    func test_fetchPartnerDependingThreeFilters_succeeds() {
+        let user = UserSpy()
+        let sut = UserUseCase(user: user)
+        let expectedUser = createUser(pseudo: "Test")
+        
+        let exp = expectation(description: "Wait for fetch user depending uid completion")
+        
+        sut.fetchUserInformationsDependingAllFilters(gender: "", city: "", level: "") { (result) in
+            switch result {
+            case .success(let receivedUser):
+                XCTAssertEqual(receivedUser, expectedUser)
+            default:
+                XCTFail("Expected success, got \(String(describing: result)), result instead")
+            }
+            
+            exp.fulfill()
+        }
+        user.completeFetchUserSuccessfully(with: expectedUser)
+        wait(for: [exp], timeout: 1.0)
+        }
+    
+    func test_fetchPartnerDependingThreeFilters_fails() {
+        let user = UserSpy()
+        let sut = UserUseCase(user: user)
+        let expectedError = NSError(domain: "Fail login", code: 0)
+        
+        let exp = expectation(description: "Wait for fetch users completion")
+        sut.fetchUserInformationsDependingAllFilters(gender: "", city: "", level: "") { (result) in
+            switch result {
+            case .failure(let receivedError):
+                XCTAssertEqual(receivedError as NSError, expectedError)
+                
+            default:
+                XCTFail("Expected failure, got \(String(describing: result)), result instead")
+            }
+            exp.fulfill()
+            
+        }
+        user.completeFetchUserFail(with: expectedError)
+        wait(for: [exp], timeout: 1.0)
+        }
     
     func test_fetchPartnerUser_succeeds() {
         let user = UserSpy()
@@ -68,7 +227,7 @@ class UserUseCaseTest: XCTestCase {
             case .success(let receivedUser):
                 XCTAssertEqual(receivedUser, expectedUser)
             default:
-                XCTFail("Expected success, got \(result), result instead")
+                XCTFail("Expected success, got \(String(describing: result)), result instead")
             }
             
             exp.fulfill()
@@ -90,69 +249,35 @@ class UserUseCaseTest: XCTestCase {
                 XCTAssertEqual(receivedError as NSError, expectedError)
                 
             default:
-                XCTFail("Expected failure, got \(result), result instead")
+                XCTFail("Expected failure, got \(String(describing: result)), result instead")
             }
             exp.fulfill()
         }
         
-        user.completeFetchUserFail(with: expectedError)
-        wait(for: [exp], timeout: 1.0)
-    }
-    
-    func test_fetchUserInformation_succeeds() {
-        let user = UserSpy()
-        let sut = UserUseCase(user: user)
-        let expectedUser = createUser(pseudo: "Test")
-        
-        let exp = expectation(description: "Wait for fetch user depending uid completion")
-        
-        sut.fetchUserInformationsDependingUid(userUid: "") { (result) in
-            switch result {
-            case .success(let receivedUser):
-                XCTAssertEqual(receivedUser, expectedUser)
-            default:
-                XCTFail("Expected success, got \(result), result instead")
-            }
-            
-            exp.fulfill()
-        }
-        user.completeFetchUserSuccessfully(with: expectedUser)
-        wait(for: [exp], timeout: 1.0)
-    }
-        
-    func test_fetchUserInformation_fails() {
-        let user = UserSpy()
-        let sut = UserUseCase(user: user)
-        let expectedError = NSError(domain: "Fail login", code: 0)
-        
-        let exp = expectation(description: "Wait for fetch user information depending uid completion")
-        sut.fetchUserInformationsDependingUid(userUid: "") { (result) in
-            switch result {
-            case .failure(let receivedError):
-                XCTAssertEqual(receivedError as NSError, expectedError)
-                
-            default:
-                XCTFail("Expected failure, got \(result), result instead")
-            }
-            exp.fulfill()
-        }
         user.completeFetchUserFail(with: expectedError)
         wait(for: [exp], timeout: 1.0)
     }
         
     class UserSpy: UserUseCaseOutput {
-
-        var userCompletions = [(Result<UserObject, Error>) -> Void]()
+        var userCompletions = [((Result<UserObject, Error>)?) -> Void]()
         
-        func fetchUser(completion: @escaping (Result<UserObject, Error>) -> Void) {
+        func fetchUserWithoutFilters(completion: @escaping ((Result<UserObject, Error>)?) -> Void) {
             userCompletions.append(completion)
         }
         
-        func fetchPartnerUser(chatPartnerId: String, completion: @escaping (Result<UserObject, Error>) -> Void) {
+        func fetchPartnerUser(chatPartnerId: String, completion: @escaping ((Result<UserObject, Error>)?) -> Void) {
             userCompletions.append(completion)
         }
         
-        func fetchUserInformationsDependingUid(userUid: String, completion: @escaping (Result<UserObject, Error>) -> Void) {
+        func fetchUserInformationsDependingOneFilter(field1: String, field1value: String, completion: @escaping ((Result<UserObject, Error>)?) -> Void) {
+            userCompletions.append(completion)
+        }
+        
+        func fetchUsersInformationsDependingTwoFilters(field1: String, field1value: String, field2: String, field2Value: String, completion: @escaping ((Result<UserObject, Error>)?) -> Void) {
+            userCompletions.append(completion)
+        }
+        
+        func fetchUserInformationsDependingAllFilters(gender: String, city: String, level: String, completion: @escaping ((Result<UserObject, Error>)?) -> Void) {
             userCompletions.append(completion)
         }
         

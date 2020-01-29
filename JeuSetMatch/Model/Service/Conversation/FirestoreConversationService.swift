@@ -21,7 +21,6 @@ class FirestoreConversationService: ConversationUseCaseOutput {
                 return
             } else {
                 if DocumentSnapshot?.isEmpty == true {
-                    print("nil ici")
                     completion(nil)
                 }
                 DocumentSnapshot?.documentChanges.forEach({ (diff) in

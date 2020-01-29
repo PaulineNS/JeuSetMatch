@@ -17,8 +17,6 @@ protocol UserUseCaseOutput {
     func fetchUserInformationsDependingOneFilter(field1: String, field1value: String, completion: @escaping UserCompletion)
     func fetchUsersInformationsDependingTwoFilters(field1: String, field1value: String, field2: String, field2Value: String, completion: @escaping UserCompletion)
     func fetchUserInformationsDependingAllFilters(gender: String, city: String, level: String, completion: @escaping UserCompletion)
-
-
 }
 
 class UserUseCase {

@@ -26,9 +26,6 @@ class FilterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        customLoader.setAlpha = 0.5
-        customLoader.gifName = "ball"
-        customLoader.viewColor = UIColor.gray
         let firestoreUser = FirestoreUserService()
         self.userUseCase = UserUseCase(user: firestoreUser)
         filterTableView.dataSource = self
@@ -43,7 +40,6 @@ class FilterViewController: UIViewController {
         if citySelected != "" {
             filtersArray[3].value = citySelected
         }
-        
         filterTableView.reloadData()
     }
     
@@ -62,49 +58,39 @@ class FilterViewController: UIViewController {
         }
         //One Filters
         if gender == "Tout" && city == "Tout" && level != "Tout" {
-//            fetchUsersDependingLevel(level: level)
             let levelField = "userLevel"
             fetchUsersDependingOneFilter(field1: levelField, field1value: level)
         }
         if gender == "Tout" && city != "Tout" && level == "Tout" {
-//            fetchUserDependingCity(city: city)
             let cityField = "userCity"
             fetchUsersDependingOneFilter(field1: cityField, field1value: city)
 
         }
         if gender != "Tout" && city == "Tout" && level == "Tout" {
-//            fetchUserDependingSexe(gender: gender)
             let genderField = "userGender"
             fetchUsersDependingOneFilter(field1: genderField, field1value: gender)
         }
-        
         // TwoFilters
         if gender != "Tout" && city != "Tout" && level == "Tout" {
-            //            fetchUsersDependingCityAndSexe(gender: gender, city: city)
             let cityField = "userCity"
             let genderField = "userGender"
             fetchUsersDependingTwoFilters(field1: genderField, field1value: gender, field2: cityField, field2Value: city)
         }
         if gender != "Tout" && city == "Tout" && level != "Tout" {
-            //            fetchUsersDependingGenderAndLevel(gender: gender, level: level)
             let genderField = "userGender"
             let levelField = "userLevel"
             fetchUsersDependingTwoFilters(field1: genderField, field1value: gender, field2: levelField, field2Value: level)
         }
         if gender == "Tout" && city != "Tout" && level != "Tout" {
-            //            fetchUsersDependingCityAndLevel(city: city, level: level)
             let cityField = "userCity"
             let genderField = "userGender"
             fetchUsersDependingTwoFilters(field1: cityField, field1value: city, field2: genderField, field2Value: gender)
         }
-        
         // Without Filters
         if gender != "Tout" && city != "Tout" && level != "Tout" {
             fetchUsersDependingThreeFilters(gender: gender, city: city, level: level)
         }
     }
-    
-
     
     func fetchUsersDependingOneFilter(field1: String, field1value: String){
         customLoader.showLoaderView()
@@ -112,15 +98,12 @@ class FilterViewController: UIViewController {
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let users):
-                print("succes")
                 self.userFound.append(users)
                 self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
                 self.navigationController?.popViewController(animated: true)
             case .failure(let error):
-                print("failure")
                 print(error.localizedDescription)
             case .none:
-                print("none")
                 self.userFound = []
                 self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
                 self.navigationController?.popViewController(animated: true)
@@ -185,7 +168,6 @@ class FilterViewController: UIViewController {
         })
     }
 
-    
     @IBAction func canceledFilters(_ sender: Any) {
         deleteAllUserDefaultData()
         filtersArray = []

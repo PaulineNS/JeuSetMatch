@@ -28,6 +28,7 @@ final class LevelViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // TODO DANS LE STORYBOARD
         levelsPickerView.delegate = self
         levelsPickerView.dataSource = self
         levelsPickerView.selectRow(levels.count-1, inComponent: 0, animated: true)
@@ -44,7 +45,6 @@ final class LevelViewController: UIViewController {
         } else if segue.identifier == K.LeveltoPseudoSegue {
             guard let pseudoVc = segue.destination as? PseudoViewController else {return}
             pseudoVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: currentUser?.sexe, level: userLevel, city: userCity, birthDate: currentUser?.birthDate, uid: nil)
-            
         }
     }
     

@@ -103,14 +103,14 @@ class ConversationUseCaseTest: XCTestCase {
 
     class ConversationSpy: ConversationUseCaseOutput {
         
-        var conversationCompletion = [(Result<MessageObject, Error>) -> Void]()
+        var conversationCompletion = [((Result<MessageObject, Error>)?) -> Void]()
         
         
-        func observeUserMessages(completion: @escaping (Result<MessageObject, Error>) -> Void) {
+        func observeUserMessages(completion: @escaping ((Result<MessageObject, Error>)?) -> Void) {
             conversationCompletion.append(completion)
         }
         
-        func observeUserChatMessages(toId: String, completion: @escaping (Result<MessageObject, Error>) -> Void) {
+        func observeUserChatMessages(toId: String, completion: @escaping ((Result<MessageObject, Error>)?) -> Void) {
             conversationCompletion.append(completion)
         }
         

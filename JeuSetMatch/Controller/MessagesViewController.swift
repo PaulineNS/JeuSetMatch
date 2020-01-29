@@ -10,16 +10,14 @@ import UIKit
 
 final class MessagesViewController: UIViewController {
     
-    var conversationUseCase: ConversationUseCase?
-    var userUseCase: UserUseCase?
-    
     // MARK: - Variables
     
+    var conversationUseCase: ConversationUseCase?
+    var userUseCase: UserUseCase?
     var currentUser: UserObject?
     private var messages = [MessageObject]()
     private var messagesDictionary = [String : MessageObject]()
     let customLoader = CustomLoader()
-    
     
     // MARK: - Outlets
     
@@ -29,16 +27,13 @@ final class MessagesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        customLoader.setAlpha = 0.5
-        customLoader.gifName = "ball"
-        customLoader.viewColor = UIColor.gray
-        
         let firestoreConversation = FirestoreConversationService()
         self.conversationUseCase = ConversationUseCase(message: firestoreConversation)
         
         let firestoreUser = FirestoreUserService()
         self.userUseCase = UserUseCase(user: firestoreUser)
         
+        //TODO STORYBOARD
         messagesTableView.dataSource = self
         messagesTableView.delegate = self
         messagesTableView.register(UINib(nibName: K.messagesCellNibName, bundle: nil), forCellReuseIdentifier: K.messagesCellIdentifier)
@@ -93,20 +88,14 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: K.messagesCellIdentifier, for: indexPath) as? MessagesTableViewCell else { return UITableViewCell()}
-        
         cell.message = message
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let message = messages[indexPath.row]
-        print(message)
-        
         guard let chatPartnerId = message.chatPartnerId() else { return }
-        
         userUseCase?.fetchPartnerUser(chatPartnerId: chatPartnerId) { (result) in
             switch result {
             case .success(let partnerUser) :

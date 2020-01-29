@@ -22,7 +22,6 @@ final class MailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let firestoreRegister = FirestoreRegisterService()
         self.registerUsecase = RegisterUseCase(client: firestoreRegister)
     }
@@ -41,11 +40,9 @@ final class MailViewController: UIViewController {
         
         guard let email = emailTextfield.text, let password = passwordTextfield.text, let userAge = currentUser?.birthDate, let userGender = currentUser?.sexe, let userLevel = currentUser?.level, let userCity = currentUser?.city, let userName = currentUser?.pseudo, let userImage = currentUser?.image else {
             return}
-        print("soucis")
         registerUsecase?.register(email: email, password: password, userAge: userAge, userGender: userGender, userLevel: userLevel, userCity: userCity, userName: userName, userImage: userImage) { (result) in
             switch result {
             case .success(let user):
-                print("success")
                 self.currentUser = user
                 self.performSegue(withIdentifier: K.registerSegue, sender: self)
             case .failure(let error):

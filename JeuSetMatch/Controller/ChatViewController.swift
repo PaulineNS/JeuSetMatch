@@ -64,7 +64,6 @@ final class ChatViewController: UIViewController {
                 self.messages.sort { (message1, message2) -> Bool in
                     return Int32(truncating: message1.timestamp!) < Int32(truncating: message2.timestamp!)
                 }
-                print(self.messages)
                 DispatchQueue.main.async {
                     self.chatTableView.reloadData()
                     let indexPath = IndexPath(row: self.messages.count - 1, section: 0)

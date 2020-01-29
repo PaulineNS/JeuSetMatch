@@ -206,6 +206,21 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		56A941C123E2417E004A368A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				56E8B17223B52E6B007B4BC1 /* ChatTableViewCell.swift */,
+				56E8B17323B52E6B007B4BC1 /* ChatTableViewCell.xib */,
+				56E8B17823BA4B61007B4BC1 /* UserTableViewCell.swift */,
+				56E8B17923BA4B61007B4BC1 /* UserTableViewCell.xib */,
+				564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */,
+				564536A323C20FD2005A26B5 /* MessagesTableViewCell.xib */,
+				56C49BE023CF40740071F7A3 /* FilterTableViewCell.swift */,
+				56C49BE123CF40740071F7A3 /* FilterTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		56B615AB23D88F47001DEA87 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,14 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				56DC0BE923A90969003A0DC6 /* Main.storyboard */,
-				56E8B17223B52E6B007B4BC1 /* ChatTableViewCell.swift */,
-				56E8B17323B52E6B007B4BC1 /* ChatTableViewCell.xib */,
-				56E8B17823BA4B61007B4BC1 /* UserTableViewCell.swift */,
-				56E8B17923BA4B61007B4BC1 /* UserTableViewCell.xib */,
-				564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */,
-				564536A323C20FD2005A26B5 /* MessagesTableViewCell.xib */,
-				56C49BE023CF40740071F7A3 /* FilterTableViewCell.swift */,
-				56C49BE123CF40740071F7A3 /* FilterTableViewCell.xib */,
+				56A941C123E2417E004A368A /* Cells */,
 				562E2D0B23DC55BB005612D1 /* CustomLoader.swift */,
 			);
 			path = View;

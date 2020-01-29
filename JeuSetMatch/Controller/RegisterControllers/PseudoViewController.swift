@@ -18,9 +18,9 @@ final class PseudoViewController: UIViewController {
     
     var currentUser: UserObject?
     private var userPseudo = ""
+    private var isImageChanged = false
     private var userPicture = UIImage()
     private let image = UIImagePickerController()
-    private let emptyPicture = UIImage(named: "addPictureProfil")
     
     @IBOutlet private weak var pseudoTextfield: UITextField!
     @IBOutlet private weak var profilPictureImageView: UIImageView!
@@ -50,37 +50,37 @@ final class PseudoViewController: UIViewController {
         mailVc.currentUser = UserObject(pseudo: userPseudo, image: pictureData, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
     }
     
+    // MARK: - Methods
+
+    func manageAlertLabel(visibility: Bool, text: String, color: UIColor){
+        pseudoAlertLabel.isHidden = visibility
+        pseudoAlertLabel.text = text
+        pseudoTextfield.textColor = color
+    }
+    
     // MARK: - Actions
     
     @IBAction private func pseudoTextFieldChanged(_ sender: UITextField) {
         if sender.text?.count ?? 0 < 4 {
-            self.pseudoAlertLabel.isHidden = false
-            self.pseudoAlertLabel.text = "Votre pseudo doit comporter plus de 4 charactères"
-            self.pseudoTextfield.textColor = #colorLiteral(red: 0.8514410622, green: 0.2672892915, blue: 0.1639432118, alpha: 1)
-            self.userPseudo = ""
+            manageAlertLabel(visibility: false, text: "Votre pseudo doit comporter plus de 4 charactères", color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))
         } else {
             registerUsecase?.checkPseudoDisponibility(field: sender.text ?? "") { (success) in
-                if success == true {
+                guard success == true else {
                     DispatchQueue.main.async {
-                        self.pseudoAlertLabel.isHidden = false
-                        self.pseudoAlertLabel.text = "Ce pseudo n'est pas disponible"
-                        self.pseudoTextfield.textColor = #colorLiteral(red: 0.8514410622, green: 0.2672892915, blue: 0.1639432118, alpha: 1)
-                        self.userPseudo = ""
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.pseudoAlertLabel.isHidden = true
-                        self.pseudoTextfield.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                        self.manageAlertLabel(visibility: true, text: "", color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
                         self.userPseudo = sender.text ?? ""
                     }
-                    
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.manageAlertLabel(visibility: false, text: "Ce pseudo n'est pas disponible", color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))
                 }
             }
         }
     }
-    
+
     @IBAction private func continueButtonPressed(_ sender: UIButton) {
-        guard profilPictureImageView.image != emptyPicture else {
+        guard isImageChanged == true else {
             pictureAlertLabel.isHidden = false
             pictureAlertLabel.text = "Veuillez choisir une photo de profil avant de continuer"
             return
@@ -109,6 +109,7 @@ extension PseudoViewController : UIImagePickerControllerDelegate, UINavigationCo
                 imageView.contentMode = .scaleAspectFill
                 imageView.image = pickedImage
                 userPicture = pickedImage
+                isImageChanged = true
             } else {
                 print ("selectedUIImageView is nil")
             }

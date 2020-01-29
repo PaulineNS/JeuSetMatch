@@ -12,10 +12,10 @@ import ImageIO
 
 
 class CustomLoader: UIView {
-        
-    var viewColor: UIColor = .black
+    
     var setAlpha: CGFloat = 0.5
-    var gifName: String = ""
+    var gifName: String = "ball"
+    var viewColor: UIColor = UIColor.gray
     
     lazy var transparentView: UIView = {
         let transparentView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
