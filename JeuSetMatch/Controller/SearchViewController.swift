@@ -11,9 +11,9 @@ import UIKit
 final class SearchViewController: UIViewController {
     
     // MARK: - Variables
-    let customLoader = CustomLoader()
-    var userUseCase: UserUseCase?
     var currentUser: UserObject?
+    private let customLoader = CustomLoader()
+    private var userUseCase: UserUseCase?
     private var users: [UserObject] = []
     
     // MARK: - Outlets
@@ -28,8 +28,6 @@ final class SearchViewController: UIViewController {
         let firestoreUser = FirestoreUserService()
         self.userUseCase = UserUseCase(user: firestoreUser)
         self.tabBarController?.navigationItem.hidesBackButton = true
-        usersTableView.dataSource = self
-        usersTableView.delegate = self
         usersTableView.register(UINib(nibName: K.userCellNibName, bundle: nil), forCellReuseIdentifier: K.userCellIdentifier)
         fetchUsers()
     }
@@ -55,7 +53,9 @@ final class SearchViewController: UIViewController {
         }
     }
     
-    @IBAction func didTapFilterButton(_ sender: Any) {
+    // MARK: - Actions
+
+    @IBAction private func didTapFilterButton(_ sender: Any) {
         performSegue(withIdentifier: K.SearchToFilterSegue, sender: nil)
     }
     
@@ -74,8 +74,7 @@ final class SearchViewController: UIViewController {
         }
         if gender == "Tout" && city != "Tout" && level == "Tout" {
             let cityField = "userCity"
-            fetchUsersDependingOneFilter(field1: cityField, field1value: city)
-            
+            fetchUsersDependingOneFilter(field1: cityField, field1value: city)            
         }
         if gender != "Tout" && city == "Tout" && level == "Tout" {
             let genderField = "userGender"
@@ -195,12 +194,9 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let user = users[indexPath.row]
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: K.userCellIdentifier, for: indexPath) as? UserTableViewCell else { return UITableViewCell()}
-        
         cell.userName.text = user.pseudo
         cell.userImage.image = UIImage(data: user.image ?? Data())
-        
         return cell
     }
 

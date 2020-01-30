@@ -22,7 +22,7 @@ class FirestoreService {
         guard let currentUser = Auth.auth().currentUser else {
             return}
         currentUser.delete { error in
-          if let error = error {
+          if error != nil {
             print("An error happened")
           } else {
             print("successfully deleted")

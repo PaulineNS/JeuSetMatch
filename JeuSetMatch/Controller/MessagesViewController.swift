@@ -12,12 +12,12 @@ final class MessagesViewController: UIViewController {
     
     // MARK: - Variables
     
-    var conversationUseCase: ConversationUseCase?
-    var userUseCase: UserUseCase?
-    var currentUser: UserObject?
+    private var currentUser: UserObject?
+    private var conversationUseCase: ConversationUseCase?
+    private var userUseCase: UserUseCase?
     private var messages = [MessageObject]()
     private var messagesDictionary = [String : MessageObject]()
-    let customLoader = CustomLoader()
+    private let customLoader = CustomLoader()
     
     // MARK: - Outlets
     
@@ -29,13 +29,8 @@ final class MessagesViewController: UIViewController {
         super.viewDidLoad()
         let firestoreConversation = FirestoreConversationService()
         self.conversationUseCase = ConversationUseCase(message: firestoreConversation)
-        
         let firestoreUser = FirestoreUserService()
         self.userUseCase = UserUseCase(user: firestoreUser)
-        
-        //TODO STORYBOARD
-        messagesTableView.dataSource = self
-        messagesTableView.delegate = self
         messagesTableView.register(UINib(nibName: K.messagesCellNibName, bundle: nil), forCellReuseIdentifier: K.messagesCellIdentifier)
         observeUserMessages()
     }

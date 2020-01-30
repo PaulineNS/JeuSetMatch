@@ -11,15 +11,16 @@ import UIKit
 final class MailViewController: UIViewController {
     
     // MARK: - Variables
-    var registerUsecase: RegisterUseCase?
     var currentUser: UserObject?
+    private var registerUsecase: RegisterUseCase?
     
     // MARK: - Outlets
     
     @IBOutlet private weak var emailTextfield: UITextField!
     @IBOutlet private weak var passwordTextfield: UITextField!
     
-    
+    // MARK: - Controller life cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let firestoreRegister = FirestoreRegisterService()

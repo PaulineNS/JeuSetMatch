@@ -13,10 +13,8 @@ import AVFoundation
 final class PseudoViewController: UIViewController {
     
     // MARK: - Variables
-    
-    var registerUsecase: RegisterUseCase?
-    
     var currentUser: UserObject?
+    private var registerUsecase: RegisterUseCase?
     private var userPseudo = ""
     private var isImageChanged = false
     private var userPicture = UIImage()
@@ -52,7 +50,7 @@ final class PseudoViewController: UIViewController {
     
     // MARK: - Methods
 
-    func manageAlertLabel(visibility: Bool, text: String, color: UIColor){
+    private func manageAlertLabel(visibility: Bool, text: String, color: UIColor){
         pseudoAlertLabel.isHidden = visibility
         pseudoAlertLabel.text = text
         pseudoTextfield.textColor = color

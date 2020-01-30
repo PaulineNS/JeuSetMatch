@@ -65,11 +65,9 @@ final class BirthdayViewController: UIViewController {
     
     private func validateAge(birthDate: Date) -> Bool {
         var isValid: Bool = true
-        
         if birthDate > minimumAge ?? Date() {
             isValid = false
         }
-        
         return isValid
     }
     

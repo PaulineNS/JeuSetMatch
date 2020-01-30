@@ -10,8 +10,9 @@ import UIKit
 
 final class ChatViewController: UIViewController {
     
-    let fireStoreService = FirestoreService()
-    let firestoreConversation = FirestoreConversationService()
+    private let fireStoreService = FirestoreService()
+    private let firestoreConversation = FirestoreConversationService()
+    private var messages = [MessageObject]()
     lazy var conversationUseCase: ConversationUseCase = ConversationUseCase(message: firestoreConversation)
     
     // MARK: - Variables
@@ -22,8 +23,6 @@ final class ChatViewController: UIViewController {
             observeMessages()
         }
     }
-    
-    private var messages = [MessageObject]()
     
     // MARK: - Outlets
     
@@ -37,11 +36,9 @@ final class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.navigationItem.hidesBackButton = true
-        chatTableView.dataSource = self
         chatTableView.register(UINib(nibName: K.chatCellNibName, bundle: nil), forCellReuseIdentifier: K.chatCellIdentifier)
         receiverPseudo.title = user?.pseudo
     }
-    
     
     // MARK: - Actions
     
@@ -83,7 +80,7 @@ final class ChatViewController: UIViewController {
 
 // MARK: - TableView
 
-extension ChatViewController: UITableViewDataSource {
+extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
@@ -91,9 +88,7 @@ extension ChatViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: K.chatCellIdentifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell()}
-        
         cell.messageLabel.text = message.text
         
         guard message.toId == fireStoreService.currentUserUid else {

@@ -8,30 +8,17 @@
 
 import UIKit
 
-protocol DidSelectCityDelegate {
-    func rowTapped(with city: String)
-}
-
 final class CitiesViewController: UIViewController {
     
     // MARK: - Variables
-    let googlePlacesService = GooglePlacesService()
-    var didSelectCityDelegate: DidSelectCityDelegate?
+    private let googlePlacesService = GooglePlacesService()
     private var citySelected = ""
+    var didSelectCityDelegate: DidSelectCityDelegate?
     
     // MARK: - Outlets
     
     @IBOutlet private weak var citiesTextField: UITextField!
     @IBOutlet private weak var citiesTableView: UITableView!
-    
-    // MARK: - Controller life cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        citiesTableView.dataSource = self
-        citiesTableView.delegate = self
-        citiesTextField.delegate = self
-    }
 }
 
 // MARK: - TableView
@@ -68,7 +55,5 @@ extension CitiesViewController: UITextFieldDelegate {
         googlePlacesService.x(searchString: searchString)
         self.citiesTableView.reloadData()
         return true
-        
     }
 }
-

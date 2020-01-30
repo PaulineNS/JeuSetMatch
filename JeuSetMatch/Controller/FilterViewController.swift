@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol DidSearchFiltersDelegate {
-    func searchFiltersTapped(users: [UserObject])
-}
-
 class FilterViewController: UIViewController {
     
     @IBOutlet weak var filterTableView: UITableView!
@@ -28,8 +24,6 @@ class FilterViewController: UIViewController {
         super.viewDidLoad()
         let firestoreUser = FirestoreUserService()
         self.userUseCase = UserUseCase(user: firestoreUser)
-        filterTableView.dataSource = self
-        filterTableView.delegate = self
         filterTableView.register(UINib(nibName: K.filterCellNibName, bundle: nil), forCellReuseIdentifier: K.filterCellIdentifier)
         for (key, value) in filtersDictionnary.sorted(by: { $0.0 < $1.0 }) {
             filtersArray.append(Filters(denomination: key, value: value))
@@ -64,7 +58,6 @@ class FilterViewController: UIViewController {
         if gender == "Tout" && city != "Tout" && level == "Tout" {
             let cityField = "userCity"
             fetchUsersDependingOneFilter(field1: cityField, field1value: city)
-
         }
         if gender != "Tout" && city == "Tout" && level == "Tout" {
             let genderField = "userGender"

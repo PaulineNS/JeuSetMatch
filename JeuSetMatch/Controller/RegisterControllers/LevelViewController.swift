@@ -28,9 +28,6 @@ final class LevelViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TODO DANS LE STORYBOARD
-        levelsPickerView.delegate = self
-        levelsPickerView.dataSource = self
         levelsPickerView.selectRow(levels.count-1, inComponent: 0, animated: true)
         cityAlertLabel.isHidden = true
         levelAlertLabel.isHidden = true

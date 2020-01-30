@@ -10,21 +10,18 @@ import UIKit
 import Photos
 import AVFoundation
 
-
 final class ProfileViewController: UIViewController {
     
-    let firestoreService = FirestoreService()
-    let customLoader = CustomLoader()    
-    var userUseCase: UserUseCase?
-    
     // MARK: - Variables
-    
     var currentUser: UserObject?
     var IsSegueFromSearch = false
-    var IsSegueFromCity = false
-    var birthdate = ""
+
+    private var userUseCase: UserUseCase?
+    private let firestoreService = FirestoreService()
+    private let customLoader = CustomLoader()
+    private var IsSegueFromCity = false
+    private var birthdate = ""
     private let image = UIImagePickerController()
-    
     private var userInformations: [UserObject] = []
     private var genderPicker: UIPickerView?
     private var datePicker: UIDatePicker?
@@ -46,15 +43,12 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         image.delegate = self
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
         userPictureImageView.isUserInteractionEnabled = true
         userPictureImageView.addGestureRecognizer(singleTap)
-        
         let firestoreUser = FirestoreUserService()
         self.userUseCase = UserUseCase(user: firestoreUser)
-        
         manageTxtField(status: false, borderStyle: .none)
         validateButton.isHidden = true
         cancelButton.isHidden = true
@@ -94,15 +88,10 @@ final class ProfileViewController: UIViewController {
         }
     }
     
+    // MARK: - Actions
+    
     @objc private func didTapProfilPicture() {
         onPictureClick(image: image)
-    }
-    
-    private func convertDateToString(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyy-MM-dd"
-        let dateString = dateFormatter.string(from: date)
-        return dateString
     }
     
     @objc private func dateChanged(datePicker: UIDatePicker) {
@@ -123,8 +112,6 @@ final class ProfileViewController: UIViewController {
             setInformationsInUserDefault(userInformations: "savedUserInformations", userPicture: "savedUserPicture")
         }
     }
-    
-    // MARK: - Actions
     
     @IBAction private func logOutPressed(_ sender: UIBarButtonItem) {
         firestoreService.logOut()
@@ -154,11 +141,20 @@ final class ProfileViewController: UIViewController {
         displayUserDefaultsOnTextField(userInformations: "savedUserInformations", userPicture: "savedUserPicture")
     }
     
-    @IBAction func didPressDeleteAccountButton(_ sender: Any) {
+    @IBAction private func didPressDeleteAccountButton(_ sender: Any) {
         createAlert(title: "Etes vous sure de supprimer votre compte ?", message: "")
     }
     
-    func createAlert(title: String, message: String) {
+    // MARK: - Methods
+    
+    private func convertDateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
+    private func createAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Oui", style: UIAlertAction.Style.default, handler: { (action) in
             alert.dismiss(animated: true, completion: nil)
@@ -170,7 +166,6 @@ final class ProfileViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    // MARK: - Methods
     private func managePickers(){
         userInformationTxtField[3].delegate = self
         datePicker = UIDatePicker()
@@ -234,9 +229,9 @@ final class ProfileViewController: UIViewController {
     // Fetch User Information depending UIid
     private func fetchUserInformations(userUid: String) {
         self.userInformations = []
-        //        customLoader.showLoaderView()
+        customLoader.showLoaderView()
         userUseCase?.fetchUserInformationsDependingOneFilter(field1: "userUid", field1value: userUid, completion: { (result) in
-            //            self.customLoader.hideLoaderView()
+            self.customLoader.hideLoaderView()
             switch result {
             case .success(let user) :
                 self.userInformations.append(user)
@@ -309,6 +304,7 @@ extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 }
 
+// MARK: - DidSelectCityDelegate
 
 extension ProfileViewController: DidSelectCityDelegate {
     func rowTapped(with city: String) {
@@ -333,8 +329,6 @@ extension ProfileViewController : UIImagePickerControllerDelegate, UINavigationC
         } else {
             print ("info[UIImagePickerController.InfoKey.originalImage] isn't an UIImage")
         }
-        
-        //Remove the view
         picker.dismiss(animated: true, completion: nil)
     }
     
