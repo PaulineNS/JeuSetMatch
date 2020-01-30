@@ -15,9 +15,7 @@ class FirestoreLoginService: LoginUseCaseOutput {
                 completion(.failure(error!))
                 return
             }
-            
-            let user = UserObject(pseudo: authResult.user.email, image: nil, sexe: nil, level: nil, city: nil, birthDate: nil, uid: nil)
-            
+            let user = UserObject(pseudo: authResult.user.email, image: nil, sexe: nil, level: nil, city: nil, birthDate: nil, uid: nil)            
             completion(.success(user))
         }
     }

@@ -125,5 +125,3 @@ extension PseudoViewController : UIImagePickerControllerDelegate, UINavigationCo
         picker.dismiss(animated: true, completion: nil)
     }
 }
-
-

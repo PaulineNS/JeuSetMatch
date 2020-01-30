@@ -45,6 +45,7 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction func searchPlayers(_ sender: Any) {
+        
         guard let gender = UserDefaults.standard.string(forKey: "savedGender"), let city = UserDefaults.standard.string(forKey: "savedCity"), let level = UserDefaults.standard.string(forKey: "savedLevel") else {return}
         //Three filters
         if gender == "Tout" && city == "Tout" && level == "Tout" {

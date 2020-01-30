@@ -9,7 +9,6 @@
 import Foundation
 
 struct Filters {
-    
     var denomination : String?
     var value : String?
 }

@@ -6,23 +6,14 @@
 //  Copyright © 2020 PaulineNomballais. All rights reserved.
 //
 
-//import Foundation
-////
-//enum FiltersEnum {
-//    case city
-//    case gender
-//    case level
+import Foundation
 //
-//    var isSelected: Bool {
-//        switch self {
-//        case .city where city != "Tout":
-//            return true
-//            case .gender
-//        default:
-//            <#code#>
-//        }
-//    }
-//}
+enum FiltersEnum {
+    case oneFilter
+    case twoFilters
+    case threeFilters
+    case noFilters
+}
 
 
 

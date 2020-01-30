@@ -38,7 +38,6 @@ final class MailViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction private func registerButtonPressed(_ sender: Any) {
-        
         guard let email = emailTextfield.text, let password = passwordTextfield.text, let userAge = currentUser?.birthDate, let userGender = currentUser?.sexe, let userLevel = currentUser?.level, let userCity = currentUser?.city, let userName = currentUser?.pseudo, let userImage = currentUser?.image else {
             return}
         registerUsecase?.register(email: email, password: password, userAge: userAge, userGender: userGender, userLevel: userLevel, userCity: userCity, userName: userName, userImage: userImage) { (result) in

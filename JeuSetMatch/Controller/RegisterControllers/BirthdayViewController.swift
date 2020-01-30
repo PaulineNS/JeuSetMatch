@@ -48,27 +48,12 @@ final class BirthdayViewController: UIViewController {
     
     // MARK: - Methods
     
-    private func convertDateToString(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyy-MM-dd"
-        let dateString = dateFormatter.string(from: date)
-        return dateString
-    }
-    
     private func updateDependingGender(madamColor: UIColor, sirColor: UIColor, sirLabel: String, madamLabel: String, gender: String){
         madamButton.setTitle(madamLabel, for: .normal)
         sirButton.setTitle(sirLabel, for: .normal)
         madamButton.setTitleColor(madamColor, for: .normal)
         sirButton.setTitleColor(sirColor, for: .normal)
         userGender = gender
-    }
-    
-    private func validateAge(birthDate: Date) -> Bool {
-        var isValid: Bool = true
-        if birthDate > minimumAge ?? Date() {
-            isValid = false
-        }
-        return isValid
     }
     
     // MARK: - Actions
@@ -83,7 +68,7 @@ final class BirthdayViewController: UIViewController {
     
     @IBAction private func birthDateChanged(_ sender: Any) {
         print(birthdayDatePicker.date)
-        let isValideAge = validateAge(birthDate: birthdayDatePicker.date)
+        let isValideAge = validateAge(birthDate: birthdayDatePicker.date, minimumAge: minimumAge ?? Date())
         birthDate = birthdayDatePicker.date
         stringBirthDate = convertDateToString(date: birthDate)
         if isValideAge {
@@ -95,7 +80,7 @@ final class BirthdayViewController: UIViewController {
     }
     
     @IBAction private func continueButtonPressed(_ sender: UIButton) {
-        let isValideAge = validateAge(birthDate: birthDate)
+        let isValideAge = validateAge(birthDate: birthDate, minimumAge: minimumAge ?? Date())
         guard isValideAge else {
             alertLabel.isHidden = false
             alertLabel.text = "Veuillez renseigner votre date de naissance avant de continuer"
@@ -103,7 +88,4 @@ final class BirthdayViewController: UIViewController {
         alertLabel.isHidden = true
         performSegue(withIdentifier: K.BirthDateSegue, sender: nil)
     }
-    
 }
-
-

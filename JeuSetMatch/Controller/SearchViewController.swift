@@ -11,6 +11,7 @@ import UIKit
 final class SearchViewController: UIViewController {
     
     // MARK: - Variables
+    
     var currentUser: UserObject?
     private let customLoader = CustomLoader()
     private var userUseCase: UserUseCase?

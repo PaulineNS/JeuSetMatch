@@ -15,7 +15,6 @@ final class ProfileViewController: UIViewController {
     // MARK: - Variables
     var currentUser: UserObject?
     var IsSegueFromSearch = false
-
     private var userUseCase: UserUseCase?
     private let firestoreService = FirestoreService()
     private let customLoader = CustomLoader()
@@ -90,15 +89,6 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - Actions
     
-    @objc private func didTapProfilPicture() {
-        onPictureClick(image: image)
-    }
-    
-    @objc private func dateChanged(datePicker: UIDatePicker) {
-        birthdate = convertDateToString(date: datePicker.date)
-        userInformationTxtField[2].text = dateToAge(birthDate: datePicker.date)
-    }
-    
     @IBAction private func buttomButtonPressed(_ sender: UIButton) {
         if sender.currentTitle == "Contacter" {
             performSegue(withIdentifier: K.ProfileToChatSegue, sender: nil)
@@ -122,6 +112,15 @@ final class ProfileViewController: UIViewController {
         navigationController?.popToRootViewController(animated: true)
     }
     
+    @objc private func didTapProfilPicture() {
+        onPictureClick(image: image)
+    }
+    
+    @objc private func dateChanged(datePicker: UIDatePicker) {
+        birthdate = convertDateToString(date: datePicker.date)
+        userInformationTxtField[2].text = dateToAge(birthDate: datePicker.date)
+    }
+    
     @IBAction private func didPressValidateButton(_ sender: Any) {
         manageTxtField(status: false, borderStyle: .none)
         validateButton.isHidden = true
@@ -142,29 +141,13 @@ final class ProfileViewController: UIViewController {
     }
     
     @IBAction private func didPressDeleteAccountButton(_ sender: Any) {
-        createAlert(title: "Etes vous sure de supprimer votre compte ?", message: "")
+        presentAlert(title: "Etes vous sure de supprimer votre compte ?", message: "") { (success) in
+            guard success == true else {return}
+            self.firestoreService.deleteAccount()
+        }
     }
     
     // MARK: - Methods
-    
-    private func convertDateToString(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyy-MM-dd"
-        let dateString = dateFormatter.string(from: date)
-        return dateString
-    }
-    
-    private func createAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Oui", style: UIAlertAction.Style.default, handler: { (action) in
-            alert.dismiss(animated: true, completion: nil)
-            self.firestoreService.deleteAccount()
-        }))
-        alert.addAction(UIAlertAction(title: "Non", style: UIAlertAction.Style.default, handler: { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
     
     private func managePickers(){
         userInformationTxtField[3].delegate = self
@@ -210,23 +193,6 @@ final class ProfileViewController: UIViewController {
         userPictureImageView.image = UIImage(data: imageData)
     }
     
-    private func stringToDate(dateString : String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let s = dateFormatter.date(from: dateString) ?? Date()
-        return s
-    }
-    
-    private func dateToAge(birthDate: Date) -> String {
-        let now = Date()
-        let calendar = Calendar.current
-        let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
-        guard let intAge = ageComponents.year else {return ""}
-        let stringAge = String(intAge)
-        return stringAge
-    }
-    
-    // Fetch User Information depending UIid
     private func fetchUserInformations(userUid: String) {
         self.userInformations = []
         customLoader.showLoaderView()
@@ -236,7 +202,7 @@ final class ProfileViewController: UIViewController {
             case .success(let user) :
                 self.userInformations.append(user)
                 guard let userBirthdate = user.birthDate, let userPseudo = user.pseudo, let userGender = user.sexe, let userCity = user.city, let userLevel = user.level, let userPicture = user.image else {return}
-                let stringDate = self.stringToDate(dateString: userBirthdate)
+                let stringDate = self.convertStringToDate(dateString: userBirthdate)
                 let userAge = self.dateToAge(birthDate: stringDate)
                 DispatchQueue.main.async {
                     self.userInformationTxtField[0].text = userPseudo
@@ -337,5 +303,3 @@ extension ProfileViewController : UIImagePickerControllerDelegate, UINavigationC
         picker.dismiss(animated: true, completion: nil)
     }
 }
-
-

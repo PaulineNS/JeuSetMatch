@@ -14,6 +14,8 @@
 		562CE39223BB5A550075A8AA /* PseudoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE39123BB5A550075A8AA /* PseudoViewController.swift */; };
 		562E2D0C23DC55BB005612D1 /* CustomLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562E2D0B23DC55BB005612D1 /* CustomLoader.swift */; };
 		562E2D1423DDE9C5005612D1 /* ball.gif in Resources */ = {isa = PBXBuildFile; fileRef = 562E2D1323DDE9C4005612D1 /* ball.gif */; };
+		56394AAD23E34D60006CB0D3 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56394AAC23E34D60006CB0D3 /* UIViewController+Alert.swift */; };
+		56394AAF23E35262006CB0D3 /* UIViewController+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56394AAE23E35262006CB0D3 /* UIViewController+Date.swift */; };
 		5645369E23BF5285005A26B5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645369D23BF5285005A26B5 /* ProfileViewController.swift */; };
 		564536A023C20CE4005A26B5 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645369F23C20CE4005A26B5 /* MessagesViewController.swift */; };
 		564536A423C20FD2005A26B5 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */; };
@@ -77,6 +79,8 @@
 		562CE39123BB5A550075A8AA /* PseudoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PseudoViewController.swift; sourceTree = "<group>"; };
 		562E2D0B23DC55BB005612D1 /* CustomLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoader.swift; sourceTree = "<group>"; };
 		562E2D1323DDE9C4005612D1 /* ball.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ball.gif; sourceTree = "<group>"; };
+		56394AAC23E34D60006CB0D3 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		56394AAE23E35262006CB0D3 /* UIViewController+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Date.swift"; sourceTree = "<group>"; };
 		5645369D23BF5285005A26B5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5645369F23C20CE4005A26B5 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
@@ -202,6 +206,8 @@
 			isa = PBXGroup;
 			children = (
 				568FAB5E23DF6467007A7B45 /* UIViewController+ImagePicker.swift */,
+				56394AAC23E34D60006CB0D3 /* UIViewController+Alert.swift */,
+				56394AAE23E35262006CB0D3 /* UIViewController+Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -561,6 +567,7 @@
 				56B615AD23D88F71001DEA87 /* UserUseCase.swift in Sources */,
 				567CBE3623D83A8A00A7E306 /* RegisterUserCase.swift in Sources */,
 				56BB33B723D0564400B7D726 /* FirestoreService.swift in Sources */,
+				56394AAF23E35262006CB0D3 /* UIViewController+Date.swift in Sources */,
 				56E8B17423B52E6B007B4BC1 /* ChatTableViewCell.swift in Sources */,
 				56AFDE2A23C4DF6F00B215DC /* UserObject.swift in Sources */,
 				562CE39223BB5A550075A8AA /* PseudoViewController.swift in Sources */,
@@ -577,6 +584,7 @@
 				56DC0C0E23A909CB003A0DC6 /* WelcomeViewController.swift in Sources */,
 				56BB33B423CF83DD00B7D726 /* Filters.swift in Sources */,
 				56B615AF23D88F8B001DEA87 /* FirestoreUserService.swift in Sources */,
+				56394AAD23E34D60006CB0D3 /* UIViewController+Alert.swift in Sources */,
 				56E8B16F23B0E824007B4BC1 /* Constants.swift in Sources */,
 				56E8B17123B4027A007B4BC1 /* MessageObject.swift in Sources */,
 				562CE39023BB55BB0075A8AA /* LevelViewController.swift in Sources */,
