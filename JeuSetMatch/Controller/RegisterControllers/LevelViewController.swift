@@ -13,9 +13,9 @@ final class LevelViewController: UIViewController {
     // MARK: - Variables
     
     var currentUser: UserObject?
-    private var userLevel = ""
-    private var userCity = ""
-    private let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant","Choisir"]
+    private var userLevel: String?
+    private var userCity: String?
+//    private let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant","Choisir"]
     
     // MARK: - Outlets
     
@@ -28,7 +28,7 @@ final class LevelViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        levelsPickerView.selectRow(levels.count-1, inComponent: 0, animated: true)
+        levelsPickerView.selectRow(Constants.Arrays.levelsPickerRegister.count-1, inComponent: 0, animated: true)
         cityAlertLabel.isHidden = true
         levelAlertLabel.isHidden = true
     }
@@ -36,10 +36,10 @@ final class LevelViewController: UIViewController {
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == K.LeveltoCitiesSegue {
+        if segue.identifier == Constants.Segue.leveltoCitiesSegue {
             guard let citiesVc = segue.destination as? CitiesViewController else { return }
             citiesVc.didSelectCityDelegate = self
-        } else if segue.identifier == K.LeveltoPseudoSegue {
+        } else if segue.identifier == Constants.Segue.leveltoPseudoSegue {
             guard let pseudoVc = segue.destination as? PseudoViewController else {return}
             pseudoVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: currentUser?.sexe, level: userLevel, city: userCity, birthDate: currentUser?.birthDate, uid: nil)
         }
@@ -48,7 +48,7 @@ final class LevelViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction private func citiesButtonSelected(_ sender: UIButton) {
-        performSegue(withIdentifier: K.LeveltoCitiesSegue, sender: nil)
+        performSegue(withIdentifier: Constants.Segue.leveltoCitiesSegue, sender: nil)
     }
     
     @IBAction private func continueButtonPressed(_ sender: UIButton) {
@@ -62,7 +62,7 @@ final class LevelViewController: UIViewController {
             return}
         cityAlertLabel.isHidden = true
         levelAlertLabel.isHidden = true
-        performSegue(withIdentifier: K.LeveltoPseudoSegue, sender: nil)
+        performSegue(withIdentifier: Constants.Segue.leveltoPseudoSegue, sender: nil)
     }    
 }
 
@@ -74,15 +74,15 @@ extension LevelViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return levels.count
+        return Constants.Arrays.levelsPickerRegister.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return levels[row]
+        return Constants.Arrays.levelsPickerRegister[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        userLevel = levels[row]
+        userLevel = Constants.Arrays.levelsPickerRegister[row]
     }
 }
 

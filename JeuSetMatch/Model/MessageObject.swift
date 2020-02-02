@@ -9,6 +9,8 @@ import Foundation
 
 struct MessageObject: Equatable {
     
+    // MARK: - Equatable
+
     static func == (lhs: MessageObject, rhs: MessageObject) -> Bool {
         return true
     }
@@ -25,10 +27,10 @@ struct MessageObject: Equatable {
     // MARK: - Initialization
 
     init(dictionary: [String : Any]) {
-        fromId = dictionary["fromId"] as? String
-        toId = dictionary["toId"] as? String
-        text = dictionary["text"] as? String
-        timestamp = dictionary["timestamp"] as? NSNumber
+        fromId = dictionary[Constants.FStore.fromIdMessage] as? String
+        toId = dictionary[Constants.FStore.toIdMessage] as? String
+        text = dictionary[Constants.FStore.textMessage] as? String
+        timestamp = dictionary[Constants.FStore.timestampMessage] as? NSNumber
     }
     
     // MARK: - Methods

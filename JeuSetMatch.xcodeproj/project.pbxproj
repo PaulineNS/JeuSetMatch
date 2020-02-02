@@ -16,6 +16,8 @@
 		562E2D1423DDE9C5005612D1 /* ball.gif in Resources */ = {isa = PBXBuildFile; fileRef = 562E2D1323DDE9C4005612D1 /* ball.gif */; };
 		56394AAD23E34D60006CB0D3 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56394AAC23E34D60006CB0D3 /* UIViewController+Alert.swift */; };
 		56394AAF23E35262006CB0D3 /* UIViewController+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56394AAE23E35262006CB0D3 /* UIViewController+Date.swift */; };
+		56394AB123E4146F006CB0D3 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56394AB023E4146F006CB0D3 /* UIImage.swift */; };
+		56394AB323E414D2006CB0D3 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56394AB223E414D2006CB0D3 /* UIImageView.swift */; };
 		5645369E23BF5285005A26B5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645369D23BF5285005A26B5 /* ProfileViewController.swift */; };
 		564536A023C20CE4005A26B5 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645369F23C20CE4005A26B5 /* MessagesViewController.swift */; };
 		564536A423C20FD2005A26B5 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */; };
@@ -81,6 +83,8 @@
 		562E2D1323DDE9C4005612D1 /* ball.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ball.gif; sourceTree = "<group>"; };
 		56394AAC23E34D60006CB0D3 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		56394AAE23E35262006CB0D3 /* UIViewController+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Date.swift"; sourceTree = "<group>"; };
+		56394AB023E4146F006CB0D3 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		56394AB223E414D2006CB0D3 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		5645369D23BF5285005A26B5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5645369F23C20CE4005A26B5 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		564536A223C20FD2005A26B5 /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
@@ -208,6 +212,8 @@
 				568FAB5E23DF6467007A7B45 /* UIViewController+ImagePicker.swift */,
 				56394AAC23E34D60006CB0D3 /* UIViewController+Alert.swift */,
 				56394AAE23E35262006CB0D3 /* UIViewController+Date.swift */,
+				56394AB023E4146F006CB0D3 /* UIImage.swift */,
+				56394AB223E414D2006CB0D3 /* UIImageView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -572,6 +578,7 @@
 				56AFDE2A23C4DF6F00B215DC /* UserObject.swift in Sources */,
 				562CE39223BB5A550075A8AA /* PseudoViewController.swift in Sources */,
 				567CBE3823D83AA100A7E306 /* FirestoreRegisterService.swift in Sources */,
+				56394AB323E414D2006CB0D3 /* UIImageView.swift in Sources */,
 				5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */,
 				567CBE3023D8344200A7E306 /* LoginUseCase.swift in Sources */,
 				568D50AD23D3320B00839CE4 /* GooglePlacesService.swift in Sources */,
@@ -591,6 +598,7 @@
 				56A941C423E2C32A004A368A /* Protocols.swift in Sources */,
 				56E8B17723BA4B38007B4BC1 /* SearchViewController.swift in Sources */,
 				56DC0BE623A90968003A0DC6 /* AppDelegate.swift in Sources */,
+				56394AB123E4146F006CB0D3 /* UIImage.swift in Sources */,
 				567CBE3A23D83AB300A7E306 /* ConversationUseCase.swift in Sources */,
 				562E2D0C23DC55BB005612D1 /* CustomLoader.swift in Sources */,
 			);

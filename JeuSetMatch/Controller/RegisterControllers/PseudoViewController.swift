@@ -12,14 +12,20 @@ import AVFoundation
 
 final class PseudoViewController: UIViewController {
     
-    // MARK: - Variables
-    var currentUser: UserObject?
-    private var registerUsecase: RegisterUseCase?
-    private var userPseudo = ""
-    private var isImageChanged = false
-    private var userPicture = UIImage()
+    // MARK: - Instensiation
+    
     private let image = UIImagePickerController()
     
+    // MARK: - Variables
+    
+    var currentUser: UserObject?
+    private var registerUsecase: RegisterUseCase?
+    private var userPseudo: String?
+    private var isImageChanged = false
+    private var userPicture = UIImage()
+    
+    // MARK: - Outlets
+
     @IBOutlet private weak var pseudoTextfield: UITextField!
     @IBOutlet private weak var profilPictureImageView: UIImageView!
     @IBOutlet private weak var pictureAlertLabel: UILabel!
@@ -42,7 +48,7 @@ final class PseudoViewController: UIViewController {
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == K.PseudoToMailSegue else { return }
+        guard segue.identifier == Constants.Segue.pseudoToMailSegue else { return }
         guard let mailVc = segue.destination as? MailViewController else { return }
         guard let pictureData = userPicture.jpegData(compressionQuality: 0.1) else { return }
         mailVc.currentUser = UserObject(pseudo: userPseudo, image: pictureData, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
@@ -90,7 +96,7 @@ final class PseudoViewController: UIViewController {
         }
         pictureAlertLabel.isHidden = true
         pseudoAlertLabel.isHidden = true
-        performSegue(withIdentifier: K.PseudoToMailSegue, sender: nil)
+        performSegue(withIdentifier: Constants.Segue.pseudoToMailSegue, sender: nil)
     }
     
     @objc private func didTapProfilPicture() {

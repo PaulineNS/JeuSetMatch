@@ -13,7 +13,7 @@ class FirestoreUserService: UserUseCaseOutput {
     private let db = Firestore.firestore()
     
     func fetchUserWithoutFilters(completion: @escaping UserCompletion) {
-        db.collection("users").getDocuments { (querySnapshot, error) in
+        db.collection(Constants.FStore.userCollectionName).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
                 completion(.failure(FireStoreError.noData))
@@ -25,7 +25,7 @@ class FirestoreUserService: UserUseCaseOutput {
                 }
                 for document in snapchotDocument {
                     let data = document.data()
-                    let user = UserObject(pseudo: data["userName"] as? String, image: data["userImage"] as? Data, sexe: data["userGender"] as? String, level: data["userLevel"] as? String, city: data["userCity"] as? String, birthDate: data["userAge"] as? String, uid: document.documentID)
+                    let user = UserObject(pseudo: data[Constants.FStore.userPseudoField] as? String, image: data[Constants.FStore.userPictureField] as? Data, sexe: data[Constants.FStore.userGenderField] as? String, level: data[Constants.FStore.userLevelField] as? String, city: data[Constants.FStore.userCityField] as? String, birthDate: data[Constants.FStore.userAgeField] as? String, uid: document.documentID)
                     completion(.success(user))
                 }
             }
@@ -33,7 +33,7 @@ class FirestoreUserService: UserUseCaseOutput {
     }
     
     func fetchPartnerUser(chatPartnerId: String, completion: @escaping UserCompletion){
-        db.collection("users").document(chatPartnerId).getDocument { (DocumentSnapshot, error) in
+        db.collection(Constants.FStore.userCollectionName).document(chatPartnerId).getDocument { (DocumentSnapshot, error) in
             if error != nil {
                 print("error, \(error!)")
                 completion(.failure(FireStoreError.noData))
@@ -42,14 +42,14 @@ class FirestoreUserService: UserUseCaseOutput {
                 print(DocumentSnapshot as Any)
                 guard let dictionary = DocumentSnapshot?.data() else { return }
                 
-                let user = UserObject(pseudo: dictionary["userName"] as? String, image: dictionary["userImage"] as? Data, sexe: dictionary["userGender"] as? String, level: dictionary["userLevel"] as? String, city: dictionary["userCity"] as? String, birthDate: dictionary["userAge"] as? String, uid: chatPartnerId)
+                let user = UserObject(pseudo: dictionary[Constants.FStore.userPseudoField] as? String, image: dictionary[Constants.FStore.userPictureField] as? Data, sexe: dictionary[Constants.FStore.userGenderField] as? String, level: dictionary[Constants.FStore.userLevelField] as? String, city: dictionary[Constants.FStore.userCityField] as? String, birthDate: dictionary[Constants.FStore.userAgeField] as? String, uid: chatPartnerId)
                 completion(.success(user))
             }
         }
     }
     
     func fetchUserInformationsDependingOneFilter(field1: String, field1value: String, completion: @escaping UserCompletion){
-        db.collection("users").whereField(field1, isEqualTo: field1value).addSnapshotListener { (querySnapshot, error) in
+        db.collection(Constants.FStore.userCollectionName).whereField(field1, isEqualTo: field1value).addSnapshotListener { (querySnapshot, error) in
             if let error = error {
                 print("There was an issue retrieving data from Firestore\(error)")
                 completion(.failure(FireStoreError.noData))
@@ -61,7 +61,7 @@ class FirestoreUserService: UserUseCaseOutput {
                 }
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let userPicture = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String, let userUid = data["userUid"] as? String else {return}
+                    guard let userPseudo = data[Constants.FStore.userPseudoField] as? String ,let userGender = data[Constants.FStore.userGenderField] as? String, let userCity = data[Constants.FStore.userCityField] as? String, let userLevel = data[Constants.FStore.userLevelField] as? String, let userPicture = data[Constants.FStore.userPictureField] as? Data, let userBirthDate = data[Constants.FStore.userAgeField] as? String, let userUid = data[Constants.FStore.userUidField] as? String else {return}
                     let user = UserObject(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: userUid)
                     completion(.success(user))
                 }
@@ -71,7 +71,7 @@ class FirestoreUserService: UserUseCaseOutput {
     
     
     func fetchUsersInformationsDependingTwoFilters(field1: String, field1value: String, field2: String, field2Value: String, completion: @escaping UserCompletion){
-        db.collection("users").whereField(field1, isEqualTo: field1value).whereField(field2, isEqualTo: field2Value).addSnapshotListener { (querySnapshot, error) in
+        db.collection(Constants.FStore.userCollectionName).whereField(field1, isEqualTo: field1value).whereField(field2, isEqualTo: field2Value).addSnapshotListener { (querySnapshot, error) in
              if let error = error {
                  print("There was an issue retrieving data from Firestore\(error)")
                  completion(.failure(FireStoreError.noData))
@@ -83,7 +83,7 @@ class FirestoreUserService: UserUseCaseOutput {
                 }
                  for doc in snapshotDocuments {
                      let data = doc.data()
-                     guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let userPicture = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String, let userUid = data["userUid"] as? String else {return}
+                     guard let userPseudo = data[Constants.FStore.userPseudoField] as? String ,let userGender = data[Constants.FStore.userGenderField] as? String, let userCity = data[Constants.FStore.userCityField] as? String, let userLevel = data[Constants.FStore.userLevelField] as? String, let userPicture = data[Constants.FStore.userPictureField] as? Data, let userBirthDate = data[Constants.FStore.userAgeField] as? String, let userUid = data[Constants.FStore.userUidField] as? String else {return}
                      let user = UserObject(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: userUid)
                      completion(.success(user))
                  }
@@ -92,7 +92,7 @@ class FirestoreUserService: UserUseCaseOutput {
      }
     
     func fetchUserInformationsDependingAllFilters(gender: String, city: String, level: String, completion: @escaping UserCompletion) {
-                db.collection("users").whereField("userCity", isEqualTo: city).whereField("userGender", isEqualTo: gender).whereField("userLevel", isEqualTo: level).addSnapshotListener { (querySnapshot, error) in
+                db.collection(Constants.FStore.userCollectionName).whereField(Constants.FStore.userCityField, isEqualTo: city).whereField(Constants.FStore.userGenderField, isEqualTo: gender).whereField(Constants.FStore.userLevelField, isEqualTo: level).addSnapshotListener { (querySnapshot, error) in
             if let error = error {
                 print("There was an issue retrieving data from Firestore\(error)")
                 completion(.failure(FireStoreError.noData))
@@ -104,7 +104,7 @@ class FirestoreUserService: UserUseCaseOutput {
                 }
                 for doc in snapshotDocuments {
                     let data = doc.data()
-                    guard let userPseudo = data["userName"] as? String ,let userGender = data["userGender"] as? String, let userCity = data["userCity"] as? String, let userLevel = data["userLevel"] as? String, let userPicture = data["userImage"] as? Data, let userBirthDate = data["userAge"] as? String, let userUid = data["userUid"] as? String else {return}
+                    guard let userPseudo = data[Constants.FStore.userPseudoField] as? String ,let userGender = data[Constants.FStore.userGenderField] as? String, let userCity = data[Constants.FStore.userCityField] as? String, let userLevel = data[Constants.FStore.userLevelField] as? String, let userPicture = data[Constants.FStore.userPictureField] as? Data, let userBirthDate = data[Constants.FStore.userAgeField] as? String, let userUid = data[Constants.FStore.userUidField] as? String else {return}
                     let user = UserObject(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: userUid)
                     completion(.success(user))
                 }

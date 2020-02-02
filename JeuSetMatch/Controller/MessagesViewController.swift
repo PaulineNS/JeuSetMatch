@@ -10,14 +10,20 @@ import UIKit
 
 final class MessagesViewController: UIViewController {
     
+    // MARK: - Instensiation
+    
+    private let customLoader = CustomLoader()
+    private let firestoreUser = FirestoreUserService()
+    private let firestoreConversation = FirestoreConversationService()
+
     // MARK: - Variables
     
-    private var currentUser: UserObject?
-    private var conversationUseCase: ConversationUseCase?
-    private var userUseCase: UserUseCase?
+    private var userSelected: UserObject?
     private var messages = [MessageObject]()
     private var messagesDictionary = [String : MessageObject]()
-    private let customLoader = CustomLoader()
+    lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
+    lazy private var conversationUseCase: ConversationUseCase = ConversationUseCase(message: firestoreConversation)
+
     
     // MARK: - Outlets
     
@@ -27,27 +33,30 @@ final class MessagesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let firestoreConversation = FirestoreConversationService()
-        self.conversationUseCase = ConversationUseCase(message: firestoreConversation)
-        let firestoreUser = FirestoreUserService()
-        self.userUseCase = UserUseCase(user: firestoreUser)
-        messagesTableView.register(UINib(nibName: K.messagesCellNibName, bundle: nil), forCellReuseIdentifier: K.messagesCellIdentifier)
+        messagesTableView.register(UINib(nibName: Constants.Cell.messagesCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.messagesCellIdentifier)
         observeUserMessages()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Messages"
+        self.tabBarController?.navigationItem.rightBarButtonItem = nil
+
     }
     
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == K.MessagesToChatSegue else {return}
+        guard segue.identifier == Constants.Segue.messagesToChatSegue else {return}
         guard let chatVc = segue.destination as? ChatViewController else {return}
-        chatVc.user = currentUser
+        chatVc.receiverUser = userSelected
     }
     
     // MARK: - Methods
     
     private func observeUserMessages() {
         customLoader.showLoaderView()
-        conversationUseCase?.observeUserMessages { (result) in
+        conversationUseCase.observeUserMessages { (result) in
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let message):
@@ -83,7 +92,7 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.messagesCellIdentifier, for: indexPath) as? MessagesTableViewCell else { return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.messagesCellIdentifier, for: indexPath) as? MessagesTableViewCell else { return UITableViewCell()}
         cell.message = message
         return cell
     }
@@ -91,11 +100,11 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let message = messages[indexPath.row]
         guard let chatPartnerId = message.chatPartnerId() else { return }
-        userUseCase?.fetchPartnerUser(chatPartnerId: chatPartnerId) { (result) in
+        userUseCase.fetchPartnerUser(chatPartnerId: chatPartnerId) { (result) in
             switch result {
             case .success(let partnerUser) :
-                self.currentUser = partnerUser
-                self.performSegue(withIdentifier: K.MessagesToChatSegue, sender: nil)
+                self.userSelected = partnerUser
+                self.performSegue(withIdentifier: Constants.Segue.messagesToChatSegue, sender: nil)
             case .failure(let error) :
                 print(error.localizedDescription)
             case .none:

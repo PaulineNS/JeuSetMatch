@@ -9,37 +9,44 @@
 import Foundation
 import Firebase
 
+// MARK: - todo firestore errors
+
 enum FireStoreError: Error {
     case noData
 }
 
 class FirestoreService {
     
+    // MARK: - Variables
+
     private let db = Firestore.firestore()
     let currentUserUid = Auth.auth().currentUser?.uid
+    let currentUser = Auth.auth().currentUser
     
+    // MARK: - Methods
+
     func deleteAccount() {
         guard let currentUser = Auth.auth().currentUser else {
             return}
         currentUser.delete { error in
-          if error != nil {
-            print("An error happened")
-          } else {
-            print("successfully deleted")
-          }
+            if error != nil {
+                print("An error happened")
+            } else {
+                print("successfully deleted")
+            }
         }
     }
     
     func checkPseudoDisponibility(field: String, completion: @escaping (Bool) -> Void) {
-        let collectionRef = db.collection("users")
-        collectionRef.whereField("userName", isEqualTo: field).getDocuments { (snapshot, error) in
+        let collectionRef = db.collection(Constants.FStore.userCollectionName)
+        collectionRef.whereField(Constants.FStore.userPseudoField, isEqualTo: field).getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error getting document: \(error)")
             } else if (snapshot?.isEmpty)! {
                 completion(false)
             } else {
                 for document in (snapshot?.documents)! {
-                    if document.data()[K.FStore.userPseudoField] != nil {
+                    if document.data()[Constants.FStore.userPseudoField] != nil {
                         completion(true)
                     }
                 }
@@ -49,10 +56,10 @@ class FirestoreService {
     
     
     func sendMessage(withProperties: [String : Any], toId: String) {
-        let ref = db.collection("messages").document()
+        let ref = db.collection(Constants.FStore.messagesCollectionName).document()
         let timestamp = Int(NSDate().timeIntervalSince1970)
         let fromId = Auth.auth().currentUser?.uid
-        var values : [String : Any] = ["toId" : toId as Any, "fromId" : fromId as Any, "timestamp" : timestamp]
+        var values : [String : Any] = [Constants.FStore.toIdMessage: toId as Any, Constants.FStore.fromIdMessage: fromId as Any, Constants.FStore.timestampMessage: timestamp]
         withProperties.forEach {( values[$0] = $1 )}
         ref.setData(values) { (error) in
             if error != nil {
@@ -62,18 +69,18 @@ class FirestoreService {
                 
                 let messageId = ref.documentID
                 //step 1
-                let userRef = self.db.collection("user-messages").document(fromId!).collection("users").document(toId)
+                let userRef = self.db.collection(Constants.FStore.userMessagesCollectionName).document(fromId!).collection(Constants.FStore.userCollectionName).document(toId)
                 userRef.setData([toId : 1])
                 //step 2
-                let userMessageRef =  self.db.collection("user-messages").document(fromId!).collection("users").document(toId).collection("messages").document(messageId)
+                let userMessageRef =  self.db.collection(Constants.FStore.userMessagesCollectionName).document(fromId!).collection(Constants.FStore.userCollectionName).document(toId).collection(Constants.FStore.messagesCollectionName).document(messageId)
                 
                 userMessageRef.setData([messageId : 1])
                 
                 //step 1
-                let recipienUserRef = self.db.collection("user-messages").document(toId).collection("users").document(fromId!)
+                let recipienUserRef = self.db.collection(Constants.FStore.userMessagesCollectionName).document(toId).collection(Constants.FStore.userCollectionName).document(fromId!)
                 recipienUserRef.setData([fromId! : 1])
                 
-                let recipienUserMessageRef = self.db.collection("user-messages").document(toId).collection("users").document(fromId!).collection("messages").document(messageId)
+                let recipienUserMessageRef = self.db.collection(Constants.FStore.userMessagesCollectionName).document(toId).collection(Constants.FStore.userCollectionName).document(fromId!).collection(Constants.FStore.messagesCollectionName).document(messageId)
                 
                 recipienUserMessageRef.setData([messageId : 1])
             }
@@ -81,7 +88,7 @@ class FirestoreService {
     }
     
     func setupNameAndProfileImage(id: String, completion: @escaping (Result<[String:Any], Error>) -> Void) {
-        db.collection("users").document("\(id)").getDocument(source: .default) { (snapshot, error) in
+        db.collection(Constants.FStore.userCollectionName).document("\(id)").getDocument(source: .default) { (snapshot, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
                 completion(.failure(FireStoreError.noData))
@@ -93,15 +100,14 @@ class FirestoreService {
         }
     }
     
-    func updateUserInformation(userAge: String, userCity: String, userGender: String, userLevel: String, userName: String, userImage: Data) {
+    func updateUserInformation(userAge: String, userCity: String, userGender: String, userLevel: String, userImage: Data) {
         
-        db.collection("users").document(Auth.auth().currentUser?.uid ?? "").updateData([
-            "userAge": userAge,
-            "userCity": userCity,
-            "userGender": userGender,
-            "userImage": userImage,
-            "userLevel": userLevel,
-            "userName": userName
+        db.collection(Constants.FStore.userCollectionName).document(Auth.auth().currentUser?.uid ?? "").updateData([
+            Constants.FStore.userAgeField: userAge,
+            Constants.FStore.userCityField: userCity,
+            Constants.FStore.userGenderField: userGender,
+            Constants.FStore.userPictureField: userImage,
+            Constants.FStore.userLevelField: userLevel,
         ]) { error in
             if let error = error {
                 print("Error updating document: \(error)")

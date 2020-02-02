@@ -9,8 +9,9 @@
 import XCTest
 @testable import JeuSetMatch
 
-
 class RegisterUseCaseTest: XCTestCase {
+    
+    // MARK: - Tests
     
     func test_register_succeeds() {
         let client = RegisterSpy()
@@ -54,25 +55,10 @@ class RegisterUseCaseTest: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
-//    func test_checkPassword_success() {
-//        let client = RegisterSpy()
-//        let sut = RegisterUseCase(client: client)
-//        let expectedPseudo = createPseudo(pseudo: "pseudo")
-//        
-//        let exp = expectation(description: "Wait for checking password completion")
-//        sut.checkPseudoDisponibility(field: "Pseudo") { (result) in
-//            switch result {
-//            case true:
-//                XCTAssertEqual(receivedUser, expectedPseudo)
-//            default:
-//                XCTFail("Expected success, got \(result), result instead")
-//            }
-//        }
-//    }
-    
+    // MARK: - Spy
+
     class RegisterSpy: RegisterUseCaseOutput {
         
-        // completions
         var registerCompletions = [(Result<UserObject, Error>) -> Void]()
         var checkPseudoCompletion = [(Bool) -> Void]()
         
@@ -94,6 +80,8 @@ class RegisterUseCaseTest: XCTestCase {
         }
     }
     
+    // MARK: - Create Fake user
+
     func createUser(pseudo: String) -> UserObject {
         return UserObject(pseudo: pseudo, image: nil, sexe: nil, level: nil, city: nil, birthDate: nil, uid: nil)
     }

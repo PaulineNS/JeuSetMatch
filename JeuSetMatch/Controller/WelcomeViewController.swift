@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController {
+final class WelcomeViewController: UIViewController {
     
     // MARK: - Outlets
     
@@ -38,11 +38,11 @@ class WelcomeViewController: UIViewController {
     private func animateTheTitle() {
         titleLabel.text = ""
         var charIndex = 0.0
-        let titleText = K.appName
+        let titleText = Constants.appName
         for letter in titleText {
             Timer.scheduledTimer(withTimeInterval: 0.2 * charIndex, repeats: false) { (timer) in
                 self.titleLabel.text?.append(letter)
-                if self.titleLabel.text == K.appName {
+                if self.titleLabel.text == Constants.appName {
                     self.registerButton.isHidden = false
                     self.logInButton.isHidden = false
                 }

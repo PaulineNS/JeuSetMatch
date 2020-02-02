@@ -10,9 +10,13 @@ import UIKit
 
 final class CitiesViewController: UIViewController {
     
-    // MARK: - Variables
+    // MARK: - Instensiation
+    
     private let googlePlacesService = GooglePlacesService()
-    private var citySelected = ""
+
+    // MARK: - Variables
+    
+    private var citySelected: String?
     var didSelectCityDelegate: DidSelectCityDelegate?
     
     // MARK: - Outlets
@@ -29,7 +33,7 @@ extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.cityCellIdentifier, for: indexPath) 
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.cityCellIdentifier, for: indexPath) 
         cell.textLabel?.attributedText = googlePlacesService.arrayCities[indexPath.row].attributedFullText
         cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
         return cell
@@ -40,8 +44,8 @@ extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
         guard let indexPath = tableView.indexPathForSelectedRow else {return}
         guard let currentCell = tableView.cellForRow(at: indexPath) else {return}
         citySelected = currentCell.textLabel?.text ?? ""
+        guard let citySelected = citySelected else {return}
         didSelectCityDelegate?.rowTapped(with: citySelected)
-        print(citySelected)
         navigationController?.popViewController(animated: true)
     }
 }
@@ -52,7 +56,7 @@ extension CitiesViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let searchString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-        googlePlacesService.x(searchString: searchString)
+        googlePlacesService.searchCity(searchString: searchString)
         self.citiesTableView.reloadData()
         return true
     }

@@ -14,7 +14,7 @@ class FirestoreConversationService: ConversationUseCaseOutput {
     
     func observeUserMessages(completion: @escaping ConversationCompletion) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        db.collection("user-messages").document(uid).collection("users").addSnapshotListener { (DocumentSnapshot, error) in
+        db.collection(Constants.FStore.userMessagesCollectionName).document(uid).collection(Constants.FStore.userCollectionName).addSnapshotListener { (DocumentSnapshot, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
                 completion(.failure(FireStoreError.noData))
@@ -26,7 +26,7 @@ class FirestoreConversationService: ConversationUseCaseOutput {
                 DocumentSnapshot?.documentChanges.forEach({ (diff) in
                     
                     let toId = diff.document.documentID
-                    self.db.collection("user-messages").document(uid).collection("users").document(toId).collection("messages").addSnapshotListener { (querySnapshot, error) in
+                    self.db.collection(Constants.FStore.userMessagesCollectionName).document(uid).collection(Constants.FStore.userCollectionName).document(toId).collection(Constants.FStore.messagesCollectionName).addSnapshotListener { (querySnapshot, error) in
                         if let error = error {
                             print("Error getting documents: \(error)")
                             completion(.failure(FireStoreError.noData))
@@ -36,7 +36,7 @@ class FirestoreConversationService: ConversationUseCaseOutput {
                                 
                                 let messageID = diffInMessages.document.documentID
                                 
-                                self.db.collection("messages").document(messageID).getDocument(completion: { (document, error) in
+                                self.db.collection(Constants.FStore.messagesCollectionName).document(messageID).getDocument(completion: { (document, error) in
                                     if let error = error {
                                         print("Error getting documents: \(error)")
                                         completion(.failure(FireStoreError.noData))
@@ -57,7 +57,7 @@ class FirestoreConversationService: ConversationUseCaseOutput {
     
     func observeUserChatMessages(toId: String, completion: @escaping ConversationCompletion) {
         guard let uid = Auth.auth().currentUser?.uid else {return }
-        db.collection("user-messages").document(uid).collection("users").document(toId).collection("messages").addSnapshotListener { (snapshot, error) in
+        db.collection(Constants.FStore.userMessagesCollectionName).document(uid).collection(Constants.FStore.userCollectionName).document(toId).collection(Constants.FStore.messagesCollectionName).addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
                 completion(.failure(FireStoreError.noData))
@@ -65,7 +65,7 @@ class FirestoreConversationService: ConversationUseCaseOutput {
             } else {
                 snapshot?.documentChanges.forEach({ (diff) in
                     let messageId = diff.document.documentID
-                    self.db.collection("messages").document(messageId).getDocument(completion: { (document, error) in
+                    self.db.collection(Constants.FStore.messagesCollectionName).document(messageId).getDocument(completion: { (document, error) in
                         if let error = error {
                             print("Error getting documents: \(error)")
                             completion(.failure(FireStoreError.noData))
@@ -74,7 +74,7 @@ class FirestoreConversationService: ConversationUseCaseOutput {
                             guard let dictionary = document?.data() else { return }
                             
                             let message = MessageObject(dictionary: dictionary)
-                            print("we fetched this message \(message.text ?? "")")
+                            print("We fetched this message \(message.text ?? "")")
                             completion(.success(message))
                         }
                     })

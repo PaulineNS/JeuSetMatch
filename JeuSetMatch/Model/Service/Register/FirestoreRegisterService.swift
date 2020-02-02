@@ -20,19 +20,19 @@ class FirestoreRegisterService: RegisterUseCaseOutput {
                 return
             } else {
                 guard let uid = Auth.auth().currentUser?.uid else {return}
-                let data = ["userAge": userAge,
-                            "userGender": userGender,
-                            "userLevel": userLevel,
-                            "userCity": userCity,
-                            "userName": userName,
-                            "userImage": userImage,
-                            "userUid": uid]
-                self.db.collection("users").document("\(uid)").setData(data) { (error) in
+                let data = [Constants.FStore.userAgeField: userAge,
+                            Constants.FStore.userGenderField: userGender,
+                            Constants.FStore.userLevelField: userLevel,
+                            Constants.FStore.userCityField: userCity,
+                            Constants.FStore.userPseudoField: userName,
+                            Constants.FStore.userPictureField: userImage,
+                            Constants.FStore.userUidField: uid]
+                self.db.collection(Constants.FStore.userCollectionName).document("\(uid)").setData(data) { (error) in
                     if error != nil {
                         print(error!)
                         return
                     }
-                    let currentUser = UserObject(pseudo: data["userName"] as? String, image: data["userImage"] as? Data, sexe: data["userGender"] as? String, level: data["userLevel"] as? String, city: data["userCity"] as? String, birthDate: data["userAge"] as? String, uid: data["userUid"] as? String)
+                    let currentUser = UserObject(pseudo: data[Constants.FStore.userPseudoField] as? String, image: data[Constants.FStore.userPictureField] as? Data, sexe: data[Constants.FStore.userGenderField] as? String, level: data[Constants.FStore.userLevelField] as? String, city: data[Constants.FStore.userCityField] as? String, birthDate: data[Constants.FStore.userAgeField] as? String, uid: data[Constants.FStore.userUidField] as? String)
                     completion(.success(currentUser))
                 }
             }
@@ -40,15 +40,15 @@ class FirestoreRegisterService: RegisterUseCaseOutput {
     }
     
     func checkPseudoDisponibility(field: String, completion: @escaping CheckPseudoDisponibility) {
-        let collectionRef = db.collection("users")
-        collectionRef.whereField("userName", isEqualTo: field).getDocuments { (snapshot, error) in
+        let collectionRef = db.collection(Constants.FStore.userCollectionName)
+        collectionRef.whereField(Constants.FStore.userPseudoField, isEqualTo: field).getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error getting document: \(error)")
             } else if (snapshot?.isEmpty)! {
                 completion(false)
             } else {
                 for document in (snapshot?.documents)! {
-                    if document.data()[K.FStore.userPseudoField] != nil {
+                    if document.data()[Constants.FStore.userPseudoField] != nil {
                         completion(true)
                     }
                 }

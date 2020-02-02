@@ -12,6 +12,8 @@ import XCTest
 
 class UserUseCaseTest: XCTestCase {
     
+    // MARK: - Tests
+
     func test_fetchPartnerWithoutFilter_succeeds() {
         let user = UserSpy()
         let sut = UserUseCase(user: user)
@@ -32,22 +34,6 @@ class UserUseCaseTest: XCTestCase {
         user.completeFetchUserSuccessfully(with: expectedUser)
         wait(for: [exp], timeout: 1.0)
         }
-        
-        
-//        fetchUserInformationsDependingOneFilter(field1: "", field1value: "") { (result) in
-//            switch result {
-//            case .success(let receivedUser):
-//                XCTAssertEqual(receivedUser, expectedUser)
-//            default:
-//                XCTFail("Expected success, got \(String(describing: result)), result instead")
-//            }
-//
-//            exp.fulfill()
-//        }
-//        user.completeFetchUserSuccessfully(with: expectedUser)
-//        wait(for: [exp], timeout: 1.0)
-//        }
-    
     
     func test_fetchPartnerWithoutFilter_fails() {
         let user = UserSpy()
@@ -69,22 +55,6 @@ class UserUseCaseTest: XCTestCase {
         user.completeFetchUserFail(with: expectedError)
         wait(for: [exp], timeout: 1.0)
         }
-        
-        
-//        fetchUserInformationsDependingOneFilter(field1: "", field1value: "") { (result) in
-//            switch result {
-//            case .failure(let receivedError):
-//                XCTAssertEqual(receivedError as NSError, expectedError)
-//
-//            default:
-//                XCTFail("Expected failure, got \(String(describing: result)), result instead")
-//            }
-//            exp.fulfill()
-//
-//        }
-//        user.completeFetchUserFail(with: expectedError)
-//        wait(for: [exp], timeout: 1.0)
-//        }
     
     func test_fetchPartnerDependingOneFilter_succeeds() {
         let user = UserSpy()
@@ -258,6 +228,8 @@ class UserUseCaseTest: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
         
+    // MARK: - Spy
+
     class UserSpy: UserUseCaseOutput {
         var userCompletions = [((Result<UserObject, Error>)?) -> Void]()
         
@@ -290,6 +262,8 @@ class UserUseCaseTest: XCTestCase {
         }
     }
     
+    // MARK: - Create Fake User
+
     func createUser(pseudo: String) -> UserObject {
         return UserObject(pseudo: pseudo, image: nil, sexe: nil, level: nil, city: nil, birthDate: nil, uid: nil)
     }

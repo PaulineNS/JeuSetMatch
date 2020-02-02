@@ -11,6 +11,7 @@ import UIKit
 final class MailViewController: UIViewController {
     
     // MARK: - Variables
+    
     var currentUser: UserObject?
     private var registerUsecase: RegisterUseCase?
     
@@ -30,7 +31,7 @@ final class MailViewController: UIViewController {
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == K.registerSegue else { return }
+        guard segue.identifier == Constants.Segue.registerSegue else { return }
         guard let navVC = segue.destination as? UINavigationController else { return }
         navVC.modalPresentationStyle = .fullScreen
     }
@@ -44,7 +45,7 @@ final class MailViewController: UIViewController {
             switch result {
             case .success(let user):
                 self.currentUser = user
-                self.performSegue(withIdentifier: K.registerSegue, sender: self)
+                self.performSegue(withIdentifier: Constants.Segue.registerSegue, sender: self)
             case .failure(let error):
                 print(error.localizedDescription)
             }

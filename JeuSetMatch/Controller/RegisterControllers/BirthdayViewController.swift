@@ -20,8 +20,8 @@ final class BirthdayViewController: UIViewController {
     // MARK: - Variables
     
     private var birthDate = Date()
-    private var stringBirthDate = ""
-    private var userGender = "Femme"
+    private var stringBirthDate: String?
+    private var userGender: String?
     private let minimumAge = Calendar.current.date(byAdding: .year, value: -10, to: Date())
     private let maximumAge = Calendar.current.date(byAdding: .year, value: -100, to: Date())
     
@@ -41,7 +41,7 @@ final class BirthdayViewController: UIViewController {
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == K.BirthDateSegue else {return}
+        guard segue.identifier == Constants.Segue.birthDateSegue else {return}
         guard let levelVc = segue.destination as? LevelViewController else {return}
         levelVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: userGender, level: nil, city: nil, birthDate: stringBirthDate, uid: nil)
     }
@@ -67,7 +67,6 @@ final class BirthdayViewController: UIViewController {
     }
     
     @IBAction private func birthDateChanged(_ sender: Any) {
-        print(birthdayDatePicker.date)
         let isValideAge = validateAge(birthDate: birthdayDatePicker.date, minimumAge: minimumAge ?? Date())
         birthDate = birthdayDatePicker.date
         stringBirthDate = convertDateToString(date: birthDate)
@@ -86,6 +85,6 @@ final class BirthdayViewController: UIViewController {
             alertLabel.text = "Veuillez renseigner votre date de naissance avant de continuer"
             return}
         alertLabel.isHidden = true
-        performSegue(withIdentifier: K.BirthDateSegue, sender: nil)
+        performSegue(withIdentifier: Constants.Segue.birthDateSegue, sender: nil)
     }
 }

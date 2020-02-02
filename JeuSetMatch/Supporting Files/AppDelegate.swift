@@ -35,14 +35,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             searchViewController.modalPresentationStyle = .fullScreen
             appDelegate.window?.rootViewController = searchViewController
         }
-        if UserDefaults.standard.object(forKey: "savedGender") == nil {
-            UserDefaults.standard.set("Tout", forKey: "savedGender")
+        if UserDefaults.standard.object(forKey: Constants.UDefault.savedFilterGender) == nil {
+            UserDefaults.standard.set("Tout", forKey: Constants.UDefault.savedFilterGender)
         }
-        if UserDefaults.standard.object(forKey: "savedCity") == nil {
-            UserDefaults.standard.set("Tout", forKey: "savedCity")
+        if UserDefaults.standard.object(forKey: Constants.UDefault.savedFilterCity) == nil {
+            UserDefaults.standard.set("Tout", forKey: Constants.UDefault.savedFilterCity)
         }
-        if UserDefaults.standard.object(forKey: "savedLevel") == nil {
-            UserDefaults.standard.set("Tout", forKey: "savedLevel")
+        if UserDefaults.standard.object(forKey: Constants.UDefault.savedFilterLevel) == nil {
+            UserDefaults.standard.set("Tout", forKey: Constants.UDefault.savedFilterLevel)
         }
 
         let db = Firestore.firestore()

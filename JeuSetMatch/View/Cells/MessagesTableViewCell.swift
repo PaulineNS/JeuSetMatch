@@ -25,16 +25,8 @@ class MessagesTableViewCell: UITableViewCell {
         didSet {
             setupNameAndProfileImage()
             lastMessageLabel.text = message?.text
-            
             let timestamp = message?.timestamp
-            let date = Date(timeIntervalSince1970: timestamp as! TimeInterval)
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.timeZone = TimeZone(abbreviation: "CEST")
-            dateFormatter.locale = NSLocale.current
-            dateFormatter.dateFormat = "dd-MM-yyyy"
-            let strDate = dateFormatter.string(from: date)
-            timeLabel.text = strDate
+            timeLabel.text = convertTimestampToStringDate(timestamp: timestamp as! TimeInterval)
         }
     }
     
@@ -45,8 +37,8 @@ class MessagesTableViewCell: UITableViewCell {
             firestoreService.setupNameAndProfileImage(id: id) { (result) in
                 switch result {
                 case .success(let dictionary) :
-                    self.pseudoUserLabel.text = dictionary["userName"] as? String
-                    if let profileImage = dictionary["userImage"] as? Data {
+                    self.pseudoUserLabel.text = dictionary[Constants.FStore.userPseudoField] as? String
+                    if let profileImage = dictionary[Constants.FStore.userPictureField] as? Data {
                         self.profileUserImageView.image = UIImage(data: profileImage)
                     }
                 case .failure(let error) :

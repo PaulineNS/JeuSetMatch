@@ -9,6 +9,9 @@
 import Foundation
 
 struct Filters {
+    
+    // MARK: - Variables
+
     var denomination : String?
     var value : String?
 }

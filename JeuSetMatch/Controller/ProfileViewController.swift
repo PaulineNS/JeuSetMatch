@@ -12,24 +12,31 @@ import AVFoundation
 
 final class ProfileViewController: UIViewController {
     
-    // MARK: - Variables
-    var currentUser: UserObject?
-    var IsSegueFromSearch = false
-    private var userUseCase: UserUseCase?
+    // MARK: - Instensiation
+
     private let firestoreService = FirestoreService()
+    private let firestoreUser = FirestoreUserService()
     private let customLoader = CustomLoader()
-    private var IsSegueFromCity = false
-    private var birthdate = ""
     private let image = UIImagePickerController()
+
+    // MARK: - Variables
+    
+    var userToShow: UserObject?
+    var IsSegueFromSearch = false
+    lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
+    private var IsSegueFromCity = false
+//    private var userUseCase: UserUseCase?
+    private var birthdate: String?
     private var userInformations: [UserObject] = []
     private var genderPicker: UIPickerView?
     private var datePicker: UIDatePicker?
     private var levelPicker: UIPickerView?
-    private let genders: [String] = ["Femme","Homme"]
-    private let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant"]
+//    private let genders: [String] = ["Femme","Homme"]
+//    private let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant"]
     
     // MARK: - Outlets
     
+    @IBOutlet weak var userPseudo: UINavigationItem!
     @IBOutlet private var userInformationTxtField: [UITextField]!
     @IBOutlet private weak var userPictureImageView: UIImageView!
     @IBOutlet private weak var logOutBarButtonItem: UIBarButtonItem!
@@ -46,8 +53,6 @@ final class ProfileViewController: UIViewController {
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
         userPictureImageView.isUserInteractionEnabled = true
         userPictureImageView.addGestureRecognizer(singleTap)
-        let firestoreUser = FirestoreUserService()
-        self.userUseCase = UserUseCase(user: firestoreUser)
         manageTxtField(status: false, borderStyle: .none)
         validateButton.isHidden = true
         cancelButton.isHidden = true
@@ -66,10 +71,10 @@ final class ProfileViewController: UIViewController {
                 updateProfileButton.setTitle("Modifier mon profil", for: .normal)
                 return
             }
-            displayUserDefaultsOnTextField(userInformations: "savedProvisionalUserInformations", userPicture: "savedProvisionaluserPicture")
+            displayUserDefaultsOnTextField(userInformations: Constants.UDefault.savedProvisionalUserInformations, userPicture: Constants.UDefault.savedProvisionaluserPicture)
             return
         }
-        guard let partnerUid = currentUser?.uid else {return}
+        guard let partnerUid = userToShow?.uid else {return}
         fetchUserInformations(userUid: partnerUid)
         updateProfileButton.setTitle("Contacter", for: .normal)
     }
@@ -77,11 +82,11 @@ final class ProfileViewController: UIViewController {
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == K.ProfileToChatSegue {
+        if segue.identifier == Constants.Segue.profileToChatSegue {
             guard let chatVc = segue.destination as? ChatViewController else {return}
-            chatVc.user = UserObject(pseudo: currentUser?.pseudo, image: currentUser?.image, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: currentUser?.uid)
+            chatVc.receiverUser = UserObject(pseudo: userToShow?.pseudo, image: userToShow?.image, sexe: userToShow?.sexe, level: userToShow?.level, city: userToShow?.city, birthDate: userToShow?.birthDate, uid: userToShow?.uid)
         }
-        if segue.identifier == "ProfileToCities" {
+        if segue.identifier == Constants.Segue.profileToCitiesSegue {
             guard let citiesVc = segue.destination as? CitiesViewController else {return}
             citiesVc.didSelectCityDelegate = self
         }
@@ -91,7 +96,7 @@ final class ProfileViewController: UIViewController {
     
     @IBAction private func buttomButtonPressed(_ sender: UIButton) {
         if sender.currentTitle == "Contacter" {
-            performSegue(withIdentifier: K.ProfileToChatSegue, sender: nil)
+            performSegue(withIdentifier: Constants.Segue.profileToChatSegue, sender: nil)
         }
         if sender.currentTitle == "Modifier mon profil" {
             manageTxtField(status: true, borderStyle: .line)
@@ -99,7 +104,7 @@ final class ProfileViewController: UIViewController {
             cancelButton.isHidden = false
             deleteProfilButton.isHidden = false
             updateProfileButton.isHidden = true
-            setInformationsInUserDefault(userInformations: "savedUserInformations", userPicture: "savedUserPicture")
+            setInformationsInUserDefault(userInformations: Constants.UDefault.savedUserInformations, userPicture: Constants.UDefault.savedUserPicture)
         }
     }
     
@@ -118,7 +123,7 @@ final class ProfileViewController: UIViewController {
     
     @objc private func dateChanged(datePicker: UIDatePicker) {
         birthdate = convertDateToString(date: datePicker.date)
-        userInformationTxtField[2].text = dateToAge(birthDate: datePicker.date)
+        userInformationTxtField[1].text = dateToAge(birthDate: datePicker.date)
     }
     
     @IBAction private func didPressValidateButton(_ sender: Any) {
@@ -127,8 +132,8 @@ final class ProfileViewController: UIViewController {
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
         updateProfileButton.isHidden = false
-        guard let userCity = userInformationTxtField[3].text, let userGender = userInformationTxtField[1].text, let userLevel = userInformationTxtField[4].text, let userName = userInformationTxtField[0].text, let pictureData = userPictureImageView.image?.jpegData(compressionQuality: 0.1) else {return}
-        firestoreService.updateUserInformation(userAge: birthdate, userCity: userCity, userGender: userGender, userLevel: userLevel, userName: userName, userImage: pictureData)
+        guard let userCity = userInformationTxtField[2].text, let userGender = userInformationTxtField[0].text, let userLevel = userInformationTxtField[3].text, let pictureData = userPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = birthdate else {return}
+        firestoreService.updateUserInformation(userAge: userBirthDate, userCity: userCity, userGender: userGender, userLevel: userLevel, userImage: pictureData)
     }
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
@@ -137,7 +142,7 @@ final class ProfileViewController: UIViewController {
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
         updateProfileButton.isHidden = false
-        displayUserDefaultsOnTextField(userInformations: "savedUserInformations", userPicture: "savedUserPicture")
+        displayUserDefaultsOnTextField(userInformations: Constants.UDefault.savedUserInformations, userPicture: Constants.UDefault.savedUserPicture)
     }
     
     @IBAction private func didPressDeleteAccountButton(_ sender: Any) {
@@ -150,16 +155,16 @@ final class ProfileViewController: UIViewController {
     // MARK: - Methods
     
     private func managePickers(){
-        userInformationTxtField[3].delegate = self
+        userInformationTxtField[2].delegate = self
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
         datePicker?.locale = Locale.init(identifier: "fr_FR")
-        userInformationTxtField[2].inputView = datePicker
+        userInformationTxtField[1].inputView = datePicker
         datePicker?.addTarget(self, action: #selector(ProfileViewController.dateChanged(datePicker:)), for: .valueChanged)
         levelPicker = UIPickerView()
-        userInformationTxtField[4].inputView = levelPicker
+        userInformationTxtField[3].inputView = levelPicker
         genderPicker = UIPickerView()
-        userInformationTxtField[1].inputView = genderPicker
+        userInformationTxtField[0].inputView = genderPicker
         levelPicker?.delegate = self
         genderPicker?.delegate = self
         genderPicker?.dataSource = self
@@ -196,7 +201,7 @@ final class ProfileViewController: UIViewController {
     private func fetchUserInformations(userUid: String) {
         self.userInformations = []
         customLoader.showLoaderView()
-        userUseCase?.fetchUserInformationsDependingOneFilter(field1: "userUid", field1value: userUid, completion: { (result) in
+        userUseCase.fetchUserInformationsDependingOneFilter(field1: Constants.FStore.userUidField, field1value: userUid, completion: { (result) in
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let user) :
@@ -205,12 +210,15 @@ final class ProfileViewController: UIViewController {
                 let stringDate = self.convertStringToDate(dateString: userBirthdate)
                 let userAge = self.dateToAge(birthDate: stringDate)
                 DispatchQueue.main.async {
-                    self.userInformationTxtField[0].text = userPseudo
-                    self.userInformationTxtField[1].text = userGender
-                    self.userInformationTxtField[3].text = userCity
-                    self.userInformationTxtField[4].text = userLevel
+                    self.userPseudo.title = userPseudo
+                    self.tabBarController?.navigationItem.title = userPseudo
+                    
+//                    self.userInformationTxtField[0].text = userPseudo
+                    self.userInformationTxtField[0].text = userGender
+                    self.userInformationTxtField[2].text = userCity
+                    self.userInformationTxtField[3].text = userLevel
                     self.userPictureImageView.image = UIImage(data: userPicture)
-                    self.userInformationTxtField[2].text = userAge + " " + "ans"
+                    self.userInformationTxtField[1].text = userAge + " " + "ans"
                 }
             case .failure(let error) :
                 print(error.localizedDescription)
@@ -227,8 +235,8 @@ extension ProfileViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
-        setInformationsInUserDefault(userInformations: "savedProvisionalUserInformations", userPicture: "savedProvisionaluserPicture")
-        performSegue(withIdentifier: K.ProfileToCitiesSegue, sender: nil)
+        setInformationsInUserDefault(userInformations: Constants.UDefault.savedProvisionalUserInformations, userPicture: Constants.UDefault.savedProvisionaluserPicture)
+        performSegue(withIdentifier: Constants.Segue.profileToCitiesSegue, sender: nil)
     }
 }
 
@@ -242,30 +250,30 @@ extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == levelPicker {
-            return levels.count
+            return Constants.Arrays.levelsPickerUpdateProfil.count
         }
         if pickerView == genderPicker {
-            return genders.count
+            return Constants.Arrays.gendersPickerUpdateProfil.count
         }
         return 0
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == levelPicker {
-            return levels[row]
+            return Constants.Arrays.levelsPickerUpdateProfil[row]
         }
         if pickerView == genderPicker {
-            return genders[row]
+            return Constants.Arrays.gendersPickerUpdateProfil[row]
         }
         return ""
     }
     
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == levelPicker {
-            userInformationTxtField[4].text = levels[row]
+            userInformationTxtField[3].text = Constants.Arrays.levelsPickerUpdateProfil[row]
         }
         if pickerView == genderPicker {
-            userInformationTxtField[1].text = genders[row]
+            userInformationTxtField[0].text = Constants.Arrays.gendersPickerUpdateProfil[row]
         }
     }
 }
@@ -274,8 +282,8 @@ extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension ProfileViewController: DidSelectCityDelegate {
     func rowTapped(with city: String) {
-        UserDefaults.standard.set(city, forKey: "savedProvisionalUserInformations3")
-        self.userInformationTxtField[3].text = city
+        UserDefaults.standard.set(city, forKey: Constants.UDefault.savedProvisionalUserInformations)
+        self.userInformationTxtField[2].text = city
         IsSegueFromCity = true
     }
 }

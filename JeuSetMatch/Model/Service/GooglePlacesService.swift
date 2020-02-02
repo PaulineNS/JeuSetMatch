@@ -12,6 +12,8 @@ import GooglePlaces
 
 class GooglePlacesService {
     
+    // MARK: - Variables
+
     var arrayCities = [GMSAutocompletePrediction]()
 
     lazy private var filter: GMSAutocompleteFilter = {
@@ -21,8 +23,9 @@ class GooglePlacesService {
         return filter
     }()
     
-    func x(searchString: String) {
-        
+    // MARK: - Methods
+
+    func searchCity(searchString: String) {
         if searchString == "" {
             self.arrayCities = [GMSAutocompletePrediction]()
         } else {
@@ -32,8 +35,5 @@ class GooglePlacesService {
                 }
             }
         }
-//        self.citiesTableView.reloadData()
-//        return true
-        
     }
 }

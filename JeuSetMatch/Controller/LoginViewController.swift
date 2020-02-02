@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
     // MARK: - Outlets
     
@@ -33,7 +33,7 @@ class LoginViewController: UIViewController {
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == K.loginSegue else { return }
+        guard segue.identifier == Constants.Segue.loginSegue else { return }
         guard let navVC = segue.destination as? UINavigationController else { return }
         navVC.modalPresentationStyle = .fullScreen
     }
@@ -45,7 +45,7 @@ class LoginViewController: UIViewController {
         loginUseCase?.login(with: email, password: password) { (result) in
             switch result {
             case .success :
-                self.performSegue(withIdentifier: K.loginSegue, sender: self)
+                self.performSegue(withIdentifier: Constants.Segue.loginSegue, sender: self)
                 
             case .failure(let error):
                 print(error.localizedDescription)

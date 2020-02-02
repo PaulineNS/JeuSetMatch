@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - Protocols
+
 protocol DidSelectCityDelegate {
     func rowTapped(with city: String)
 }

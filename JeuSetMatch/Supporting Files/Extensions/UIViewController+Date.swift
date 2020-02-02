@@ -42,3 +42,18 @@ extension UIViewController {
     }
 }
 
+extension UITableViewCell {
+    
+    func convertTimestampToStringDate(timestamp: TimeInterval) -> String {
+        let date = Date(timeIntervalSince1970: timestamp)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "CEST")
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let strDate = dateFormatter.string(from: date)
+        return strDate
+    }
+
+}
+

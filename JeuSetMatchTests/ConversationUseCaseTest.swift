@@ -11,6 +11,8 @@ import XCTest
 
 class ConversationUseCaseTest: XCTestCase {
     
+    // MARK: - Test
+
     func test_observeMessages_succeeds() {
         let message = ConversationSpy()
         let sut = ConversationUseCase(message: message)
@@ -22,7 +24,7 @@ class ConversationUseCaseTest: XCTestCase {
             case .success(let receivedMessage):
                 XCTAssertEqual(receivedMessage, expectedMessage)
             default:
-                XCTFail("Expected success, got \(result), result instead")
+                XCTFail("Expected success, got \(String(describing: result)), result instead")
                  }
             exp.fulfill()
             }
@@ -30,7 +32,7 @@ class ConversationUseCaseTest: XCTestCase {
         message.completeObserveMessageSuccessfully(with: expectedMessage)
         
         wait(for: [exp], timeout: 1.0)
-        
+    
         }
     
     
@@ -46,7 +48,7 @@ class ConversationUseCaseTest: XCTestCase {
                     XCTAssertEqual(receivedError as NSError, expectedError)
                     
                 default:
-                    XCTFail("Expected failure, got \(result), result instead")
+                    XCTFail("Expected failure, got \(String(describing: result)), result instead")
                 }
                 exp.fulfill()
             }
@@ -67,7 +69,7 @@ class ConversationUseCaseTest: XCTestCase {
             case .success(let receivedMessage):
                 XCTAssertEqual(receivedMessage, expectedMessage)
             default:
-                XCTFail("Expected success, got \(result), result instead")
+                XCTFail("Expected success, got \(String(describing: result)), result instead")
             }
             exp.fulfill()
         }
@@ -90,7 +92,7 @@ class ConversationUseCaseTest: XCTestCase {
                 XCTAssertEqual(receivedError as NSError, expectedError)
                 
             default:
-                XCTFail("Expected failure, got \(result), result instead")
+                XCTFail("Expected failure, got \(String(describing: result)), result instead")
             }
             exp.fulfill()
         }
@@ -100,6 +102,8 @@ class ConversationUseCaseTest: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
 
+
+    // MARK: - Spy
 
     class ConversationSpy: ConversationUseCaseOutput {
         
@@ -123,8 +127,10 @@ class ConversationUseCaseTest: XCTestCase {
         }
     }
     
+    // MARK: - Create fake message
+
     func createMessage(message: String) -> MessageObject {
-        let dictionnary = ["fromId": "", "toId": "", "text": message, "timestamp": nil]
+        let dictionnary = [Constants.FStore.fromIdMessage: "", Constants.FStore.toIdMessage: "", Constants.FStore.textMessage: message, Constants.FStore.timestampMessage: nil]
         return MessageObject(dictionary: dictionnary as [String : Any])
     }
 }

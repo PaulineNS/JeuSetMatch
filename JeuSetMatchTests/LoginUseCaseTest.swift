@@ -11,6 +11,8 @@ import XCTest
 
 class LoginUseCaseTest: XCTestCase {
     
+    // MARK: - Tests
+
     func test_login_succeeds() {
         let client = LoginSpy()
         let sut = LoginUseCase(client: client)
@@ -55,6 +57,8 @@ class LoginUseCaseTest: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
+    // MARK: - Spy
+
     class LoginSpy: LoginUseCaseOutput {
         var loginCompletions = [(Result<UserObject, Error>) -> Void]()
         
@@ -71,6 +75,8 @@ class LoginUseCaseTest: XCTestCase {
         }
     }
     
+    // MARK: - Create fake user
+
     func createUser(pseudo: String) -> UserObject {
         return UserObject(pseudo: pseudo, image: nil, sexe: nil, level: nil, city: nil, birthDate: nil, uid: nil)
     }

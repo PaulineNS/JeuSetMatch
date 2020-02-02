@@ -7,7 +7,9 @@
 //
 
 import Foundation
-//
+
+// MARK: - TODO
+
 enum FiltersEnum {
     case oneFilter
     case twoFilters

@@ -10,11 +10,15 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     
+    // MARK: - Instensiation
+    
+    private let customLoader = CustomLoader()
+    private let firestoreUser = FirestoreUserService()
+    
     // MARK: - Variables
     
-    var currentUser: UserObject?
-    private let customLoader = CustomLoader()
-    private var userUseCase: UserUseCase?
+    var userSelected: UserObject?
+    lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
     private var users: [UserObject] = []
     
     // MARK: - Outlets
@@ -26,15 +30,14 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let firestoreUser = FirestoreUserService()
-        self.userUseCase = UserUseCase(user: firestoreUser)
         self.tabBarController?.navigationItem.hidesBackButton = true
-        usersTableView.register(UINib(nibName: K.userCellNibName, bundle: nil), forCellReuseIdentifier: K.userCellIdentifier)
+        usersTableView.register(UINib(nibName: Constants.Cell.userCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.userCellIdentifier)
         fetchUsers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Joueurs"
         self.tabBarController?.navigationItem.rightBarButtonItem = filterBarButton
         usersTableView.reloadData()
     }
@@ -42,13 +45,13 @@ final class SearchViewController: UIViewController {
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == K.SearchToProfileSegue {
+        if segue.identifier == Constants.Segue.searchToProfileSegue {
             guard let profileVc = segue.destination as? ProfileViewController else {return}
             profileVc.navigationItem.rightBarButtonItem = nil
-            profileVc.currentUser = currentUser
+            profileVc.userToShow = userSelected
             profileVc.IsSegueFromSearch = true
         }
-        if segue.identifier == K.SearchToFilterSegue {
+        if segue.identifier == Constants.Segue.searchToFilterSegue {
             guard let filterVc = segue.destination as? FilterViewController else {return}
             filterVc.didSearchFiltersDelegate = self
         }
@@ -57,44 +60,47 @@ final class SearchViewController: UIViewController {
     // MARK: - Actions
 
     @IBAction private func didTapFilterButton(_ sender: Any) {
-        performSegue(withIdentifier: K.SearchToFilterSegue, sender: nil)
+        performSegue(withIdentifier: Constants.Segue.searchToFilterSegue, sender: nil)
     }
     
     // MARK: - Methods
     
     func fetchUsers(){
-        guard let gender = UserDefaults.standard.string(forKey: "savedGender"), let city = UserDefaults.standard.string(forKey: "savedCity"), let level = UserDefaults.standard.string(forKey: "savedLevel") else {return}
+        
+        // MARK: - TODO ENUM
+
+        guard let gender = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterGender), let city = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterCity), let level = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterLevel) else {return}
         //Three filters
         if gender == "Tout" && city == "Tout" && level == "Tout" {
             fetchUsersWithoutFilters()
         }
         //One Filters
         if gender == "Tout" && city == "Tout" && level != "Tout" {
-            let levelField = "userLevel"
+            let levelField = Constants.FStore.userLevelField
             fetchUsersDependingOneFilter(field1: levelField, field1value: level)
         }
         if gender == "Tout" && city != "Tout" && level == "Tout" {
-            let cityField = "userCity"
+            let cityField = Constants.FStore.userCityField
             fetchUsersDependingOneFilter(field1: cityField, field1value: city)            
         }
         if gender != "Tout" && city == "Tout" && level == "Tout" {
-            let genderField = "userGender"
+            let genderField = Constants.FStore.userGenderField
             fetchUsersDependingOneFilter(field1: genderField, field1value: gender)
         }
         // TwoFilters
         if gender != "Tout" && city != "Tout" && level == "Tout" {
-            let cityField = "userCity"
-            let genderField = "userGender"
+            let cityField = Constants.FStore.userCityField
+            let genderField = Constants.FStore.userGenderField
             fetchUsersDependingTwoFilters(field1: genderField, field1value: gender, field2: cityField, field2Value: city)
         }
         if gender != "Tout" && city == "Tout" && level != "Tout" {
-            let genderField = "userGender"
-            let levelField = "userLevel"
+            let genderField = Constants.FStore.userGenderField
+            let levelField = Constants.FStore.userLevelField
             fetchUsersDependingTwoFilters(field1: genderField, field1value: gender, field2: levelField, field2Value: level)
         }
         if gender == "Tout" && city != "Tout" && level != "Tout" {
-            let cityField = "userCity"
-            let genderField = "userGender"
+            let cityField = Constants.FStore.userCityField
+            let genderField = Constants.FStore.userGenderField
             fetchUsersDependingTwoFilters(field1: cityField, field1value: city, field2: genderField, field2Value: gender)
         }
         // Without Filters
@@ -105,7 +111,7 @@ final class SearchViewController: UIViewController {
     
     func fetchUsersDependingOneFilter(field1: String, field1value: String){
         customLoader.showLoaderView()
-        userUseCase?.fetchUserInformationsDependingOneFilter(field1: field1, field1value: field1value, completion: { (result) in
+        userUseCase.fetchUserInformationsDependingOneFilter(field1: field1, field1value: field1value, completion: { (result) in
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let users):
@@ -126,7 +132,7 @@ final class SearchViewController: UIViewController {
     
     func fetchUsersDependingTwoFilters(field1: String, field1value: String, field2: String, field2Value: String){
         customLoader.showLoaderView()
-        userUseCase?.fetchUsersInformationsDependingTwoFilters(field1: field1, field1value: field1value, field2: field2, field2Value: field2Value, completion: { (result) in
+        userUseCase.fetchUsersInformationsDependingTwoFilters(field1: field1, field1value: field1value, field2: field2, field2Value: field2Value, completion: { (result) in
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let users):
@@ -146,7 +152,7 @@ final class SearchViewController: UIViewController {
     
     func fetchUsersDependingThreeFilters(gender: String, city: String, level: String) {
         customLoader.showLoaderView()
-        userUseCase?.fetchUserInformationsDependingAllFilters(gender: gender, city: city, level: level, completion: { (result) in
+        userUseCase.fetchUserInformationsDependingAllFilters(gender: gender, city: city, level: level, completion: { (result) in
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let users):
@@ -167,7 +173,7 @@ final class SearchViewController: UIViewController {
     
     func fetchUsersWithoutFilters(){
         customLoader.showLoaderView()
-        userUseCase?.fetchUserWithoutFilters(completion: { (result) in
+        userUseCase.fetchUserWithoutFilters(completion: { (result) in
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let users):
@@ -195,7 +201,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let user = users[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.userCellIdentifier, for: indexPath) as? UserTableViewCell else { return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.userCellIdentifier, for: indexPath) as? UserTableViewCell else { return UITableViewCell()}
         cell.userName.text = user.pseudo
         cell.userImage.image = UIImage(data: user.image ?? Data())
         return cell
@@ -203,8 +209,8 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
-        self.currentUser = user
-        performSegue(withIdentifier: K.SearchToProfileSegue, sender: nil)
+        self.userSelected = user
+        performSegue(withIdentifier: Constants.Segue.searchToProfileSegue, sender: nil)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

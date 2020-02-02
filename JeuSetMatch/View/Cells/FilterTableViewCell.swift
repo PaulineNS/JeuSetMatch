@@ -8,19 +8,29 @@
 
 import UIKit
 
-class FilterTableViewCell: UITableViewCell, UITextFieldDelegate {
+class FilterTableViewCell: UITableViewCell {
+
+    // MARK: - Outlets
 
     @IBOutlet weak var categorieLabel: UILabel!
     @IBOutlet weak var filterValueTxtField: UITextField!
     @IBOutlet weak var arrow: UILabel!
     
-    private var levelsArray = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant","Tout"]
-    private var gendersArray = ["Tout", "Femme", "Homme"]
-    private var agesArray = ["Entre 10 et 20 ans","Entre 20 et 30 ans","Entre 30 et 40 ans","Entre 40 et 50 ans","Entre 50 et 60 ans","Entre 60 et 70 ans","Entre 70 et 80 ans","Entre 80 et 90 ans"]
+    // MARK: - Variables
+
+//    private var levelsArray = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant","Tout"]
+//    private var gendersArray = ["Tout", "Femme", "Homme"]
+//    private var agesArray = ["Entre 10 et 20 ans","Entre 20 et 30 ans","Entre 30 et 40 ans","Entre 40 et 50 ans","Entre 50 et 60 ans","Entre 60 et 70 ans","Entre 70 et 80 ans","Entre 80 et 90 ans"]
     
     var genderPicker: UIPickerView?
     var levelPicker: UIPickerView?
     var agePicker: UIPickerView?
+    var filter: Filters? {
+        didSet {
+            categorieLabel.text = filter?.denomination
+            filterValueTxtField.text = filter?.value
+        }
+    }
         
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,18 +50,11 @@ class FilterTableViewCell: UITableViewCell, UITextFieldDelegate {
         super.setSelected(selected, animated: animated)
     }
     
-    var filter: Filters? {
-        didSet {
-            categorieLabel.text = filter?.denomination
-            filterValueTxtField.text = filter?.value
-        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()        
-        return true
-    }
 }
+
+// MARK: - Picker View Delegate and Data Source
+
+// MARK: - TODO ENUM
 
 extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -61,42 +64,52 @@ extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == levelPicker {
-            return levelsArray.count
+            return Constants.Arrays.levelsPickerFilterUser.count
         }
         if pickerView == genderPicker {
-            return gendersArray.count
+            return Constants.Arrays.gendersPickerFilterUser.count
         }
         if pickerView == agePicker {
-            return agesArray.count
+            return Constants.Arrays.agePickerFilterUser.count
         }
         return 0
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == levelPicker {
-            return levelsArray[row]
+            return Constants.Arrays.levelsPickerFilterUser[row]
         }
         if pickerView == genderPicker {
-            return gendersArray[row]
+            return Constants.Arrays.gendersPickerFilterUser[row]
         }
         if pickerView == agePicker {
-            return agesArray[row]
+            return Constants.Arrays.agePickerFilterUser[row]
         }
         return ""
     }
     
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == levelPicker {
-            filterValueTxtField.text = levelsArray[row]
-            UserDefaults.standard.set(filterValueTxtField.text, forKey: "savedLevel")
+            filterValueTxtField.text = Constants.Arrays.levelsPickerFilterUser[row]
+            UserDefaults.standard.set(filterValueTxtField.text, forKey: Constants.UDefault.savedFilterLevel)
         }
         if pickerView == genderPicker {
-            filterValueTxtField.text = gendersArray[row]
-            UserDefaults.standard.set(filterValueTxtField.text, forKey: "savedGender")
+            filterValueTxtField.text = Constants.Arrays.gendersPickerFilterUser[row]
+            UserDefaults.standard.set(filterValueTxtField.text, forKey: Constants.UDefault.savedFilterGender)
         }
         if pickerView == agePicker {
-            filterValueTxtField.text = agesArray[row]
+            filterValueTxtField.text = Constants.Arrays.agePickerFilterUser[row]
             UserDefaults.standard.set(filterValueTxtField.text, forKey: "savedAge")
         }
+    }
+}
+
+// MARK: - Text Field Delegate
+
+extension FilterTableViewCell: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

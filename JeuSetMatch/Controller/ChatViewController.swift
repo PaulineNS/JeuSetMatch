@@ -10,16 +10,18 @@ import UIKit
 
 final class ChatViewController: UIViewController {
     
+    // MARK: - Instensiation
+
     private let fireStoreService = FirestoreService()
     private let firestoreConversation = FirestoreConversationService()
-    private var messages = [MessageObject]()
-    lazy var conversationUseCase: ConversationUseCase = ConversationUseCase(message: firestoreConversation)
     
     // MARK: - Variables
     
-    var user : UserObject? {
+    private var messages = [MessageObject]()
+    lazy var conversationUseCase: ConversationUseCase = ConversationUseCase(message: firestoreConversation)
+    var receiverUser : UserObject? {
         didSet {
-            receiverPseudo.title = user?.pseudo
+            receiverPseudo.title = receiverUser?.pseudo
             observeMessages()
         }
     }
@@ -36,15 +38,15 @@ final class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.navigationItem.hidesBackButton = true
-        chatTableView.register(UINib(nibName: K.chatCellNibName, bundle: nil), forCellReuseIdentifier: K.chatCellIdentifier)
-        receiverPseudo.title = user?.pseudo
+        chatTableView.register(UINib(nibName: Constants.Cell.chatCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.chatCellIdentifier)
+//        receiverPseudo.title = user?.pseudo
     }
     
     // MARK: - Actions
     
     @IBAction private func sendPressed(_ sender: UIButton) {
-        let properties : [String : Any] = ["text" : chatTextField.text!]
-        guard let toId = user?.uid else { return }
+        let properties : [String : Any] = [Constants.FStore.textMessage: chatTextField.text!]
+        guard let toId = receiverUser?.uid else { return }
         fireStoreService.sendMessage(withProperties: properties, toId: toId)
         self.chatTextField.text = ""
     }
@@ -52,11 +54,11 @@ final class ChatViewController: UIViewController {
     // MARK: - Methods
     
     private func observeMessages() {
-        guard let toId = user?.uid else { return }
+        guard let toId = receiverUser?.uid else { return }
         conversationUseCase.observeUserChatMessages(toId: toId) { (result) in
             switch result {
             case .success(let message) :
-                guard message.chatPartnerId() == self.user?.uid else {return}
+                guard message.chatPartnerId() == self.receiverUser?.uid else {return}
                 self.messages.append(message)
                 self.messages.sort { (message1, message2) -> Bool in
                     return Int32(truncating: message1.timestamp!) < Int32(truncating: message2.timestamp!)
@@ -88,18 +90,19 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.chatCellIdentifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.chatCellIdentifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell()}
         cell.messageLabel.text = message.text
         
         guard message.toId == fireStoreService.currentUserUid else {
-            cell.leftAvatarImageView.isHidden = false
-            cell.rightAvatarImageView.isHidden = true
+            cell.leftAvatarImageView.isHidden = true
+            cell.rightAvatarImageView.isHidden = false
             cell.messageBubble.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
             cell.messageLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             return cell }
         
-        cell.leftAvatarImageView.isHidden = true
-        cell.rightAvatarImageView.isHidden = false
+        cell.rightAvatarImageView.image = UIImage(data: receiverUser?.image ?? Data())
+        cell.leftAvatarImageView.isHidden = false
+        cell.rightAvatarImageView.isHidden = true
         cell.messageBubble.backgroundColor = #colorLiteral(red: 0.08918375522, green: 0.2295971513, blue: 0.2011210024, alpha: 1)
         cell.messageLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return cell
