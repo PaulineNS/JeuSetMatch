@@ -17,10 +17,6 @@ class FilterTableViewCell: UITableViewCell {
     @IBOutlet weak var arrow: UILabel!
     
     // MARK: - Variables
-
-//    private var levelsArray = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant","Tout"]
-//    private var gendersArray = ["Tout", "Femme", "Homme"]
-//    private var agesArray = ["Entre 10 et 20 ans","Entre 20 et 30 ans","Entre 30 et 40 ans","Entre 40 et 50 ans","Entre 50 et 60 ans","Entre 60 et 70 ans","Entre 70 et 80 ans","Entre 80 et 90 ans"]
     
     var genderPicker: UIPickerView?
     var levelPicker: UIPickerView?

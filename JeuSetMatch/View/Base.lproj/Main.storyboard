@@ -811,8 +811,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="d6p-fw-pJb">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="704"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="guN-Hw-qwQ">
+                                        <rect key="frame" x="186" y="0.0" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lix-IX-VNb">
-                                        <rect key="frame" x="134.5" y="0.0" width="145" height="142"/>
+                                        <rect key="frame" x="134.5" y="21.5" width="145" height="120.5"/>
                                         <state key="normal" title="Supprimer mon profil">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
@@ -1023,6 +1029,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="alertDateLbl" destination="guN-Hw-qwQ" id="Nl2-cZ-pJ9"/>
                         <outlet property="cancelButton" destination="OT8-2t-gw0" id="nbq-ll-wG8"/>
                         <outlet property="deleteProfilButton" destination="Lix-IX-VNb" id="4lB-Bs-a4p"/>
                         <outlet property="logOutBarButtonItem" destination="naG-k3-07b" id="kVS-3P-9NY"/>
@@ -1383,8 +1390,8 @@
                                     <constraint firstAttribute="bottom" secondItem="nbC-uH-NP5" secondAttribute="bottom" id="yhD-Ny-4jC"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enG-rO-zbm">
-                                <rect key="frame" x="0.0" y="5" width="414" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enG-rO-zbm">
+                                <rect key="frame" x="0.0" y="5" width="414" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1452,7 +1459,7 @@
         <image name="textfield" width="298" height="93"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PrC-gY-Kig"/>
+        <segue reference="2gn-4l-5Sr"/>
         <segue reference="3Dc-8t-nP1"/>
         <segue reference="F9L-oe-HuP"/>
         <segue reference="aiR-vR-a4K"/>

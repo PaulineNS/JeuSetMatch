@@ -12,6 +12,7 @@ target 'JeuSetMatch' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod "WARangeSlider"
+  pod 'SnapKit', '5.0.0'
 
   target 'JeuSetMatchTests' do
     inherit! :search_paths

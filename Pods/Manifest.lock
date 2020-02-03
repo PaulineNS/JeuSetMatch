@@ -253,6 +253,7 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - SnapKit (5.0.0)
   - WARangeSlider (1.1.1)
 
 DEPENDENCIES:
@@ -261,6 +262,7 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
   - IQKeyboardManagerSwift
+  - SnapKit (= 5.0.0)
   - WARangeSlider
 
 SPEC REPOS:
@@ -285,6 +287,7 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - leveldb-library
     - nanopb
+    - SnapKit
     - WARangeSlider
 
 SPEC CHECKSUMS:
@@ -308,8 +311,9 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 2dde0fc70110e8eac7ccce2a46fdbec6a850b414
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   WARangeSlider: 54b3e0853b8d16c444fd539005901aecee86837d
 
-PODFILE CHECKSUM: d931d50cdc6cd26fce3b1f859ee0ab974d756984
+PODFILE CHECKSUM: 0ce8e53ffae47923587fcd556f46949dda93e6bc
 
 COCOAPODS: 1.8.4

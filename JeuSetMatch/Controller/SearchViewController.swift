@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class SearchViewController: UIViewController {
     
@@ -214,18 +215,32 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView()
+        
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "person")
+        view.addSubview(imageView)
+        
         let label = UILabel()
         label.text = "Aucun joueur ne correspond à votre recherche"
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.textAlignment = .center
         label.textColor = .darkGray
-        return label
+        label.numberOfLines = 0
+        view.addSubview(label)
+
+        imageView.snp.makeConstraints { (make) in
+            make.center.equalTo(view)
+            make.height.width.equalTo(200)
+        }
         
-//        let imageView = UIImageView()
-//        imageView.image = #imageLiteral(resourceName: "reciplease")
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.contentMode = .center
-//        return imageView
+        label.snp.makeConstraints { (make) in
+            make.top.equalTo(imageView.snp.bottom).offset(20.0)
+            make.right.equalTo(view).offset(15.0)
+            make.left.equalTo(view).offset(15.0)
+        }
+        
+        return view
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

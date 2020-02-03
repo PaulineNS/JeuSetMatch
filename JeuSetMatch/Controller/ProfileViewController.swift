@@ -25,14 +25,12 @@ final class ProfileViewController: UIViewController {
     var IsSegueFromSearch = false
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
     private var IsSegueFromCity = false
-//    private var userUseCase: UserUseCase?
     private var birthdate: String?
     private var userInformations: [UserObject] = []
     private var genderPicker: UIPickerView?
     private var datePicker: UIDatePicker?
     private var levelPicker: UIPickerView?
-//    private let genders: [String] = ["Femme","Homme"]
-//    private let levels: [String] = ["-30 - Pro","-15 - Pro","-4/6 - Pro","-2/6 - Pro","0 - Semi-pro","1/6 - Semi-pro","2/6 - Semi-pro","3/6 - Expert avancé","4/6 - Expert avancé","5/6 - Expert avancé","15 - Expert avancé","15/1 - Expert","15/2 - Expert","15/3 - Expert","15/4 - Compétiteur avancé","15/5 - Compétiteur avancé","30 - Compétiteur","30/1 - Compétiteur","30/2 - Intermédiaire avancé","30/3 - Intermédiaire","30/4 - Intermédiaire","30/5 - Amateur avancé","40 - Amateur","Débutant"]
+    private let minimumAge = Calendar.current.date(byAdding: .year, value: -10, to: Date())
     
     // MARK: - Outlets
     
@@ -44,11 +42,13 @@ final class ProfileViewController: UIViewController {
     @IBOutlet private weak var validateButton: UIButton!
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet weak var deleteProfilButton: UIButton!
+    @IBOutlet weak var alertDateLbl: UILabel!
     
     // MARK: - Controller life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertDateLbl.isHidden = true
         image.delegate = self
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
         userPictureImageView.isUserInteractionEnabled = true
@@ -122,9 +122,19 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func dateChanged(datePicker: UIDatePicker) {
+        
+        let isValideAge = validateAge(birthDate: datePicker.date, minimumAge: minimumAge ?? Date())
         birthdate = convertDateToString(date: datePicker.date)
-        userInformationTxtField[1].text = dateToAge(birthDate: datePicker.date)
+        if isValideAge {
+            alertDateLbl.isHidden = true
+            userInformationTxtField[1].text = dateToAge(birthDate: datePicker.date)
+        } else {
+            alertDateLbl.isHidden = false
+            alertDateLbl.text = "Vous devez avoir au moins 10 ans pour utiliser l'application"
+        }
+//        birthdate = convertDateToString(date: datePicker.date)
     }
+    
     
     @IBAction private func didPressValidateButton(_ sender: Any) {
         manageTxtField(status: false, borderStyle: .none)
