@@ -53,7 +53,7 @@ final class ProfileViewController: UIViewController {
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
         userPictureImageView.isUserInteractionEnabled = true
         userPictureImageView.addGestureRecognizer(singleTap)
-        manageTxtField(status: false, borderStyle: .none)
+        manageTxtField(status: false, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         validateButton.isHidden = true
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
@@ -99,7 +99,7 @@ final class ProfileViewController: UIViewController {
             performSegue(withIdentifier: Constants.Segue.profileToChatSegue, sender: nil)
         }
         if sender.currentTitle == "Modifier mon profil" {
-            manageTxtField(status: true, borderStyle: .line)
+            manageTxtField(status: true, color: #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1))
             validateButton.isHidden = false
             cancelButton.isHidden = false
             deleteProfilButton.isHidden = false
@@ -132,12 +132,11 @@ final class ProfileViewController: UIViewController {
             alertDateLbl.isHidden = false
             alertDateLbl.text = "Vous devez avoir au moins 10 ans pour utiliser l'application"
         }
-//        birthdate = convertDateToString(date: datePicker.date)
     }
     
     
     @IBAction private func didPressValidateButton(_ sender: Any) {
-        manageTxtField(status: false, borderStyle: .none)
+        manageTxtField(status: false, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         validateButton.isHidden = true
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
@@ -147,7 +146,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
-        manageTxtField(status: false, borderStyle: .none)
+        manageTxtField(status: false, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         validateButton.isHidden = true
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
@@ -181,10 +180,10 @@ final class ProfileViewController: UIViewController {
         levelPicker?.dataSource = self
     }
     
-    private func manageTxtField(status: Bool, borderStyle: UITextField.BorderStyle) {
+    private func manageTxtField(status: Bool, color: UIColor ) {
         for txtField in userInformationTxtField {
             txtField.isUserInteractionEnabled = status
-            txtField.borderStyle = borderStyle
+            txtField.backgroundColor = color
         }
     }
     
@@ -222,8 +221,6 @@ final class ProfileViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.userPseudo.title = userPseudo
                     self.tabBarController?.navigationItem.title = userPseudo
-                    
-//                    self.userInformationTxtField[0].text = userPseudo
                     self.userInformationTxtField[0].text = userGender
                     self.userInformationTxtField[2].text = userCity
                     self.userInformationTxtField[3].text = userLevel
