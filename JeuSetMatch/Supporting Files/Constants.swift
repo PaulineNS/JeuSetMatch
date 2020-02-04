@@ -22,12 +22,15 @@ struct Constants {
     }
     
     struct Segue {
-        static let registerSegue = "FromRegisterToSearch"
-        static let loginSegue = "FromLoginToSearch"
-        static let birthDateSegue = "BirthDatetoLevel"
+        static let genderToBirthDate = "GenderToBirthDate"
+        static let birthDatetoLevel = "BirthDatetoLevel"
         static let leveltoCitiesSegue = "LevelToCities"
-        static let leveltoPseudoSegue = "LevelToPseudo"
-        static let pseudoToMailSegue = "PseudoToMail"
+        static let levelToCity = "LevelToCity"
+        static let cityToPicture = "CityToPicture"
+        static let pictureToPseudo = "PictureToPseudo"
+        static let pseudoToMail = "PseudoToMail"
+        static let registerSegue = "RegisterToSearch"
+        static let loginSegue = "LoginToSearch"
         static let searchToProfileSegue = "SearchToProfile"
         static let searchToFilterSegue = "SearchToFilter"
         static let profileToChatSegue = "ProfileToChat"

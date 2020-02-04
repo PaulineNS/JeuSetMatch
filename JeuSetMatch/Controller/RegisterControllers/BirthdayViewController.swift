@@ -26,7 +26,7 @@ class BirthdayViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == Constants.Segue.birthDateSegue else {return}
+        guard segue.identifier == Constants.Segue.birthDatetoLevel else {return}
         guard let levelVc = segue.destination as? LevelViewController else {return}
         levelVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: currentUser?.sexe, level: nil, city: nil, birthDate: stringBirthDate, uid: nil)
     }
@@ -50,6 +50,6 @@ class BirthdayViewController: UIViewController {
             alertLbl.text = "Veuillez renseigner votre date de naissance avant de continuer"
             return}
         alertLbl.isHidden = true
-        performSegue(withIdentifier: "BirthDatetoLevel", sender: nil)
+        performSegue(withIdentifier: Constants.Segue.birthDatetoLevel, sender: nil)
     }
 }

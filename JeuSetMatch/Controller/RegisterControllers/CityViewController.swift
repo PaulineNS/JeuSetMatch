@@ -35,7 +35,7 @@ final class CityViewController: UIViewController {
         if segue.identifier == Constants.Segue.leveltoCitiesSegue {
             guard let citiesVc = segue.destination as? CitiesViewController else { return }
             citiesVc.didSelectCityDelegate = self
-        } else if segue.identifier == "CityToPseudo" {
+        } else if segue.identifier == Constants.Segue.cityToPicture {
             guard let pictureVc = segue.destination as? PictureViewController else {return}
             pictureVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: currentUser?.sexe, level: currentUser?.level, city: userCity, birthDate: currentUser?.birthDate, uid: nil)
         }
@@ -53,7 +53,7 @@ final class CityViewController: UIViewController {
             cityAlertLabel.text = "Veuillez sélectionner votre ville avant de continuer"
             return }
         cityAlertLabel.isHidden = true
-        performSegue(withIdentifier: "CityToPseudo", sender: nil)
+        performSegue(withIdentifier: Constants.Segue.cityToPicture, sender: nil)
     }    
 }
 

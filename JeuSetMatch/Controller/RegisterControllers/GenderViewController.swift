@@ -29,7 +29,7 @@ final class GenderViewController: UIViewController {
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "GenderToBirthDate" else {return}
+        guard segue.identifier == Constants.Segue.genderToBirthDate else {return}
         guard let birthdateVc = segue.destination as? BirthdayViewController else {return}
         birthdateVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: userGender, level: nil, city: nil, birthDate: nil, uid: nil)
     }
@@ -59,9 +59,7 @@ final class GenderViewController: UIViewController {
 //            pseudoAlert.text = "Veuillez renseigner un pseudo avant de continuer"
             return
         }
-        print(userGender)
-
 //        pseudoAlert.isHidden = true
-        performSegue(withIdentifier: "GenderToBirthDate", sender: nil)
+        performSegue(withIdentifier: Constants.Segue.genderToBirthDate, sender: nil)
     }
 }

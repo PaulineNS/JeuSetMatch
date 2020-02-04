@@ -41,7 +41,7 @@ final class PictureViewController: UIViewController {
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "PictureToPseudo" else { return }
+        guard segue.identifier == Constants.Segue.pictureToPseudo else { return }
         guard let pseudoVc = segue.destination as? PseudoViewController else { return }
         guard let pictureData = userPicture.jpegData(compressionQuality: 0.1) else { return }
         pseudoVc.currentUser = UserObject(pseudo: nil, image: pictureData, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
@@ -56,7 +56,7 @@ final class PictureViewController: UIViewController {
             return
         }
         pictureAlertLabel.isHidden = true
-        performSegue(withIdentifier: "PictureToPseudo", sender: nil)
+        performSegue(withIdentifier: Constants.Segue.pictureToPseudo, sender: nil)
     }
     
     @objc private func didTapProfilPicture() {

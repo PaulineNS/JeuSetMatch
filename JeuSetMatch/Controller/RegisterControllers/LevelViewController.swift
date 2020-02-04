@@ -25,19 +25,19 @@ class LevelViewController: UIViewController {
     
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "LevelToCity" {
+        if segue.identifier == Constants.Segue.levelToCity {
             guard let cityVc = segue.destination as? CityViewController else {return}
             cityVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: currentUser?.sexe, level: userLevel, city: nil, birthDate: currentUser?.birthDate, uid: nil)
         }
     }
     
     @IBAction func continueButtonPressed(_ sender: Any) {
-        guard userLevel != "" && userLevel != "Choisir" else {
+        guard userLevel != nil && userLevel != "Choisir" else {
             levelAlert.isHidden = false
             levelAlert.text = "Veuillez renseigner votre niveau avant de continuer"
             return}
         levelAlert.isHidden = true
-        performSegue(withIdentifier: "LevelToCity", sender: nil)
+        performSegue(withIdentifier: Constants.Segue.levelToCity, sender: nil)
     }
 }
 

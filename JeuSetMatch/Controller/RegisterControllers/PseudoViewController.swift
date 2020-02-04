@@ -31,7 +31,7 @@ class PseudoViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "PseudoToMail" else { return }
+        guard segue.identifier == Constants.Segue.pseudoToMail else { return }
         guard let mailVc = segue.destination as? MailViewController else { return }
         mailVc.currentUser = UserObject(pseudo: userPseudo, image: currentUser?.image, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
     }
@@ -62,7 +62,7 @@ class PseudoViewController: UIViewController {
             return
         }
         pseudoAlert.isHidden = true
-        performSegue(withIdentifier: "PseudoToMail", sender: nil)
+        performSegue(withIdentifier: Constants.Segue.pseudoToMail, sender: nil)
     }
     
     
