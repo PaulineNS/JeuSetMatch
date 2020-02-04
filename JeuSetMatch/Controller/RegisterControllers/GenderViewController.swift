@@ -14,6 +14,7 @@ final class GenderViewController: UIViewController {
     
     @IBOutlet weak var madamButton: UIButton!
     @IBOutlet weak var sirButton: UIButton!
+    @IBOutlet weak var alertLabel: UILabel!
     
     // MARK: - Variables
     
@@ -23,7 +24,7 @@ final class GenderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        alertLabel.isHidden = true
+        alertLabel.isHidden = true
     }
     
     // MARK: - Segue
@@ -55,11 +56,11 @@ final class GenderViewController: UIViewController {
         }
         guard userGender != nil else {
             print("met un gender")
-//            pseudoAlert.isHidden = false
-//            pseudoAlert.text = "Veuillez renseigner un pseudo avant de continuer"
+            alertLabel.isHidden = false
+            alertLabel.text = "Veuillez renseigner un pseudo avant de continuer"
             return
         }
-//        pseudoAlert.isHidden = true
+        alertLabel.isHidden = true
         performSegue(withIdentifier: Constants.Segue.genderToBirthDate, sender: nil)
     }
 }

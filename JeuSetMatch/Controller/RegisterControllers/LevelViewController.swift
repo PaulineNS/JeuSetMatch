@@ -19,7 +19,7 @@ class LevelViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        levelPickerView.selectRow(Constants.Arrays.levelsPickerRegister.count-1, inComponent: 0, animated: true)
+    levelPickerView.selectRow(Constants.Arrays.levelsPickerRegister.count-1, inComponent: 0, animated: true)
         levelAlert.isHidden = true
     }
     
