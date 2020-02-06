@@ -13,7 +13,7 @@ final class CitiesViewController: UIViewController {
     // MARK: - Instensiation
     
     private let googlePlacesService = GooglePlacesService()
-
+    
     // MARK: - Variables
     
     private var citySelected: String?
@@ -50,7 +50,7 @@ extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-// MARK: - TextField
+// MARK: - TextField Delegate
 
 extension CitiesViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

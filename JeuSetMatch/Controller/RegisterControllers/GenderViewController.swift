@@ -19,7 +19,7 @@ final class GenderViewController: UIViewController {
     // MARK: - Variables
     
     private var userGender: String?
-
+    
     // MARK: - Controller life cycle
     
     override func viewDidLoad() {
@@ -36,20 +36,20 @@ final class GenderViewController: UIViewController {
     }
     
     // MARK: - Actions
+    
     @IBAction func madamCheckboxTapped(_ sender: UIButton) {
-            madamButton.isSelected = true
-            sirButton.isSelected = false
-        }
+        madamButton.isSelected = true
+        sirButton.isSelected = false
+    }
     
     @IBAction func sirCheckboxTapped(_ sender: UIButton) {
-            sirButton.isSelected = true
-            madamButton.isSelected = false
+        sirButton.isSelected = true
+        madamButton.isSelected = false
     }
     
     @IBAction private func continueButtonPressed(_ sender: UIButton) {
         if madamButton.isSelected {
             userGender = "Femme"
-
         }
         if sirButton.isSelected {
             userGender = "Homme"

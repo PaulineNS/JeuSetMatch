@@ -39,7 +39,6 @@ final class ChatViewController: UIViewController {
         super.viewDidLoad()
         self.tabBarController?.navigationItem.hidesBackButton = true
         chatTableView.register(UINib(nibName: Constants.Cell.chatCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.chatCellIdentifier)
-//        receiverPseudo.title = user?.pseudo
     }
     
     // MARK: - Actions
@@ -92,14 +91,12 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         let message = messages[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.chatCellIdentifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell()}
         cell.messageLabel.text = message.text
-        
         guard message.toId == fireStoreService.currentUserUid else {
             cell.leftAvatarImageView.isHidden = true
             cell.rightAvatarImageView.isHidden = false
             cell.messageBubble.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
             cell.messageLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             return cell }
-        
         cell.rightAvatarImageView.image = UIImage(data: receiverUser?.image ?? Data())
         cell.leftAvatarImageView.isHidden = false
         cell.rightAvatarImageView.isHidden = true

@@ -67,129 +67,78 @@ final class SearchViewController: UIViewController {
     // MARK: - Methods
     
     func fetchUsers(){
-        
-        // MARK: - TODO ENUM
-
         guard let gender = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterGender), let city = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterCity), let level = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterLevel) else {return}
-        //Three filters
-        if gender == "Tout" && city == "Tout" && level == "Tout" {
+        switch gender {
+        case gender where gender == "Tout" && city == "Tout" && level == "Tout":
             fetchUsersWithoutFilters()
-        }
-        //One Filters
-        if gender == "Tout" && city == "Tout" && level != "Tout" {
+        case gender where gender == "Tout" && city == "Tout" && level != "Tout":
             let levelField = Constants.FStore.userLevelField
-            fetchUsersDependingOneFilter(field1: levelField, field1value: level)
-        }
-        if gender == "Tout" && city != "Tout" && level == "Tout" {
+            fetchUsersWithOneFilter(field1: levelField, field1value: level)
+        case gender where gender == "Tout" && city != "Tout" && level == "Tout":
             let cityField = Constants.FStore.userCityField
-            fetchUsersDependingOneFilter(field1: cityField, field1value: city)            
-        }
-        if gender != "Tout" && city == "Tout" && level == "Tout" {
+            fetchUsersWithOneFilter(field1: cityField, field1value: city)
+        case gender where gender != "Tout" && city == "Tout" && level == "Tout":
             let genderField = Constants.FStore.userGenderField
-            fetchUsersDependingOneFilter(field1: genderField, field1value: gender)
-        }
-        // TwoFilters
-        if gender != "Tout" && city != "Tout" && level == "Tout" {
+            fetchUsersWithOneFilter(field1: genderField, field1value: gender)
+        case gender where gender != "Tout" && city != "Tout" && level == "Tout":
             let cityField = Constants.FStore.userCityField
             let genderField = Constants.FStore.userGenderField
-            fetchUsersDependingTwoFilters(field1: genderField, field1value: gender, field2: cityField, field2Value: city)
-        }
-        if gender != "Tout" && city == "Tout" && level != "Tout" {
+            fetchUsersWithTwoFilters(field1: genderField, field1value: gender, field2: cityField, field2Value: city)
+        case gender where gender != "Tout" && city == "Tout" && level != "Tout":
             let genderField = Constants.FStore.userGenderField
             let levelField = Constants.FStore.userLevelField
-            fetchUsersDependingTwoFilters(field1: genderField, field1value: gender, field2: levelField, field2Value: level)
-        }
-        if gender == "Tout" && city != "Tout" && level != "Tout" {
+            fetchUsersWithTwoFilters(field1: genderField, field1value: gender, field2: levelField, field2Value: level)
+        case gender where gender == "Tout" && city != "Tout" && level != "Tout":
             let cityField = Constants.FStore.userCityField
             let genderField = Constants.FStore.userGenderField
-            fetchUsersDependingTwoFilters(field1: cityField, field1value: city, field2: genderField, field2Value: gender)
+            fetchUsersWithTwoFilters(field1: cityField, field1value: city, field2: genderField, field2Value: gender)
+        case gender where gender != "Tout" && city != "Tout" && level != "Tout":
+            fetchUsersWithThreeFilters(gender: gender, city: city, level: level)
+        default:
+            break
         }
-        // Without Filters
-        if gender != "Tout" && city != "Tout" && level != "Tout" {
-            fetchUsersDependingThreeFilters(gender: gender, city: city, level: level)
-        }
     }
     
-    func fetchUsersDependingOneFilter(field1: String, field1value: String){
-        customLoader.showLoaderView()
-        userUseCase.fetchUserInformationsDependingOneFilter(field1: field1, field1value: field1value, completion: { (result) in
-            self.customLoader.hideLoaderView()
-            switch result {
-            case .success(let users):
-                self.users.append(users)
-                DispatchQueue.main.async {
-                    self.usersTableView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .none:
-                self.users = []
-                DispatchQueue.main.async {
-                    self.usersTableView.reloadData()
-                }
-            }
+    func fetchUsersWithOneFilter(field1: String, field1value: String){
+        fetchUsersDependingOneFilter(field1: field1, field1value: field1value, onSuccess: {(users) in
+            self.users.append(users)
+            self.reloadTableViewInMainQueue()
+        }, onNone: {
+            self.reloadTableViewInMainQueue()
         })
     }
-    
-    func fetchUsersDependingTwoFilters(field1: String, field1value: String, field2: String, field2Value: String){
-        customLoader.showLoaderView()
-        userUseCase.fetchUsersInformationsDependingTwoFilters(field1: field1, field1value: field1value, field2: field2, field2Value: field2Value, completion: { (result) in
-            self.customLoader.hideLoaderView()
-            switch result {
-            case .success(let users):
-                self.users.append(users)
-                DispatchQueue.main.async {
-                    self.usersTableView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .none:
-                DispatchQueue.main.async {
-                    self.usersTableView.reloadData()
-                }
-            }
+
+    func fetchUsersWithTwoFilters(field1: String, field1value: String, field2: String, field2Value: String){
+        fetchUsersDependingTwoFilters(field1: field1, field1value: field1value, field2: field2, field2Value: field2Value, onSuccess: {(users) in
+            self.users.append(users)
+            self.reloadTableViewInMainQueue()
+        }, onNone: {
+            self.reloadTableViewInMainQueue()
         })
     }
-    
-    func fetchUsersDependingThreeFilters(gender: String, city: String, level: String) {
-        customLoader.showLoaderView()
-        userUseCase.fetchUserInformationsDependingAllFilters(gender: gender, city: city, level: level, completion: { (result) in
-            self.customLoader.hideLoaderView()
-            switch result {
-            case .success(let users):
-                self.users.append(users)
-                DispatchQueue.main.async {
-                    self.usersTableView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .none:
-                DispatchQueue.main.async {
-                    
-                    self.usersTableView.reloadData()
-                }
-            }
+
+    func fetchUsersWithThreeFilters(gender: String, city: String, level: String) {
+        fetchUsersDependingThreeFilters(gender: gender, city: city, level: level, onSuccess: {(users) in
+            self.users.append(users)
+            self.reloadTableViewInMainQueue()
+        }, onNone: {
+            self.reloadTableViewInMainQueue()
         })
     }
-    
+
     func fetchUsersWithoutFilters(){
-        customLoader.showLoaderView()
-        userUseCase.fetchUserWithoutFilters(completion: { (result) in
-            self.customLoader.hideLoaderView()
-            switch result {
-            case .success(let users):
-                self.users.append(users)
-                DispatchQueue.main.async {
-                    self.usersTableView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .none:
-                DispatchQueue.main.async {
-                    self.usersTableView.reloadData()
-                }
-            }
+        fetchUsersWithoutFilters(onSuccess: { (users) in
+            self.users.append(users)
+            self.reloadTableViewInMainQueue()
+        }, onNone: {
+            self.reloadTableViewInMainQueue()
         })
+    }
+    
+    func reloadTableViewInMainQueue() {
+        DispatchQueue.main.async {
+            self.usersTableView.reloadData()
+        }
     }
 }
 
@@ -216,11 +165,9 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
-        
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "person")
         view.addSubview(imageView)
-        
         let label = UILabel()
         label.text = "Aucun joueur ne correspond à votre recherche"
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -228,18 +175,15 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         label.textColor = .darkGray
         label.numberOfLines = 0
         view.addSubview(label)
-
         imageView.snp.makeConstraints { (make) in
             make.center.equalTo(view)
             make.height.width.equalTo(200)
         }
-        
         label.snp.makeConstraints { (make) in
             make.top.equalTo(imageView.snp.bottom).offset(20.0)
             make.right.equalTo(view).offset(15.0)
             make.left.equalTo(view).offset(15.0)
         }
-        
         return view
     }
     
@@ -247,6 +191,8 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         return users.isEmpty ? tableView.bounds.size.height : 0
     }
 }
+
+// MARK: - DidSearchFiltersDelegate
 
 extension SearchViewController: DidSearchFiltersDelegate {
     func searchFiltersTapped(users: [UserObject]) {

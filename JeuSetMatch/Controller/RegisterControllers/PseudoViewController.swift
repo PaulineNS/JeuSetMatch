@@ -8,15 +8,21 @@
 
 import UIKit
 
-class PseudoViewController: UIViewController {
+final class PseudoViewController: UIViewController {
+
+    // MARK: - Variables
 
     var currentUser: UserObject?
     private var userPseudo: String?
     private var registerUsecase: RegisterUseCase?
 
+    // MARK: - Outlets
+
     @IBOutlet weak var pseudoTextField: UITextField!
     @IBOutlet weak var pseudoAlert: UILabel!
     
+    // MARK: - Controller life cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let firestoreRegister = FirestoreRegisterService()
@@ -24,22 +30,18 @@ class PseudoViewController: UIViewController {
         pseudoAlert.isHidden = true
     }
     
-    private func manageAlertLabel(visibility: Bool, text: String, color: UIColor){
-        pseudoAlert.isHidden = visibility
-        pseudoAlert.text = text
-        pseudoTextField.textColor = color
-    }
-    
+    // MARK: - Segue
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.Segue.pseudoToMail else { return }
         guard let mailVc = segue.destination as? MailViewController else { return }
         mailVc.currentUser = UserObject(pseudo: userPseudo, image: currentUser?.image, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
     }
     
+    // MARK: - Actions
+    
     @IBAction func pseudoTxtFieldChanged(_ sender: UITextField) {
-        if sender.text?.count ?? 0 < 4 {
-            manageAlertLabel(visibility: false, text: "Votre pseudo doit comporter plus de 4 charactères", color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))
-        } else {
+        guard sender.text?.count ?? 0 < 4 else {
             registerUsecase?.checkPseudoDisponibility(field: sender.text ?? "") { (success) in
                 guard success == true else {
                     DispatchQueue.main.async {
@@ -52,8 +54,29 @@ class PseudoViewController: UIViewController {
                     self.manageAlertLabel(visibility: false, text: "Ce pseudo n'est pas disponible", color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))
                 }
             }
+            return
         }
+        manageAlertLabel(visibility: false, text: "Votre pseudo doit comporter plus de 4 charactères", color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))
     }
+
+        
+//        if sender.text?.count ?? 0 < 4 {
+//            manageAlertLabel(visibility: false, text: "Votre pseudo doit comporter plus de 4 charactères", color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))
+//        } else {
+//            registerUsecase?.checkPseudoDisponibility(field: sender.text ?? "") { (success) in
+//                guard success == true else {
+//                    DispatchQueue.main.async {
+//                        self.manageAlertLabel(visibility: true, text: "", color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+//                        self.userPseudo = sender.text ?? ""
+//                    }
+//                    return
+//                }
+//                DispatchQueue.main.async {
+//                    self.manageAlertLabel(visibility: false, text: "Ce pseudo n'est pas disponible", color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))
+//                }
+//            }
+//        }
+//    }
     
     @IBAction func continueButtonPressed(_ sender: Any) {
         guard userPseudo != nil else {
@@ -65,5 +88,11 @@ class PseudoViewController: UIViewController {
         performSegue(withIdentifier: Constants.Segue.pseudoToMail, sender: nil)
     }
     
-    
+    // MARK: - Methods
+
+    private func manageAlertLabel(visibility: Bool, text: String, color: UIColor){
+        pseudoAlert.isHidden = visibility
+        pseudoAlert.text = text
+        pseudoTextField.textColor = color
+    }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FilterTableViewCell: UITableViewCell {
+final class FilterTableViewCell: UITableViewCell {
 
     // MARK: - Outlets
 
@@ -41,16 +41,9 @@ class FilterTableViewCell: UITableViewCell {
         agePicker?.delegate = self
         agePicker?.dataSource = self
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
 }
 
 // MARK: - Picker View Delegate and Data Source
-
-// MARK: - TODO ENUM
 
 extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -59,43 +52,44 @@ extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == levelPicker {
+        switch pickerView {
+        case pickerView where pickerView == levelPicker:
             return Constants.Arrays.levelsPickerFilterUser.count
-        }
-        if pickerView == genderPicker {
+        case pickerView where pickerView == genderPicker:
             return Constants.Arrays.gendersPickerFilterUser.count
-        }
-        if pickerView == agePicker {
+        case pickerView where pickerView == agePicker:
             return Constants.Arrays.agePickerFilterUser.count
+        default:
+            return 0
         }
-        return 0
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == levelPicker {
+        switch pickerView {
+        case pickerView where pickerView == levelPicker:
             return Constants.Arrays.levelsPickerFilterUser[row]
-        }
-        if pickerView == genderPicker {
+        case pickerView where pickerView == genderPicker:
             return Constants.Arrays.gendersPickerFilterUser[row]
-        }
-        if pickerView == agePicker {
+        case pickerView where pickerView == agePicker:
             return Constants.Arrays.agePickerFilterUser[row]
+        default:
+            return ""
         }
-        return ""
     }
     
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == levelPicker {
+        switch pickerView {
+        case pickerView where pickerView == levelPicker:
             filterValueTxtField.text = Constants.Arrays.levelsPickerFilterUser[row]
             UserDefaults.standard.set(filterValueTxtField.text, forKey: Constants.UDefault.savedFilterLevel)
-        }
-        if pickerView == genderPicker {
+        case pickerView where pickerView == genderPicker:
             filterValueTxtField.text = Constants.Arrays.gendersPickerFilterUser[row]
             UserDefaults.standard.set(filterValueTxtField.text, forKey: Constants.UDefault.savedFilterGender)
-        }
-        if pickerView == agePicker {
+        case pickerView where pickerView == agePicker:
             filterValueTxtField.text = Constants.Arrays.agePickerFilterUser[row]
             UserDefaults.standard.set(filterValueTxtField.text, forKey: "savedAge")
+        default:
+            break
         }
     }
 }

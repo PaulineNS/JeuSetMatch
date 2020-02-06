@@ -45,8 +45,7 @@ final class LoginViewController: UIViewController {
         loginUseCase?.login(with: email, password: password) { (result) in
             switch result {
             case .success :
-                self.performSegue(withIdentifier: Constants.Segue.loginSegue, sender: self)
-                
+                self.performSegue(withIdentifier: Constants.Segue.loginSegue, sender: self)                
             case .failure(let error):
                 print(error.localizedDescription)
                 self.alertLabel.isHidden = false

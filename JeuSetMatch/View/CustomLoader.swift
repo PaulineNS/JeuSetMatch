@@ -11,7 +11,7 @@ import UIKit
 import ImageIO
 
 
-class CustomLoader: UIView {
+final class CustomLoader: UIView {
     
     // MARK: - Variables
 

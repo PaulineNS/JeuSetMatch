@@ -8,28 +8,36 @@
 
 import UIKit
 
-class LevelViewController: UIViewController {
-
+final class LevelViewController: UIViewController {
+    
+    // MARK: - Outlets
+    
     @IBOutlet weak var levelPickerView: UIPickerView!
     @IBOutlet weak var levelAlert: UILabel!
+    
+    // MARK: - Variables
     
     var currentUser: UserObject?
     private var userLevel: String?
     
-
+    // MARK: - Controller life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    levelPickerView.selectRow(Constants.Arrays.levelsPickerRegister.count-1, inComponent: 0, animated: true)
+        levelPickerView.selectRow(Constants.Arrays.levelsPickerRegister.count-1, inComponent: 0, animated: true)
         levelAlert.isHidden = true
     }
     
-
+    // MARK: - Segue
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.levelToCity {
             guard let cityVc = segue.destination as? CityViewController else {return}
             cityVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: currentUser?.sexe, level: userLevel, city: nil, birthDate: currentUser?.birthDate, uid: nil)
         }
     }
+    
+    // MARK: - Actions
     
     @IBAction func continueButtonPressed(_ sender: Any) {
         guard userLevel != nil && userLevel != "Choisir" else {
@@ -40,6 +48,8 @@ class LevelViewController: UIViewController {
         performSegue(withIdentifier: Constants.Segue.levelToCity, sender: nil)
     }
 }
+
+// MARK: - PickerView Delegate, Datasource
 
 extension LevelViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

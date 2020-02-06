@@ -13,12 +13,12 @@ import AVFoundation
 final class ProfileViewController: UIViewController {
     
     // MARK: - Instensiation
-
+    
     private let firestoreService = FirestoreService()
     private let firestoreUser = FirestoreUserService()
     private let customLoader = CustomLoader()
     private let image = UIImagePickerController()
-
+    
     // MARK: - Variables
     
     var userToShow: UserObject?
@@ -125,13 +125,21 @@ final class ProfileViewController: UIViewController {
         
         let isValideAge = validateAge(birthDate: datePicker.date, minimumAge: minimumAge ?? Date())
         birthdate = convertDateToString(date: datePicker.date)
-        if isValideAge {
-            alertDateLbl.isHidden = true
-            userInformationTxtField[1].text = dateToAge(birthDate: datePicker.date)
-        } else {
+        guard isValideAge else {
             alertDateLbl.isHidden = false
             alertDateLbl.text = "Vous devez avoir au moins 10 ans pour utiliser l'application"
+            return
         }
+        alertDateLbl.isHidden = true
+        userInformationTxtField[1].text = dateToAge(birthDate: datePicker.date)
+        
+//        if isValideAge {
+//            alertDateLbl.isHidden = true
+//            userInformationTxtField[1].text = dateToAge(birthDate: datePicker.date)
+//        } else {
+//            alertDateLbl.isHidden = false
+//            alertDateLbl.text = "Vous devez avoir au moins 10 ans pour utiliser l'application"
+//        }
     }
     
     
@@ -256,31 +264,35 @@ extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == levelPicker {
+        switch pickerView {
+        case pickerView where pickerView == levelPicker:
             return Constants.Arrays.levelsPickerUpdateProfil.count
-        }
-        if pickerView == genderPicker {
+        case pickerView where pickerView == genderPicker:
             return Constants.Arrays.gendersPickerUpdateProfil.count
+        default:
+            return 0
         }
-        return 0
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == levelPicker {
+        switch pickerView {
+        case pickerView where pickerView == levelPicker:
             return Constants.Arrays.levelsPickerUpdateProfil[row]
-        }
-        if pickerView == genderPicker {
+        case pickerView where pickerView == genderPicker:
             return Constants.Arrays.gendersPickerUpdateProfil[row]
+        default:
+            return ""
         }
-        return ""
     }
     
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == levelPicker {
+        switch pickerView {
+        case pickerView where pickerView == levelPicker:
             userInformationTxtField[3].text = Constants.Arrays.levelsPickerUpdateProfil[row]
-        }
-        if pickerView == genderPicker {
+        case pickerView where pickerView == genderPicker:
             userInformationTxtField[0].text = Constants.Arrays.gendersPickerUpdateProfil[row]
+        default:
+            break
         }
     }
 }

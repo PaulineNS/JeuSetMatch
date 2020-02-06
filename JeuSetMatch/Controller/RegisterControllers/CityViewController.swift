@@ -40,7 +40,7 @@ final class CityViewController: UIViewController {
             pictureVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: currentUser?.sexe, level: currentUser?.level, city: userCity, birthDate: currentUser?.birthDate, uid: nil)
         }
     }
-
+    
     // MARK: - Actions
     
     @IBAction private func citiesButtonSelected(_ sender: UIButton) {
@@ -56,6 +56,8 @@ final class CityViewController: UIViewController {
         performSegue(withIdentifier: Constants.Segue.cityToPicture, sender: nil)
     }    
 }
+
+// MARK: - DidSelectCityDelegate
 
 extension CityViewController: DidSelectCityDelegate {
     func rowTapped(with city: String) {

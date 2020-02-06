@@ -8,10 +8,14 @@
 
 import UIKit
 
-class BirthdayViewController: UIViewController {
-
+final class BirthdayViewController: UIViewController {
+    
+    // MARK: - Outlets
+    
     @IBOutlet weak var birthdayDatePicker: UIDatePicker!
     @IBOutlet weak var alertLbl: UILabel!
+    
+    // MARK: - Variables
     
     var currentUser: UserObject?
     private var birthDate = Date()
@@ -19,17 +23,23 @@ class BirthdayViewController: UIViewController {
     private let minimumAge = Calendar.current.date(byAdding: .year, value: -10, to: Date())
     private let maximumAge = Calendar.current.date(byAdding: .year, value: -100, to: Date())
     
+    // MARK: - Controller life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         alertLbl.isHidden = true
         birthdayDatePicker.minimumDate = maximumAge
     }
     
+    // MARK: - Segue
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.Segue.birthDatetoLevel else {return}
         guard let levelVc = segue.destination as? LevelViewController else {return}
         levelVc.currentUser = UserObject(pseudo: nil, image: nil, sexe: currentUser?.sexe, level: nil, city: nil, birthDate: stringBirthDate, uid: nil)
     }
+    
+    // MARK: - Actions
     
     @IBAction func birthDateChanged(_ sender: Any) {
         let isValideAge = validateAge(birthDate: birthdayDatePicker.date, minimumAge: minimumAge ?? Date())

@@ -41,7 +41,6 @@ final class MessagesViewController: UIViewController {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Messages"
         self.tabBarController?.navigationItem.rightBarButtonItem = nil
-
     }
     
     // MARK: - Segue
@@ -115,11 +114,9 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
-
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "sad")
         view.addSubview(imageView)
-        
         let label = UILabel()
         label.text = "Vous n'avez pas encore de message"
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -127,19 +124,15 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
         label.textColor = .darkGray
         label.numberOfLines = 0
         view.addSubview(label)
-        
-
         imageView.snp.makeConstraints { (make) in
             make.center.equalTo(view)
             make.height.width.equalTo(200)
         }
-        
         label.snp.makeConstraints { (make) in
             make.top.equalTo(imageView.snp.bottom).offset(20.0)
             make.right.equalTo(view).offset(15.0)
             make.left.equalTo(view).offset(15.0)
         }
-        
         return view
     }
     

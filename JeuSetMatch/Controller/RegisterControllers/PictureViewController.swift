@@ -23,7 +23,7 @@ final class PictureViewController: UIViewController {
     private var userPicture = UIImage()
     
     // MARK: - Outlets
-
+    
     @IBOutlet private weak var profilPictureImageView: UIImageView!
     @IBOutlet private weak var pictureAlertLabel: UILabel!
     
@@ -48,7 +48,7 @@ final class PictureViewController: UIViewController {
     }
     
     // MARK: - Actions
-
+    
     @IBAction private func continueButtonPressed(_ sender: UIButton) {
         guard isImageChanged == true else {
             pictureAlertLabel.isHidden = false
