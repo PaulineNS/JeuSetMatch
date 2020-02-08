@@ -136,7 +136,7 @@ final class ProfileViewController: UIViewController {
         birthdate = convertDateToString(date: datePicker.date)
         guard isValideAge else {
             alertDateLbl.isHidden = false
-            alertDateLbl.text = "Vous devez avoir au moins 10 ans pour utiliser l'application"
+            alertDateLbl.text = "Vous devez avoir au moins 10 ans"
             return
         }
         alertDateLbl.isHidden = true
@@ -164,6 +164,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
+        alertDateLbl.isHidden = true
         manageTxtField(status: false, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         validateButton.isHidden = true
         cancelButton.isHidden = true
