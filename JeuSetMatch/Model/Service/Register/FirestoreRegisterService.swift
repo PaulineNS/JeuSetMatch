@@ -39,7 +39,7 @@ class FirestoreRegisterService: RegisterUseCaseOutput {
         }
     }
     
-    func checkPseudoDisponibility(field: String, completion: @escaping CheckPseudoDisponibility) {
+    func checkPseudoDisponibility(field: String, completion: @escaping CheckPseudoDisponibilityCompletion) {
         let collectionRef = db.collection(Constants.FStore.userCollectionName)
         collectionRef.whereField(Constants.FStore.userPseudoField, isEqualTo: field).getDocuments { (snapshot, error) in
             if let error = error {
@@ -52,6 +52,20 @@ class FirestoreRegisterService: RegisterUseCaseOutput {
                         completion(true)
                     }
                 }
+            }
+        }
+    }
+    
+    func deleteAccount(completion: @escaping DeleteAccountCompletion) {
+        guard let currentUser = Auth.auth().currentUser else {
+            return}
+        currentUser.delete { error in
+            if error != nil {
+                print("An error happened")
+                completion(false)
+            } else {
+                print("successfully deleted")
+                completion(true)
             }
         }
     }

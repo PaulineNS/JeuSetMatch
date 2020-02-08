@@ -12,7 +12,8 @@ final class ChatViewController: UIViewController {
     
     // MARK: - Instensiation
 
-    private let fireStoreService = FirestoreService()
+//    private let fireStoreService = FirestoreService()
+    private let firestoreUser = FirestoreUserService()
     private let firestoreConversation = FirestoreConversationService()
     
     // MARK: - Variables
@@ -46,7 +47,14 @@ final class ChatViewController: UIViewController {
     @IBAction private func sendPressed(_ sender: UIButton) {
         let properties : [String : Any] = [Constants.FStore.textMessage: chatTextField.text!]
         guard let toId = receiverUser?.uid else { return }
-        fireStoreService.sendMessage(withProperties: properties, toId: toId)
+       
+       
+        conversationUseCase.sendMessage(withProperties: properties, toId: toId) { (isSuccess) in
+            if !isSuccess {
+                //presentAlert
+            }
+        }
+//        fireStoreService.sendMessage(withProperties: properties, toId: toId)
         self.chatTextField.text = ""
     }
     
@@ -91,7 +99,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         let message = messages[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.chatCellIdentifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell()}
         cell.messageLabel.text = message.text
-        guard message.toId == fireStoreService.currentUserUid else {
+        guard message.toId == firestoreUser.currentUserUid else {
             cell.leftAvatarImageView.isHidden = true
             cell.rightAvatarImageView.isHidden = false
             cell.messageBubble.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)

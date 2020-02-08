@@ -11,6 +11,8 @@ import Firebase
 class FirestoreUserService: UserUseCaseOutput {
     
     private let db = Firestore.firestore()
+    let currentUserUid = Auth.auth().currentUser?.uid
+
     
     func fetchUserWithoutFilters(completion: @escaping UserCompletion) {
         db.collection(Constants.FStore.userCollectionName).getDocuments { (querySnapshot, error) in
@@ -108,6 +110,37 @@ class FirestoreUserService: UserUseCaseOutput {
                     let user = UserObject(pseudo: userPseudo, image: userPicture, sexe: userGender, level: userLevel, city: userCity, birthDate: userBirthDate, uid: userUid)
                     completion(.success(user))
                 }
+            }
+        }
+    }
+    
+    func setupNameAndProfileImage(id: String, completion: @escaping SetUpCompletion) {
+        db.collection(Constants.FStore.userCollectionName).document("\(id)").getDocument(source: .default) { (snapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(.failure(FireStoreError.noData))
+                return
+            }
+            if let dictionary = snapshot?.data() {
+                completion(.success(dictionary))
+            }
+        }
+    }
+    
+    func updateUserInformation(userAge: String, userCity: String, userGender: String, userLevel: String, userImage: Data, completion: @escaping updateInformationsCompletion) {
+        db.collection(Constants.FStore.userCollectionName).document(Auth.auth().currentUser?.uid ?? "").updateData([
+            Constants.FStore.userAgeField: userAge,
+            Constants.FStore.userCityField: userCity,
+            Constants.FStore.userGenderField: userGender,
+            Constants.FStore.userPictureField: userImage,
+            Constants.FStore.userLevelField: userLevel,
+        ]) { error in
+            if let error = error {
+                print("Error updating document: \(error)")
+                completion(false)
+            } else {
+                print("Document successfully updated")
+                completion(true)
             }
         }
     }

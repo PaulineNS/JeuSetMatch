@@ -101,13 +101,44 @@ class ConversationUseCaseTest: XCTestCase {
         
         wait(for: [exp], timeout: 1.0)
     }
-
+    
+    func test_sendMessage_fails() {
+        let message = ConversationSpy()
+        let sut = ConversationUseCase(message: message)
+        let expectedAnswer = false
+        
+        let exp = expectation(description: "Wait for login completion")
+        sut.sendMessage(withProperties: ["":""], toId: "") { isSuccess in
+            if !isSuccess {
+                XCTAssertEqual(isSuccess, expectedAnswer)
+            }
+            exp.fulfill()
+        }
+        message.sendMessageFail(with: expectedAnswer)
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    func test_sendMessage_succeeds() {
+        let message = ConversationSpy()
+        let sut = ConversationUseCase(message: message)
+        let expectedAnswer = true
+        
+        let exp = expectation(description: "Wait for login completion")
+        sut.sendMessage(withProperties: ["":""], toId: "") { isSuccess in
+            if isSuccess {
+                XCTAssertEqual(isSuccess, expectedAnswer)
+            }
+            exp.fulfill()
+        }
+        message.sendMessageFail(with: expectedAnswer)
+        wait(for: [exp], timeout: 1.0)
+    }
 
     // MARK: - Spy
 
     class ConversationSpy: ConversationUseCaseOutput {
-        
         var conversationCompletion = [((Result<MessageObject, Error>)?) -> Void]()
+        var sendMessageCompletion = [(Bool) -> Void]()
         
         
         func observeUserMessages(completion: @escaping ((Result<MessageObject, Error>)?) -> Void) {
@@ -118,12 +149,24 @@ class ConversationUseCaseTest: XCTestCase {
             conversationCompletion.append(completion)
         }
         
+        func sendMessage(withProperties: [String : Any], toId: String, completion: @escaping (Bool) -> Void) {
+            sendMessageCompletion.append(completion)
+        }
+        
         func completeObserveMessageSuccessfully(with message: MessageObject, at index: Int = 0) {
             conversationCompletion[index](.success(message))
         }
         
         func completeObserveMessageFail(with error: NSError, at index: Int = 0) {
             conversationCompletion[index](.failure(error))
+        }
+        
+        func sendMessageSuccessfully(with response: Bool, at index: Int = 0) {
+            sendMessageCompletion[index](response)
+        }
+        
+        func sendMessageFail(with response: Bool, at index: Int = 0) {
+            sendMessageCompletion[index](response)
         }
     }
     

@@ -14,8 +14,10 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - Instensiation
     
-    private let firestoreService = FirestoreService()
+//    private let firestoreService = FirestoreService()
     private let firestoreUser = FirestoreUserService()
+    private let firestoreLogin = FirestoreLogService()
+    private let firestoreRegister = FirestoreRegisterService()
     private let customLoader = CustomLoader()
     private let image = UIImagePickerController()
     
@@ -23,7 +25,9 @@ final class ProfileViewController: UIViewController {
     
     var userToShow: UserObject?
     var IsSegueFromSearch = false
+    lazy private var registerUseCase: RegisterUseCase = RegisterUseCase(client: firestoreRegister)
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
+    lazy private var loginUseCase: LogUseCase = LogUseCase(client: firestoreLogin)
     private var IsSegueFromCity = false
     private var birthdate: String?
     private var userInformations: [UserObject] = []
@@ -64,7 +68,7 @@ final class ProfileViewController: UIViewController {
         super.viewWillAppear(animated)
         guard IsSegueFromSearch == true else {
             guard IsSegueFromCity == true else {
-                guard let currentUserUid = firestoreService.currentUserUid else {return}
+                guard let currentUserUid = firestoreUser.currentUserUid else {return}
                 fetchUserInformations(userUid: currentUserUid )
                 self.tabBarController?.navigationItem.hidesBackButton = true
                 self.tabBarController?.navigationItem.rightBarButtonItem = logOutBarButtonItem
@@ -109,7 +113,12 @@ final class ProfileViewController: UIViewController {
     }
     
     @IBAction private func logOutPressed(_ sender: UIBarButtonItem) {
-        firestoreService.logOut()
+        loginUseCase.logOut { isSuccess in
+            if !isSuccess {
+                // PresentAlert
+            }
+        }
+//        firestoreService.logOut()
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         let logInViewController = mainStoryBoard.instantiateViewController(withIdentifier: "loginViewController")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -132,14 +141,6 @@ final class ProfileViewController: UIViewController {
         }
         alertDateLbl.isHidden = true
         userInformationTxtField[1].text = dateToAge(birthDate: datePicker.date)
-        
-//        if isValideAge {
-//            alertDateLbl.isHidden = true
-//            userInformationTxtField[1].text = dateToAge(birthDate: datePicker.date)
-//        } else {
-//            alertDateLbl.isHidden = false
-//            alertDateLbl.text = "Vous devez avoir au moins 10 ans pour utiliser l'application"
-//        }
     }
     
     
@@ -149,8 +150,17 @@ final class ProfileViewController: UIViewController {
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
         updateProfileButton.isHidden = false
-        guard let userCity = userInformationTxtField[2].text, let userGender = userInformationTxtField[0].text, let userLevel = userInformationTxtField[3].text, let pictureData = userPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = birthdate else {return}
-        firestoreService.updateUserInformation(userAge: userBirthDate, userCity: userCity, userGender: userGender, userLevel: userLevel, userImage: pictureData)
+        guard let userCity = userInformationTxtField[2].text, let userGender = userInformationTxtField[0].text, let userLevel = userInformationTxtField[3].text, let pictureData = userPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = birthdate else {
+            print("hello")
+            return}
+        userUseCase.updateUserInformation(userAge: userBirthDate, userCity: userCity, userGender: userGender, userLevel: userLevel, userImage: pictureData) { isSuccess in
+        if !isSuccess {
+            // PresentAlert
+        }
+    }
+        
+        
+//        firestoreService.updateUserInformation(userAge: userBirthDate, userCity: userCity, userGender: userGender, userLevel: userLevel, userImage: pictureData)
     }
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
@@ -165,7 +175,12 @@ final class ProfileViewController: UIViewController {
     @IBAction private func didPressDeleteAccountButton(_ sender: Any) {
         presentAlert(title: "Etes vous sure de supprimer votre compte ?", message: "") { (success) in
             guard success == true else {return}
-            self.firestoreService.deleteAccount()
+            self.registerUseCase.deleteAccount {isSuccess in
+                if !isSuccess {
+                    // PresentAlert
+                }
+            }            
+//            self.firestoreService.deleteAccount()
         }
     }
     

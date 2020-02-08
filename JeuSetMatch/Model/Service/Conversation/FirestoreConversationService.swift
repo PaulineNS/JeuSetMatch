@@ -82,4 +82,36 @@ class FirestoreConversationService: ConversationUseCaseOutput {
             }
         }
     }
+    
+    func sendMessage(withProperties: [String : Any], toId: String, completion: @escaping SendMessageCompletion) {
+        let ref = db.collection(Constants.FStore.messagesCollectionName).document()
+        let timestamp = Int(NSDate().timeIntervalSince1970)
+        let fromId = Auth.auth().currentUser?.uid
+        var values : [String : Any] = [Constants.FStore.toIdMessage: toId as Any, Constants.FStore.fromIdMessage: fromId as Any, Constants.FStore.timestampMessage: timestamp]
+        withProperties.forEach {( values[$0] = $1 )}
+        ref.setData(values) { (error) in
+            if error != nil {
+                print(error as Any)
+                completion(false)
+            } else {
+                let messageId = ref.documentID
+                //step 1
+                let userRef = self.db.collection(Constants.FStore.userMessagesCollectionName).document(fromId!).collection(Constants.FStore.userCollectionName).document(toId)
+                userRef.setData([toId : 1])
+                //step 2
+                let userMessageRef =  self.db.collection(Constants.FStore.userMessagesCollectionName).document(fromId!).collection(Constants.FStore.userCollectionName).document(toId).collection(Constants.FStore.messagesCollectionName).document(messageId)
+                
+                userMessageRef.setData([messageId : 1])
+                
+                //step 1
+                let recipienUserRef = self.db.collection(Constants.FStore.userMessagesCollectionName).document(toId).collection(Constants.FStore.userCollectionName).document(fromId!)
+                recipienUserRef.setData([fromId! : 1])
+                
+                let recipienUserMessageRef = self.db.collection(Constants.FStore.userMessagesCollectionName).document(toId).collection(Constants.FStore.userCollectionName).document(fromId!).collection(Constants.FStore.messagesCollectionName).document(messageId)
+                
+                recipienUserMessageRef.setData([messageId : 1])
+                completion(true)
+            }
+        }
+    }
 }

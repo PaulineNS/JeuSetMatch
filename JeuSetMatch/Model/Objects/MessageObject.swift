@@ -15,7 +15,9 @@ struct MessageObject: Equatable {
         return true
     }
     
-    let firestoreService = FirestoreService()
+//    let firestoreService = FirestoreService()
+    private let firestoreUser = FirestoreUserService()
+
     
     // MARK: - Variables
 
@@ -36,7 +38,7 @@ struct MessageObject: Equatable {
     // MARK: - Methods
 
     func chatPartnerId() -> String? {
-        return fromId == firestoreService.currentUserUid ? toId : fromId
+        return fromId == firestoreUser.currentUserUid ? toId : fromId
     }
 }
 

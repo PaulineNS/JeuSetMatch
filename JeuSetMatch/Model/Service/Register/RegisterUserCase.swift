@@ -10,11 +10,15 @@ import Foundation
 
 protocol RegisterUseCaseOutput {
     typealias RegisterCompletion = (Result<UserObject, Error>) -> Void
-    typealias CheckPseudoDisponibility = (Bool) -> Void
+    typealias CheckPseudoDisponibilityCompletion = (Bool) -> Void
+    typealias DeleteAccountCompletion = (Bool) -> Void
     
     func register(email: String, password: String, userAge: Any, userGender: Any, userLevel: Any, userCity: Any, userName: Any, userImage: Any, completion: @escaping RegisterCompletion)
     
-    func checkPseudoDisponibility(field: String, completion: @escaping CheckPseudoDisponibility)
+    func checkPseudoDisponibility(field: String, completion: @escaping CheckPseudoDisponibilityCompletion)
+    
+    func deleteAccount(completion: @escaping DeleteAccountCompletion)
+
 }
 
 class RegisterUseCase {
@@ -30,5 +34,9 @@ class RegisterUseCase {
     
     func checkPseudoDisponibility(field: String, completion: @escaping (Bool) -> Void) {
         self.client.checkPseudoDisponibility(field: field, completion: completion)
+    }
+    
+    func deleteAccount(completion: @escaping (Bool) -> Void) {
+        self.client.deleteAccount(completion: completion)
     }
 }

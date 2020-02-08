@@ -8,8 +8,19 @@
 
 import Firebase
 
-class FirestoreLoginService: LoginUseCaseOutput {
-    func login(email: String, password: String, completion: @escaping LoginCompletion) {
+class FirestoreLogService: LogUseCaseOutput {
+    
+    func logOut(completion: @escaping LogOutCompletion) {
+        do {
+            try Auth.auth().signOut()
+            completion(true)
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+            completion(false)
+        }
+    }
+    
+    func logIn(email: String, password: String, completion: @escaping LoginCompletion) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             guard let authResult = authResult else {
                 completion(.failure(error!))

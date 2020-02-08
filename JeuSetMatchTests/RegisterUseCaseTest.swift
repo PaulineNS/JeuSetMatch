@@ -55,12 +55,75 @@ class RegisterUseCaseTest: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
+    func test_checkPseudo_fails() {
+        let client = RegisterSpy()
+        let sut = RegisterUseCase(client: client)
+        let expectedAnswer = false
+        
+        let exp = expectation(description: "Wait for login completion")
+        sut.checkPseudoDisponibility(field: "") { isSuccess in
+            if !isSuccess {
+                XCTAssertEqual(isSuccess, expectedAnswer)
+            }
+            exp.fulfill()
+        }
+        client.Succeedeed(with: expectedAnswer)
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    func test_checkPseudo_succeeds() {
+        let client = RegisterSpy()
+        let sut = RegisterUseCase(client: client)
+        let expectedAnswer = true
+        
+        let exp = expectation(description: "Wait for login completion")
+        sut.checkPseudoDisponibility(field: "") { isSuccess in
+            if isSuccess {
+                XCTAssertEqual(isSuccess, expectedAnswer)
+            }
+            exp.fulfill()
+        }
+        client.Succeedeed(with: expectedAnswer)
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    func test_deleteAccount_fails() {
+        let client = RegisterSpy()
+        let sut = RegisterUseCase(client: client)
+        let expectedAnswer = false
+        
+        let exp = expectation(description: "Wait for login completion")
+        sut.deleteAccount { isSuccess in
+            if !isSuccess {
+                XCTAssertEqual(isSuccess, expectedAnswer)
+            }
+            exp.fulfill()
+        }
+        client.Succeedeed(with: expectedAnswer)
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    func test_deleteAccount_succeeds() {
+        let client = RegisterSpy()
+        let sut = RegisterUseCase(client: client)
+        let expectedAnswer = true
+        
+        let exp = expectation(description: "Wait for login completion")
+        sut.deleteAccount { isSuccess in
+            if isSuccess {
+                XCTAssertEqual(isSuccess, expectedAnswer)
+            }
+            exp.fulfill()
+        }
+        client.Succeedeed(with: expectedAnswer)
+        wait(for: [exp], timeout: 1.0)
+    }
+    
     // MARK: - Spy
 
     class RegisterSpy: RegisterUseCaseOutput {
-        
         var registerCompletions = [(Result<UserObject, Error>) -> Void]()
-        var checkPseudoCompletion = [(Bool) -> Void]()
+        var isSuccededCompletion = [(Bool) -> Void]()
         
         func register(email: String, password: String, userAge: Any, userGender: Any, userLevel: Any, userCity: Any, userName: Any, userImage: Any, completion: @escaping (Result<UserObject, Error>) -> Void) {
             registerCompletions.append(completion)
@@ -76,8 +139,22 @@ class RegisterUseCaseTest: XCTestCase {
         
         // Pseudo Disponibility
         func checkPseudoDisponibility(field: String, completion: @escaping (Bool) -> Void) {
-            checkPseudoCompletion.append(completion)
+            isSuccededCompletion.append(completion)
         }
+        
+        func deleteAccount(completion: @escaping (Bool) -> Void) {
+            isSuccededCompletion.append(completion)
+        }
+        
+        func Succeedeed(with response: Bool, at index: Int = 0) {
+            isSuccededCompletion[index](response)
+        }
+        
+        func SuccedeedFail(with response: Bool, at index: Int = 0) {
+            isSuccededCompletion[index](response)
+        }
+        
+
     }
     
     // MARK: - Create Fake user

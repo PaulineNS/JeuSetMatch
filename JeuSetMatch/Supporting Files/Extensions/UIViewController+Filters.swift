@@ -87,8 +87,7 @@ extension UIViewController {
             case .failure(let error):
                 print(error.localizedDescription)
             case .none:
-                onNone()
-                
+                onNone()                
             }
         })
     }

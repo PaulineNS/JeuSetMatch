@@ -10,6 +10,8 @@ import UIKit
 
 class MessagesTableViewCell: UITableViewCell {
     
+    
+
     // MARK: - Outlets
     
     @IBOutlet weak var profileUserImageView: UIImageView!
@@ -19,8 +21,9 @@ class MessagesTableViewCell: UITableViewCell {
     
     // MARK: - Variables
     
-    var firestoreService = FirestoreService()
-    
+//    var firestoreService = FirestoreService()
+    private let firestoreUser = FirestoreUserService()
+    lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
     var message : MessageObject? {
         didSet {
             setupNameAndProfileImage()
@@ -34,7 +37,7 @@ class MessagesTableViewCell: UITableViewCell {
     
     private func setupNameAndProfileImage() {
         if let id = message?.chatPartnerId() {
-            firestoreService.setupNameAndProfileImage(id: id) { (result) in
+            userUseCase.setupNameAndProfileImage(id: id) { (result) in
                 switch result {
                 case .success(let dictionary) :
                     self.pseudoUserLabel.text = dictionary[Constants.FStore.userPseudoField] as? String

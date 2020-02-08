@@ -17,16 +17,17 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var alertLabel: UILabel!
     
     // MARK: - Variables
-    
-    private var loginUseCase: LoginUseCase?
+    private let firestoreLogin = FirestoreLogService()
+
+    lazy private var loginUseCase: LogUseCase = LogUseCase(client: firestoreLogin)
     private var currentUser: UserObject?
     
     // MARK: - Controller life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let firestoreLogin = FirestoreLoginService()
-        self.loginUseCase = LoginUseCase(client: firestoreLogin)
+//        let firestoreLogin = FirestoreLoginService()
+//        self.loginUseCase = LoginUseCase(client: firestoreLogin)
         alertLabel.isHidden = true
     }
     
@@ -42,7 +43,7 @@ final class LoginViewController: UIViewController {
     
     @IBAction private func loginPressed(_ sender: Any) {
         guard let email = emailTextfield.text, let password = passwordTextfield.text else {return}
-        loginUseCase?.login(with: email, password: password) { (result) in
+        loginUseCase.logIn(with: email, password: password) { (result) in
             switch result {
             case .success :
                 self.performSegue(withIdentifier: Constants.Segue.loginSegue, sender: self)                
