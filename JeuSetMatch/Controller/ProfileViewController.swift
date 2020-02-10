@@ -61,7 +61,8 @@ final class ProfileViewController: UIViewController {
         validateButton.isHidden = true
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
-        managePickers()        
+        managePickers()
+        userPictureImageView.makeRounded()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -42,6 +42,7 @@ class MessagesTableViewCell: UITableViewCell {
                 case .success(let dictionary) :
                     self.pseudoUserLabel.text = dictionary[Constants.FStore.userPseudoField] as? String
                     if let profileImage = dictionary[Constants.FStore.userPictureField] as? Data {
+                        self.profileUserImageView.makeRounded()
                         self.profileUserImageView.image = UIImage(data: profileImage)
                     }
                 case .failure(let error) :

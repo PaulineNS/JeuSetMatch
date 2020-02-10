@@ -153,6 +153,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         let user = users[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.userCellIdentifier, for: indexPath) as? UserTableViewCell else { return UITableViewCell()}
         cell.userName.text = user.pseudo
+        cell.userImage.makeRounded()
         cell.userImage.image = UIImage(data: user.image ?? Data())
         return cell
     }

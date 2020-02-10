@@ -31,6 +31,7 @@ final class PictureViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        profilPictureImageView.makeRounded()
         image.delegate = self
         pictureAlertLabel.isHidden = true
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
