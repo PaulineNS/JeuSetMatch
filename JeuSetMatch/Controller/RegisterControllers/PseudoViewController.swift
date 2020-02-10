@@ -58,25 +58,6 @@ final class PseudoViewController: UIViewController {
         }
         manageAlertLabel(visibility: false, text: "Votre pseudo doit comporter plus de 4 charactères", color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))
     }
-
-        
-//        if sender.text?.count ?? 0 < 4 {
-//            manageAlertLabel(visibility: false, text: "Votre pseudo doit comporter plus de 4 charactères", color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))
-//        } else {
-//            registerUsecase?.checkPseudoDisponibility(field: sender.text ?? "") { (success) in
-//                guard success == true else {
-//                    DispatchQueue.main.async {
-//                        self.manageAlertLabel(visibility: true, text: "", color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
-//                        self.userPseudo = sender.text ?? ""
-//                    }
-//                    return
-//                }
-//                DispatchQueue.main.async {
-//                    self.manageAlertLabel(visibility: false, text: "Ce pseudo n'est pas disponible", color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))
-//                }
-//            }
-//        }
-//    }
     
     @IBAction func continueButtonPressed(_ sender: Any) {
         guard userPseudo != nil else {

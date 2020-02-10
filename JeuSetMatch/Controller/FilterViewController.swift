@@ -19,7 +19,7 @@ final class FilterViewController: UIViewController {
     
     var didSearchFiltersDelegate: DidSearchFiltersDelegate?
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
-    private let filtersDictionnary = ["Age": "Tout", "Niveau": "Tout", "Sexe": "Tout", "Ville": "Tout"]
+    private let filtersDictionnary = ["Niveau": "Tout", "Sexe": "Tout", "Ville": "Tout"]
     private var filtersArray = [Filters]()
     private var citySelected: String?
     private var userFound: [UserObject] = []
@@ -40,7 +40,7 @@ final class FilterViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if citySelected != "" {
-            filtersArray[3].value = citySelected
+            filtersArray[2].value = citySelected
         }
         filterTableView.reloadData()
     }
@@ -167,21 +167,16 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
         cell.filter = filtersArray[indexPath.row]
         switch indexPath.row {
         case indexPath.row where indexPath.row == 0:
-        if UserDefaults.standard.object(forKey: "savedAge") != nil {
-            cell.filterValueTxtField.text =  UserDefaults.standard.string(forKey: "savedAge")
-        }
-        cell.filterValueTxtField.inputView = cell.agePicker
-        case indexPath.row where indexPath.row == 1:
             if UserDefaults.standard.object(forKey: Constants.UDefault.savedFilterLevel) != nil {
                 cell.filterValueTxtField.text =  UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterLevel)
             }
             cell.filterValueTxtField.inputView = cell.levelPicker
-        case indexPath.row where indexPath.row == 2:
+        case indexPath.row where indexPath.row == 1:
             if UserDefaults.standard.object(forKey: Constants.UDefault.savedFilterGender) != nil {
                 cell.filterValueTxtField.text =  UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterGender)
             }
             cell.filterValueTxtField.inputView = cell.genderPicker
-        case indexPath.row where indexPath.row == 3:
+        case indexPath.row where indexPath.row == 2:
         if UserDefaults.standard.object(forKey: Constants.UDefault.savedFilterCity) != nil {
             cell.filterValueTxtField.text =  UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterCity)
         }

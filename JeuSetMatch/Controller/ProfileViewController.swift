@@ -14,7 +14,6 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - Instensiation
     
-//    private let firestoreService = FirestoreService()
     private let firestoreUser = FirestoreUserService()
     private let firestoreLogin = FirestoreLogService()
     private let firestoreRegister = FirestoreRegisterService()
@@ -119,7 +118,6 @@ final class ProfileViewController: UIViewController {
                 // PresentAlert
             }
         }
-//        firestoreService.logOut()
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         let logInViewController = mainStoryBoard.instantiateViewController(withIdentifier: "loginViewController")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -159,9 +157,6 @@ final class ProfileViewController: UIViewController {
             // PresentAlert
         }
     }
-        
-        
-//        firestoreService.updateUserInformation(userAge: userBirthDate, userCity: userCity, userGender: userGender, userLevel: userLevel, userImage: pictureData)
     }
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
@@ -182,7 +177,6 @@ final class ProfileViewController: UIViewController {
                     // PresentAlert
                 }
             }            
-//            self.firestoreService.deleteAccount()
         }
     }
     

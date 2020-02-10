@@ -10,8 +10,6 @@ import UIKit
 
 class MessagesTableViewCell: UITableViewCell {
     
-    
-
     // MARK: - Outlets
     
     @IBOutlet weak var profileUserImageView: UIImageView!
@@ -21,7 +19,6 @@ class MessagesTableViewCell: UITableViewCell {
     
     // MARK: - Variables
     
-//    var firestoreService = FirestoreService()
     private let firestoreUser = FirestoreUserService()
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
     var message : MessageObject? {

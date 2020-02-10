@@ -54,7 +54,6 @@ extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension CitiesViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
         let searchString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         googlePlacesService.searchCity(searchString: searchString)
         self.citiesTableView.reloadData()

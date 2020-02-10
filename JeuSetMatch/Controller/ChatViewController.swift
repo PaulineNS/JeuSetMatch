@@ -12,7 +12,6 @@ final class ChatViewController: UIViewController {
     
     // MARK: - Instensiation
 
-//    private let fireStoreService = FirestoreService()
     private let firestoreUser = FirestoreUserService()
     private let firestoreConversation = FirestoreConversationService()
     
@@ -54,7 +53,6 @@ final class ChatViewController: UIViewController {
                 //presentAlert
             }
         }
-//        fireStoreService.sendMessage(withProperties: properties, toId: toId)
         self.chatTextField.text = ""
     }
     

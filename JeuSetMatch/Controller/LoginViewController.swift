@@ -18,7 +18,6 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Variables
     private let firestoreLogin = FirestoreLogService()
-
     lazy private var loginUseCase: LogUseCase = LogUseCase(client: firestoreLogin)
     private var currentUser: UserObject?
     
@@ -26,8 +25,6 @@ final class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let firestoreLogin = FirestoreLoginService()
-//        self.loginUseCase = LoginUseCase(client: firestoreLogin)
         alertLabel.isHidden = true
     }
     

@@ -37,6 +37,7 @@ final class PictureViewController: UIViewController {
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
         profilPictureImageView.isUserInteractionEnabled = true
         profilPictureImageView.addGestureRecognizer(singleTap)
+        displayPictureDependingGender()
     }
     
     // MARK: - Segue
@@ -46,6 +47,17 @@ final class PictureViewController: UIViewController {
         guard let pseudoVc = segue.destination as? PseudoViewController else { return }
         guard let pictureData = userPicture.jpegData(compressionQuality: 0.1) else { return }
         pseudoVc.currentUser = UserObject(pseudo: nil, image: pictureData, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
+    }
+    
+    func displayPictureDependingGender() {
+        switch currentUser?.sexe {
+        case currentUser?.sexe where currentUser?.sexe == "Femme":
+            profilPictureImageView.image = #imageLiteral(resourceName: "GirlPlayer")
+        case currentUser?.sexe where currentUser?.sexe == "Homme":
+            profilPictureImageView.image = #imageLiteral(resourceName: "BoyPlayer")
+        default :
+            break 
+        }
     }
     
     // MARK: - Actions

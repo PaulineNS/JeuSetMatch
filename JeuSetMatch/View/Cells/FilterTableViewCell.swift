@@ -20,7 +20,7 @@ final class FilterTableViewCell: UITableViewCell {
     
     var genderPicker: UIPickerView?
     var levelPicker: UIPickerView?
-    var agePicker: UIPickerView?
+//    var agePicker: UIPickerView?
     var filter: Filters? {
         didSet {
             categorieLabel.text = filter?.denomination
@@ -37,9 +37,6 @@ final class FilterTableViewCell: UITableViewCell {
         genderPicker = UIPickerView()
         genderPicker?.delegate = self
         genderPicker?.dataSource = self
-        agePicker = UIPickerView()
-        agePicker?.delegate = self
-        agePicker?.dataSource = self
     }
 }
 
@@ -57,8 +54,6 @@ extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
             return Constants.Arrays.levelsPickerFilterUser.count
         case pickerView where pickerView == genderPicker:
             return Constants.Arrays.gendersPickerFilterUser.count
-        case pickerView where pickerView == agePicker:
-            return Constants.Arrays.agePickerFilterUser.count
         default:
             return 0
         }
@@ -70,8 +65,6 @@ extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
             return Constants.Arrays.levelsPickerFilterUser[row]
         case pickerView where pickerView == genderPicker:
             return Constants.Arrays.gendersPickerFilterUser[row]
-        case pickerView where pickerView == agePicker:
-            return Constants.Arrays.agePickerFilterUser[row]
         default:
             return ""
         }
@@ -85,9 +78,6 @@ extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
         case pickerView where pickerView == genderPicker:
             filterValueTxtField.text = Constants.Arrays.gendersPickerFilterUser[row]
             UserDefaults.standard.set(filterValueTxtField.text, forKey: Constants.UDefault.savedFilterGender)
-        case pickerView where pickerView == agePicker:
-            filterValueTxtField.text = Constants.Arrays.agePickerFilterUser[row]
-            UserDefaults.standard.set(filterValueTxtField.text, forKey: "savedAge")
         default:
             break
         }
