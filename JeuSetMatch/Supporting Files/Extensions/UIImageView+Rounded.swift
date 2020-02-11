@@ -20,7 +20,7 @@ extension UIImageView {
 //            self.frame.size.width / 2
 //            self.frame.height / 2
 //        self.clipsToBounds = true
-        self.contentMode = .scaleToFill
+        self.contentMode = .scaleAspectFill
 
 
     }

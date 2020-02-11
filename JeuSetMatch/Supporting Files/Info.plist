@@ -47,5 +47,10 @@
 	<string>Cette application nécessite un accès à la galerie photos.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Cette application nécessite un accès à la caméra.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Myriad Pro Regular.ttf</string>
+		<string>MyriadPro-Bold.otf</string>
+	</array>
 </dict>
 </plist>
