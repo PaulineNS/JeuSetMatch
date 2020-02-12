@@ -7,7 +7,7 @@
 //
 
 struct Constants {
-    static let appName = "🎾Jeu Set & Match"
+    static let appName = "Jeu Set & Match"
 
     struct Cell {
         static let chatCellIdentifier = "ChatCell"

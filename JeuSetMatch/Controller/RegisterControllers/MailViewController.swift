@@ -24,6 +24,7 @@ final class MailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
         let firestoreRegister = FirestoreRegisterService()
         self.registerUsecase = RegisterUseCase(client: firestoreRegister)
     }

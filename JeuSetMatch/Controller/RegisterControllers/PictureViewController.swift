@@ -31,6 +31,7 @@ final class PictureViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
         profilPictureImageView.makeRounded()
         image.delegate = self
         pictureAlertLabel.isHidden = true

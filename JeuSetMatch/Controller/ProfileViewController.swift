@@ -51,6 +51,7 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
         alertDateLbl.isHidden = true
         image.delegate = self
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))

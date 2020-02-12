@@ -37,6 +37,7 @@ final class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
         self.tabBarController?.navigationItem.hidesBackButton = true
         chatTableView.register(UINib(nibName: Constants.Cell.chatCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.chatCellIdentifier)
     }

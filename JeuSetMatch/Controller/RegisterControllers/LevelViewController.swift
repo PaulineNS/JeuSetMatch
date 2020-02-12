@@ -24,6 +24,7 @@ final class LevelViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
         levelPickerView.selectRow(Constants.Arrays.levelsPickerRegister.count-1, inComponent: 0, animated: true)
         levelAlert.isHidden = true
     }
@@ -66,5 +67,9 @@ extension LevelViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         userLevel = Constants.Arrays.levelsPickerRegister[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        return NSAttributedString(string: Constants.Arrays.levelsPickerRegister[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
 }

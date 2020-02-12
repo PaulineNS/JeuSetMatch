@@ -30,8 +30,15 @@ final class FilterViewController: UIViewController {
     
     // MARK: - Life cycle
     
+  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
+        let backgroundImage = UIImage(named: "rackets")
+        let imageView = UIImageView(image: backgroundImage)
+        imageView.contentMode = .scaleAspectFill
+        filterTableView.backgroundView = imageView
         filterTableView.register(UINib(nibName: Constants.Cell.filterCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.filterCellIdentifier)
         for (key, value) in filtersDictionnary.sorted(by: { $0.0 < $1.0 }) {
             filtersArray.append(Filters(denomination: key, value: value))
@@ -165,6 +172,8 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.filterCellIdentifier, for: indexPath) as? FilterTableViewCell else {return UITableViewCell()}
         cell.filter = filtersArray[indexPath.row]
+        cell.backgroundColor = .clear
+
         switch indexPath.row {
         case indexPath.row where indexPath.row == 0:
             if UserDefaults.standard.object(forKey: Constants.UDefault.savedFilterLevel) != nil {

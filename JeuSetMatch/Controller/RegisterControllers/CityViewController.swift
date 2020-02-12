@@ -26,6 +26,7 @@ final class CityViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
         cityAlertLabel.isHidden = true
     }
     

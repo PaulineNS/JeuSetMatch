@@ -33,6 +33,11 @@ final class MessagesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
+        let backgroundImage = UIImage(named: "courtTennis")
+        let imageView = UIImageView(image: backgroundImage)
+        imageView.contentMode = .scaleAspectFill
+        messagesTableView.backgroundView = imageView
         messagesTableView.register(UINib(nibName: Constants.Cell.messagesCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.messagesCellIdentifier)
         observeUserMessages()
     }
@@ -93,6 +98,7 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
         let message = messages[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.messagesCellIdentifier, for: indexPath) as? MessagesTableViewCell else { return UITableViewCell()}
         cell.message = message
+        cell.backgroundColor = .clear
         return cell
     }
     

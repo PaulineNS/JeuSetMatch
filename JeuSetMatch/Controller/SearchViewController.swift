@@ -31,6 +31,11 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
+//        let backgroundImage = UIImage(named: "players")
+        let imageView = UIImageView()
+        imageView.backgroundColor = .clear
+        usersTableView.backgroundView = imageView
         self.tabBarController?.navigationItem.hidesBackButton = true
         usersTableView.register(UINib(nibName: Constants.Cell.userCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.userCellIdentifier)
         fetchUsers()
@@ -152,6 +157,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let user = users[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.userCellIdentifier, for: indexPath) as? UserTableViewCell else { return UITableViewCell()}
+        cell.backgroundColor = .clear
         cell.userName.text = user.pseudo
         cell.userImage.makeRounded()
         cell.userImage.image = UIImage(data: user.image ?? Data())

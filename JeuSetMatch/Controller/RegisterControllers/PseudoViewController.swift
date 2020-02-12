@@ -25,6 +25,7 @@ final class PseudoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
         let firestoreRegister = FirestoreRegisterService()
         self.registerUsecase = RegisterUseCase(client: firestoreRegister)
         pseudoAlert.isHidden = true

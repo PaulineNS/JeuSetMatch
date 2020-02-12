@@ -24,6 +24,7 @@ final class GenderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
         alertLabel.isHidden = true
     }
     

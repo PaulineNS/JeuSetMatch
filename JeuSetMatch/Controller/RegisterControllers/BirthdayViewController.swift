@@ -27,6 +27,7 @@ final class BirthdayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarCustom()
         alertLbl.isHidden = true
         birthdayDatePicker.minimumDate = maximumAge
     }
