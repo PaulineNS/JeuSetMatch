@@ -39,6 +39,7 @@ final class ProfileViewController: UIViewController {
     
     @IBOutlet weak var userPseudo: UINavigationItem!
     @IBOutlet private var userInformationTxtField: [UITextField]!
+    @IBOutlet weak var userFixPictureImageView: UIImageView!
     @IBOutlet private weak var userPictureImageView: UIImageView!
     @IBOutlet private weak var logOutBarButtonItem: UIBarButtonItem!
     @IBOutlet private weak var updateProfileButton: UIButton!
@@ -62,6 +63,8 @@ final class ProfileViewController: UIViewController {
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
         managePickers()
+        userPictureImageView.isHidden = true
+        userFixPictureImageView.makeRounded()
         userPictureImageView.makeRounded()
     }
     
@@ -69,6 +72,8 @@ final class ProfileViewController: UIViewController {
         super.viewWillAppear(animated)
         guard IsSegueFromSearch == true else {
             guard IsSegueFromCity == true else {
+                userPictureImageView.isHidden = true
+                userFixPictureImageView.isHidden = false
                 guard let currentUserUid = firestoreUser.currentUserUid else {return}
                 fetchUserInformations(userUid: currentUserUid )
                 self.tabBarController?.navigationItem.hidesBackButton = true
@@ -76,6 +81,8 @@ final class ProfileViewController: UIViewController {
                 updateProfileButton.setTitle("Modifier mon profil", for: .normal)
                 return
             }
+            userPictureImageView.isHidden = false
+            userFixPictureImageView.isHidden = true
             displayUserDefaultsOnTextField(userInformations: Constants.UDefault.savedProvisionalUserInformations, userPicture: Constants.UDefault.savedProvisionaluserPicture)
             return
         }
@@ -104,6 +111,8 @@ final class ProfileViewController: UIViewController {
             performSegue(withIdentifier: Constants.Segue.profileToChatSegue, sender: nil)
         }
         if sender.currentTitle == "Modifier mon profil" {
+            userPictureImageView.isHidden = false
+            userFixPictureImageView.isHidden = true
             manageTxtField(status: true, color: #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1))
             validateButton.isHidden = false
             cancelButton.isHidden = false
@@ -136,10 +145,12 @@ final class ProfileViewController: UIViewController {
         birthdate = convertDateToString(date: datePicker.date)
         guard isValideAge else {
             alertDateLbl.isHidden = false
+            deleteProfilButton.isHidden = true
             alertDateLbl.text = "Vous devez avoir au moins 10 ans"
             return
         }
         alertDateLbl.isHidden = true
+        deleteProfilButton.isHidden = false
         userInformationTxtField[1].text = dateToAge(birthDate: datePicker.date)
     }
     
@@ -150,7 +161,10 @@ final class ProfileViewController: UIViewController {
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
         updateProfileButton.isHidden = false
-        guard let userCity = userInformationTxtField[2].text, let userGender = userInformationTxtField[0].text, let userLevel = userInformationTxtField[3].text, let pictureData = userPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = birthdate else {
+        userPictureImageView.isHidden = true
+        userFixPictureImageView.isHidden = false
+
+        guard let userCity = userInformationTxtField[2].text, let userGender = userInformationTxtField[0].text, let userLevel = userInformationTxtField[3].text, let pictureData = userFixPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = birthdate else {
             print("hello")
             return}
         userUseCase.updateUserInformation(userAge: userBirthDate, userCity: userCity, userGender: userGender, userLevel: userLevel, userImage: pictureData) { isSuccess in
@@ -162,6 +176,8 @@ final class ProfileViewController: UIViewController {
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
         alertDateLbl.isHidden = true
+        userPictureImageView.isHidden = true
+        userFixPictureImageView.isHidden = false
         manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
         validateButton.isHidden = true
         cancelButton.isHidden = true
@@ -213,7 +229,9 @@ final class ProfileViewController: UIViewController {
             UserDefaults.standard.set(userInformationTxtField[index].text, forKey: userInformations + "\(index)")
             index += 1
         }
-        UserDefaults.standard.set(userPictureImageView.image?.jpegData(compressionQuality: 0.1), forKey: userPicture)
+//        UserDefaults.standard.set(userPictureImageView.image?.jpegData(compressionQuality: 0.1), forKey: userPicture)
+        UserDefaults.standard.set(userFixPictureImageView.image?.jpegData(compressionQuality: 0.1), forKey: userPicture)
+
     }
     
     private func displayUserDefaultsOnTextField(userInformations: String, userPicture: String) {
@@ -225,6 +243,7 @@ final class ProfileViewController: UIViewController {
         guard let imageData = UserDefaults.standard.data(forKey: userPicture)
             else {return}
         userPictureImageView.image = UIImage(data: imageData)
+        userFixPictureImageView.image = UIImage(data: imageData)
     }
     
     private func fetchUserInformations(userUid: String) {
@@ -245,6 +264,7 @@ final class ProfileViewController: UIViewController {
                     self.userInformationTxtField[2].text = userCity
                     self.userInformationTxtField[3].text = userLevel
                     self.userPictureImageView.image = UIImage(data: userPicture)
+                    self.userFixPictureImageView.image = UIImage(data: userPicture)
                     self.userInformationTxtField[1].text = userAge + " " + "ans"
                 }
             case .failure(let error) :
@@ -328,6 +348,7 @@ extension ProfileViewController : UIImagePickerControllerDelegate, UINavigationC
                 imageView.contentMode = .scaleAspectFill
                 imageView.image = pickedImage
                 userPictureImageView.image = pickedImage
+                userFixPictureImageView.image = pickedImage
             } else {
                 print ("selectedUIImageView is nil")
             }
