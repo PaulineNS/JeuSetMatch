@@ -28,10 +28,10 @@ final class CitiesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarCustom()
-        let backgroundImage = UIImage(named: "background")
-        let imageView = UIImageView(image: backgroundImage)
-        imageView.contentMode = .scaleAspectFill
-        citiesTableView.backgroundView = imageView
+//        let backgroundImage = UIImage(named: "background")
+//        let imageView = UIImageView(image: backgroundImage)
+//        imageView.contentMode = .scaleAspectFill
+//        citiesTableView.backgroundView = imageView
     }
 }
 
@@ -46,7 +46,7 @@ extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.cityCellIdentifier, for: indexPath) 
         cell.textLabel?.attributedText = googlePlacesService.arrayCities[indexPath.row].attributedFullText
         cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
-        cell.backgroundColor = UIColor(white: 1, alpha: 0.8)
+//        cell.backgroundColor = UIColor(white: 1, alpha: 0.8)
         return cell
     }
     

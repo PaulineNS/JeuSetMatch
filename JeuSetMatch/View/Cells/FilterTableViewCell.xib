@@ -37,6 +37,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="nq2-iX-b3F" firstAttribute="top" secondItem="Uyy-TW-ab2" secondAttribute="top" constant="5" id="Pyv-BH-nwt"/>
                             <constraint firstAttribute="bottom" secondItem="nq2-iX-b3F" secondAttribute="bottom" constant="5" id="QaT-XH-au0"/>
@@ -45,6 +46,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="Uyy-TW-ab2" secondAttribute="bottom" id="3lq-yp-uaV"/>
                     <constraint firstAttribute="trailing" secondItem="Uyy-TW-ab2" secondAttribute="trailing" id="Dfb-nk-ucE"/>
@@ -52,6 +54,7 @@
                     <constraint firstItem="Uyy-TW-ab2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="zBt-35-Uqh"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="categorieLabel" destination="Bjo-EQ-WVg" id="5tG-Lc-TX9"/>
