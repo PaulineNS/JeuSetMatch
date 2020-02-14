@@ -16,7 +16,7 @@ final class CustomLoader: UIView {
     // MARK: - Variables
 
     var setAlpha: CGFloat = 0.5
-    var gifName: String = "ball"
+    var gifName: String = "giphy"
     var viewColor: UIColor = UIColor.gray
     
     lazy var transparentView: UIView = {

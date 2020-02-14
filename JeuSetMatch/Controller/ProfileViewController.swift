@@ -57,7 +57,7 @@ final class ProfileViewController: UIViewController {
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
         userPictureImageView.isUserInteractionEnabled = true
         userPictureImageView.addGestureRecognizer(singleTap)
-        manageTxtField(status: false, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+        manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
         validateButton.isHidden = true
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
@@ -145,7 +145,7 @@ final class ProfileViewController: UIViewController {
     
     
     @IBAction private func didPressValidateButton(_ sender: Any) {
-        manageTxtField(status: false, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+        manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
         validateButton.isHidden = true
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
@@ -162,7 +162,7 @@ final class ProfileViewController: UIViewController {
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
         alertDateLbl.isHidden = true
-        manageTxtField(status: false, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+        manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
         validateButton.isHidden = true
         cancelButton.isHidden = true
         deleteProfilButton.isHidden = true
