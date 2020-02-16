@@ -54,29 +54,24 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarCustom()
-        alertDateLbl.isHidden = true
-        image.delegate = self
+        managePickers()
+        manageButtonVisibility(updatePosition: true, fixPosition: false)
+        managePictureVisibility(updatePicture: true, userPicture: false)
+        userFixPictureImageView.makeRounded()
+        userPictureImageView.makeRounded()
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
         userPictureImageView.isUserInteractionEnabled = true
         userPictureImageView.addGestureRecognizer(singleTap)
         manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
-        validateButton.isHidden = true
-        cancelButton.isHidden = true
-        deleteProfilButton.isHidden = true
-        managePickers()
-        userPictureImageView.isHidden = true
-        plusImageView.isHidden = true
-        userFixPictureImageView.makeRounded()
-        userPictureImageView.makeRounded()
+        image.delegate = self
+        alertDateLbl.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard IsSegueFromSearch == true else {
             guard IsSegueFromCity == true else {
-                userPictureImageView.isHidden = true
-                plusImageView.isHidden = true
-                userFixPictureImageView.isHidden = false
+                managePictureVisibility(updatePicture: true, userPicture: false)
                 guard let currentUserUid = firestoreUser.currentUserUid else {return}
                 fetchUserInformations(userUid: currentUserUid )
                 self.tabBarController?.navigationItem.hidesBackButton = true
@@ -84,9 +79,7 @@ final class ProfileViewController: UIViewController {
                 updateProfileButton.setTitle("Modifier mon profil", for: .normal)
                 return
             }
-            userPictureImageView.isHidden = false
-            plusImageView.isHidden = false
-            userFixPictureImageView.isHidden = true
+            managePictureVisibility(updatePicture: false, userPicture: true)
             displayUserDefaultsOnTextField(userInformations: Constants.UDefault.savedProvisionalUserInformations, userPicture: Constants.UDefault.savedProvisionaluserPicture)
             return
         }
@@ -115,14 +108,9 @@ final class ProfileViewController: UIViewController {
             performSegue(withIdentifier: Constants.Segue.profileToChatSegue, sender: nil)
         }
         if sender.currentTitle == "Modifier mon profil" {
-            userPictureImageView.isHidden = false
-            plusImageView.isHidden = false
-            userFixPictureImageView.isHidden = true
+            managePictureVisibility(updatePicture: false, userPicture: true)
             manageTxtField(status: true, color: #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1))
-            validateButton.isHidden = false
-            cancelButton.isHidden = false
-            deleteProfilButton.isHidden = false
-            updateProfileButton.isHidden = true
+            manageButtonVisibility(updatePosition: false, fixPosition: true)
             setInformationsInUserDefault(userInformations: Constants.UDefault.savedUserInformations, userPicture: Constants.UDefault.savedUserPicture)
         }
     }
@@ -162,14 +150,8 @@ final class ProfileViewController: UIViewController {
     
     @IBAction private func didPressValidateButton(_ sender: Any) {
         manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
-        validateButton.isHidden = true
-        cancelButton.isHidden = true
-        deleteProfilButton.isHidden = true
-        updateProfileButton.isHidden = false
-        userPictureImageView.isHidden = true
-        plusImageView.isHidden = true
-        userFixPictureImageView.isHidden = false
-
+        manageButtonVisibility(updatePosition: true, fixPosition: false)
+        managePictureVisibility(updatePicture: true, userPicture: false)
         guard let userCity = userInformationTxtField[2].text, let userGender = userInformationTxtField[0].text, let userLevel = userInformationTxtField[3].text, let pictureData = userFixPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = birthdate else {
             print("hello")
             return}
@@ -182,14 +164,9 @@ final class ProfileViewController: UIViewController {
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
         alertDateLbl.isHidden = true
-        userPictureImageView.isHidden = true
-        plusImageView.isHidden = true
-        userFixPictureImageView.isHidden = false
+        managePictureVisibility(updatePicture: true, userPicture: false)
         manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
-        validateButton.isHidden = true
-        cancelButton.isHidden = true
-        deleteProfilButton.isHidden = true
-        updateProfileButton.isHidden = false
+        manageButtonVisibility(updatePosition: true, fixPosition: false)
         displayUserDefaultsOnTextField(userInformations: Constants.UDefault.savedUserInformations, userPicture: Constants.UDefault.savedUserPicture)
     }
     
@@ -221,6 +198,19 @@ final class ProfileViewController: UIViewController {
         genderPicker?.delegate = self
         genderPicker?.dataSource = self
         levelPicker?.dataSource = self
+    }
+    
+    private func managePictureVisibility(updatePicture: Bool, userPicture: Bool) {
+        userPictureImageView.isHidden = updatePicture
+        plusImageView.isHidden = updatePicture
+        userFixPictureImageView.isHidden = userPicture
+    }
+    
+    private func manageButtonVisibility(updatePosition: Bool, fixPosition: Bool) {
+        validateButton.isHidden = updatePosition
+        cancelButton.isHidden = updatePosition
+        deleteProfilButton.isHidden = updatePosition
+        updateProfileButton.isHidden = fixPosition
     }
     
     private func manageTxtField(status: Bool, color: UIColor ) {

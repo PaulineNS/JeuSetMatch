@@ -13,7 +13,6 @@
 		562CE39023BB55BB0075A8AA /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38F23BB55BB0075A8AA /* CityViewController.swift */; };
 		562CE39223BB5A550075A8AA /* PictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE39123BB5A550075A8AA /* PictureViewController.swift */; };
 		562E2D0C23DC55BB005612D1 /* CustomLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562E2D0B23DC55BB005612D1 /* CustomLoader.swift */; };
-		562E2D1423DDE9C5005612D1 /* ball.gif in Resources */ = {isa = PBXBuildFile; fileRef = 562E2D1323DDE9C4005612D1 /* ball.gif */; };
 		562E8E1423F6945F005F0B32 /* giphy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 562E8E1323F6945E005F0B32 /* giphy.gif */; };
 		562E8E1623F694CD005F0B32 /* circle.gif in Resources */ = {isa = PBXBuildFile; fileRef = 562E8E1523F694CC005F0B32 /* circle.gif */; };
 		56394AAD23E34D60006CB0D3 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56394AAC23E34D60006CB0D3 /* UIViewController+Alert.swift */; };
@@ -87,7 +86,6 @@
 		562CE38F23BB55BB0075A8AA /* CityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
 		562CE39123BB5A550075A8AA /* PictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureViewController.swift; sourceTree = "<group>"; };
 		562E2D0B23DC55BB005612D1 /* CustomLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoader.swift; sourceTree = "<group>"; };
-		562E2D1323DDE9C4005612D1 /* ball.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ball.gif; sourceTree = "<group>"; };
 		562E8E1323F6945E005F0B32 /* giphy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = giphy.gif; sourceTree = "<group>"; };
 		562E8E1523F694CC005F0B32 /* circle.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = circle.gif; sourceTree = "<group>"; };
 		56394AAC23E34D60006CB0D3 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
@@ -381,7 +379,6 @@
 				56DC0BF423A9096D003A0DC6 /* Info.plist */,
 				56DC0C1223AB7E31003A0DC6 /* GoogleService-Info.plist */,
 				56E8B16E23B0E824007B4BC1 /* Constants.swift */,
-				562E2D1323DDE9C4005612D1 /* ball.gif */,
 				562E8E1323F6945E005F0B32 /* giphy.gif */,
 				562E8E1523F694CC005F0B32 /* circle.gif */,
 			);
@@ -494,7 +491,6 @@
 				56E8B17B23BA4B61007B4BC1 /* UserTableViewCell.xib in Resources */,
 				564536A523C20FD2005A26B5 /* MessagesTableViewCell.xib in Resources */,
 				56DC0BEB23A90969003A0DC6 /* Main.storyboard in Resources */,
-				562E2D1423DDE9C5005612D1 /* ball.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
