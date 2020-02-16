@@ -18,9 +18,7 @@ final class CityViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet private weak var citiesButton: UIButton!
-    @IBOutlet private weak var levelsPickerView: UIPickerView!
     @IBOutlet private weak var cityAlertLabel: UILabel!
-    @IBOutlet private weak var levelAlertLabel: UILabel!
     
     // MARK: - Controller life cycle
     

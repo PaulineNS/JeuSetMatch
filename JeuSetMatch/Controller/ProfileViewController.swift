@@ -27,7 +27,7 @@ final class ProfileViewController: UIViewController {
     lazy private var registerUseCase: RegisterUseCase = RegisterUseCase(client: firestoreRegister)
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
     lazy private var loginUseCase: LogUseCase = LogUseCase(client: firestoreLogin)
-    private var IsSegueFromCity = false
+    private var IsUpdateStatus = false
     private var birthdate: String?
     private var userInformations: [UserObject] = []
     private var genderPicker: UIPickerView?
@@ -69,13 +69,13 @@ final class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.hidesBackButton = true
+        self.tabBarController?.navigationItem.rightBarButtonItem = logOutBarButtonItem
         guard IsSegueFromSearch == true else {
-            guard IsSegueFromCity == true else {
+            guard IsUpdateStatus == true else {
                 managePictureVisibility(updatePicture: true, userPicture: false)
                 guard let currentUserUid = firestoreUser.currentUserUid else {return}
                 fetchUserInformations(userUid: currentUserUid )
-                self.tabBarController?.navigationItem.hidesBackButton = true
-                self.tabBarController?.navigationItem.rightBarButtonItem = logOutBarButtonItem
                 updateProfileButton.setTitle("Modifier mon profil", for: .normal)
                 return
             }
@@ -152,6 +152,7 @@ final class ProfileViewController: UIViewController {
         manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
         manageButtonVisibility(updatePosition: true, fixPosition: false)
         managePictureVisibility(updatePicture: true, userPicture: false)
+        IsUpdateStatus = false
         guard let userCity = userInformationTxtField[2].text, let userGender = userInformationTxtField[0].text, let userLevel = userInformationTxtField[3].text, let pictureData = userFixPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = birthdate else {
             print("hello")
             return}
@@ -164,6 +165,7 @@ final class ProfileViewController: UIViewController {
     
     @IBAction private func didPressCancelButton(_ sender: Any) {
         alertDateLbl.isHidden = true
+        IsUpdateStatus = false
         managePictureVisibility(updatePicture: true, userPicture: false)
         manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
         manageButtonVisibility(updatePosition: true, fixPosition: false)
@@ -332,7 +334,7 @@ extension ProfileViewController: DidSelectCityDelegate {
     func rowTapped(with city: String) {
         UserDefaults.standard.set(city, forKey: Constants.UDefault.savedProvisionalUserInformations)
         self.userInformationTxtField[2].text = city
-        IsSegueFromCity = true
+        IsUpdateStatus = true
     }
 }
 
@@ -344,6 +346,7 @@ extension ProfileViewController : UIImagePickerControllerDelegate, UINavigationC
             if let imageView = userPictureImageView {
                 imageView.contentMode = .scaleAspectFill
                 imageView.image = pickedImage
+                IsUpdateStatus = true
                 userPictureImageView.image = pickedImage
                 userFixPictureImageView.image = pickedImage
             } else {
