@@ -28,10 +28,6 @@ final class CitiesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarCustom()
-//        let backgroundImage = UIImage(named: "background")
-//        let imageView = UIImageView(image: backgroundImage)
-//        imageView.contentMode = .scaleAspectFill
-//        citiesTableView.backgroundView = imageView
     }
 }
 

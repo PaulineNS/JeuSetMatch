@@ -41,6 +41,7 @@ final class ProfileViewController: UIViewController {
     @IBOutlet private var userInformationTxtField: [UITextField]!
     @IBOutlet weak var userFixPictureImageView: UIImageView!
     @IBOutlet private weak var userPictureImageView: UIImageView!
+    @IBOutlet weak var plusImageView: UIImageView!
     @IBOutlet private weak var logOutBarButtonItem: UIBarButtonItem!
     @IBOutlet private weak var updateProfileButton: UIButton!
     @IBOutlet private weak var validateButton: UIButton!
@@ -64,6 +65,7 @@ final class ProfileViewController: UIViewController {
         deleteProfilButton.isHidden = true
         managePickers()
         userPictureImageView.isHidden = true
+        plusImageView.isHidden = true
         userFixPictureImageView.makeRounded()
         userPictureImageView.makeRounded()
     }
@@ -73,6 +75,7 @@ final class ProfileViewController: UIViewController {
         guard IsSegueFromSearch == true else {
             guard IsSegueFromCity == true else {
                 userPictureImageView.isHidden = true
+                plusImageView.isHidden = true
                 userFixPictureImageView.isHidden = false
                 guard let currentUserUid = firestoreUser.currentUserUid else {return}
                 fetchUserInformations(userUid: currentUserUid )
@@ -82,6 +85,7 @@ final class ProfileViewController: UIViewController {
                 return
             }
             userPictureImageView.isHidden = false
+            plusImageView.isHidden = false
             userFixPictureImageView.isHidden = true
             displayUserDefaultsOnTextField(userInformations: Constants.UDefault.savedProvisionalUserInformations, userPicture: Constants.UDefault.savedProvisionaluserPicture)
             return
@@ -112,6 +116,7 @@ final class ProfileViewController: UIViewController {
         }
         if sender.currentTitle == "Modifier mon profil" {
             userPictureImageView.isHidden = false
+            plusImageView.isHidden = false
             userFixPictureImageView.isHidden = true
             manageTxtField(status: true, color: #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1))
             validateButton.isHidden = false
@@ -162,6 +167,7 @@ final class ProfileViewController: UIViewController {
         deleteProfilButton.isHidden = true
         updateProfileButton.isHidden = false
         userPictureImageView.isHidden = true
+        plusImageView.isHidden = true
         userFixPictureImageView.isHidden = false
 
         guard let userCity = userInformationTxtField[2].text, let userGender = userInformationTxtField[0].text, let userLevel = userInformationTxtField[3].text, let pictureData = userFixPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = birthdate else {
@@ -177,6 +183,7 @@ final class ProfileViewController: UIViewController {
     @IBAction private func didPressCancelButton(_ sender: Any) {
         alertDateLbl.isHidden = true
         userPictureImageView.isHidden = true
+        plusImageView.isHidden = true
         userFixPictureImageView.isHidden = false
         manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
         validateButton.isHidden = true
