@@ -39,9 +39,6 @@ final class ProfileViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var userPseudo: UINavigationItem!
-//    @IBOutlet private var userInformationTxtField: [UITextField]!
-    
-    
     @IBOutlet var userInformationsTxtField: [UITextField]!
     @IBOutlet weak var userFixPictureImageView: UIImageView!
     @IBOutlet private weak var userPictureImageView: UIImageView!
@@ -66,7 +63,7 @@ final class ProfileViewController: UIViewController {
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(didTapProfilPicture))
         userPictureImageView.isUserInteractionEnabled = true
         userPictureImageView.addGestureRecognizer(singleTap)
-        manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
+        manageTxtField(status: false, backgroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0), textColour: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), border: .none)
         image.delegate = self
         alertDateLbl.isHidden = true
     }
@@ -114,7 +111,7 @@ final class ProfileViewController: UIViewController {
         }
         if sender.currentTitle == "Modifier mon profil" {
             managePictureVisibility(updatePicture: false, userPicture: true)
-            manageTxtField(status: true, color: #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1))
+            manageTxtField(status: true, backgroundColor: #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1), textColour: #colorLiteral(red: 0.1190812364, green: 0.2160289288, blue: 0.1939708292, alpha: 1), border: .roundedRect)
             manageButtonVisibility(updatePosition: false, fixPosition: true)
             setInformationsInUserDefault(userInformations: Constants.UDefault.savedUserInformations, userPicture: Constants.UDefault.savedUserPicture)
         }
@@ -149,12 +146,11 @@ final class ProfileViewController: UIViewController {
         }
         alertDateLbl.isHidden = true
         deleteProfilButton.isHidden = false
-        userInformationsTxtField[2].text = dateToAge(birthDate: datePicker.date)
+        userInformationsTxtField[2].text = dateToAge(birthDate: datePicker.date) + " " + "ans"
     }
     
-    
     @IBAction private func didPressValidateButton(_ sender: Any) {
-        manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
+        manageTxtField(status: false, backgroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0), textColour: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), border: .none)
         manageButtonVisibility(updatePosition: true, fixPosition: false)
         managePictureVisibility(updatePicture: true, userPicture: false)
         IsUpdateStatus = false
@@ -175,7 +171,7 @@ final class ProfileViewController: UIViewController {
         alertDateLbl.isHidden = true
         IsUpdateStatus = false
         managePictureVisibility(updatePicture: true, userPicture: false)
-        manageTxtField(status: false, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
+        manageTxtField(status: false, backgroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0), textColour: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), border: .none)
         manageButtonVisibility(updatePosition: true, fixPosition: false)
         displayUserDefaultsOnTextField(userInformations: Constants.UDefault.savedUserInformations, userPicture: Constants.UDefault.savedUserPicture)
     }
@@ -223,10 +219,12 @@ final class ProfileViewController: UIViewController {
         updateProfileButton.isHidden = fixPosition
     }
     
-    private func manageTxtField(status: Bool, color: UIColor ) {
+    private func manageTxtField(status: Bool, backgroundColor: UIColor, textColour: UIColor, border: UITextField.BorderStyle ) {
         for txtField in userInformationsTxtField {
             txtField.isUserInteractionEnabled = status
-            txtField.backgroundColor = color
+            txtField.backgroundColor = backgroundColor
+            txtField.textColor = textColour
+            txtField.borderStyle = border
         }
     }
     

@@ -30,15 +30,9 @@ final class FilterViewController: UIViewController {
     
     // MARK: - Life cycle
     
-  
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarCustom()
-//        let backgroundImage = UIImage(named: "rackets")
-//        let imageView = UIImageView(image: backgroundImage)
-//        imageView.contentMode = .scaleAspectFill
-//        filterTableView.backgroundView = imageView
         filterTableView.register(UINib(nibName: Constants.Cell.filterCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.filterCellIdentifier)
         for (key, value) in filtersDictionnary.sorted(by: { $0.0 < $1.0 }) {
             filtersArray.append(Filters(denomination: key, value: value))

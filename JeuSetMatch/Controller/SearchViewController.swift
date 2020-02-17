@@ -188,7 +188,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         }
         label.snp.makeConstraints { (make) in
             make.top.equalTo(imageView.snp.bottom).offset(20.0)
-            make.right.equalTo(view).offset(15.0)
+            make.right.equalTo(view).offset(-15.0)
             make.left.equalTo(view).offset(15.0)
         }
         return view

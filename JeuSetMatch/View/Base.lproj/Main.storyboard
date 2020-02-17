@@ -839,7 +839,7 @@
                                 <color key="textColor" red="0.1463312507" green="0.29253530500000002" blue="0.43288850779999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" translatesAutoresizingMaskIntoConstraints="NO" id="Hm5-SF-aV9">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plusPicture" translatesAutoresizingMaskIntoConstraints="NO" id="Hm5-SF-aV9">
                                 <rect key="frame" x="257" y="462" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Lhx-Wc-bvj"/>
@@ -1021,7 +1021,7 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" translatesAutoresizingMaskIntoConstraints="NO" id="FCN-Dp-bgG">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plusPicture" translatesAutoresizingMaskIntoConstraints="NO" id="FCN-Dp-bgG">
                                                 <rect key="frame" x="207" y="206.5" width="50" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="50" id="a3I-32-NUh"/>
@@ -1638,7 +1638,7 @@
         <image name="logout" width="25" height="25"/>
         <image name="message" width="30" height="30"/>
         <image name="pictureProfile" width="512" height="512"/>
-        <image name="plus" width="512" height="512"/>
+        <image name="plusPicture" width="512" height="512"/>
         <image name="profile" width="29.5" height="30"/>
         <image name="search" width="28.5" height="30"/>
         <image name="tick" width="512" height="512"/>
