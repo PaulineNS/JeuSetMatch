@@ -38,7 +38,10 @@ final class ProfileViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var userPseudo: UINavigationItem!
-    @IBOutlet private var userInformationTxtField: [UITextField]!
+//    @IBOutlet private var userInformationTxtField: [UITextField]!
+    
+    
+    @IBOutlet var userInformationsTxtField: [UITextField]!
     @IBOutlet weak var userFixPictureImageView: UIImageView!
     @IBOutlet private weak var userPictureImageView: UIImageView!
     @IBOutlet weak var plusImageView: UIImageView!
@@ -81,6 +84,7 @@ final class ProfileViewController: UIViewController {
             }
             managePictureVisibility(updatePicture: false, userPicture: true)
             displayUserDefaultsOnTextField(userInformations: Constants.UDefault.savedProvisionalUserInformations, userPicture: Constants.UDefault.savedProvisionaluserPicture)
+
             return
         }
         guard let partnerUid = userToShow?.uid else {return}
@@ -144,7 +148,7 @@ final class ProfileViewController: UIViewController {
         }
         alertDateLbl.isHidden = true
         deleteProfilButton.isHidden = false
-        userInformationTxtField[1].text = dateToAge(birthDate: datePicker.date)
+        userInformationsTxtField[2].text = dateToAge(birthDate: datePicker.date)
     }
     
     
@@ -153,7 +157,7 @@ final class ProfileViewController: UIViewController {
         manageButtonVisibility(updatePosition: true, fixPosition: false)
         managePictureVisibility(updatePicture: true, userPicture: false)
         IsUpdateStatus = false
-        guard let userCity = userInformationTxtField[2].text, let userGender = userInformationTxtField[0].text, let userLevel = userInformationTxtField[3].text, let pictureData = userFixPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = birthdate else {
+        guard let userCity = userInformationsTxtField[0].text, let userGender = userInformationsTxtField[1].text, let userLevel = userInformationsTxtField[3].text, let pictureData = userFixPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = birthdate else {
             print("hello")
             return}
         userUseCase.updateUserInformation(userAge: userBirthDate, userCity: userCity, userGender: userGender, userLevel: userLevel, userImage: pictureData) { isSuccess in
@@ -186,16 +190,16 @@ final class ProfileViewController: UIViewController {
     // MARK: - Methods
     
     private func managePickers(){
-        userInformationTxtField[2].delegate = self
+        userInformationsTxtField[0].delegate = self
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
         datePicker?.locale = Locale.init(identifier: "fr_FR")
-        userInformationTxtField[1].inputView = datePicker
+        userInformationsTxtField[2].inputView = datePicker
         datePicker?.addTarget(self, action: #selector(ProfileViewController.dateChanged(datePicker:)), for: .valueChanged)
         levelPicker = UIPickerView()
-        userInformationTxtField[3].inputView = levelPicker
+        userInformationsTxtField[3].inputView = levelPicker
         genderPicker = UIPickerView()
-        userInformationTxtField[0].inputView = genderPicker
+        userInformationsTxtField[1].inputView = genderPicker
         levelPicker?.delegate = self
         genderPicker?.delegate = self
         genderPicker?.dataSource = self
@@ -216,7 +220,7 @@ final class ProfileViewController: UIViewController {
     }
     
     private func manageTxtField(status: Bool, color: UIColor ) {
-        for txtField in userInformationTxtField {
+        for txtField in userInformationsTxtField {
             txtField.isUserInteractionEnabled = status
             txtField.backgroundColor = color
         }
@@ -224,8 +228,8 @@ final class ProfileViewController: UIViewController {
     
     private func setInformationsInUserDefault(userInformations: String, userPicture: String) {
         var index = 0
-        for _ in userInformationTxtField {
-            UserDefaults.standard.set(userInformationTxtField[index].text, forKey: userInformations + "\(index)")
+        for _ in userInformationsTxtField {
+            UserDefaults.standard.set(userInformationsTxtField[index].text, forKey: userInformations + "\(index)")
             index += 1
         }
 //        UserDefaults.standard.set(userPictureImageView.image?.jpegData(compressionQuality: 0.1), forKey: userPicture)
@@ -235,8 +239,8 @@ final class ProfileViewController: UIViewController {
     
     private func displayUserDefaultsOnTextField(userInformations: String, userPicture: String) {
         var index = 0
-        for _ in userInformationTxtField {
-            userInformationTxtField[index].text = UserDefaults.standard.string(forKey: userInformations + "\(index)")
+        for _ in userInformationsTxtField {
+            userInformationsTxtField[index].text = UserDefaults.standard.string(forKey: userInformations + "\(index)")
             index += 1
         }
         guard let imageData = UserDefaults.standard.data(forKey: userPicture)
@@ -259,12 +263,12 @@ final class ProfileViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.userPseudo.title = userPseudo
                     self.tabBarController?.navigationItem.title = userPseudo
-                    self.userInformationTxtField[0].text = userGender
-                    self.userInformationTxtField[2].text = userCity
-                    self.userInformationTxtField[3].text = userLevel
+                    self.userInformationsTxtField[1].text = userGender
+                    self.userInformationsTxtField[0].text = userCity
+                    self.userInformationsTxtField[3].text = userLevel
                     self.userPictureImageView.image = UIImage(data: userPicture)
                     self.userFixPictureImageView.image = UIImage(data: userPicture)
-                    self.userInformationTxtField[1].text = userAge + " " + "ans"
+                    self.userInformationsTxtField[2].text = userAge + " " + "ans"
                 }
             case .failure(let error) :
                 print(error.localizedDescription)
@@ -319,9 +323,9 @@ extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case pickerView where pickerView == levelPicker:
-            userInformationTxtField[3].text = Constants.Arrays.levelsPickerUpdateProfil[row]
+            userInformationsTxtField[3].text = Constants.Arrays.levelsPickerUpdateProfil[row]
         case pickerView where pickerView == genderPicker:
-            userInformationTxtField[0].text = Constants.Arrays.gendersPickerUpdateProfil[row]
+            userInformationsTxtField[1].text = Constants.Arrays.gendersPickerUpdateProfil[row]
         default:
             break
         }
@@ -332,8 +336,9 @@ extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension ProfileViewController: DidSelectCityDelegate {
     func rowTapped(with city: String) {
-        UserDefaults.standard.set(city, forKey: Constants.UDefault.savedProvisionalUserInformations)
-        self.userInformationTxtField[2].text = city
+        UserDefaults.standard.set(city, forKey: Constants.UDefault.savedProvisionalUserInformations + "0"
+        )
+        self.userInformationsTxtField[0].text = city
         IsUpdateStatus = true
     }
 }

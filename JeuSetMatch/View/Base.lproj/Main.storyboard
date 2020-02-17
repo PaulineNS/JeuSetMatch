@@ -1166,10 +1166,10 @@
                         <outlet property="userPictureImageView" destination="UhZ-oe-gfV" id="VdO-Iw-r1z"/>
                         <outlet property="userPseudo" destination="fis-fC-hjt" id="HAW-bz-4fD"/>
                         <outlet property="validateButton" destination="OlG-2F-TZU" id="ALJ-tp-6nc"/>
-                        <outletCollection property="userInformationTxtField" destination="8TF-2B-egq" collectionClass="NSMutableArray" id="84L-lt-Ve6"/>
-                        <outletCollection property="userInformationTxtField" destination="Rc3-Vz-tdw" collectionClass="NSMutableArray" id="Qet-rf-Enc"/>
-                        <outletCollection property="userInformationTxtField" destination="NJO-t7-SyP" collectionClass="NSMutableArray" id="WK2-tW-E6z"/>
-                        <outletCollection property="userInformationTxtField" destination="h2y-IU-NB4" collectionClass="NSMutableArray" id="4Tq-d1-UbF"/>
+                        <outletCollection property="userInformationsTxtField" destination="NJO-t7-SyP" collectionClass="NSMutableArray" id="Gwb-LW-f0j"/>
+                        <outletCollection property="userInformationsTxtField" destination="h2y-IU-NB4" collectionClass="NSMutableArray" id="gdd-6Y-2n9"/>
+                        <outletCollection property="userInformationsTxtField" destination="Rc3-Vz-tdw" collectionClass="NSMutableArray" id="6fD-iA-mQM"/>
+                        <outletCollection property="userInformationsTxtField" destination="8TF-2B-egq" collectionClass="NSMutableArray" id="HZ6-oG-3We"/>
                         <segue destination="Z5V-7b-odc" kind="show" identifier="ProfileToChat" id="3Dc-8t-nP1"/>
                         <segue destination="t62-TX-r5d" kind="show" identifier="ProfileToCities" id="aiR-vR-a4K"/>
                     </connections>
