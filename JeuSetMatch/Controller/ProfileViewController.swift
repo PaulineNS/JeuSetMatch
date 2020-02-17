@@ -123,12 +123,9 @@ final class ProfileViewController: UIViewController {
                 // PresentAlert
             }
         }
-        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
-        let logInViewController = mainStoryBoard.instantiateViewController(withIdentifier: "loginViewController")
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.rootViewController = logInViewController
-        navigationController?.popToRootViewController(animated: true)
+        dismissTheView()
     }
+    
     
     @objc private func didTapProfilPicture() {
         onPictureClick(image: image)
@@ -180,10 +177,12 @@ final class ProfileViewController: UIViewController {
         presentAlert(title: "Etes vous sure de supprimer votre compte ?", message: "") { (success) in
             guard success == true else {return}
             self.registerUseCase.deleteAccount {isSuccess in
-                if !isSuccess {
-                    // PresentAlert
+                guard !isSuccess else {
+                    self.dismissTheView()
+                    return
                 }
-            }            
+                //PresentAlert
+            }
         }
     }
     
@@ -279,6 +278,14 @@ final class ProfileViewController: UIViewController {
                 return
             }
         })
+    }
+        
+    private func dismissTheView() {
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let logInViewController = mainStoryBoard.instantiateViewController(withIdentifier: "loginViewController")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = logInViewController
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 
