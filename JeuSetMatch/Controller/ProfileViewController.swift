@@ -28,7 +28,8 @@ final class ProfileViewController: UIViewController {
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
     lazy private var loginUseCase: LogUseCase = LogUseCase(client: firestoreLogin)
     private var IsUpdateStatus = false
-    private var birthdate: String?
+    private var newBirthdate: String?
+    private var originalBirthdate: String?
     private var userInformations: [UserObject] = []
     private var genderPicker: UIPickerView?
     private var datePicker: UIDatePicker?
@@ -139,7 +140,7 @@ final class ProfileViewController: UIViewController {
     @objc private func dateChanged(datePicker: UIDatePicker) {
         
         let isValideAge = validateAge(birthDate: datePicker.date, minimumAge: minimumAge ?? Date())
-        birthdate = convertDateToString(date: datePicker.date)
+        newBirthdate = convertDateToString(date: datePicker.date)
         guard isValideAge else {
             alertDateLbl.isHidden = false
             deleteProfilButton.isHidden = true
@@ -157,8 +158,11 @@ final class ProfileViewController: UIViewController {
         manageButtonVisibility(updatePosition: true, fixPosition: false)
         managePictureVisibility(updatePicture: true, userPicture: false)
         IsUpdateStatus = false
-        guard let userCity = userInformationsTxtField[0].text, let userGender = userInformationsTxtField[1].text, let userLevel = userInformationsTxtField[3].text, let pictureData = userFixPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = birthdate else {
-            print("hello")
+        if newBirthdate == nil {
+            newBirthdate = originalBirthdate
+        }
+        guard let userCity = userInformationsTxtField[0].text, let userGender = userInformationsTxtField[1].text, let userLevel = userInformationsTxtField[3].text, let pictureData = userFixPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = newBirthdate else {
+            //present Alert
             return}
         userUseCase.updateUserInformation(userAge: userBirthDate, userCity: userCity, userGender: userGender, userLevel: userLevel, userImage: pictureData) { isSuccess in
         if !isSuccess {
@@ -258,6 +262,7 @@ final class ProfileViewController: UIViewController {
             case .success(let user) :
                 self.userInformations.append(user)
                 guard let userBirthdate = user.birthDate, let userPseudo = user.pseudo, let userGender = user.sexe, let userCity = user.city, let userLevel = user.level, let userPicture = user.image else {return}
+                self.originalBirthdate = userBirthdate
                 let stringDate = self.convertStringToDate(dateString: userBirthdate)
                 let userAge = self.dateToAge(birthDate: stringDate)
                 DispatchQueue.main.async {
