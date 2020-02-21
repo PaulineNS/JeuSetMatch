@@ -32,19 +32,18 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarCustom()
-//        let backgroundImage = UIImage(named: "players")
         let imageView = UIImageView()
         imageView.backgroundColor = .clear
         usersTableView.backgroundView = imageView
-        self.tabBarController?.navigationItem.hidesBackButton = true
+        tabBarController?.navigationItem.hidesBackButton = true
         usersTableView.register(UINib(nibName: Constants.Cell.userCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.userCellIdentifier)
         fetchUsers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.navigationItem.title = "Joueurs"
-        self.tabBarController?.navigationItem.rightBarButtonItem = filterBarButton
+        tabBarController?.navigationItem.title = "Joueurs"
+        tabBarController?.navigationItem.rightBarButtonItem = filterBarButton
         usersTableView.reloadData()
     }
     

@@ -435,6 +435,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back5" translatesAutoresizingMaskIntoConstraints="NO" id="bHO-dW-GCL">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                            </imageView>
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ff8-Kj-Tax">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <color key="backgroundColor" red="0.1190812364" green="0.21602892879999999" blue="0.1939708292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OzD-VZ-OxD">
                                 <rect key="frame" x="0.0" y="60" width="414" height="748"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -446,7 +453,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -478,12 +485,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="OzD-VZ-OxD" secondAttribute="bottom" id="1Yi-rO-dAV"/>
+                            <constraint firstItem="bHO-dW-GCL" firstAttribute="leading" secondItem="NRZ-t0-Bb4" secondAttribute="leading" id="1r0-FX-Mjj"/>
+                            <constraint firstAttribute="trailing" secondItem="Ff8-Kj-Tax" secondAttribute="trailing" id="5RL-dQ-t5c"/>
+                            <constraint firstItem="bHO-dW-GCL" firstAttribute="top" secondItem="NRZ-t0-Bb4" secondAttribute="top" id="5gc-Lf-aEM"/>
+                            <constraint firstItem="Ff8-Kj-Tax" firstAttribute="leading" secondItem="NRZ-t0-Bb4" secondAttribute="leading" id="92e-dO-dy4"/>
                             <constraint firstItem="3Z3-gn-Dko" firstAttribute="top" secondItem="8I5-OS-3q0" secondAttribute="top" id="I1y-b5-WKW"/>
+                            <constraint firstAttribute="trailing" secondItem="bHO-dW-GCL" secondAttribute="trailing" id="Rnh-HX-uqr"/>
                             <constraint firstItem="3Z3-gn-Dko" firstAttribute="leading" secondItem="8I5-OS-3q0" secondAttribute="leading" id="Rv0-Pb-Hui"/>
                             <constraint firstItem="OzD-VZ-OxD" firstAttribute="top" secondItem="3Z3-gn-Dko" secondAttribute="bottom" id="W9g-a4-Wt5"/>
+                            <constraint firstItem="Ff8-Kj-Tax" firstAttribute="top" secondItem="NRZ-t0-Bb4" secondAttribute="top" id="WGg-IX-yc3"/>
+                            <constraint firstAttribute="bottom" secondItem="Ff8-Kj-Tax" secondAttribute="bottom" id="afs-t1-AN8"/>
                             <constraint firstItem="3Z3-gn-Dko" firstAttribute="trailing" secondItem="8I5-OS-3q0" secondAttribute="trailing" id="b2L-CS-Z5h"/>
                             <constraint firstItem="OzD-VZ-OxD" firstAttribute="leading" secondItem="8I5-OS-3q0" secondAttribute="leading" id="mit-dm-cNc"/>
                             <constraint firstItem="8I5-OS-3q0" firstAttribute="trailing" secondItem="OzD-VZ-OxD" secondAttribute="trailing" id="n8X-4b-e37"/>
+                            <constraint firstAttribute="bottom" secondItem="bHO-dW-GCL" secondAttribute="bottom" id="nQy-85-2E9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8I5-OS-3q0"/>
                     </view>
@@ -1247,7 +1262,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundYellow" translatesAutoresizingMaskIntoConstraints="NO" id="Rka-6n-Qqu">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundYellow" translatesAutoresizingMaskIntoConstraints="NO" id="Rka-6n-Qqu">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                             </imageView>
                             <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUC-mp-B2T">

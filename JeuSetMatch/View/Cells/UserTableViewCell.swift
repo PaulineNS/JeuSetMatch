@@ -14,10 +14,5 @@ final class UserTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
-    
-    // MARK: - Methods
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 }
