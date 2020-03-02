@@ -20,7 +20,6 @@ final class MessagesViewController: UIViewController {
     
     private var userSelected: UserObject?
     private var messages = [MessageObject]()
-//        = [MessageObject(dictionary: ["" : ""])]
     private var messagesDictionary = [String : MessageObject]()
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
     lazy private var conversationUseCase: ConversationUseCase = ConversationUseCase(message: firestoreConversation)
@@ -62,10 +61,10 @@ final class MessagesViewController: UIViewController {
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let message):
+                self.removeFakeMessage()
                 if let chatPartnerId = message.chatPartnerId() {
                     self.messagesDictionary[chatPartnerId] = message
                     self.messages = Array(self.messagesDictionary.values)
-//                    self.removeFakeMessage()
                     self.messages.sort(by: { (message1, message2) -> Bool in
                         return Int32(truncating: message1.timestamp!) > Int32(truncating: message2.timestamp!)
                     })
