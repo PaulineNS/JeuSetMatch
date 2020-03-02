@@ -1640,7 +1640,7 @@
         <image name="profile" width="29.5" height="30"/>
         <image name="search" width="28.5" height="30"/>
         <image name="tick" width="512" height="512"/>
-        <image name="yellowBackground" width="702" height="1085"/>
+        <image name="yellowBackground" width="715" height="1287"/>
         <image name="yellowBackground2" width="714" height="1300"/>
         <image name="yellowBackground4" width="712" height="1298"/>
     </resources>
