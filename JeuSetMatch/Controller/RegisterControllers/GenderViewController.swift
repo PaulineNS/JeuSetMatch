@@ -12,9 +12,9 @@ final class GenderViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet private weak var madamButton: UIButton!
-    @IBOutlet private weak var sirButton: UIButton!
-    @IBOutlet private weak var alertLabel: UILabel!
+    @IBOutlet weak var madamButton: UIButton!
+    @IBOutlet weak var sirButton: UIButton!
+    @IBOutlet weak var alertLabel: UILabel!
     
     // MARK: - Variables
     

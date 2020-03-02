@@ -48,6 +48,8 @@ final class ChatViewController: UIViewController {
     @IBAction private func sendPressed(_ sender: UIButton) {
         let properties : [String : Any] = [Constants.FStore.textMessage: chatTextField.text!]
         guard let toId = receiverUser?.uid else { return }
+       
+       
         conversationUseCase.sendMessage(withProperties: properties, toId: toId) { (isSuccess) in
             if !isSuccess {
                 //presentAlert

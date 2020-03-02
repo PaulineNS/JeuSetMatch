@@ -40,8 +40,8 @@ final class MessagesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.navigationItem.title = "Messages"
-        tabBarController?.navigationItem.rightBarButtonItem = nil
+        self.tabBarController?.navigationItem.title = "Messages"
+        self.tabBarController?.navigationItem.rightBarButtonItem = nil
     }
     
     // MARK: - Segue

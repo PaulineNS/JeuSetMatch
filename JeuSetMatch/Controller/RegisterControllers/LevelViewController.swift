@@ -12,8 +12,8 @@ final class LevelViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet private weak var levelPickerView: UIPickerView!
-    @IBOutlet private weak var levelAlert: UILabel!
+    @IBOutlet weak var levelPickerView: UIPickerView!
+    @IBOutlet weak var levelAlert: UILabel!
     
     // MARK: - Variables
     

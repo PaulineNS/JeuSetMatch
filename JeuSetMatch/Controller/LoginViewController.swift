@@ -17,7 +17,6 @@ final class LoginViewController: UIViewController {
     @IBOutlet private weak var alertLabel: UILabel!
     
     // MARK: - Variables
-    
     private let firestoreLogin = FirestoreLogService()
     lazy private var loginUseCase: LogUseCase = LogUseCase(client: firestoreLogin)
     private var currentUser: UserObject?
@@ -43,14 +42,14 @@ final class LoginViewController: UIViewController {
     ///Login action
     @IBAction private func loginPressed(_ sender: Any) {
         guard let email = emailTextfield.text, let password = passwordTextfield.text else {return}
-        loginUseCase.logIn(with: email, password: password) { [weak self] (result) in
+        loginUseCase.logIn(with: email, password: password) { (result) in
             switch result {
             case .success :
-                self?.performSegue(withIdentifier: Constants.Segue.loginSegue, sender: self)                
+                self.performSegue(withIdentifier: Constants.Segue.loginSegue, sender: self)                
             case .failure(let error):
                 print(error.localizedDescription)
-                self?.alertLabel.isHidden = false
-                self?.alertLabel.text = error.localizedDescription
+                self.alertLabel.isHidden = false
+                self.alertLabel.text = error.localizedDescription
             }
         }
     }

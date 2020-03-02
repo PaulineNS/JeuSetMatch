@@ -12,8 +12,8 @@ final class BirthdayViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet private weak var birthdayDatePicker: UIDatePicker!
-    @IBOutlet private weak var alertLbl: UILabel!
+    @IBOutlet weak var birthdayDatePicker: UIDatePicker!
+    @IBOutlet weak var alertLbl: UILabel!
     
     // MARK: - Variables
     
