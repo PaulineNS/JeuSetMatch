@@ -44,7 +44,6 @@ extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.cityCellIdentifier, for: indexPath) 
         cell.textLabel?.attributedText = googlePlacesService.arrayCities[indexPath.row].attributedFullText
         cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
-//        cell.backgroundColor = UIColor(white: 1, alpha: 0.8)
         return cell
     }
     

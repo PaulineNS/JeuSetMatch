@@ -20,7 +20,6 @@ final class FilterTableViewCell: UITableViewCell {
     
     var genderPicker: UIPickerView?
     var levelPicker: UIPickerView?
-//    var agePicker: UIPickerView?
     var filter: Filters? {
         didSet {
             categorieLabel.text = filter?.denomination
@@ -34,9 +33,15 @@ final class FilterTableViewCell: UITableViewCell {
         levelPicker = UIPickerView()
         levelPicker?.delegate = self
         levelPicker?.dataSource = self
+        if let levelIndex = find(value: UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterLevel) ?? "", in: Constants.Arrays.levelsPickerFilterUser) {
+            levelPicker?.selectRow(levelIndex, inComponent: 0, animated: true)
+        }
         genderPicker = UIPickerView()
         genderPicker?.delegate = self
         genderPicker?.dataSource = self
+        if let genderIndex = find(value: UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterGender) ?? "", in: Constants.Arrays.gendersPickerFilterUser) {
+            genderPicker?.selectRow(genderIndex, inComponent: 0, animated: true)
+        }
     }
 }
 
@@ -91,7 +96,7 @@ extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
 // MARK: - Text Field Delegate
 
 extension FilterTableViewCell: UITextFieldDelegate {
-    
+        
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

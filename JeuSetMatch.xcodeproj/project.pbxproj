@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		402E2DE124DF185F96D559FF /* Pods_JeuSetMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE8E9E9348301437FB4D8ED /* Pods_JeuSetMatch.framework */; };
+		5601CF1323FD44580044BE55 /* UIViewController+FilterArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601CF1223FD44580044BE55 /* UIViewController+FilterArray.swift */; };
 		562CE38A23BB50590075A8AA /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38923BB50590075A8AA /* MailViewController.swift */; };
 		562CE38E23BB50CB0075A8AA /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38D23BB50CB0075A8AA /* GenderViewController.swift */; };
 		562CE39023BB55BB0075A8AA /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CE38F23BB55BB0075A8AA /* CityViewController.swift */; };
@@ -80,6 +81,7 @@
 
 /* Begin PBXFileReference section */
 		2012A617EF9FFCD417D93716 /* Pods-JeuSetMatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeuSetMatch.debug.xcconfig"; path = "Target Support Files/Pods-JeuSetMatch/Pods-JeuSetMatch.debug.xcconfig"; sourceTree = "<group>"; };
+		5601CF1223FD44580044BE55 /* UIViewController+FilterArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+FilterArray.swift"; sourceTree = "<group>"; };
 		562CE38923BB50590075A8AA /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		562CE38D23BB50CB0075A8AA /* GenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderViewController.swift; sourceTree = "<group>"; };
 		562CE38F23BB55BB0075A8AA /* CityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				56F59E6723EB469000881D9F /* UIViewController+Filters.swift */,
 				56D8D73F23F13D8D006D4A59 /* UIImageView+Rounded.swift */,
 				56BCCAF523F41AD000C8450E /* UIViewController+NavBar.swift */,
+				5601CF1223FD44580044BE55 /* UIViewController+FilterArray.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */,
 				567CBE3023D8344200A7E306 /* LogUseCase.swift in Sources */,
 				56BCCAF623F41AD000C8450E /* UIViewController+NavBar.swift in Sources */,
+				5601CF1323FD44580044BE55 /* UIViewController+FilterArray.swift in Sources */,
 				568D50AD23D3320B00839CE4 /* GooglePlacesService.swift in Sources */,
 				567CBE3223D8345400A7E306 /* FirestoreLogService.swift in Sources */,
 				5645369E23BF5285005A26B5 /* ProfileViewController.swift in Sources */,

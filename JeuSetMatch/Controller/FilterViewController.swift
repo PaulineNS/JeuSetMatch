@@ -34,7 +34,7 @@ final class FilterViewController: UIViewController {
         super.viewDidLoad()
         navigationBarCustom()
         filterTableView.register(UINib(nibName: Constants.Cell.filterCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.filterCellIdentifier)
-        for (key, value) in filtersDictionnary.sorted(by: { $0.0 < $1.0 }) {
+        for (key, value) in filtersDictionnary.sorted(by: <) {
             filtersArray.append(Filters(denomination: key, value: value))
         }
     }
