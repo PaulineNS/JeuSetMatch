@@ -26,7 +26,7 @@ final class FilterViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var filterTableView: UITableView!
+    @IBOutlet private weak var filterTableView: UITableView!
     
     // MARK: - Life cycle
     
@@ -57,7 +57,8 @@ final class FilterViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func searchPlayers(_ sender: Any) {
+    /// Manage palyers search according filters
+    @IBAction private func searchPlayers(_ sender: Any) {
         guard let gender = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterGender), let city = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterCity), let level = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterLevel) else {return}
         switch gender {
         case gender where gender == "Tout" && city == "Tout" && level == "Tout":
@@ -90,7 +91,7 @@ final class FilterViewController: UIViewController {
         }
     }
     
-    @IBAction func canceledFilters(_ sender: Any) {
+    @IBAction private func canceledFilters(_ sender: Any) {
         let newFilterValue = "Tout"
         deleteAllUserDefaultData(filterValue: newFilterValue)
         filtersArray = []
@@ -102,7 +103,9 @@ final class FilterViewController: UIViewController {
     
     // MARK: - Methods
     
-    func fetchUsersWithOneFilter(field1: String, field1value: String){
+    /// Fetch users according one filter
+    private func fetchUsersWithOneFilter(field1: String, field1value: String){
+        customLoader.showLoaderView()
         fetchUsersDependingOneFilter(field1: field1, field1value: field1value, onSuccess: {(users) in
             self.userFound.append(users)
             self.popViewController()
@@ -112,7 +115,9 @@ final class FilterViewController: UIViewController {
         })
     }
     
-    func fetchUsersWithTwoFilters(field1: String, field1value: String, field2: String, field2Value: String){
+    /// Fetch users according two filters
+    private func fetchUsersWithTwoFilters(field1: String, field1value: String, field2: String, field2Value: String){
+        customLoader.showLoaderView()
         fetchUsersDependingTwoFilters(field1: field1, field1value: field1value, field2: field2, field2Value: field2Value, onSuccess: {(users) in
             self.userFound.append(users)
             self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
@@ -123,7 +128,9 @@ final class FilterViewController: UIViewController {
         })
     }
     
-    func fetchUsersWithThreeFilters(gender: String, city: String, level: String) {
+    /// Fetch users according three filters
+    private func fetchUsersWithThreeFilters(gender: String, city: String, level: String) {
+        customLoader.showLoaderView()
         fetchUsersDependingThreeFilters(gender: gender, city: city, level: level, onSuccess: {(users) in
             self.userFound.append(users)
             self.popViewController()
@@ -133,7 +140,9 @@ final class FilterViewController: UIViewController {
         })
     }
     
-    func fetchUsersWithoutFilters(){
+    /// Fetch users according without filters
+    private func fetchUsersWithoutFilters(){
+        customLoader.showLoaderView()
         fetchUsersWithoutFilters(onSuccess: { (users) in
             self.userFound.append(users)
             self.popViewController()
@@ -143,12 +152,15 @@ final class FilterViewController: UIViewController {
         })
     }
     
-    func popViewController() {
+    /// pop the view controller
+    private func popViewController() {
+        customLoader.hideLoaderView()
         didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
         navigationController?.popViewController(animated: true)
     }
     
-    func deleteAllUserDefaultData(filterValue: String) {
+    /// Set back userDefault at the initial value
+    private func deleteAllUserDefaultData(filterValue: String) {
         UserDefaults.standard.set(filterValue, forKey: Constants.UDefault.savedFilterCity)
         UserDefaults.standard.set(filterValue, forKey: Constants.UDefault.savedFilterLevel)
         UserDefaults.standard.set(filterValue, forKey: Constants.UDefault.savedFilterGender)
@@ -159,22 +171,22 @@ final class FilterViewController: UIViewController {
 
 extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
     
+    /// Number of cells in tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filtersArray.count
     }
     
+    /// Define tableView cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.filterCellIdentifier, for: indexPath) as? FilterTableViewCell else {return UITableViewCell()}
         cell.filter = filtersArray[indexPath.row]
         cell.backgroundColor = .clear
-
         switch indexPath.row {
         case indexPath.row where indexPath.row == 0:
             if UserDefaults.standard.object(forKey: Constants.UDefault.savedFilterLevel) != nil {
                 cell.filterValueTxtField.text =  UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterLevel)
             }
             cell.filterValueTxtField.inputView = cell.levelPicker
-            
         case indexPath.row where indexPath.row == 1:
             if UserDefaults.standard.object(forKey: Constants.UDefault.savedFilterGender) != nil {
                 cell.filterValueTxtField.text =  UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterGender)
@@ -191,6 +203,7 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    /// Actions after a cell selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: Constants.Segue.filterToCitiesSegue, sender: nil)
     }

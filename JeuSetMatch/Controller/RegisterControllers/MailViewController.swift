@@ -31,6 +31,7 @@ final class MailViewController: UIViewController {
     
     // MARK: - Segue
     
+    /// prepare segue to SearchVc
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.Segue.registerSegue else { return }
         guard let navVC = segue.destination as? UINavigationController else { return }
@@ -39,6 +40,7 @@ final class MailViewController: UIViewController {
     
     // MARK: - Actions
     
+    /// Action while user press register button
     @IBAction private func registerButtonPressed(_ sender: Any) {
         guard let email = emailTextfield.text, let password = passwordTextfield.text, let userAge = currentUser?.birthDate, let userGender = currentUser?.sexe, let userLevel = currentUser?.level, let userCity = currentUser?.city, let userName = currentUser?.pseudo, let userImage = currentUser?.image else {
             return}

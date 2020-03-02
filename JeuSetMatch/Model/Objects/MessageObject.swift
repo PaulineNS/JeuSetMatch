@@ -16,7 +16,6 @@ struct MessageObject: Equatable {
     }
     
     private let firestoreUser = FirestoreUserService()
-
     
     // MARK: - Variables
 

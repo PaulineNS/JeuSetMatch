@@ -34,10 +34,6 @@ final class MessagesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarCustom()
-        let backgroundImage = UIImage(named: "courtTennis")
-        let imageView = UIImageView(image: backgroundImage)
-        imageView.contentMode = .scaleAspectFill
-        messagesTableView.backgroundView = imageView
         messagesTableView.register(UINib(nibName: Constants.Cell.messagesCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.messagesCellIdentifier)
         observeUserMessages()
     }
@@ -58,6 +54,7 @@ final class MessagesViewController: UIViewController {
     
     // MARK: - Methods
     
+    /// Manage to fetch old and new messages
     private func observeUserMessages() {
         customLoader.showLoaderView()
         conversationUseCase.observeUserMessages { (result) in
@@ -90,10 +87,13 @@ final class MessagesViewController: UIViewController {
 // MARK: - TableView
 
 extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    /// Number of cells in tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     
+    /// Define tableView cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.messagesCellIdentifier, for: indexPath) as? MessagesTableViewCell else { return UITableViewCell()}
@@ -102,6 +102,7 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    /// Actions after a cell selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let message = messages[indexPath.row]
         guard let chatPartnerId = message.chatPartnerId() else { return }
@@ -118,6 +119,7 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    /// Get in shape the tableView footer
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
         let imageView = UIImageView()
@@ -142,6 +144,7 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
         return view
     }
     
+    /// Display the tableView footer depending the number of elements in messages
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return messages.isEmpty ? tableView.bounds.size.height : 0
     }

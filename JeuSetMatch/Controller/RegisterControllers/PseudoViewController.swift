@@ -18,8 +18,8 @@ final class PseudoViewController: UIViewController {
 
     // MARK: - Outlets
 
-    @IBOutlet weak var pseudoTextField: UITextField!
-    @IBOutlet weak var pseudoAlert: UILabel!
+    @IBOutlet private weak var pseudoTextField: UITextField!
+    @IBOutlet private weak var pseudoAlert: UILabel!
     
     // MARK: - Controller life cycle
 
@@ -33,6 +33,7 @@ final class PseudoViewController: UIViewController {
     
     // MARK: - Segue
 
+    /// prepare segue to MailVc
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.Segue.pseudoToMail else { return }
         guard let mailVc = segue.destination as? MailViewController else { return }
@@ -41,7 +42,7 @@ final class PseudoViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func pseudoTxtFieldChanged(_ sender: UITextField) {
+    @IBAction private func pseudoTxtFieldChanged(_ sender: UITextField) {
         guard sender.text?.count ?? 0 < 4 else {
             registerUsecase?.checkPseudoDisponibility(field: sender.text ?? "") { (success) in
                 guard success == true else {
@@ -72,6 +73,7 @@ final class PseudoViewController: UIViewController {
     
     // MARK: - Methods
 
+    /// Display alert message
     private func manageAlertLabel(visibility: Bool, text: String, color: UIColor){
         pseudoAlert.isHidden = visibility
         pseudoAlert.text = text

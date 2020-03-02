@@ -34,6 +34,7 @@ final class BirthdayViewController: UIViewController {
     
     // MARK: - Segue
     
+    ///Prepare segue to LevelVc
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.Segue.birthDatetoLevel else {return}
         guard let levelVc = segue.destination as? LevelViewController else {return}
@@ -42,7 +43,7 @@ final class BirthdayViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func birthDateChanged(_ sender: Any) {
+    @IBAction private func birthDateChanged(_ sender: Any) {
         let isValideAge = validateAge(birthDate: birthdayDatePicker.date, minimumAge: minimumAge ?? Date())
         birthDate = birthdayDatePicker.date
         stringBirthDate = convertDateToString(date: birthDate)
@@ -54,7 +55,7 @@ final class BirthdayViewController: UIViewController {
         }
     }
     
-    @IBAction func continueButtonPressed(_ sender: UIButton) {
+    @IBAction private func continueButtonPressed(_ sender: UIButton) {
         let isValideAge = validateAge(birthDate: birthDate, minimumAge: minimumAge ?? Date())
         guard isValideAge else {
             alertLbl.isHidden = false

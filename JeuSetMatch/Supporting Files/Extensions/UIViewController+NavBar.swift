@@ -11,6 +11,7 @@ import UIKit
 
 extension UIViewController {
     
+    /// Make navigation bar translucent
     func navigationBarCustom() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()

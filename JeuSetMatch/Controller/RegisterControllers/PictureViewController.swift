@@ -43,22 +43,12 @@ final class PictureViewController: UIViewController {
     
     // MARK: - Segue
     
+    ///Prepare segue to PseudoVC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.Segue.pictureToPseudo else { return }
         guard let pseudoVc = segue.destination as? PseudoViewController else { return }
         guard let pictureData = userPicture.jpegData(compressionQuality: 0.1) else { return }
         pseudoVc.currentUser = UserObject(pseudo: nil, image: pictureData, sexe: currentUser?.sexe, level: currentUser?.level, city: currentUser?.city, birthDate: currentUser?.birthDate, uid: nil)
-    }
-    
-    func displayPictureDependingGender() {
-        switch currentUser?.sexe {
-        case currentUser?.sexe where currentUser?.sexe == "Femme":
-            profilPictureImageView.image = #imageLiteral(resourceName: "GirlPlayer")
-        case currentUser?.sexe where currentUser?.sexe == "Homme":
-            profilPictureImageView.image = #imageLiteral(resourceName: "BoyPlayer")
-        default :
-            break 
-        }
     }
     
     // MARK: - Actions
@@ -75,6 +65,20 @@ final class PictureViewController: UIViewController {
     
     @objc private func didTapProfilPicture() {
         onPictureClick(image: image)
+    }
+    
+    // MARK: - Methods
+
+    /// Manage the uiimage according the user gender
+    private func displayPictureDependingGender() {
+        switch currentUser?.sexe {
+        case currentUser?.sexe where currentUser?.sexe == "Femme":
+            profilPictureImageView.image = #imageLiteral(resourceName: "GirlPlayer")
+        case currentUser?.sexe where currentUser?.sexe == "Homme":
+            profilPictureImageView.image = #imageLiteral(resourceName: "BoyPlayer")
+        default :
+            break
+        }
     }
 }
 

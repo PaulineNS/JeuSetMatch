@@ -12,10 +12,10 @@ class MessagesTableViewCell: UITableViewCell {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var profileUserImageView: UIImageView!
-    @IBOutlet weak var pseudoUserLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var lastMessageLabel: UILabel!
+    @IBOutlet private weak var profileUserImageView: UIImageView!
+    @IBOutlet private weak var pseudoUserLabel: UILabel!
+    @IBOutlet private weak var timeLabel: UILabel!
+    @IBOutlet private weak var lastMessageLabel: UILabel!
     
     // MARK: - Variables
     
@@ -32,6 +32,7 @@ class MessagesTableViewCell: UITableViewCell {
     
     // MARK: - Methods
     
+    ///Display name and user profile image
     private func setupNameAndProfileImage() {
         if let id = message?.chatPartnerId() {
             userUseCase.setupNameAndProfileImage(id: id) { (result) in

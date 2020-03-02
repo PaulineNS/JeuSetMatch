@@ -10,6 +10,8 @@ import UIKit
 import Photos
 import AVFoundation
 
+// MARK: - Manage Picture Picker
+
 extension UIViewController {
     
     public func onPictureClick(image: UIImagePickerController) {

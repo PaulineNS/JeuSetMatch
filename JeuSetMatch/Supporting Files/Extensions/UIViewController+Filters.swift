@@ -9,16 +9,15 @@
 import Foundation
 import UIKit
 
+// MARK: - Manage Users Filters
+
 extension UIViewController {
     
+    /// Fetch user wiith one filter
     func fetchUsersDependingOneFilter(field1: String, field1value: String, onSuccess: @escaping (UserObject) -> Void, onNone: @escaping () -> Void) {
-        let customLoader = CustomLoader()
         let firestoreUser = FirestoreUserService()
         let userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
-        
-        customLoader.showLoaderView()
         userUseCase.fetchUserInformationsDependingOneFilter(field1: field1, field1value: field1value, completion: { (result) in
-            customLoader.hideLoaderView()
             switch result {
             case .success(let users):
                 onSuccess(users)
@@ -30,15 +29,11 @@ extension UIViewController {
         })
     }
     
-    
+    /// Fetch user wiith two filters
     func fetchUsersDependingTwoFilters(field1: String, field1value: String, field2: String, field2Value: String, onSuccess: @escaping (UserObject) -> Void, onNone: @escaping () -> Void){
-        let customLoader = CustomLoader()
         let firestoreUser = FirestoreUserService()
         let userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
-        
-        customLoader.showLoaderView()
         userUseCase.fetchUsersInformationsDependingTwoFilters(field1: field1, field1value: field1value, field2: field2, field2Value: field2Value, completion: { (result) in
-            customLoader.hideLoaderView()
             switch result {
             case .success(let users):
                 onSuccess(users)
@@ -51,14 +46,11 @@ extension UIViewController {
         })
     }
     
+    /// Fetch user wiith three filters
     func fetchUsersDependingThreeFilters(gender: String, city: String, level: String, onSuccess: @escaping (UserObject) -> Void, onNone: @escaping () -> Void) {
-        let customLoader = CustomLoader()
         let firestoreUser = FirestoreUserService()
         let userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
-        
-        customLoader.showLoaderView()
         userUseCase.fetchUserInformationsDependingAllFilters(gender: gender, city: city, level: level, completion: { (result) in
-            customLoader.hideLoaderView()
             switch result {
             case .success(let users):
                 onSuccess(users)
@@ -72,18 +64,14 @@ extension UIViewController {
         })
     }
     
+    /// Fetch user wiithout filters
     func fetchUsersWithoutFilters(onSuccess: @escaping (UserObject) -> Void, onNone: @escaping () -> Void){
-        let customLoader = CustomLoader()
         let firestoreUser = FirestoreUserService()
         let userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
-        
-        customLoader.showLoaderView()
         userUseCase.fetchUserWithoutFilters(completion: { (result) in
-            customLoader.hideLoaderView()
             switch result {
             case .success(let users):
                 onSuccess(users)
-                
             case .failure(let error):
                 print(error.localizedDescription)
             case .none:

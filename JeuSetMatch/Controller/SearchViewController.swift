@@ -20,7 +20,7 @@ final class SearchViewController: UIViewController {
     
     var userSelected: UserObject?
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
-    private var users: [UserObject] = []
+    private var users: [UserObject] = [UserObject(pseudo: nil, image: nil, sexe: nil, level: nil, city: nil, birthDate: nil, uid: nil)]
     
     // MARK: - Outlets
     
@@ -49,6 +49,7 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Segue
     
+    /// prepare segue to ProfilVc or filterVc
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.searchToProfileSegue {
             guard let profileVc = segue.destination as? ProfileViewController else {return}
@@ -70,7 +71,8 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Methods
     
-    func fetchUsers(){
+    /// fetch users depending filters
+    private func fetchUsers(){
         guard let gender = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterGender), let city = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterCity), let level = UserDefaults.standard.string(forKey: Constants.UDefault.savedFilterLevel) else {return}
         switch gender {
         case gender where gender == "Tout" && city == "Tout" && level == "Tout":
@@ -103,45 +105,64 @@ final class SearchViewController: UIViewController {
         }
     }
     
-    func fetchUsersWithOneFilter(field1: String, field1value: String){
+    private func fetchUsersWithOneFilter(field1: String, field1value: String){
+        customLoader.showLoaderView()
         fetchUsersDependingOneFilter(field1: field1, field1value: field1value, onSuccess: {(users) in
             self.users.append(users)
+            self.removeFakeUser()
             self.reloadTableViewInMainQueue()
         }, onNone: {
+            self.users = []
             self.reloadTableViewInMainQueue()
         })
     }
 
-    func fetchUsersWithTwoFilters(field1: String, field1value: String, field2: String, field2Value: String){
+    private func fetchUsersWithTwoFilters(field1: String, field1value: String, field2: String, field2Value: String){
+        customLoader.showLoaderView()
         fetchUsersDependingTwoFilters(field1: field1, field1value: field1value, field2: field2, field2Value: field2Value, onSuccess: {(users) in
             self.users.append(users)
+            self.removeFakeUser()
             self.reloadTableViewInMainQueue()
         }, onNone: {
+            self.users = []
             self.reloadTableViewInMainQueue()
         })
     }
 
-    func fetchUsersWithThreeFilters(gender: String, city: String, level: String) {
+    private func fetchUsersWithThreeFilters(gender: String, city: String, level: String) {
+        customLoader.showLoaderView()
         fetchUsersDependingThreeFilters(gender: gender, city: city, level: level, onSuccess: {(users) in
             self.users.append(users)
+            self.removeFakeUser()
             self.reloadTableViewInMainQueue()
         }, onNone: {
+            self.users = []
             self.reloadTableViewInMainQueue()
         })
     }
 
-    func fetchUsersWithoutFilters(){
+    private func fetchUsersWithoutFilters(){
+        customLoader.showLoaderView()
         fetchUsersWithoutFilters(onSuccess: { (users) in
             self.users.append(users)
+            self.removeFakeUser()
             self.reloadTableViewInMainQueue()
         }, onNone: {
+            self.users = []
             self.reloadTableViewInMainQueue()
         })
     }
     
-    func reloadTableViewInMainQueue() {
+    private func reloadTableViewInMainQueue() {
         DispatchQueue.main.async {
             self.usersTableView.reloadData()
+            self.customLoader.hideLoaderView()
+        }
+    }
+    
+    private func removeFakeUser() {
+        if let index = users.firstIndex(of: UserObject(pseudo: nil, image: nil, sexe: nil, level: nil, city: nil, birthDate: nil, uid: nil)) {
+            users.remove(at: index)
         }
     }
 }
@@ -149,10 +170,13 @@ final class SearchViewController: UIViewController {
 // MARK: - TableView DataSource
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    /// Number of cells in tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
     
+    /// Define tableView cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let user = users[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.userCellIdentifier, for: indexPath) as? UserTableViewCell else { return UITableViewCell()}
@@ -163,12 +187,14 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 
+    /// Actions after a cell selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
         self.userSelected = user
         performSegue(withIdentifier: Constants.Segue.searchToProfileSegue, sender: nil)
     }
     
+    /// Get in shape the tableView footer
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
         let imageView = UIImageView()
@@ -193,6 +219,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         return view
     }
     
+    /// Display the tableView footer depending the number of elements in users
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return users.isEmpty ? tableView.bounds.size.height : 0
     }

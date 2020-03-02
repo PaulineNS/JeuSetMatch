@@ -31,6 +31,7 @@ final class LevelViewController: UIViewController {
     
     // MARK: - Segue
     
+    ///Prepare segue to cityVC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.levelToCity {
             guard let cityVc = segue.destination as? CityViewController else {return}
@@ -40,7 +41,7 @@ final class LevelViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func continueButtonPressed(_ sender: Any) {
+    @IBAction private func continueButtonPressed(_ sender: Any) {
         guard userLevel != nil && userLevel != "Choisir" else {
             levelAlert.isHidden = false
             levelAlert.text = "Veuillez renseigner votre niveau avant de continuer"
@@ -53,18 +54,22 @@ final class LevelViewController: UIViewController {
 // MARK: - PickerView Delegate, Datasource
 
 extension LevelViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    ///Number of component in the pickerView
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+    ///Number of rows in the pickerView
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return Constants.Arrays.levelsPickerRegister.count
     }
     
+    ///rowt title in the pickerView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return Constants.Arrays.levelsPickerRegister[row]
     }
     
+    ///Actioin after selecting a row in  the pickerView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         userLevel = Constants.Arrays.levelsPickerRegister[row]
     }

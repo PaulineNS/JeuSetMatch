@@ -19,6 +19,7 @@ final class CustomLoader: UIView {
     var gifName: String = "giphy"
     var viewColor: UIColor = UIColor.gray
     
+    ///manage transparent view under the loader
     lazy var transparentView: UIView = {
         let transparentView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         transparentView.backgroundColor = viewColor.withAlphaComponent(setAlpha)
@@ -26,6 +27,7 @@ final class CustomLoader: UIView {
         return transparentView
     }()
     
+    ///Manage the loader gif
     lazy var gifImage: UIImageView = {
         var gifImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         gifImage.contentMode = .scaleAspectFit
@@ -37,6 +39,7 @@ final class CustomLoader: UIView {
     
     // MARK: - Methods
 
+    ///Show the loader
     func showLoaderView() {
         self.addSubview(self.transparentView)
         self.transparentView.addSubview(self.gifImage)

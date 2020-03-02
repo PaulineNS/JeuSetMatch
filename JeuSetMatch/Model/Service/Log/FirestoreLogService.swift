@@ -10,6 +10,7 @@ import Firebase
 
 class FirestoreLogService: LogUseCaseOutput {
     
+    /// Firebase logout
     func logOut(completion: @escaping LogOutCompletion) {
         do {
             try Auth.auth().signOut()
@@ -20,6 +21,7 @@ class FirestoreLogService: LogUseCaseOutput {
         }
     }
     
+    /// Firebase logIn
     func logIn(email: String, password: String, completion: @escaping LoginCompletion) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             guard let authResult = authResult else {

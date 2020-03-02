@@ -12,8 +12,9 @@ class FirestoreUserService: UserUseCaseOutput {
     
     private let db = Firestore.firestore()
     let currentUserUid = Auth.auth().currentUser?.uid
-
+    let customLoader = CustomLoader()
     
+    ///Fetch all the users
     func fetchUserWithoutFilters(completion: @escaping UserCompletion) {
         db.collection(Constants.FStore.userCollectionName).getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -34,6 +35,7 @@ class FirestoreUserService: UserUseCaseOutput {
         }
     }
     
+    ///Fetch the user partner
     func fetchPartnerUser(chatPartnerId: String, completion: @escaping UserCompletion){
         db.collection(Constants.FStore.userCollectionName).document(chatPartnerId).getDocument { (DocumentSnapshot, error) in
             if error != nil {
@@ -50,6 +52,7 @@ class FirestoreUserService: UserUseCaseOutput {
         }
     }
     
+    ///Fetch user information from dataBase depending one filter
     func fetchUserInformationsDependingOneFilter(field1: String, field1value: String, completion: @escaping UserCompletion){
         db.collection(Constants.FStore.userCollectionName).whereField(field1, isEqualTo: field1value).addSnapshotListener { (querySnapshot, error) in
             if let error = error {
@@ -71,7 +74,7 @@ class FirestoreUserService: UserUseCaseOutput {
         }
     }
     
-    
+    ///Fetch user information from dataBase depending two filters
     func fetchUsersInformationsDependingTwoFilters(field1: String, field1value: String, field2: String, field2Value: String, completion: @escaping UserCompletion){
         db.collection(Constants.FStore.userCollectionName).whereField(field1, isEqualTo: field1value).whereField(field2, isEqualTo: field2Value).addSnapshotListener { (querySnapshot, error) in
              if let error = error {
@@ -93,6 +96,7 @@ class FirestoreUserService: UserUseCaseOutput {
          }
      }
     
+    ///Fetch user information from dataBase depending three filters
     func fetchUserInformationsDependingAllFilters(gender: String, city: String, level: String, completion: @escaping UserCompletion) {
                 db.collection(Constants.FStore.userCollectionName).whereField(Constants.FStore.userCityField, isEqualTo: city).whereField(Constants.FStore.userGenderField, isEqualTo: gender).whereField(Constants.FStore.userLevelField, isEqualTo: level).addSnapshotListener { (querySnapshot, error) in
             if let error = error {
@@ -114,6 +118,7 @@ class FirestoreUserService: UserUseCaseOutput {
         }
     }
     
+    ///Display name and user profile image
     func setupNameAndProfileImage(id: String, completion: @escaping SetUpCompletion) {
         db.collection(Constants.FStore.userCollectionName).document("\(id)").getDocument(source: .default) { (snapshot, error) in
             if let error = error {
@@ -127,6 +132,7 @@ class FirestoreUserService: UserUseCaseOutput {
         }
     }
     
+    ///Update users informations
     func updateUserInformation(userAge: String, userCity: String, userGender: String, userLevel: String, userImage: Data, completion: @escaping updateInformationsCompletion) {
         db.collection(Constants.FStore.userCollectionName).document(Auth.auth().currentUser?.uid ?? "").updateData([
             Constants.FStore.userAgeField: userAge,

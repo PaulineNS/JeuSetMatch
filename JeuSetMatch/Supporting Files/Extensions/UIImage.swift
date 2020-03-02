@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import ImageIO
 
+// MARK: - Manage UIImage for gif
+
 extension UIImage {
     
     public class func gif(data: Data) -> UIImage? {

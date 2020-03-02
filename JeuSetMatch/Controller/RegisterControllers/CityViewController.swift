@@ -30,6 +30,7 @@ final class CityViewController: UIViewController {
     
     // MARK: - Segue
     
+    ///Prepare segue to CitiesVc and to PictureVc
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.leveltoCitiesSegue {
             guard let citiesVc = segue.destination as? CitiesViewController else { return }

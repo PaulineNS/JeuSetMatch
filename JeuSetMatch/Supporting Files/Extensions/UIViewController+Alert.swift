@@ -8,11 +8,11 @@
 
 import UIKit
 
+// MARK: - Manage Alerts
+
 extension UIViewController {
-    
-    // MARK: - Properties
-    
-    /// Alert    
+        
+    /// Display  an alert    
     func presentAlert(title: String, message: String, completion: @escaping (Bool) -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Oui", style: UIAlertAction.Style.default, handler: { (action) in

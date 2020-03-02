@@ -16,6 +16,7 @@ class GooglePlacesService {
 
     var arrayCities = [GMSAutocompletePrediction]()
 
+    /// Filter cities from france
     lazy private var filter: GMSAutocompleteFilter = {
         let filter = GMSAutocompleteFilter()
         filter.type = .city
@@ -25,6 +26,7 @@ class GooglePlacesService {
     
     // MARK: - Methods
 
+    ///Display cities
     func searchCity(searchString: String) {
         if searchString == "" {
             self.arrayCities = [GMSAutocompletePrediction]()

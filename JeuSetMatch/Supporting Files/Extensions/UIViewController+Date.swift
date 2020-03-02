@@ -8,8 +8,11 @@
 
 import UIKit
 
+// MARK: - Manage Dates
+
 extension UIViewController {
     
+    ///Convert Date type to Srting Date
     func convertDateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyy-MM-dd"
@@ -17,6 +20,7 @@ extension UIViewController {
         return dateString
     }
     
+    /// Convert String Type to Date Type
     func convertStringToDate(dateString : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -24,6 +28,7 @@ extension UIViewController {
         return s
     }
     
+    /// Convert a date birth to age
     func dateToAge(birthDate: Date) -> String {
         let now = Date()
         let calendar = Calendar.current
@@ -33,6 +38,7 @@ extension UIViewController {
         return stringAge
     }
     
+    /// Check if an age is valid
     func validateAge(birthDate: Date, minimumAge: Date) -> Bool {
         var isValid: Bool = true
         if birthDate > minimumAge {
@@ -44,6 +50,7 @@ extension UIViewController {
 
 extension UITableViewCell {
     
+    /// Convert a timestamp into data then into String type 
     func convertTimestampToStringDate(timestamp: TimeInterval) -> String {
         let date = Date(timeIntervalSince1970: timestamp)
         

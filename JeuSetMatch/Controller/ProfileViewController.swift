@@ -4,7 +4,6 @@
 //
 //  Created by Pauline Nomballais on 03/01/2020.
 //  Copyright © 2020 PaulineNomballais. All rights reserved.
-//
 
 import UIKit
 import Photos
@@ -82,7 +81,7 @@ final class ProfileViewController: UIViewController {
             }
             managePictureVisibility(updatePicture: false, userPicture: true)
             displayUserDefaultsOnTextField(userInformations: Constants.UDefault.savedProvisionalUserInformations, userPicture: Constants.UDefault.savedProvisionaluserPicture)
-
+            
             return
         }
         guard let partnerUid = userToShow?.uid else {return}
@@ -92,6 +91,7 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - Segue
     
+    /// Prepare segue to ChatVc or CitiesVc
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.profileToChatSegue {
             guard let chatVc = segue.destination as? ChatViewController else {return}
@@ -105,6 +105,7 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - Actions
     
+    /// Manage the action of the buttom screen button
     @IBAction private func buttomButtonPressed(_ sender: UIButton) {
         if sender.currentTitle == "Contacter" {
             performSegue(withIdentifier: Constants.Segue.profileToChatSegue, sender: nil)
@@ -126,7 +127,6 @@ final class ProfileViewController: UIViewController {
         dismissTheView()
     }
     
-    
     @objc private func didTapProfilPicture() {
         onPictureClick(image: image)
     }
@@ -146,6 +146,7 @@ final class ProfileViewController: UIViewController {
         userInformationsTxtField[2].text = dateToAge(birthDate: datePicker.date) + " " + "ans"
     }
     
+    /// Validate the profile update
     @IBAction private func didPressValidateButton(_ sender: Any) {
         manageTxtField(status: false, backgroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0), textColour: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), border: .none)
         manageButtonVisibility(updatePosition: true, fixPosition: false)
@@ -158,12 +159,13 @@ final class ProfileViewController: UIViewController {
             //present Alert
             return}
         userUseCase.updateUserInformation(userAge: userBirthDate, userCity: userCity, userGender: userGender, userLevel: userLevel, userImage: pictureData) { isSuccess in
-        if !isSuccess {
-            // PresentAlert
+            if !isSuccess {
+                // PresentAlert
+            }
         }
     }
-    }
     
+    /// Cancel the update profil mood
     @IBAction private func didPressCancelButton(_ sender: Any) {
         alertDateLbl.isHidden = true
         IsUpdateStatus = false
@@ -173,6 +175,7 @@ final class ProfileViewController: UIViewController {
         displayUserDefaultsOnTextField(userInformations: Constants.UDefault.savedUserInformations, userPicture: Constants.UDefault.savedUserPicture)
     }
     
+    /// Action after tapping the delete button
     @IBAction private func didPressDeleteAccountButton(_ sender: Any) {
         presentAlert(title: "Etes vous sure de supprimer votre compte ?", message: "") { (success) in
             guard success == true else {return}
@@ -188,6 +191,7 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - Methods
     
+    /// Manage pickers displaying
     private func managePickers(){
         userInformationsTxtField[0].delegate = self
         datePicker = UIDatePicker()
@@ -205,12 +209,14 @@ final class ProfileViewController: UIViewController {
         levelPicker?.dataSource = self
     }
     
+    /// Display the updatable picture or fix one
     private func managePictureVisibility(updatePicture: Bool, userPicture: Bool) {
         userPictureImageView.isHidden = updatePicture
         plusImageView.isHidden = updatePicture
         userFixPictureImageView.isHidden = userPicture
     }
     
+    // Manage view element visibility
     private func manageButtonVisibility(updatePosition: Bool, fixPosition: Bool) {
         validateButton.isHidden = updatePosition
         cancelButton.isHidden = updatePosition
@@ -218,6 +224,7 @@ final class ProfileViewController: UIViewController {
         updateProfileButton.isHidden = fixPosition
     }
     
+    /// Manage texfield design according mode profil
     private func manageTxtField(status: Bool, backgroundColor: UIColor, textColour: UIColor, border: UITextField.BorderStyle ) {
         for txtField in userInformationsTxtField {
             txtField.isUserInteractionEnabled = status
@@ -227,17 +234,17 @@ final class ProfileViewController: UIViewController {
         }
     }
     
+    /// Set current user information in userDefault before passing to update profil mode
     private func setInformationsInUserDefault(userInformations: String, userPicture: String) {
         var index = 0
         for _ in userInformationsTxtField {
             UserDefaults.standard.set(userInformationsTxtField[index].text, forKey: userInformations + "\(index)")
             index += 1
         }
-//        UserDefaults.standard.set(userPictureImageView.image?.jpegData(compressionQuality: 0.1), forKey: userPicture)
         UserDefaults.standard.set(userFixPictureImageView.image?.jpegData(compressionQuality: 0.1), forKey: userPicture)
-
     }
     
+    /// Display back user information from userDefault
     private func displayUserDefaultsOnTextField(userInformations: String, userPicture: String) {
         var index = 0
         for _ in userInformationsTxtField {
@@ -250,6 +257,7 @@ final class ProfileViewController: UIViewController {
         userFixPictureImageView.image = UIImage(data: imageData)
     }
     
+    /// Fetch all the user informations on screen
     private func fetchUserInformations(userUid: String) {
         self.userInformations = []
         customLoader.showLoaderView()
@@ -279,7 +287,8 @@ final class ProfileViewController: UIViewController {
             }
         })
     }
-        
+    
+    /// Dismiss the view after logout or account delete
     private func dismissTheView() {
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         let logInViewController = mainStoryBoard.instantiateViewController(withIdentifier: "loginViewController")
@@ -293,6 +302,7 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITextFieldDelegate {
     
+    /// Action while text field did begin editing 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
         setInformationsInUserDefault(userInformations: Constants.UDefault.savedProvisionalUserInformations, userPicture: Constants.UDefault.savedProvisionaluserPicture)
@@ -304,10 +314,12 @@ extension ProfileViewController: UITextFieldDelegate {
 
 extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
+    /// Number of components in pickerView
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
+    /// Number of rows in pickerView
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView {
         case pickerView where pickerView == levelPicker:
@@ -319,6 +331,7 @@ extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         }
     }
     
+    /// Rows title
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView {
         case pickerView where pickerView == levelPicker:
@@ -330,6 +343,7 @@ extension ProfileViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         }
     }
     
+    /// Action while selecting a row
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case pickerView where pickerView == levelPicker:

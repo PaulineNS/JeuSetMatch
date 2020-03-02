@@ -44,6 +44,7 @@ final class ChatViewController: UIViewController {
     
     // MARK: - Actions
     
+    /// Manage to send messages
     @IBAction private func sendPressed(_ sender: UIButton) {
         let properties : [String : Any] = [Constants.FStore.textMessage: chatTextField.text!]
         guard let toId = receiverUser?.uid else { return }
@@ -57,6 +58,7 @@ final class ChatViewController: UIViewController {
     
     // MARK: - Methods
     
+    /// Manage to fetch old and new messages
     private func observeMessages() {
         guard let toId = receiverUser?.uid else { return }
         conversationUseCase.observeUserChatMessages(toId: toId) { (result) in
@@ -88,10 +90,12 @@ final class ChatViewController: UIViewController {
 
 extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     
+    /// Number of cells in tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     
+    /// Define tableView cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.chatCellIdentifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell()}

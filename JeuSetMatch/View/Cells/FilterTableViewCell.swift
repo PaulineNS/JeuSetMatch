@@ -12,9 +12,9 @@ final class FilterTableViewCell: UITableViewCell {
 
     // MARK: - Outlets
 
-    @IBOutlet weak var categorieLabel: UILabel!
+    @IBOutlet private weak var categorieLabel: UILabel!
     @IBOutlet weak var filterValueTxtField: UITextField!
-    @IBOutlet weak var arrow: UILabel!
+    @IBOutlet private weak var arrow: UILabel!
     
     // MARK: - Variables
     
@@ -49,10 +49,12 @@ final class FilterTableViewCell: UITableViewCell {
 
 extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     
+    ///Number of component in the pickerView
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
+    ///Number of rows in the pickerView
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView {
         case pickerView where pickerView == levelPicker:
@@ -64,6 +66,7 @@ extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
         }
     }
     
+    ///Rows titles in the pickerView
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView {
         case pickerView where pickerView == levelPicker:
@@ -75,6 +78,7 @@ extension FilterTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
         }
     }
     
+    ///Action after selecting a  pickerView row
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case pickerView where pickerView == levelPicker:

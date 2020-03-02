@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import ImageIO
 
+// MARK: - Manage Gif UIImageView
+
 extension UIImageView {
     
     public func loadGif(name: String) {

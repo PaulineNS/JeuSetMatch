@@ -11,14 +11,11 @@ import UIKit
 
 extension UIImageView {
     
+    /// Make an UIImageview round
     func makeRounded() {
-        
         self.layer.masksToBounds = true
         self.layer.cornerRadius = self.bounds.width / 2
         self.contentMode = .scaleAspectFill
-
-
     }
-    
 }
 

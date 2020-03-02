@@ -12,6 +12,7 @@ class FirestoreConversationService: ConversationUseCaseOutput {
     
     private let db = Firestore.firestore()
     
+    ///Observe and fetch new user messages
     func observeUserMessages(completion: @escaping ConversationCompletion) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         db.collection(Constants.FStore.userMessagesCollectionName).document(uid).collection(Constants.FStore.userCollectionName).addSnapshotListener { (DocumentSnapshot, error) in
@@ -55,6 +56,7 @@ class FirestoreConversationService: ConversationUseCaseOutput {
         }
     }
     
+    ///Observe and fetch new chat  messages
     func observeUserChatMessages(toId: String, completion: @escaping ConversationCompletion) {
         guard let uid = Auth.auth().currentUser?.uid else {return }
         db.collection(Constants.FStore.userMessagesCollectionName).document(uid).collection(Constants.FStore.userCollectionName).document(toId).collection(Constants.FStore.messagesCollectionName).addSnapshotListener { (snapshot, error) in
@@ -83,6 +85,7 @@ class FirestoreConversationService: ConversationUseCaseOutput {
         }
     }
     
+    ///Send a svae a new message on dataBase
     func sendMessage(withProperties: [String : Any], toId: String, completion: @escaping SendMessageCompletion) {
         let ref = db.collection(Constants.FStore.messagesCollectionName).document()
         let timestamp = Int(NSDate().timeIntervalSince1970)

@@ -30,6 +30,7 @@ final class GenderViewController: UIViewController {
     
     // MARK: - Segue
     
+    ///Prepare segue to Bitthday VC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.Segue.genderToBirthDate else {return}
         guard let birthdateVc = segue.destination as? BirthdayViewController else {return}
@@ -38,12 +39,12 @@ final class GenderViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func madamCheckboxTapped(_ sender: UIButton) {
+    @IBAction private func madamCheckboxTapped(_ sender: UIButton) {
         madamButton.isSelected = true
         sirButton.isSelected = false
     }
     
-    @IBAction func sirCheckboxTapped(_ sender: UIButton) {
+    @IBAction private func sirCheckboxTapped(_ sender: UIButton) {
         sirButton.isSelected = true
         madamButton.isSelected = false
     }

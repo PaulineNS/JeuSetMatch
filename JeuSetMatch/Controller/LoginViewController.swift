@@ -12,9 +12,9 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var emailTextfield: UITextField!
-    @IBOutlet weak var passwordTextfield: UITextField!
-    @IBOutlet weak var alertLabel: UILabel!
+    @IBOutlet private weak var emailTextfield: UITextField!
+    @IBOutlet private weak var passwordTextfield: UITextField!
+    @IBOutlet private weak var alertLabel: UILabel!
     
     // MARK: - Variables
     
@@ -40,6 +40,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Actions
     
+    ///Login action
     @IBAction private func loginPressed(_ sender: Any) {
         guard let email = emailTextfield.text, let password = passwordTextfield.text else {return}
         loginUseCase.logIn(with: email, password: password) { [weak self] (result) in
