@@ -104,6 +104,7 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
         let message = messages[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.messagesCellIdentifier, for: indexPath) as? MessagesTableViewCell else { return UITableViewCell()}
         cell.message = message
+        cell.selectionStyle = .none
         cell.backgroundColor = .clear
         return cell
     }

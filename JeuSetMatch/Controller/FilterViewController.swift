@@ -19,7 +19,6 @@ final class FilterViewController: UIViewController {
     
     var didSearchFiltersDelegate: DidSearchFiltersDelegate?
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
-    private let filtersDictionnary = ["Niveau": "Tout", "Sexe": "Tout", "Ville": "Tout"]
     private var filtersArray = [Filters]()
     private var citySelected: String?
     private var userFound: [UserObject] = []
@@ -34,7 +33,7 @@ final class FilterViewController: UIViewController {
         super.viewDidLoad()
         navigationBarCustom()
         filterTableView.register(UINib(nibName: Constants.Cell.filterCellNibName, bundle: nil), forCellReuseIdentifier: Constants.Cell.filterCellIdentifier)
-        for (key, value) in filtersDictionnary.sorted(by: <) {
+        for (key, value) in Constants.Arrays.filtersDictionnary.sorted(by: <) {
             filtersArray.append(Filters(denomination: key, value: value))
         }
     }
@@ -95,7 +94,7 @@ final class FilterViewController: UIViewController {
         let newFilterValue = "Tout"
         deleteAllUserDefaultData(filterValue: newFilterValue)
         filtersArray = []
-        for (key, value) in filtersDictionnary.sorted(by: { $0.0 < $1.0 }) {
+        for (key, value) in Constants.Arrays.filtersDictionnary.sorted(by: { $0.0 < $1.0 }) {
             filtersArray.append(Filters(denomination: key, value: value))
         }
         filterTableView.reloadData()

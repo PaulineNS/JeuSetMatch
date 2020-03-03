@@ -199,7 +199,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back3" translatesAutoresizingMaskIntoConstraints="NO" id="wcL-Dc-Qgi">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back7" translatesAutoresizingMaskIntoConstraints="NO" id="wcL-Dc-Qgi">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                             </imageView>
                             <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l80-Pr-9dW">
@@ -483,7 +483,7 @@
                             <constraint firstAttribute="bottom" secondItem="OzD-VZ-OxD" secondAttribute="bottom" id="1Yi-rO-dAV"/>
                             <constraint firstItem="bHO-dW-GCL" firstAttribute="leading" secondItem="NRZ-t0-Bb4" secondAttribute="leading" id="1r0-FX-Mjj"/>
                             <constraint firstItem="bHO-dW-GCL" firstAttribute="top" secondItem="NRZ-t0-Bb4" secondAttribute="top" id="5gc-Lf-aEM"/>
-                            <constraint firstItem="3Z3-gn-Dko" firstAttribute="top" secondItem="8I5-OS-3q0" secondAttribute="top" id="I1y-b5-WKW"/>
+                            <constraint firstItem="3Z3-gn-Dko" firstAttribute="top" secondItem="8I5-OS-3q0" secondAttribute="top" id="RV7-I7-khO"/>
                             <constraint firstAttribute="trailing" secondItem="bHO-dW-GCL" secondAttribute="trailing" id="Rnh-HX-uqr"/>
                             <constraint firstItem="3Z3-gn-Dko" firstAttribute="leading" secondItem="8I5-OS-3q0" secondAttribute="leading" id="Rv0-Pb-Hui"/>
                             <constraint firstItem="OzD-VZ-OxD" firstAttribute="top" secondItem="3Z3-gn-Dko" secondAttribute="bottom" id="W9g-a4-Wt5"/>
@@ -1511,7 +1511,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back3" translatesAutoresizingMaskIntoConstraints="NO" id="Dwl-2O-7Zv">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back7" translatesAutoresizingMaskIntoConstraints="NO" id="Dwl-2O-7Zv">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                             </imageView>
                             <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LA4-uE-11m">
@@ -1628,7 +1628,6 @@
         <image name="arrow" width="512" height="512"/>
         <image name="back1" width="800" height="600"/>
         <image name="back2" width="800" height="600"/>
-        <image name="back3" width="800" height="600"/>
         <image name="back4" width="767" height="567"/>
         <image name="back5" width="498" height="597"/>
         <image name="back6" width="600" height="800"/>
@@ -1645,9 +1644,9 @@
         <image name="yellowBackground4" width="712" height="1298"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2gn-4l-5Sr"/>
+        <segue reference="PrC-gY-Kig"/>
         <segue reference="3Dc-8t-nP1"/>
         <segue reference="F9L-oe-HuP"/>
-        <segue reference="PZH-sk-fs9"/>
+        <segue reference="Wbe-gc-Hp4"/>
     </inferredMetricsTieBreakers>
 </document>

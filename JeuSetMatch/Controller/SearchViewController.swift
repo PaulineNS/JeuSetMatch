@@ -181,6 +181,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         let user = users[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.userCellIdentifier, for: indexPath) as? UserTableViewCell else { return UITableViewCell()}
         cell.backgroundColor = .clear
+        cell.selectionStyle = .none
         cell.userName.text = user.pseudo
         cell.userImage.makeRounded()
         cell.userImage.image = UIImage(data: user.image ?? Data())
@@ -209,7 +210,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         view.addSubview(label)
         imageView.snp.makeConstraints { (make) in
             make.center.equalTo(view)
-            make.height.width.equalTo(200)
+            make.height.width.equalTo(100)
         }
         label.snp.makeConstraints { (make) in
             make.top.equalTo(imageView.snp.bottom).offset(20.0)

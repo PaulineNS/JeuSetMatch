@@ -73,5 +73,6 @@ struct Constants {
         static let gendersPickerUpdateProfil = ["Femme","Homme"]
         static let gendersPickerFilterUser = ["Tout", "Femme", "Homme"]
         static let agePickerFilterUser = ["Entre 10 et 20 ans","Entre 20 et 30 ans","Entre 30 et 40 ans","Entre 40 et 50 ans","Entre 50 et 60 ans","Entre 60 et 70 ans","Entre 70 et 80 ans","Entre 80 et 90 ans"]
+        static let filtersDictionnary = ["Niveau": "Tout", "Sexe   ": "Tout", "Ville    ": "Tout"]
     }
 }
