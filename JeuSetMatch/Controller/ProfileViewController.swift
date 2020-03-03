@@ -83,12 +83,16 @@ final class ProfileViewController: UIViewController {
             }
             managePictureVisibility(updatePicture: false, userPicture: true)
             displayUserDefaultsOnTextField(userInformations: Constants.UDefault.savedProvisionalUserInformations, userPicture: Constants.UDefault.savedProvisionaluserPicture)
-            
             return
         }
         guard let partnerUid = userToShow?.uid else {return}
         fetchUserInformations(userUid: partnerUid)
         updateProfileButton.setTitle("Contacter", for: .normal)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        selectPickerViewRows()
     }
     
     // MARK: - Segue
@@ -134,7 +138,6 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func dateChanged(datePicker: UIDatePicker) {
-        
         let isValideAge = validateAge(birthDate: datePicker.date, minimumAge: minimumAge ?? Date())
         newBirthdate = convertDateToString(date: datePicker.date)
         guard isValideAge else {
@@ -211,6 +214,16 @@ final class ProfileViewController: UIViewController {
         genderPicker?.delegate = self
         genderPicker?.dataSource = self
         levelPicker?.dataSource = self
+    }
+    
+    /// Select a value on pickerviews
+    private func selectPickerViewRows() {
+        if let levelIndex = find(value: userInformationsTxtField[3].text ?? "", in: Constants.Arrays.levelsPickerUpdateProfil) {
+            levelPicker?.selectRow(levelIndex, inComponent: 0, animated: true)
+        }
+        if let genderIndex = find(value: userInformationsTxtField[1].text ?? "", in: Constants.Arrays.gendersPickerUpdateProfil) {
+            genderPicker?.selectRow(genderIndex, inComponent: 0, animated: true)
+        }
     }
     
     /// Display the updatable picture or fix one
