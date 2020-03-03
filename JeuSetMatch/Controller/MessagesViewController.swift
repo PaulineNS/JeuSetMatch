@@ -19,7 +19,7 @@ final class MessagesViewController: UIViewController {
     // MARK: - Variables
     
     private var userSelected: UserObject?
-    private var messages = [MessageObject]()
+    private var messages = [MessageObject(dictionary: [Constants.FStore.fromIdMessage: " ", Constants.FStore.toIdMessage: " ", Constants.FStore.textMessage: "", Constants.FStore.timestampMessage: 0])]
     private var messagesDictionary = [String : MessageObject]()
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
     lazy private var conversationUseCase: ConversationUseCase = ConversationUseCase(message: firestoreConversation)
@@ -84,7 +84,7 @@ final class MessagesViewController: UIViewController {
     }
     
     private func removeFakeMessage() {
-        if let index = messages.firstIndex(of: MessageObject(dictionary: ["" : ""])) {
+        if let index = messages.firstIndex(of: MessageObject(dictionary: [Constants.FStore.fromIdMessage: " ", Constants.FStore.toIdMessage: " ", Constants.FStore.textMessage: "", Constants.FStore.timestampMessage: 0])) {
             messages.remove(at: index)
         }
     }
