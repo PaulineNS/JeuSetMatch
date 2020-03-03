@@ -143,8 +143,10 @@ final class ProfileViewController: UIViewController {
         newBirthdate = convertDateToString(date: datePicker.date)
         guard isValideAge else {
             alertDateLbl.isHidden = false
+            alertDateLbl.text = "Age non valide"
             alertView.isHidden = false
             deleteProfilButton.isHidden = true
+            userInformationsTxtField[2].text = dateToAge(birthDate: datePicker.date) + " " + "ans"
             return
         }
         alertDateLbl.isHidden = true
@@ -155,6 +157,14 @@ final class ProfileViewController: UIViewController {
     
     /// Validate the profile update
     @IBAction private func didPressValidateButton(_ sender: Any) {
+        let isValideAge = validateAge(birthDate: datePicker?.date ?? Date(), minimumAge: minimumAge ?? Date())
+        guard isValideAge else {
+            alertDateLbl.isHidden = false
+            alertView.isHidden = false
+            alertDateLbl.text = "Veuillez renseigner votre âge"
+            return}
+        alertDateLbl.isHidden = true
+        alertView.isHidden = true
         manageTxtField(status: false, backgroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0), textColour: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), border: .none)
         manageButtonVisibility(updatePosition: true, fixPosition: false)
         managePictureVisibility(updatePicture: true, userPicture: false)
