@@ -141,7 +141,7 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
         view.addSubview(label)
         imageView.snp.makeConstraints { (make) in
             make.center.equalTo(view)
-            make.height.width.equalTo(200)
+            make.height.width.equalTo(100)
         }
         label.snp.makeConstraints { (make) in
             make.top.equalTo(imageView.snp.bottom).offset(20.0)

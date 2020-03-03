@@ -28,6 +28,11 @@ final class CityViewController: UIViewController {
         cityAlertLabel.isHidden = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+    }
+    
     // MARK: - Segue
     
     ///Prepare segue to CitiesVc and to PictureVc

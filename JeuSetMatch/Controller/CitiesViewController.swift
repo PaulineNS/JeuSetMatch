@@ -27,6 +27,7 @@ final class CitiesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarCustom()
+        self.navigationController?.navigationBar.tintColor = UIColor.black
     }
 }
 
