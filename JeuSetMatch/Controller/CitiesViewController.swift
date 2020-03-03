@@ -18,6 +18,7 @@ final class CitiesViewController: UIViewController {
     
     private var citySelected: String?
     var didSelectCityDelegate: DidSelectCityDelegate?
+    var didDismissCityVcDelegate: DidDismissCityVcDelegate?
 
     // MARK: - Outlets
     
@@ -28,6 +29,11 @@ final class CitiesViewController: UIViewController {
         super.viewDidLoad()
         navigationBarCustom()
         self.navigationController?.navigationBar.tintColor = UIColor.black
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        didDismissCityVcDelegate?.didDismissCity()
     }
 }
 

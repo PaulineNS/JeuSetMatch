@@ -46,11 +46,12 @@ final class LoginViewController: UIViewController {
         loginUseCase.logIn(with: email, password: password) { [weak self] (result) in
             switch result {
             case .success :
+                self?.alertLabel.isHidden = true
                 self?.performSegue(withIdentifier: Constants.Segue.loginSegue, sender: self)                
             case .failure(let error):
                 print(error.localizedDescription)
                 self?.alertLabel.isHidden = false
-                self?.alertLabel.text = error.localizedDescription
+                self?.alertLabel.text = "Une erreur est survenue. Merci de vérifier vos identifiants de connexion"
             }
         }
     }

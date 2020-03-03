@@ -22,3 +22,6 @@ protocol DidApplyFilterDelegate {
     func didApplyFilter(isResult: Bool)
 }
 
+protocol DidDismissCityVcDelegate {
+    func didDismissCity()
+}

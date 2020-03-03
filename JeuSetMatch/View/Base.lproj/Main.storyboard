@@ -206,6 +206,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" red="0.1190812364" green="0.21602892879999999" blue="0.1939708292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8G-ex-ZHT">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="23"/>
+                                <color key="backgroundColor" red="0.98150831460952759" green="0.79114693403244019" blue="0.19865861535072327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                <color key="textColor" red="0.1190812364" green="0.21602892879999999" blue="0.1939708292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vous êtes bientôt des nôtres !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68j-Yl-O8o">
                                 <rect key="frame" x="43.5" y="310" width="327" height="26.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="23"/>
@@ -265,6 +272,7 @@
                             <constraint firstItem="3Tx-Zk-3eQ" firstAttribute="top" secondItem="68j-Yl-O8o" secondAttribute="bottom" constant="20" id="6aZ-Sq-0kE"/>
                             <constraint firstItem="hpL-Sl-iZ6" firstAttribute="centerX" secondItem="voF-FL-dXj" secondAttribute="centerX" id="8y4-3C-GX5"/>
                             <constraint firstAttribute="bottom" secondItem="l80-Pr-9dW" secondAttribute="bottom" id="ArV-Vg-Gtt"/>
+                            <constraint firstItem="J8G-ex-ZHT" firstAttribute="top" secondItem="0cn-iu-agg" secondAttribute="top" id="Fmf-bg-ieR"/>
                             <constraint firstItem="3Tx-Zk-3eQ" firstAttribute="centerY" secondItem="voF-FL-dXj" secondAttribute="centerY" id="GhW-r1-AUU"/>
                             <constraint firstItem="wcL-Dc-Qgi" firstAttribute="leading" secondItem="voF-FL-dXj" secondAttribute="leading" id="HRX-zG-SPC"/>
                             <constraint firstItem="l80-Pr-9dW" firstAttribute="top" secondItem="voF-FL-dXj" secondAttribute="top" id="JTg-eE-S4I"/>
@@ -274,6 +282,8 @@
                             <constraint firstItem="fhE-Ei-QkF" firstAttribute="centerX" secondItem="voF-FL-dXj" secondAttribute="centerX" id="fiU-hP-nJe"/>
                             <constraint firstItem="l80-Pr-9dW" firstAttribute="leading" secondItem="voF-FL-dXj" secondAttribute="leading" id="iY6-9A-wBu"/>
                             <constraint firstItem="3Tx-Zk-3eQ" firstAttribute="leading" secondItem="0cn-iu-agg" secondAttribute="leading" constant="40" id="kSb-5E-Iaw"/>
+                            <constraint firstItem="J8G-ex-ZHT" firstAttribute="leading" secondItem="0cn-iu-agg" secondAttribute="leading" id="lXQ-7W-4X8"/>
+                            <constraint firstItem="J8G-ex-ZHT" firstAttribute="trailing" secondItem="0cn-iu-agg" secondAttribute="trailing" id="ncL-BG-wlR"/>
                             <constraint firstAttribute="bottom" secondItem="wcL-Dc-Qgi" secondAttribute="bottom" id="vX7-9A-nBB"/>
                             <constraint firstItem="hpL-Sl-iZ6" firstAttribute="top" secondItem="3Tx-Zk-3eQ" secondAttribute="bottom" constant="20" id="w3Y-YE-CaE"/>
                             <constraint firstAttribute="trailing" secondItem="wcL-Dc-Qgi" secondAttribute="trailing" id="x9V-gb-YIc"/>
@@ -283,6 +293,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="7 / 7" id="b6r-q1-AyR"/>
                     <connections>
+                        <outlet property="alertLabel" destination="J8G-ex-ZHT" id="HRo-IV-ygH"/>
                         <outlet property="emailTextfield" destination="FOd-g5-Hxb" id="skA-Rl-kdg"/>
                         <outlet property="passwordTextfield" destination="5Gz-nO-Qpa" id="KHs-GH-B0I"/>
                         <segue destination="gfb-sY-c99" kind="show" identifier="RegisterToSearch" id="PrC-gY-Kig"/>
@@ -1578,8 +1589,9 @@
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enG-rO-zbm">
                                 <rect key="frame" x="0.0" y="5" width="414" height="20.5"/>
+                                <color key="backgroundColor" red="0.97779482600000001" green="0.76686447859999995" blue="0.1977086663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.1190812364" green="0.21602892879999999" blue="0.1939708292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>

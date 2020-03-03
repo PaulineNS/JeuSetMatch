@@ -19,12 +19,14 @@ final class MailViewController: UIViewController {
     
     @IBOutlet private weak var emailTextfield: UITextField!
     @IBOutlet private weak var passwordTextfield: UITextField!
+    @IBOutlet weak var alertLabel: UILabel!
     
     // MARK: - Controller life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarCustom()
+        alertLabel.isHidden = true
         let firestoreRegister = FirestoreRegisterService()
         self.registerUsecase = RegisterUseCase(client: firestoreRegister)
     }
@@ -48,8 +50,11 @@ final class MailViewController: UIViewController {
             switch result {
             case .success(let user):
                 self.currentUser = user
+                self.alertLabel.isHidden = true
                 self.performSegue(withIdentifier: Constants.Segue.registerSegue, sender: self)
             case .failure(let error):
+                self.alertLabel.isHidden = false
+                self.alertLabel.text = "Merci de saisir une adresse mail et un mot de passe valides"
                 print(error.localizedDescription)
             }
         }

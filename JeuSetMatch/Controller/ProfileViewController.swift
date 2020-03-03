@@ -106,6 +106,7 @@ final class ProfileViewController: UIViewController {
         if segue.identifier == Constants.Segue.profileToCitiesSegue {
             guard let citiesVc = segue.destination as? CitiesViewController else {return}
             citiesVc.didSelectCityDelegate = self
+            citiesVc.didDismissCityVcDelegate = self
         }
     }
     
@@ -127,7 +128,7 @@ final class ProfileViewController: UIViewController {
     @IBAction private func logOutPressed(_ sender: UIBarButtonItem) {
         loginUseCase.logOut { isSuccess in
             if !isSuccess {
-                // PresentAlert
+                self.presentMessageAlert(title: "La déconnexion a échouée", message: "Veuillez réessayer ultérieurement")
             }
         }
         dismissTheView()
@@ -162,11 +163,11 @@ final class ProfileViewController: UIViewController {
             newBirthdate = originalBirthdate
         }
         guard let userCity = userInformationsTxtField[0].text, let userGender = userInformationsTxtField[1].text, let userLevel = userInformationsTxtField[3].text, let pictureData = userFixPictureImageView.image?.jpegData(compressionQuality: 0.1), let userBirthDate = newBirthdate else {
-            //present Alert
+            presentMessageAlert(title: "Une erreur est survenue", message: "Veuillez réessayer ultérieurement")
             return}
         userUseCase.updateUserInformation(userAge: userBirthDate, userCity: userCity, userGender: userGender, userLevel: userLevel, userImage: pictureData) { isSuccess in
             if !isSuccess {
-                // PresentAlert
+                self.presentMessageAlert(title: "Une erreur est survenue", message: "Veuillez réessayer ultérieurement")
             }
         }
     }
@@ -184,14 +185,14 @@ final class ProfileViewController: UIViewController {
     
     /// Action after tapping the delete button
     @IBAction private func didPressDeleteAccountButton(_ sender: Any) {
-        presentAlert(title: "Etes vous sure de supprimer votre compte ?", message: "") { (success) in
+        presentMultiChoiceAlert(title: "Etes vous sure de supprimer votre compte ?", message: "") { (success) in
             guard success == true else {return}
             self.registerUseCase.deleteAccount {isSuccess in
                 guard !isSuccess else {
                     self.dismissTheView()
                     return
                 }
-                //PresentAlert
+                self.presentMessageAlert(title: "Une erreur est survenue", message: "Veuillez renouveler l'opération ultérieurement")
             }
         }
     }
@@ -407,5 +408,11 @@ extension ProfileViewController : UIImagePickerControllerDelegate, UINavigationC
     //Remove the view when the user click on cancel
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ProfileViewController: DidDismissCityVcDelegate {
+    func didDismissCity() {
+            IsUpdateStatus = true
     }
 }

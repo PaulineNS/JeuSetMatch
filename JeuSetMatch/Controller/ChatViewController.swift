@@ -50,7 +50,7 @@ final class ChatViewController: UIViewController {
         guard let toId = receiverUser?.uid else { return }
         conversationUseCase.sendMessage(withProperties: properties, toId: toId) { (isSuccess) in
             if !isSuccess {
-                //presentAlert
+                self.presentMessageAlert(title: "Une erreur est survenue", message: "Veuillez réessayer ultérieurement")                
             }
         }
         self.chatTextField.text = ""
