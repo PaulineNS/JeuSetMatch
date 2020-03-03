@@ -48,6 +48,7 @@ final class ProfileViewController: UIViewController {
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet weak var deleteProfilButton: UIButton!
     @IBOutlet weak var alertDateLbl: UILabel!
+    @IBOutlet weak var alertView: UIView!
     
     // MARK: - Controller life cycle
     
@@ -65,6 +66,7 @@ final class ProfileViewController: UIViewController {
         manageTxtField(status: false, backgroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0), textColour: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), border: .none)
         image.delegate = self
         alertDateLbl.isHidden = true
+        alertView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -137,11 +139,12 @@ final class ProfileViewController: UIViewController {
         newBirthdate = convertDateToString(date: datePicker.date)
         guard isValideAge else {
             alertDateLbl.isHidden = false
+            alertView.isHidden = false
             deleteProfilButton.isHidden = true
-            alertDateLbl.text = "Vous devez avoir au moins 10 ans"
             return
         }
         alertDateLbl.isHidden = true
+        alertView.isHidden = true
         deleteProfilButton.isHidden = false
         userInformationsTxtField[2].text = dateToAge(birthDate: datePicker.date) + " " + "ans"
     }
@@ -168,6 +171,7 @@ final class ProfileViewController: UIViewController {
     /// Cancel the update profil mood
     @IBAction private func didPressCancelButton(_ sender: Any) {
         alertDateLbl.isHidden = true
+        alertView.isHidden = true
         IsUpdateStatus = false
         managePictureVisibility(updatePicture: true, userPicture: false)
         manageTxtField(status: false, backgroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0), textColour: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), border: .none)
