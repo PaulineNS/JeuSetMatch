@@ -34,6 +34,7 @@
 		568D50AF23D352B200839CE4 /* LogUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568D50AE23D352B200839CE4 /* LogUseCaseTest.swift */; };
 		568FAB5F23DF6467007A7B45 /* UIViewController+ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FAB5E23DF6467007A7B45 /* UIViewController+ImagePicker.swift */; };
 		5699AE6A23BBAA1200C61058 /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5699AE6923BBAA1200C61058 /* CitiesViewController.swift */; };
+		56A6E140240E7F5D004D828D /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A6E13F240E7F5D004D828D /* Config.swift */; };
 		56A941C423E2C32A004A368A /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A941C323E2C32A004A368A /* Protocols.swift */; };
 		56AFDE2A23C4DF6F00B215DC /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AFDE2923C4DF6E00B215DC /* UserObject.swift */; };
 		56B615AA23D87D4B001DEA87 /* ConversationUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B615A923D87D4A001DEA87 /* ConversationUseCaseTest.swift */; };
@@ -107,6 +108,7 @@
 		568D50AE23D352B200839CE4 /* LogUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogUseCaseTest.swift; sourceTree = "<group>"; };
 		568FAB5E23DF6467007A7B45 /* UIViewController+ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ImagePicker.swift"; sourceTree = "<group>"; };
 		5699AE6923BBAA1200C61058 /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
+		56A6E13F240E7F5D004D828D /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		56A941C323E2C32A004A368A /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		56AFDE2923C4DF6E00B215DC /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		56B615A923D87D4A001DEA87 /* ConversationUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationUseCaseTest.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				56DC0C1223AB7E31003A0DC6 /* GoogleService-Info.plist */,
 				56E8B16E23B0E824007B4BC1 /* Constants.swift */,
 				562E8E1323F6945E005F0B32 /* giphy.gif */,
+				56A6E13F240E7F5D004D828D /* Config.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 				562CE39023BB55BB0075A8AA /* CityViewController.swift in Sources */,
 				56A941C423E2C32A004A368A /* Protocols.swift in Sources */,
 				56E8B17723BA4B38007B4BC1 /* SearchViewController.swift in Sources */,
+				56A6E140240E7F5D004D828D /* Config.swift in Sources */,
 				56DC0BE623A90968003A0DC6 /* AppDelegate.swift in Sources */,
 				56394AB123E4146F006CB0D3 /* UIImage.swift in Sources */,
 				567CBE3A23D83AB300A7E306 /* ConversationUseCase.swift in Sources */,

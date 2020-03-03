@@ -18,6 +18,7 @@ final class FilterViewController: UIViewController {
     // MARK: - Variables
     
     var didSearchFiltersDelegate: DidSearchFiltersDelegate?
+    var didApplyFilterDelegate: DidApplyFilterDelegate?
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
     private var filtersArray = [Filters]()
     private var citySelected: String?
@@ -107,9 +108,11 @@ final class FilterViewController: UIViewController {
         customLoader.showLoaderView()
         fetchUsersDependingOneFilter(field1: field1, field1value: field1value, onSuccess: {(users) in
             self.userFound.append(users)
+            self.didApplyFilterDelegate?.didApplyFilter(isResult: true)
             self.popViewController()
         }, onNone: {
             self.userFound = []
+            self.didApplyFilterDelegate?.didApplyFilter(isResult: false)
             self.popViewController()
         })
     }
@@ -119,10 +122,11 @@ final class FilterViewController: UIViewController {
         customLoader.showLoaderView()
         fetchUsersDependingTwoFilters(field1: field1, field1value: field1value, field2: field2, field2Value: field2Value, onSuccess: {(users) in
             self.userFound.append(users)
-            self.didSearchFiltersDelegate?.searchFiltersTapped(users: self.userFound)
-            self.navigationController?.popViewController(animated: true)
+            self.didApplyFilterDelegate?.didApplyFilter(isResult: true)
+            self.popViewController()
         }, onNone: {
             self.userFound = []
+            self.didApplyFilterDelegate?.didApplyFilter(isResult: false)
             self.popViewController()
         })
     }
@@ -132,9 +136,11 @@ final class FilterViewController: UIViewController {
         customLoader.showLoaderView()
         fetchUsersDependingThreeFilters(gender: gender, city: city, level: level, onSuccess: {(users) in
             self.userFound.append(users)
+            self.didApplyFilterDelegate?.didApplyFilter(isResult: true)
             self.popViewController()
         }, onNone: {
             self.userFound = []
+            self.didApplyFilterDelegate?.didApplyFilter(isResult: false)
             self.popViewController()
         })
     }
@@ -144,9 +150,11 @@ final class FilterViewController: UIViewController {
         customLoader.showLoaderView()
         fetchUsersWithoutFilters(onSuccess: { (users) in
             self.userFound.append(users)
+            self.didApplyFilterDelegate?.didApplyFilter(isResult: true)
             self.popViewController()
         }, onNone: {
             self.userFound = []
+            self.didApplyFilterDelegate?.didApplyFilter(isResult: false)
             self.popViewController()
         })
     }

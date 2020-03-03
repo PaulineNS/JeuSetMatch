@@ -19,8 +19,9 @@ final class MessagesViewController: UIViewController {
     // MARK: - Variables
     
     private var userSelected: UserObject?
-    private var messages = [MessageObject(dictionary: [Constants.FStore.fromIdMessage: " ", Constants.FStore.toIdMessage: " ", Constants.FStore.textMessage: "", Constants.FStore.timestampMessage: 0])]
+    private var messages = [MessageObject]()
     private var messagesDictionary = [String : MessageObject]()
+    private var isMessagesIn: Bool = true
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
     lazy private var conversationUseCase: ConversationUseCase = ConversationUseCase(message: firestoreConversation)
 
@@ -61,7 +62,7 @@ final class MessagesViewController: UIViewController {
             self.customLoader.hideLoaderView()
             switch result {
             case .success(let message):
-                self.removeFakeMessage()
+                self.isMessagesIn = true
                 if let chatPartnerId = message.chatPartnerId() {
                     self.messagesDictionary[chatPartnerId] = message
                     self.messages = Array(self.messagesDictionary.values)
@@ -75,17 +76,12 @@ final class MessagesViewController: UIViewController {
             case .failure(let error):
                 print(error.localizedDescription)
             case .none:
+                self.isMessagesIn = true
                 self.messages = []
                 DispatchQueue.main.async {
                     self.messagesTableView.reloadData()
                 }
             }
-        }
-    }
-    
-    private func removeFakeMessage() {
-        if let index = messages.firstIndex(of: MessageObject(dictionary: [Constants.FStore.fromIdMessage: " ", Constants.FStore.toIdMessage: " ", Constants.FStore.textMessage: "", Constants.FStore.timestampMessage: 0])) {
-            messages.remove(at: index)
         }
     }
 }
@@ -153,6 +149,6 @@ extension MessagesViewController : UITableViewDelegate, UITableViewDataSource {
     
     /// Display the tableView footer depending the number of elements in messages
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return messages.isEmpty ? tableView.bounds.size.height : 0
+        return isMessagesIn == false ? tableView.bounds.size.height : 0
     }
 }

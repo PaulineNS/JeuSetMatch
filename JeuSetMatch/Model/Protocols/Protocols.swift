@@ -18,4 +18,7 @@ protocol DidSearchFiltersDelegate {
     func searchFiltersTapped(users: [UserObject])
 }
 
+protocol DidApplyFilterDelegate {
+    func didApplyFilter(isResult: Bool)
+}
 

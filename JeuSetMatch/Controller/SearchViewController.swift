@@ -20,7 +20,8 @@ final class SearchViewController: UIViewController {
     
     var userSelected: UserObject?
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
-    private var users: [UserObject] = [UserObject(pseudo: nil, image: nil, sexe: nil, level: nil, city: nil, birthDate: nil, uid: nil)]
+    private var users = [UserObject]()
+    private var isUsersFound: Bool = true
     
     // MARK: - Outlets
     
@@ -60,6 +61,7 @@ final class SearchViewController: UIViewController {
         if segue.identifier == Constants.Segue.searchToFilterSegue {
             guard let filterVc = segue.destination as? FilterViewController else {return}
             filterVc.didSearchFiltersDelegate = self
+            filterVc.didApplyFilterDelegate = self
         }
     }
     
@@ -109,9 +111,10 @@ final class SearchViewController: UIViewController {
         customLoader.showLoaderView()
         fetchUsersDependingOneFilter(field1: field1, field1value: field1value, onSuccess: {(users) in
             self.users.append(users)
-            self.removeFakeUser()
+            self.isUsersFound = true
             self.reloadTableViewInMainQueue()
         }, onNone: {
+            self.isUsersFound = false
             self.users = []
             self.reloadTableViewInMainQueue()
         })
@@ -121,9 +124,10 @@ final class SearchViewController: UIViewController {
         customLoader.showLoaderView()
         fetchUsersDependingTwoFilters(field1: field1, field1value: field1value, field2: field2, field2Value: field2Value, onSuccess: {(users) in
             self.users.append(users)
-            self.removeFakeUser()
+            self.isUsersFound = true
             self.reloadTableViewInMainQueue()
         }, onNone: {
+            self.isUsersFound = false
             self.users = []
             self.reloadTableViewInMainQueue()
         })
@@ -133,9 +137,10 @@ final class SearchViewController: UIViewController {
         customLoader.showLoaderView()
         fetchUsersDependingThreeFilters(gender: gender, city: city, level: level, onSuccess: {(users) in
             self.users.append(users)
-            self.removeFakeUser()
+            self.isUsersFound = true
             self.reloadTableViewInMainQueue()
         }, onNone: {
+            self.isUsersFound = false
             self.users = []
             self.reloadTableViewInMainQueue()
         })
@@ -145,9 +150,10 @@ final class SearchViewController: UIViewController {
         customLoader.showLoaderView()
         fetchUsersWithoutFilters(onSuccess: { (users) in
             self.users.append(users)
-            self.removeFakeUser()
+            self.isUsersFound = true
             self.reloadTableViewInMainQueue()
         }, onNone: {
+            self.isUsersFound = false
             self.users = []
             self.reloadTableViewInMainQueue()
         })
@@ -157,12 +163,6 @@ final class SearchViewController: UIViewController {
         DispatchQueue.main.async {
             self.usersTableView.reloadData()
             self.customLoader.hideLoaderView()
-        }
-    }
-    
-    private func removeFakeUser() {
-        if let index = users.firstIndex(of: UserObject(pseudo: nil, image: nil, sexe: nil, level: nil, city: nil, birthDate: nil, uid: nil)) {
-            users.remove(at: index)
         }
     }
 }
@@ -222,7 +222,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     /// Display the tableView footer depending the number of elements in users
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return users.isEmpty ? tableView.bounds.size.height : 0
+        return isUsersFound == false ? tableView.bounds.size.height : 0
     }
 }
 
@@ -231,5 +231,13 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 extension SearchViewController: DidSearchFiltersDelegate {
     func searchFiltersTapped(users: [UserObject]) {
         self.users = users
+    }
+}
+
+// MARK: - DidApplyFilterDelegate
+
+extension SearchViewController: DidApplyFilterDelegate {
+    func didApplyFilter(isResult: Bool) {
+        isUsersFound = isResult
     }
 }
