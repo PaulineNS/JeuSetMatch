@@ -820,7 +820,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back5" translatesAutoresizingMaskIntoConstraints="NO" id="bjP-GK-6cd">
-                                <rect key="frame" x="0.0" y="0.0" width="414.00000000000011" height="808"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                             </imageView>
                             <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hH5-EL-iYX">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>

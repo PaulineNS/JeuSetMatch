@@ -46,7 +46,8 @@ final class ChatViewController: UIViewController {
     
     /// Manage to send messages
     @IBAction private func sendPressed(_ sender: UIButton) {
-        let properties : [String : Any] = [Constants.FStore.textMessage: chatTextField.text!]
+        guard let textMessage = chatTextField.text else {return}
+        let properties : [String : Any] = [Constants.FStore.textMessage: textMessage]
         guard let toId = receiverUser?.uid else { return }
         conversationUseCase.sendMessage(withProperties: properties, toId: toId) { (isSuccess) in
             if !isSuccess {

@@ -273,8 +273,8 @@
 		56BB33B523D0563100B7D726 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				567CBE2E23D8341500A7E306 /* Log */,
 				567CBE3323D83A4F00A7E306 /* Register */,
+				567CBE2E23D8341500A7E306 /* Log */,
 				567CBE3423D83A5800A7E306 /* Conversation */,
 				56B615AB23D88F47001DEA87 /* User */,
 				568D50AC23D3320B00839CE4 /* GooglePlacesService.swift */,
