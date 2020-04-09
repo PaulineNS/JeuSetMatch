@@ -13,7 +13,15 @@ class FirestoreRegisterService: RegisterUseCaseOutput {
     private let db = Firestore.firestore()
     
     /// Register to firebase
-    func register(email: String, password: String, userAge: Any, userGender: Any, userLevel: Any, userCity: Any, userName: Any, userImage: Any, completion: @escaping RegisterCompletion) {
+    func register(email: String,
+                  password: String,
+                  userAge: Any,
+                  userGender: Any,
+                  userLevel: Any,
+                  userCity: Any,
+                  userName: Any,
+                  userImage: Any,
+                  completion: @escaping RegisterCompletion) {
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
             if error != nil {
                 print("error, \(error!)")
@@ -41,7 +49,8 @@ class FirestoreRegisterService: RegisterUseCaseOutput {
     }
     
     /// Checking if a pseudo already exist on the dataBase
-    func checkPseudoDisponibility(field: String, completion: @escaping CheckPseudoDisponibilityCompletion) {
+    func checkPseudoDisponibility(field: String,
+                                  completion: @escaping CheckPseudoDisponibilityCompletion) {
         let collectionRef = db.collection(Constants.FStore.userCollectionName)
         collectionRef.whereField(Constants.FStore.userPseudoField, isEqualTo: field).getDocuments { (snapshot, error) in
             if let error = error {
@@ -73,4 +82,4 @@ class FirestoreRegisterService: RegisterUseCaseOutput {
         }
     }
 }
-    
+

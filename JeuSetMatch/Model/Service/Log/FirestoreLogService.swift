@@ -22,7 +22,9 @@ class FirestoreLogService: LogUseCaseOutput {
     }
     
     /// Firebase logIn
-    func logIn(email: String, password: String, completion: @escaping LoginCompletion) {
+    func logIn(email: String,
+               password: String,
+               completion: @escaping LoginCompletion) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             guard let authResult = authResult else {
                 completion(.failure(error!))

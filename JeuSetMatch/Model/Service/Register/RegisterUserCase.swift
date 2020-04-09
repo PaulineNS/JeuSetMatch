@@ -28,7 +28,15 @@ class RegisterUseCase {
         self.client = client
     }
     
-    func register(email: String, password: String, userAge: Any, userGender: Any, userLevel: Any, userCity: Any, userName: Any, userImage: Any, completion: @escaping (Result<UserObject, Error>) -> Void) {
+    func register(email: String,
+                  password: String,
+                  userAge: Any,
+                  userGender: Any,
+                  userLevel: Any,
+                  userCity: Any,
+                  userName: Any,
+                  userImage: Any,
+                  completion: @escaping (Result<UserObject, Error>) -> Void) {
         self.client.register(email: email, password: password, userAge: userAge, userGender: userGender, userLevel: userLevel, userCity: userCity, userName: userName, userImage: userImage, completion: completion)
     }
     

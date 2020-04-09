@@ -23,7 +23,9 @@ class LogUseCase {
         self.client = client
     }
     
-    func logIn(with email: String, password: String, completion: @escaping (Result<UserObject, Error>) -> Void) {
+    func logIn(with email: String,
+               password: String,
+               completion: @escaping (Result<UserObject, Error>) -> Void) {
         self.client.logIn(email: email, password: password, completion: completion)
     }
     

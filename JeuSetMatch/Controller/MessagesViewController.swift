@@ -24,7 +24,6 @@ final class MessagesViewController: UIViewController {
     private var isMessagesIn: Bool = true
     lazy private var userUseCase: UserUseCase = UserUseCase(user: firestoreUser)
     lazy private var conversationUseCase: ConversationUseCase = ConversationUseCase(message: firestoreConversation)
-
     
     // MARK: - Outlets
     
