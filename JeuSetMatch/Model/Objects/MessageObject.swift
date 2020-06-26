@@ -12,7 +12,7 @@ struct MessageObject: Equatable {
     // MARK: - Equatable
 
     static func == (lhs: MessageObject, rhs: MessageObject) -> Bool {
-        return true
+        return String(describing: lhs) == String(describing: rhs)
     }
     
     private let firestoreUser = FirestoreUserService()
